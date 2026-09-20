@@ -17,8 +17,11 @@ python3 -m http.server 8000
 
 ## Triển khai
 
-Site tĩnh, deploy qua Cloudflare Pages:
+Site tĩnh, deploy qua Cloudflare Pages (kết nối trực tiếp với repo này,
+tự động build lại mỗi khi push lên `main`):
 
 - Framework preset: **None**
 - Build command: *(để trống)*
 - Build output directory: `/`
+
+Tên miền: <https://demo-skill-radar.ducklytics.com>
