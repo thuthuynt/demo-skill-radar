@@ -1,0 +1,9 @@
+# macOS
+.DS_Store
+
+# Internal source documents — not part of the published site
+*.docx
+*.pptx
+
+# Original source file (kept locally, published as index.html)
+skillradar-demo.html
