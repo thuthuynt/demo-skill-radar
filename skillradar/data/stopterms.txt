@@ -1,0 +1,23 @@
+# Cụm trích ra nhưng KHÔNG phải kỹ năng. Thêm vào đây trong lúc duyệt danh mục.
+chăm chỉ
+nhiệt tình
+trung thực
+chịu được áp lực
+ham học hỏi
+có trách nhiệm
+tốt nghiệp đại học
+ưu tiên nam
+ưu tiên nữ
+lương thỏa thuận
+thử việc
+toàn thời gian
+bán thời gian
+# thêm 13/10 (rõ ràng không phải kỹ năng, xuất hiện nhiều trong unmatched_terms)
+việc
+THPT
+BHXH
+CV
+cao đẳng
+đại học
+trung cấp
+năm kinh nghiệm

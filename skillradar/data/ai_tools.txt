@@ -1,0 +1,22 @@
+# Công cụ AI dùng để đo tín hiệu đồng xuất hiện (METRICS.md mục 3).
+# Một dòng một cụm, khớp không phân biệt hoa thường và dấu.
+ChatGPT
+GPT-4
+GPT-5
+Claude
+Gemini
+Copilot
+GitHub Copilot
+Midjourney
+Stable Diffusion
+LangChain
+OpenAI
+Hugging Face
+AI tạo sinh
+generative AI
+GenAI
+trí tuệ nhân tạo
+prompt
+LLM
+RAG
+vector database

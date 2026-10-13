@@ -7,3 +7,12 @@
 
 # Original source file (kept locally, published as index.html)
 skillradar-demo.html
+
+# SkillRadar: local data, logs, probe output — only web/data/*.json is published
+skillradar/warehouse/
+skillradar/logs/
+skillradar/probe_report.txt
+*.duckdb
+*.duckdb.wal
+.venv/
+__pycache__/

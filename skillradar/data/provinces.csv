@@ -1,0 +1,35 @@
+province_code,name,region,old_names,aliases
+ha-noi,Hà Nội,Bắc,Hà Nội,HN|Ha Noi|Hanoi
+hai-phong,Hải Phòng,Bắc,Hải Phòng|Hải Dương,HP|Hai Phong
+quang-ninh,Quảng Ninh,Bắc,Quảng Ninh,
+bac-ninh,Bắc Ninh,Bắc,Bắc Ninh|Bắc Giang,
+hung-yen,Hưng Yên,Bắc,Hưng Yên|Thái Bình,
+ninh-binh,Ninh Bình,Bắc,Ninh Bình|Hà Nam|Nam Định,
+phu-tho,Phú Thọ,Bắc,Phú Thọ|Vĩnh Phúc|Hòa Bình,Hoà Bình
+thai-nguyen,Thái Nguyên,Bắc,Thái Nguyên|Bắc Kạn,Bắc Cạn
+tuyen-quang,Tuyên Quang,Bắc,Tuyên Quang|Hà Giang,
+lao-cai,Lào Cai,Bắc,Lào Cai|Yên Bái,
+cao-bang,Cao Bằng,Bắc,Cao Bằng,
+lang-son,Lạng Sơn,Bắc,Lạng Sơn,
+lai-chau,Lai Châu,Bắc,Lai Châu,
+dien-bien,Điện Biên,Bắc,Điện Biên,
+son-la,Sơn La,Bắc,Sơn La,
+thanh-hoa,Thanh Hóa,Trung,Thanh Hóa,Thanh Hoá
+nghe-an,Nghệ An,Trung,Nghệ An,
+ha-tinh,Hà Tĩnh,Trung,Hà Tĩnh,
+quang-tri,Quảng Trị,Trung,Quảng Trị|Quảng Bình,
+hue,Huế,Trung,Thừa Thiên Huế,Thừa Thiên - Huế|Thua Thien Hue|Hue
+da-nang,Đà Nẵng,Trung,Đà Nẵng|Quảng Nam,Da Nang|Danang
+quang-ngai,Quảng Ngãi,Trung,Quảng Ngãi|Kon Tum,
+gia-lai,Gia Lai,Trung,Gia Lai|Bình Định,
+dak-lak,Đắk Lắk,Trung,Đắk Lắk|Phú Yên,Đắc Lắk|Dak Lak
+khanh-hoa,Khánh Hòa,Trung,Khánh Hòa|Ninh Thuận,Khánh Hoà|Nha Trang
+lam-dong,Lâm Đồng,Trung,Lâm Đồng|Đắk Nông|Bình Thuận,Đà Lạt|Đắc Nông
+ho-chi-minh,TP. Hồ Chí Minh,Nam,Hồ Chí Minh|Bình Dương|Bà Rịa - Vũng Tàu,HCM|TP.HCM|TPHCM|TP HCM|Sài Gòn|Saigon|Ho Chi Minh|Bà Rịa Vũng Tàu|Vũng Tàu|Bà Rịa-Vũng Tàu
+dong-nai,Đồng Nai,Nam,Đồng Nai|Bình Phước,
+tay-ninh,Tây Ninh,Nam,Tây Ninh|Long An,
+can-tho,Cần Thơ,Nam,Cần Thơ|Sóc Trăng|Hậu Giang,
+vinh-long,Vĩnh Long,Nam,Vĩnh Long|Bến Tre|Trà Vinh,
+dong-thap,Đồng Tháp,Nam,Đồng Tháp|Tiền Giang,
+an-giang,An Giang,Nam,An Giang|Kiên Giang,Phú Quốc
+ca-mau,Cà Mau,Nam,Cà Mau|Bạc Liêu,

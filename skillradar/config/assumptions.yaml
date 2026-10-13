@@ -1,0 +1,15 @@
+# Mọi giả định phải khai báo ở đây và hiển thị được trên giao diện.
+# Không giấu con số giả định trong code.
+
+apply_rate_ceiling: 0.34      # trần tỷ lệ tin một ứng viên đủ điều kiện nộp được
+apply_rate_midpoint: 0.62     # mức đáp ứng yêu cầu cho tỷ lệ nộp bằng nửa trần
+apply_rate_width: 0.155       # độ dốc đường logistic
+
+new_hire_rate: 0.28           # tỷ lệ vị trí dành cho người mới ra trường
+graduation_rate: 0.82         # chỉ tiêu -> số tốt nghiệp
+
+min_days_coverage: 0.60       # tháng dưới mức này thì không hiển thị
+min_periods_for_forecast: 12  # chưa đủ thì tắt dự báo
+
+repost_window_days: 30
+repost_title_distance: 0.15

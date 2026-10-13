@@ -1,0 +1,98 @@
+# Nguồn đã chọn sau khi chạy src/probe_sources.py (12/10/2026, xem probe_report.txt).
+# Chỉ đưa vào đây nguồn mà robots.txt CHO PHÉP và KHÔNG có tường chống bot.
+#
+# Đã loại (12/10/2026):
+#   vieclam24h   — 403 với crawler khai báo, kể cả robots.txt (kiểm tra 2 lần)
+#   vieclamtot   — robots.txt cho phép, nhưng sitemap trả 403 (Cloudflare) -> dừng
+#   mywork       — robots.txt 403
+#   careerviet   — robots.txt chặn đích danh các bot AI/crawler; tôn trọng ý định
+#   job3s        — Disallow: /*
+#   careerlink   — trang danh sách 404
+#   topcv        — không bóc được từ HTML tĩnh
+#   vieclamvietnam.gov.vn, vieclam.gov.vn — không kết nối được
+# Muốn thêm nguồn đã loại: gửi email xin phép, chỉ thêm khi họ cho phép crawler.
+
+# Email liên hệ gửi trong User-Agent (ràng buộc cứng số 2). Bắt buộc là email thật;
+# crawler từ chối chạy nếu để trống hoặc dùng example.com.
+contact_email: "thuy@ducklytics.com"
+
+sources:
+  - name: itviec
+    base_url: https://itviec.com
+    method: jsonld
+    sitemap_urls:
+      - https://itviec.com/twinnings_jobs_desc_vn.xml
+    robots_evidence: |   # tải 12/10/2026
+      User-Agent: *
+      Disallow: /subscriptions/new
+      User-Agent: *
+      Allow: /
+    terms_checked: false   # [người] đọc điều khoản sử dụng, đổi thành true
+    crawl_delay_seconds: 2
+    max_pages_per_run: 300
+
+  - name: vietnamworks
+    base_url: https://www.vietnamworks.com
+    method: next_flight
+    sitemap_urls:
+      - https://www.vietnamworks.com/sitemap/jobs.xml
+    robots_evidence: |   # tải 12/10/2026, trích: không có Disallow nào chạm path tin /<slug>-<id>-jv
+      User-agent: *
+      Disallow: /my-profile
+      Disallow: /ho-so/
+      Disallow: /my-career-center
+      Disallow: /dang-nhap/?*
+      Disallow: /jobseekers/apply_online.php?*
+      Disallow: /viec-lam/nop-ho-so-truc-tuyen/
+      Disallow: /jobs/apply-job-online/
+      Disallow: /jobseekers/jobdetail_print.php?*
+      Disallow: /company/preview/*
+      Disallow: /jobseekers/ajax.php?*
+    terms_checked: false   # [người] đọc điều khoản sử dụng, đổi thành true
+    crawl_delay_seconds: 2
+    max_pages_per_run: 600
+
+  # Nguồn lao động phổ thông + văn phòng phổ thông (thêm 12/10/2026)
+  - name: jobsgo
+    base_url: https://jobsgo.vn
+    method: jsonld
+    # không có sitemap tin -> đi trang danh sách (robots.txt không chặn ?page=)
+    listing_url: https://jobsgo.vn/viec-lam.html?page={page}
+    link_pattern: 'https://jobsgo\.vn/viec-lam/[a-z0-9-]+-\d+\.html'
+    max_listing_pages: 200
+    robots_evidence: |   # tải 12/10/2026
+      User-agent: *
+      Allow: /
+      Disallow: /ajax*
+      Disallow: /api*
+      Disallow: /access/*
+      Disallow: /site/phone
+      Disallow: /*?ssid=
+    terms_checked: false   # [người]
+    crawl_delay_seconds: 2
+    max_pages_per_run: 600
+
+  - name: timviec365
+    base_url: https://timviec365.vn
+    method: timviec365
+    sitemap_urls:
+      - https://timviec365.vn/sitemap-job-new.xml
+      - https://timviec365.vn/sitemap-job-1.xml
+      - https://timviec365.vn/sitemap-job-2.xml
+      - https://timviec365.vn/sitemap-job-3.xml
+      - https://timviec365.vn/sitemap-job-4.xml
+      - https://timviec365.vn/sitemap-job-5.xml
+      - https://timviec365.vn/sitemap-job-6.xml
+      - https://timviec365.vn/sitemap-job-7.xml
+    robots_evidence: |   # tải 12/10/2026, trích: path tin /<slug>-p<id>.html không bị chặn
+      User-agent: *
+      Allow: /
+      Disallow: /ung-vien/
+      Disallow: /tim-kiem-ung-vien
+      Disallow: /nha-tuyen-dung/
+      Disallow: /cv365/upload/ungvien/*
+      Disallow: /tim-kiem
+      Disallow: /ajax/*
+    terms_checked: false   # [người]
+    crawl_delay_seconds: 2
+    max_pages_per_run: 600

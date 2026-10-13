@@ -1,0 +1,100 @@
+skill_id,name_vi,name_en,canonical_lang,skill_group,skill_type,esco_code,vnqf_level,ai_expert_score,aliases
+sql,SQL,SQL,en,Dữ liệu,tech,,,0.45,SQL|T-SQL|PL/SQL|truy vấn SQL|viết query|query SQL|MySQL|PostgreSQL|SQL Server
+power-bi,Power BI,Power BI,en,Dữ liệu,tool,,,0.55,Power BI|PowerBI|PBI|báo cáo Power BI|làm dashboard Power BI
+tableau,Tableau,Tableau,en,Dữ liệu,tool,,,0.52,Tableau|Tableau Desktop
+excel,Excel,Microsoft Excel,en,Dữ liệu,tool,,,0.62,Excel|MS Excel|Microsoft Excel|thành thạo Excel|pivot table|hàm Excel|VLOOKUP
+google-sheets,Google Sheets,Google Sheets,en,Dữ liệu,tool,,,0.6,Google Sheets|Google Sheet|Trang tính
+data-engineering,Kỹ thuật dữ liệu,Data engineering,vi,Dữ liệu,domain,,,0.32,data engineering|kỹ thuật dữ liệu|xây dựng pipeline|data pipeline|ETL|ELT
+data-warehouse,Kho dữ liệu,Data warehouse,vi,Dữ liệu,domain,,,0.3,data warehouse|kho dữ liệu|DWH|data mart
+dbt,dbt,dbt,en,Dữ liệu,tool,,,0.28,dbt|data build tool
+airflow,Airflow,Apache Airflow,en,Dữ liệu,tool,,,0.26,Airflow|Apache Airflow|DAG
+spark,Spark,Apache Spark,en,Dữ liệu,tech,,,0.24,Spark|Apache Spark|PySpark
+databricks,Databricks,Databricks,en,Dữ liệu,tool,,,0.25,Databricks|Delta Lake
+snowflake,Snowflake,Snowflake,en,Dữ liệu,tool,,,0.25,Snowflake
+bigquery,BigQuery,BigQuery,en,Dữ liệu,tool,,,0.27,BigQuery|Google BigQuery|GBQ
+data-modeling,Mô hình hóa dữ liệu,Data modeling,vi,Dữ liệu,domain,,,0.3,data modeling|mô hình dữ liệu|mô hình hóa dữ liệu|star schema|dimensional modeling
+data-visualization,Trực quan hóa dữ liệu,Data visualization,vi,Dữ liệu,domain,,,0.5,data visualization|trực quan hóa dữ liệu|làm dashboard|dựng báo cáo|BI reporting|báo cáo BI
+machine-learning,Học máy,Machine learning,vi,AI & học máy,domain,,,0.22,machine learning|học máy|ML|mô hình học máy
+deep-learning,Học sâu,Deep learning,vi,AI & học máy,domain,,,0.22,deep learning|học sâu|neural network|mạng nơ-ron
+nlp,Xử lý ngôn ngữ tự nhiên,Natural language processing,vi,AI & học máy,domain,,,0.24,NLP|natural language processing|xử lý ngôn ngữ tự nhiên
+computer-vision,Thị giác máy tính,Computer vision,vi,AI & học máy,domain,,,0.22,computer vision|thị giác máy tính|CV model|xử lý ảnh
+prompt-engineering,Kỹ thuật prompt,Prompt engineering,vi,AI & học máy,domain,,,0.08,prompt engineering|kỹ thuật prompt|viết prompt|thiết kế prompt
+mlops,Vận hành mô hình MLOps,MLOps,vi,AI & học máy,domain,,,0.19,MLOps|ML Ops|vận hành mô hình|triển khai mô hình
+llm,Mô hình ngôn ngữ lớn,Large language models,vi,AI & học máy,domain,,,0.15,LLM|large language model|mô hình ngôn ngữ lớn|GPT|fine-tune LLM
+tensorflow,TensorFlow,TensorFlow,en,AI & học máy,tool,,,0.22,TensorFlow|Keras
+pytorch,PyTorch,PyTorch,en,AI & học máy,tool,,,0.22,PyTorch
+python,Python,Python,en,Lập trình,tech,,,0.41,Python|Python 3|lập trình Python
+java,Java,Java,en,Lập trình,tech,,,0.44,Java|Java Core|Spring Boot|J2EE
+javascript,JavaScript,JavaScript,en,Lập trình,tech,,,0.48,JavaScript|JS|ES6|TypeScript|TS
+react,React,React,en,Lập trình,tech,,,0.51,React|ReactJS|React.js|Next.js|NextJS
+vue,Vue,Vue.js,en,Lập trình,tech,,,0.51,Vue|VueJS|Vue.js|Nuxt
+angular,Angular,Angular,en,Lập trình,tech,,,0.5,Angular|AngularJS
+nodejs,Node.js,Node.js,en,Lập trình,tech,,,0.49,Node.js|NodeJS|Node|ExpressJS
+php,PHP,PHP,en,Lập trình,tech,,,0.55,PHP|Laravel|CodeIgniter
+dotnet,.NET,.NET,en,Lập trình,tech,,,0.47,.NET|dotnet|ASP.NET|C#|CSharp
+golang,Go,Go,en,Lập trình,tech,,,0.38,Golang|\bGo\b
+mobile-dev,Lập trình di động,Mobile development,vi,Lập trình,domain,,,0.45,Android|iOS|Flutter|React Native|Kotlin|Swift|lập trình di động
+api-design,Thiết kế API,API design,vi,Lập trình,domain,,,0.4,REST API|RESTful|API design|thiết kế API|GraphQL|microservices
+git,Git,Git,en,Lập trình,tool,,,0.35,Git|GitHub|GitLab|Bitbucket|quản lý mã nguồn
+test-automation,Kiểm thử tự động,Test automation,vi,Kiểm thử,domain,,,0.31,automation test|kiểm thử tự động|test automation|Selenium|Cypress|Playwright|Katalon|Appium
+manual-testing,Kiểm thử thủ công,Manual testing,vi,Kiểm thử,domain,,,0.86,manual test|kiểm thử thủ công|test case|viết test case|QC thủ công
+performance-testing,Kiểm thử hiệu năng,Performance testing,vi,Kiểm thử,domain,,,0.28,performance test|kiểm thử hiệu năng|load test|JMeter|k6
+api-testing,Kiểm thử API,API testing,vi,Kiểm thử,domain,,,0.34,API testing|kiểm thử API|Postman|SoapUI
+test-planning,Lập kế hoạch kiểm thử,Test planning,vi,Kiểm thử,domain,,,0.55,test plan|kế hoạch kiểm thử|chiến lược kiểm thử|test strategy
+cloud,Điện toán đám mây,Cloud computing,vi,Hạ tầng & vận hành,domain,,,0.25,AWS|Azure|GCP|Google Cloud|cloud|điện toán đám mây
+kubernetes,Kubernetes,Kubernetes,en,Hạ tầng & vận hành,tool,,,0.21,Kubernetes|K8s|EKS|GKE
+docker,Docker,Docker,en,Hạ tầng & vận hành,tool,,,0.3,Docker|container|containerization
+cicd,CI/CD,CI/CD,en,Hạ tầng & vận hành,domain,,,0.29,CI/CD|Jenkins|GitHub Actions|GitLab CI|pipeline CI
+linux,Linux,Linux,en,Hạ tầng & vận hành,tech,,,0.33,Linux|Ubuntu|CentOS|shell script|bash
+sysadmin,Quản trị hệ thống,System administration,vi,Hạ tầng & vận hành,domain,,,0.63,quản trị hệ thống|system admin|sysadmin|quản trị máy chủ
+networking,Quản trị mạng,Networking,vi,Hạ tầng & vận hành,domain,,,0.42,networking|quản trị mạng|TCP/IP|CCNA|hạ tầng mạng
+terraform,Terraform,Terraform,en,Hạ tầng & vận hành,tool,,,0.26,Terraform|IaC|infrastructure as code
+infosec,An toàn thông tin,Information security,vi,An toàn thông tin,domain,,,0.16,an toàn thông tin|an ninh mạng|cybersecurity|cyber security|information security|infosec|penetration testing|pentest|SOC analyst|security engineer
+pentest,Kiểm thử xâm nhập,Penetration testing,vi,An toàn thông tin,domain,,,0.2,pentest|penetration testing|kiểm thử xâm nhập|đánh giá bảo mật
+soc,Giám sát an ninh,Security operations,vi,An toàn thông tin,domain,,,0.24,SOC|SIEM|giám sát an ninh|ứng cứu sự cố
+paid-ads,Quảng cáo trả phí,Paid advertising,vi,Marketing số,domain,,,0.61,Facebook Ads|Google Ads|chạy quảng cáo|quảng cáo trả phí|paid ads|performance marketing|TikTok Ads
+seo,Tối ưu tìm kiếm SEO,Search engine optimization,vi,Marketing số,domain,,,0.74,SEO|tối ưu công cụ tìm kiếm|SEO onpage|SEO offpage|tối ưu tìm kiếm
+email-marketing,Email marketing,Email marketing,en,Marketing số,domain,,,0.7,email marketing|Mailchimp|gửi email marketing|EDM
+social-media,Quản lý mạng xã hội,Social media management,vi,Marketing số,domain,,,0.68,social media|quản lý fanpage|quản trị mạng xã hội|community management
+marketing-analytics,Phân tích marketing,Marketing analytics,vi,Marketing số,domain,,,0.37,marketing analytics|phân tích marketing|Google Analytics|GA4|đo lường chiến dịch
+crm-marketing,Marketing tự động,Marketing automation,vi,Marketing số,domain,,,0.52,marketing automation|HubSpot|Salesforce Marketing|automation marketing
+ecommerce,Vận hành sàn thương mại điện tử,E-commerce operations,vi,Marketing số,domain,,,0.58,Shopee|Lazada|TikTok Shop|vận hành sàn|e-commerce|thương mại điện tử
+content-writing,Viết nội dung,Content writing,vi,Nội dung & sáng tạo,domain,,,0.91,viết content|content writer|viết bài|copywriting|biên tập nội dung|sáng tạo nội dung
+graphic-design,Thiết kế đồ họa,Graphic design,vi,Nội dung & sáng tạo,domain,,,0.78,thiết kế đồ họa|graphic design|Photoshop|Illustrator|Canva|thiết kế ấn phẩm
+video-editing,Dựng video,Video editing,vi,Nội dung & sáng tạo,domain,,,0.66,dựng video|video editing|Premiere|After Effects|CapCut|biên tập video
+ui-ux,Thiết kế UI/UX,UI/UX design,vi,Nội dung & sáng tạo,domain,,,0.47,UI/UX|thiết kế giao diện|Figma|wireframe|prototype|trải nghiệm người dùng
+photography,Chụp ảnh,Photography,vi,Nội dung & sáng tạo,domain,,,0.55,chụp ảnh|photographer|quay chụp
+business-analysis,Phân tích nghiệp vụ,Business analysis,vi,Phân tích kinh doanh,domain,,,0.33,business analyst|phân tích nghiệp vụ|BA|phân tích yêu cầu|đặc tả yêu cầu
+financial-analysis,Phân tích tài chính,Financial analysis,vi,Phân tích kinh doanh,domain,,,0.44,phân tích tài chính|financial analysis|mô hình tài chính|financial modeling
+reporting,Lập báo cáo quản trị,Management reporting,vi,Phân tích kinh doanh,domain,,,0.57,lập báo cáo|báo cáo quản trị|management reporting|báo cáo định kỳ
+forecasting,Dự báo kinh doanh,Business forecasting,vi,Phân tích kinh doanh,domain,,,0.35,dự báo|forecasting|dự báo doanh số|lập kế hoạch nhu cầu
+b2b-sales,Bán hàng doanh nghiệp,B2B sales,vi,Bán hàng,domain,,,0.18,B2B sales|bán hàng doanh nghiệp|kinh doanh dự án|phát triển khách hàng doanh nghiệp
+retail-sales,Bán hàng trực tiếp,Retail sales,vi,Bán hàng,domain,,,0.3,bán hàng trực tiếp|nhân viên bán hàng|retail sales|tư vấn bán hàng
+telesales,Telesales,Telesales,en,Bán hàng,domain,,,0.72,telesales|gọi điện tư vấn|tư vấn qua điện thoại|cold call
+account-management,Quản lý khách hàng,Account management,vi,Bán hàng,domain,,,0.28,account management|quản lý khách hàng|chăm sóc khách hàng doanh nghiệp|key account
+crm-tools,Phần mềm CRM,CRM software,vi,Bán hàng,tool,,,0.4,CRM|Salesforce|HubSpot CRM|quản lý quan hệ khách hàng
+negotiation,Đàm phán,Negotiation,vi,Bán hàng,soft,,,0.12,đàm phán|negotiation|kỹ năng thuyết phục
+data-entry,"Nhập liệu, xử lý hồ sơ",Data entry,vi,Vận hành văn phòng,domain,,,0.94,nhập liệu|data entry|xử lý hồ sơ|nhập dữ liệu|soạn thảo hồ sơ
+customer-service,Chăm sóc khách hàng,Customer service,vi,Vận hành văn phòng,domain,,,0.69,chăm sóc khách hàng|CSKH|customer service|hỗ trợ khách hàng|tổng đài
+admin,Hành chính văn phòng,Office administration,vi,Vận hành văn phòng,domain,,,0.75,hành chính văn phòng|hành chính nhân sự|công tác hành chính|office admin|văn thư|lễ tân văn phòng|quản lý công văn
+accounting,Kế toán,Accounting,vi,Vận hành văn phòng,domain,,,0.66,kế toán|accounting|kế toán tổng hợp|hạch toán|MISA|Fast Accounting
+payroll,Tính lương,Payroll,vi,Vận hành văn phòng,domain,,,0.71,tính lương|payroll|C&B|bảo hiểm xã hội
+procurement,Mua hàng,Procurement,vi,Vận hành văn phòng,domain,,,0.48,mua hàng|procurement|thu mua|purchasing
+logistics,Vận hành kho vận,Logistics,vi,Vận hành văn phòng,domain,,,0.41,logistics|kho vận|chuỗi cung ứng|supply chain|xuất nhập khẩu
+project-management,Quản lý dự án,Project management,vi,Quản trị,domain,,,0.27,quản lý dự án|project management|project manager|PMP|quản trị dự án
+agile,Agile Scrum,Agile Scrum,en,Quản trị,domain,,,0.25,Agile|Scrum|Kanban|Scrum Master|sprint
+product-management,Quản lý sản phẩm,Product management,vi,Quản trị,domain,,,0.24,product manager|quản lý sản phẩm|product owner|PO|roadmap sản phẩm
+people-management,Quản lý đội nhóm,People management,vi,Quản trị,soft,,,0.1,quản lý đội nhóm|team lead|quản lý nhân sự trực tiếp|dẫn dắt đội
+process-improvement,Cải tiến quy trình,Process improvement,vi,Quản trị,domain,,,0.34,cải tiến quy trình|process improvement|Lean|Six Sigma|tối ưu quy trình
+recruitment,Tuyển dụng,Recruitment,vi,Quản trị,domain,,,0.56,tuyển dụng nhân sự|recruitment|talent acquisition|săn đầu người|headhunt|headhunter|sàng lọc hồ sơ|phỏng vấn ứng viên|đăng tin tuyển dụng
+training,Đào tạo nội bộ,Training and development,vi,Quản trị,domain,,,0.38,đào tạo nội bộ|xây dựng chương trình đào tạo|training and development|L&D|corporate training|phát triển nhân sự|đào tạo nhân viên mới
+english,Tiếng Anh giao tiếp,English communication,vi,Ngôn ngữ,language,,,0.35,tiếng Anh|English|tiếng Anh giao tiếp|IELTS|TOEIC|giao tiếp tiếng Anh
+japanese,Tiếng Nhật,Japanese,vi,Ngôn ngữ,language,,,0.38,tiếng Nhật|Japanese|JLPT|N1|N2|N3
+korean,Tiếng Hàn,Korean,vi,Ngôn ngữ,language,,,0.38,tiếng Hàn|Korean|TOPIK
+chinese,Tiếng Trung,Chinese,vi,Ngôn ngữ,language,,,0.38,tiếng Trung|tiếng Hoa|Chinese|HSK
+communication,Giao tiếp,Communication,vi,Kỹ năng mềm,soft,,,0.1,kỹ năng giao tiếp|communication skills|giao tiếp tốt
+teamwork,Làm việc nhóm,Teamwork,vi,Kỹ năng mềm,soft,,,0.08,làm việc nhóm|teamwork|phối hợp nhóm
+problem-solving,Giải quyết vấn đề,Problem solving,vi,Kỹ năng mềm,soft,,,0.15,giải quyết vấn đề|problem solving|tư duy giải quyết vấn đề
+critical-thinking,Tư duy phản biện,Critical thinking,vi,Kỹ năng mềm,soft,,,0.12,tư duy phản biện|critical thinking|tư duy logic
+presentation,Thuyết trình,Presentation,vi,Kỹ năng mềm,soft,,,0.3,thuyết trình|presentation|kỹ năng trình bày|PowerPoint
+time-management,Quản lý thời gian,Time management,vi,Kỹ năng mềm,soft,,,0.14,quản lý thời gian|time management|sắp xếp công việc

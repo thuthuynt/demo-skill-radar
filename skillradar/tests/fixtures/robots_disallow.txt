@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /ung-vien/
+Disallow: /tai-khoan/
+Allow: /viec-lam/
+Crawl-delay: 5
