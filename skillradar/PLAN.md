@@ -53,7 +53,11 @@ dùng ảnh chụp tỷ trọng trên tin đang mở — xem `docs/METRICS.md` �
 - [x] Trích kỹ năng -> `fact_posting_skill`; 85,3% tin trong phạm vi có ≥1 kỹ năng chuyên môn
       (lao động phổ thông chỉ 25% — danh mục chưa có kỹ năng nghề này)
 - [x] `data/unmatched_terms.csv`: 3,2k cụm (≥3 tin), cột `decision` để duyệt
-- [ ] Bổ sung kỹ năng lao động phổ thông + văn phòng mọi ngành vào danh mục (trong phiên duyệt 15–16/10)
+- [x] Bổ sung 60 kỹ năng + 13 lượt alias từ `data/skill_candidates.csv` (13/10) -> 159 kỹ năng,
+      93,2% tin trong phạm vi có ≥1 kỹ năng chuyên môn; lao động phổ thông 81%, giáo dục còn 70%
+- [ ] **[người]** Duyệt `ai_expert_score` của 60 kỹ năng mới — hiện là ĐỀ XUẤT của Claude
+      (cột `note`/`ai_expert_score` trong `data/skill_candidates.csv`), phải do bạn chốt trước khi công bố
+- [x] Sửa lọc dữ liệu cá nhân che nhầm "Tiếng Anh"; silver khôi phục chữ "Anh" cho ~2,1k chỗ đã ghi
 
 
 - Silver duckdb: tách trường, `data/provinces.csv` (34 tỉnh sau 7/2025, kèm tên cũ),

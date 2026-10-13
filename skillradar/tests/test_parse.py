@@ -75,3 +75,9 @@ def test_timviec365_html():
     assert r["location_raw"] == "Đồng Nai"
     assert r["salary_raw"] == "20.000.000 VNĐ"
     assert r["description_raw"].startswith("Mô tả công việc:")
+
+
+def test_scrub_keeps_tieng_anh():
+    out = scrub("Giao tiếp tốt Tiếng Anh Kỹ năng: Mechanical Design. Liên hệ Anh Nam")
+    assert "Tiếng Anh Kỹ năng: Mechanical Design" in out
+    assert "Nam" not in out

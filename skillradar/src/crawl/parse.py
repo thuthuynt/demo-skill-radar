@@ -19,8 +19,9 @@ EMAIL = re.compile(r"[\w.+-]+@[\w-]+(?:\.[\w-]+)+")
 # SĐT Việt Nam: 0xx / +84 / 84, cho phép dấu cách, chấm, gạch giữa các nhóm số
 PHONE = re.compile(r"(?<!\d)(?:\+?84|0)(?:[\s.\-]?\d){8,10}(?!\d)")
 # Danh xưng + tên viết hoa: "Mr. Nam", "Ms Lan Anh", "Chị Hương"
+# "Tiếng Anh" không phải danh xưng: bản cũ che nhầm "Tiếng Anh Kỹ năng..." (sửa 13/10/2026)
 HONORIFIC_NAME = re.compile(
-    r"\b(?:Mr|Mrs|Ms|Miss|Anh|Chị|Cô)\.?\s+"
+    r"(?<![Tt]iếng )(?<!TIẾNG )\b(?:Mr|Mrs|Ms|Miss|Anh|Chị|Cô)\.?\s+"
     r"(?:[A-ZĐÀ-Ỹ][\wÀ-ỹ]*)(?:\s+[A-ZĐÀ-Ỹ][\wÀ-ỹ]*){0,3}")
 # Sau các mốc này là thông tin người liên hệ -> cắt tới hết dòng
 CONTACT_LINE = re.compile(

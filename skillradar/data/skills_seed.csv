@@ -34,17 +34,17 @@ php,PHP,PHP,en,Lập trình,tech,,,0.55,PHP|Laravel|CodeIgniter
 dotnet,.NET,.NET,en,Lập trình,tech,,,0.47,.NET|dotnet|ASP.NET|C#|CSharp
 golang,Go,Go,en,Lập trình,tech,,,0.38,Golang|\bGo\b
 mobile-dev,Lập trình di động,Mobile development,vi,Lập trình,domain,,,0.45,Android|iOS|Flutter|React Native|Kotlin|Swift|lập trình di động
-api-design,Thiết kế API,API design,vi,Lập trình,domain,,,0.4,REST API|RESTful|API design|thiết kế API|GraphQL|microservices
+api-design,Thiết kế API,API design,vi,Lập trình,domain,,,0.4,REST API|RESTful|API design|thiết kế API|GraphQL|microservices|APIs|\bREST|WebSocket|gRPC
 git,Git,Git,en,Lập trình,tool,,,0.35,Git|GitHub|GitLab|Bitbucket|quản lý mã nguồn
 test-automation,Kiểm thử tự động,Test automation,vi,Kiểm thử,domain,,,0.31,automation test|kiểm thử tự động|test automation|Selenium|Cypress|Playwright|Katalon|Appium
 manual-testing,Kiểm thử thủ công,Manual testing,vi,Kiểm thử,domain,,,0.86,manual test|kiểm thử thủ công|test case|viết test case|QC thủ công
 performance-testing,Kiểm thử hiệu năng,Performance testing,vi,Kiểm thử,domain,,,0.28,performance test|kiểm thử hiệu năng|load test|JMeter|k6
 api-testing,Kiểm thử API,API testing,vi,Kiểm thử,domain,,,0.34,API testing|kiểm thử API|Postman|SoapUI
 test-planning,Lập kế hoạch kiểm thử,Test planning,vi,Kiểm thử,domain,,,0.55,test plan|kế hoạch kiểm thử|chiến lược kiểm thử|test strategy
-cloud,Điện toán đám mây,Cloud computing,vi,Hạ tầng & vận hành,domain,,,0.25,AWS|Azure|GCP|Google Cloud|cloud|điện toán đám mây
+cloud,Điện toán đám mây,Cloud computing,vi,Hạ tầng & vận hành,domain,,,0.25,AWS|Azure|GCP|Google Cloud|cloud|điện toán đám mây|EC2|S3|ECS|RDS|Lambda|CloudFormation
 kubernetes,Kubernetes,Kubernetes,en,Hạ tầng & vận hành,tool,,,0.21,Kubernetes|K8s|EKS|GKE
 docker,Docker,Docker,en,Hạ tầng & vận hành,tool,,,0.3,Docker|container|containerization
-cicd,CI/CD,CI/CD,en,Hạ tầng & vận hành,domain,,,0.29,CI/CD|Jenkins|GitHub Actions|GitLab CI|pipeline CI
+cicd,CI/CD,CI/CD,en,Hạ tầng & vận hành,domain,,,0.29,CI/CD|Jenkins|GitHub Actions|GitLab CI|pipeline CI|ArgoCD
 linux,Linux,Linux,en,Hạ tầng & vận hành,tech,,,0.33,Linux|Ubuntu|CentOS|shell script|bash
 sysadmin,Quản trị hệ thống,System administration,vi,Hạ tầng & vận hành,domain,,,0.63,quản trị hệ thống|system admin|sysadmin|quản trị máy chủ
 networking,Quản trị mạng,Networking,vi,Hạ tầng & vận hành,domain,,,0.42,networking|quản trị mạng|TCP/IP|CCNA|hạ tầng mạng
@@ -55,12 +55,12 @@ soc,Giám sát an ninh,Security operations,vi,An toàn thông tin,domain,,,0.24,
 paid-ads,Quảng cáo trả phí,Paid advertising,vi,Marketing số,domain,,,0.61,Facebook Ads|Google Ads|chạy quảng cáo|quảng cáo trả phí|paid ads|performance marketing|TikTok Ads
 seo,Tối ưu tìm kiếm SEO,Search engine optimization,vi,Marketing số,domain,,,0.74,SEO|tối ưu công cụ tìm kiếm|SEO onpage|SEO offpage|tối ưu tìm kiếm
 email-marketing,Email marketing,Email marketing,en,Marketing số,domain,,,0.7,email marketing|Mailchimp|gửi email marketing|EDM
-social-media,Quản lý mạng xã hội,Social media management,vi,Marketing số,domain,,,0.68,social media|quản lý fanpage|quản trị mạng xã hội|community management
+social-media,Quản lý mạng xã hội,Social media management,vi,Marketing số,domain,,,0.68,social media|quản lý fanpage|quản trị mạng xã hội|community management|TikTok|YouTube|Fanpage|quản trị fanpage
 marketing-analytics,Phân tích marketing,Marketing analytics,vi,Marketing số,domain,,,0.37,marketing analytics|phân tích marketing|Google Analytics|GA4|đo lường chiến dịch
 crm-marketing,Marketing tự động,Marketing automation,vi,Marketing số,domain,,,0.52,marketing automation|HubSpot|Salesforce Marketing|automation marketing
 ecommerce,Vận hành sàn thương mại điện tử,E-commerce operations,vi,Marketing số,domain,,,0.58,Shopee|Lazada|TikTok Shop|vận hành sàn|e-commerce|thương mại điện tử
 content-writing,Viết nội dung,Content writing,vi,Nội dung & sáng tạo,domain,,,0.91,viết content|content writer|viết bài|copywriting|biên tập nội dung|sáng tạo nội dung
-graphic-design,Thiết kế đồ họa,Graphic design,vi,Nội dung & sáng tạo,domain,,,0.78,thiết kế đồ họa|graphic design|Photoshop|Illustrator|Canva|thiết kế ấn phẩm
+graphic-design,Thiết kế đồ họa,Graphic design,vi,Nội dung & sáng tạo,domain,,,0.78,thiết kế đồ họa|graphic design|Photoshop|Illustrator|Canva|thiết kế ấn phẩm|InDesign|CorelDRAW
 video-editing,Dựng video,Video editing,vi,Nội dung & sáng tạo,domain,,,0.66,dựng video|video editing|Premiere|After Effects|CapCut|biên tập video
 ui-ux,Thiết kế UI/UX,UI/UX design,vi,Nội dung & sáng tạo,domain,,,0.47,UI/UX|thiết kế giao diện|Figma|wireframe|prototype|trải nghiệm người dùng
 photography,Chụp ảnh,Photography,vi,Nội dung & sáng tạo,domain,,,0.55,chụp ảnh|photographer|quay chụp
@@ -68,8 +68,8 @@ business-analysis,Phân tích nghiệp vụ,Business analysis,vi,Phân tích kin
 financial-analysis,Phân tích tài chính,Financial analysis,vi,Phân tích kinh doanh,domain,,,0.44,phân tích tài chính|financial analysis|mô hình tài chính|financial modeling
 reporting,Lập báo cáo quản trị,Management reporting,vi,Phân tích kinh doanh,domain,,,0.57,lập báo cáo|báo cáo quản trị|management reporting|báo cáo định kỳ
 forecasting,Dự báo kinh doanh,Business forecasting,vi,Phân tích kinh doanh,domain,,,0.35,dự báo|forecasting|dự báo doanh số|lập kế hoạch nhu cầu
-b2b-sales,Bán hàng doanh nghiệp,B2B sales,vi,Bán hàng,domain,,,0.18,B2B sales|bán hàng doanh nghiệp|kinh doanh dự án|phát triển khách hàng doanh nghiệp
-retail-sales,Bán hàng trực tiếp,Retail sales,vi,Bán hàng,domain,,,0.3,bán hàng trực tiếp|nhân viên bán hàng|retail sales|tư vấn bán hàng
+b2b-sales,Bán hàng doanh nghiệp,B2B sales,vi,Bán hàng,domain,,,0.18,B2B sales|bán hàng doanh nghiệp|kinh doanh dự án|phát triển khách hàng doanh nghiệp|B2B
+retail-sales,Bán hàng trực tiếp,Retail sales,vi,Bán hàng,domain,,,0.3,bán hàng trực tiếp|nhân viên bán hàng|retail sales|tư vấn bán hàng|B2C
 telesales,Telesales,Telesales,en,Bán hàng,domain,,,0.72,telesales|gọi điện tư vấn|tư vấn qua điện thoại|cold call
 account-management,Quản lý khách hàng,Account management,vi,Bán hàng,domain,,,0.28,account management|quản lý khách hàng|chăm sóc khách hàng doanh nghiệp|key account
 crm-tools,Phần mềm CRM,CRM software,vi,Bán hàng,tool,,,0.4,CRM|Salesforce|HubSpot CRM|quản lý quan hệ khách hàng
@@ -78,17 +78,17 @@ data-entry,"Nhập liệu, xử lý hồ sơ",Data entry,vi,Vận hành văn ph�
 customer-service,Chăm sóc khách hàng,Customer service,vi,Vận hành văn phòng,domain,,,0.69,chăm sóc khách hàng|CSKH|customer service|hỗ trợ khách hàng|tổng đài
 admin,Hành chính văn phòng,Office administration,vi,Vận hành văn phòng,domain,,,0.75,hành chính văn phòng|hành chính nhân sự|công tác hành chính|office admin|văn thư|lễ tân văn phòng|quản lý công văn
 accounting,Kế toán,Accounting,vi,Vận hành văn phòng,domain,,,0.66,kế toán|accounting|kế toán tổng hợp|hạch toán|MISA|Fast Accounting
-payroll,Tính lương,Payroll,vi,Vận hành văn phòng,domain,,,0.71,tính lương|payroll|C&B|bảo hiểm xã hội
+payroll,Tính lương,Payroll,vi,Vận hành văn phòng,domain,,,0.71,tính lương|payroll|C&B|bảo hiểm xã hội|compensation and benefits|chính sách lương thưởng|thang bảng lương|hệ thống lương
 procurement,Mua hàng,Procurement,vi,Vận hành văn phòng,domain,,,0.48,mua hàng|procurement|thu mua|purchasing
-logistics,Vận hành kho vận,Logistics,vi,Vận hành văn phòng,domain,,,0.41,logistics|kho vận|chuỗi cung ứng|supply chain|xuất nhập khẩu
+logistics,Vận hành kho vận,Logistics,vi,Vận hành văn phòng,domain,,,0.41,logistics|kho vận|chuỗi cung ứng|supply chain|xuất nhập khẩu|demand planning|\bS&OP|lập kế hoạch cung ứng
 project-management,Quản lý dự án,Project management,vi,Quản trị,domain,,,0.27,quản lý dự án|project management|project manager|PMP|quản trị dự án
 agile,Agile Scrum,Agile Scrum,en,Quản trị,domain,,,0.25,Agile|Scrum|Kanban|Scrum Master|sprint
 product-management,Quản lý sản phẩm,Product management,vi,Quản trị,domain,,,0.24,product manager|quản lý sản phẩm|product owner|PO|roadmap sản phẩm
-people-management,Quản lý đội nhóm,People management,vi,Quản trị,soft,,,0.1,quản lý đội nhóm|team lead|quản lý nhân sự trực tiếp|dẫn dắt đội
-process-improvement,Cải tiến quy trình,Process improvement,vi,Quản trị,domain,,,0.34,cải tiến quy trình|process improvement|Lean|Six Sigma|tối ưu quy trình
+people-management,Quản lý đội nhóm,People management,vi,Quản trị,soft,,,0.1,quản lý đội nhóm|team lead|quản lý nhân sự trực tiếp|dẫn dắt đội|kỹ năng lãnh đạo|leadership|khả năng lãnh đạo|quản lý đội ngũ
+process-improvement,Cải tiến quy trình,Process improvement,vi,Quản trị,domain,,,0.34,cải tiến quy trình|process improvement|Lean|Six Sigma|tối ưu quy trình|5S|Kaizen|Lean manufacturing
 recruitment,Tuyển dụng,Recruitment,vi,Quản trị,domain,,,0.56,tuyển dụng nhân sự|recruitment|talent acquisition|săn đầu người|headhunt|headhunter|sàng lọc hồ sơ|phỏng vấn ứng viên|đăng tin tuyển dụng
 training,Đào tạo nội bộ,Training and development,vi,Quản trị,domain,,,0.38,đào tạo nội bộ|xây dựng chương trình đào tạo|training and development|L&D|corporate training|phát triển nhân sự|đào tạo nhân viên mới
-english,Tiếng Anh giao tiếp,English communication,vi,Ngôn ngữ,language,,,0.35,tiếng Anh|English|tiếng Anh giao tiếp|IELTS|TOEIC|giao tiếp tiếng Anh
+english,Tiếng Anh giao tiếp,English communication,vi,Ngôn ngữ,language,,,0.35,tiếng Anh|English|tiếng Anh giao tiếp|IELTS|TOEIC|giao tiếp tiếng Anh|TOEFL|CEFR|giao tiếp tiếng Anh cơ bản
 japanese,Tiếng Nhật,Japanese,vi,Ngôn ngữ,language,,,0.38,tiếng Nhật|Japanese|JLPT|N1|N2|N3
 korean,Tiếng Hàn,Korean,vi,Ngôn ngữ,language,,,0.38,tiếng Hàn|Korean|TOPIK
 chinese,Tiếng Trung,Chinese,vi,Ngôn ngữ,language,,,0.38,tiếng Trung|tiếng Hoa|Chinese|HSK
@@ -98,3 +98,63 @@ problem-solving,Giải quyết vấn đề,Problem solving,vi,Kỹ năng mềm,s
 critical-thinking,Tư duy phản biện,Critical thinking,vi,Kỹ năng mềm,soft,,,0.12,tư duy phản biện|critical thinking|tư duy logic
 presentation,Thuyết trình,Presentation,vi,Kỹ năng mềm,soft,,,0.3,thuyết trình|presentation|kỹ năng trình bày|PowerPoint
 time-management,Quản lý thời gian,Time management,vi,Kỹ năng mềm,soft,,,0.14,quản lý thời gian|time management|sắp xếp công việc
+ms-office,Tin học văn phòng,Microsoft Office,vi,Vận hành văn phòng,tool,,,0.70,tin học văn phòng|vi tính văn phòng|Microsoft Office|MS Office|Office 365|\bWord|các phần mềm văn phòng|công cụ văn phòng|các phần mềm tin học văn phòng|tin học văn phòng cơ bản|Power Point|thiết kế slide
+audit,Kiểm toán,Auditing,vi,Kế toán & tài chính,domain,,,0.40,kiểm toán|kiểm toán nội bộ|internal audit|audit|external audit
+quality-inspection,Kiểm tra chất lượng (QC),Quality inspection,vi,An toàn & tiêu chuẩn,domain,,,0.30,\bQC|kiểm tra chất lượng|kiểm hàng|quality control|kiểm soát chất lượng|QA/QC
+autocad,AutoCAD,AutoCAD,en,Thiết kế kỹ thuật,tool,,,0.35,AutoCAD|\bCAD|phần mềm AutoCAD|Autocad 2D|các phần mềm Autocad
+blueprint-reading,Đọc bản vẽ kỹ thuật,Technical drawing reading,vi,Thiết kế kỹ thuật,domain,,,0.25,đọc bản vẽ|đọc hiểu bản vẽ|bản vẽ kỹ thuật|đọc được bản vẽ|bóc tách khối lượng
+tax-accounting,Kế toán thuế,Tax accounting,vi,Kế toán & tài chính,domain,,,0.55,kế toán thuế|quyết toán thuế|báo cáo thuế|kê khai thuế|khai báo thuế|thuế GTGT|thuế TNCN|thuế TNDN|tax compliance|tax declaration
+accounting-software,Phần mềm kế toán,Accounting software,vi,Kế toán & tài chính,tool,,,0.65,phần mềm kế toán|phần mềm Misa|AMIS|phần mềm Fast|Bravo|các phần mềm kế toán|phần mềm kế toán Misa
+warehouse-management,Quản lý kho,Warehouse management,vi,Logistics & thương mại,domain,,,0.30,quản lý kho|kiểm kê|nhập xuất kho|xuất nhập kho|\bWMS|thủ kho|kiểm kê hàng hóa|sắp xếp hàng hóa
+financial-reporting,Lập báo cáo tài chính,Financial reporting,vi,Kế toán & tài chính,domain,,,0.60,báo cáo tài chính|BCTC|financial statements|financial reporting|lập báo cáo tài chính
+erp,Hệ thống ERP,ERP systems,en,Kế toán & tài chính,tool,,,0.45,ERP|SAP|Odoo|SAP ERP|Microsoft Dynamics|Dynamics 365|NetSuite
+market-research,Nghiên cứu thị trường,Market research,vi,Phân tích kinh doanh,domain,,,0.55,nghiên cứu thị trường|market research|khảo sát thị trường|phân tích thị trường
+mep,Thiết kế / thi công MEP,MEP engineering,en,Thiết kế kỹ thuật,domain,,,0.20,MEP|HVAC|\bcơ điện|\bCơ điện|điều hòa thông gió|\bhệ thống cơ điện
+workplace-safety,An toàn lao động,Occupational health & safety,vi,An toàn & tiêu chuẩn,domain,,,0.15,an toàn lao động|ATLĐ|vệ sinh lao động|HSE|EHS|an toàn vệ sinh lao động|bảo hộ lao động
+iso-qms,Hệ thống quản lý ISO,ISO management systems,en,An toàn & tiêu chuẩn,domain,,,0.35,ISO 9001|ISO 14001|ISO 45001|hệ thống quản lý chất lượng|\bISO|IATF 16949
+ai-tools,Sử dụng công cụ AI,Using AI tools,vi,AI & học máy,tool,,,0.30,ChatGPT|Gemini|Copilot|GitHub Copilot|công cụ AI|AI tools|ứng dụng AI|GenAI|AI tạo sinh|generative AI|Midjourney|Cursor AI
+cashier-pos,Thu ngân / máy POS,Cashier / POS,vi,Lao động & dịch vụ,domain,,,0.45,thu ngân|máy POS|\bPOS|cashier|tính tiền
+packing,Đóng gói hàng hóa,Packing,vi,Lao động & dịch vụ,domain,,,0.20,đóng gói|đóng gói hàng|đóng gói sản phẩm|dán tem|packing
+mechanical-cad,"Thiết kế cơ khí (SolidWorks, Inventor)",Mechanical CAD,en,Thiết kế kỹ thuật,tool,,,0.30,SolidWorks|Inventor|CATIA|Creo|Siemens NX
+fire-safety,Phòng cháy chữa cháy,Fire safety,vi,An toàn & tiêu chuẩn,cert,,,0.10,PCCC|phòng cháy chữa cháy|chứng chỉ PCCC
+equipment-maintenance,Bảo trì máy móc thiết bị,Equipment maintenance,vi,Lao động & dịch vụ,domain,,,0.10,bảo trì máy|bảo trì thiết bị|sửa chữa máy|bảo dưỡng máy|bảo dưỡng thiết bị|bảo trì bảo dưỡng
+machine-operation,Vận hành máy sản xuất,Production machine operation,vi,Lao động & dịch vụ,domain,,,0.15,vận hành máy|đứng máy|vận hành dây chuyền|vận hành máy móc|máy ép nhựa|vận hành thiết bị
+devops,DevOps / SRE,DevOps / SRE,en,Hạ tầng & vận hành,domain,,,0.30,DevOps|DevSecOps|\bSRE|site reliability
+import-export,Nghiệp vụ xuất nhập khẩu,Import–export operations,vi,Logistics & thương mại,domain,,,0.45,nghiệp vụ xuất nhập khẩu|thủ tục hải quan|khai báo hải quan|khai hải quan|chứng từ xuất nhập khẩu|Incoterms|\bXNK|\bC/O|import export|customs clearance
+nosql,Cơ sở dữ liệu NoSQL,NoSQL databases,en,Dữ liệu,tech,,,0.40,NoSQL|MongoDB|Redis|Cassandra|DynamoDB|Elasticsearch
+software-design,"Thiết kế phần mềm (OOP, SOLID)",Software design,en,Lập trình,domain,,,0.30,OOP|\bSOLID|design pattern|design patterns|MVC|MVVM|DDD|clean architecture|microservice architecture
+html-css,HTML / CSS,HTML / CSS,en,Lập trình,tech,,,0.55,HTML|HTML5|CSS|SCSS|Tailwind|Tailwind CSS|Bootstrap
+labor-law,Luật lao động,Labour law,vi,Pháp lý & nhân sự,domain,,,0.45,luật lao động|bộ luật lao động|pháp luật lao động|chế độ bảo hiểm xã hội|thủ tục bảo hiểm xã hội|quan hệ lao động
+electrical-work,Điện dân dụng / công nghiệp,Electrical installation,vi,Lao động & dịch vụ,domain,,,0.05,điện dân dụng|điện công nghiệp|sửa chữa điện|lắp đặt điện|thợ điện|điện lạnh
+accounting-standards,Chuẩn mực kế toán (VAS/IFRS),Accounting standards (VAS/IFRS),vi,Kế toán & tài chính,domain,,,0.45,\bVAS|IFRS|chuẩn mực kế toán|chuẩn mực kế toán Việt Nam|US GAAP
+driving-license,Bằng lái xe,Driving licence,vi,Lao động & dịch vụ,cert,,,0.10,bằng lái xe|giấy phép lái xe|GPLX|\bbằng B2|\bBằng B2|\bbằng lái B2|\bhạng B2|\bHạng B2|\bbằng C|\bBằng C|\bhạng C|\bHạng C|\bbằng FC|\bhạng FC|bằng lái xe ô tô|bằng lái xe máy|\blái xe ô tô
+project-tools,Công cụ quản lý công việc,Work management tools,en,Quản trị,tool,,,0.40,JIRA|Confluence|Trello|Asana|ClickUp|Notion
+revit-bim,Revit / BIM,Revit / BIM,en,Thiết kế kỹ thuật,tool,,,0.30,Revit|BIM|Navisworks|Tekla
+cpa-acca,Chứng chỉ CPA/ACCA,CPA/ACCA certification,en,Kế toán & tài chính,cert,,,0.35,CPA|ACCA|chứng chỉ kế toán trưởng|chứng chỉ hành nghề kế toán
+livestream-sales,Livestream bán hàng,Livestream selling,vi,Marketing số,domain,,,0.20,livestream|live stream|livestream bán hàng|Shopee Live
+message-queue,Hàng đợi thông điệp,Message queues,en,Lập trình,tech,,,0.30,RabbitMQ|Kafka|Apache Kafka|SQS|ActiveMQ|message queue
+3d-interior,"Dựng hình 3D (SketchUp, 3ds Max)","3D modelling (SketchUp, 3ds Max)",en,Thiết kế kỹ thuật,tool,,,0.40,SketchUp|3ds Max|3D Max|3Dmax|Lumion|V-Ray|Vray|Enscape|Blender
+food-safety,An toàn thực phẩm,Food safety,vi,An toàn & tiêu chuẩn,domain,,,0.15,vệ sinh an toàn thực phẩm|an toàn thực phẩm|HACCP|ISO 22000|vệ sinh thực phẩm
+kol-marketing,Influencer / KOL marketing,Influencer marketing,vi,Marketing số,domain,,,0.25,KOL|KOC|influencer marketing|booking KOL|influencer
+digital-basics,Kỹ năng số cơ bản,Basic digital skills,vi,Lao động & dịch vụ,domain,,,0.40,sử dụng điện thoại thông minh|smartphone|sử dụng máy tính cơ bản|tin học cơ bản|sử dụng máy tính
+cnc,Vận hành / lập trình CNC,CNC machining,en,Lao động & dịch vụ,domain,,,0.20,CNC|máy CNC|lập trình CNC|tiện CNC
+contract-drafting,Soạn thảo hợp đồng,Contract drafting,vi,Pháp lý & nhân sự,domain,,,0.55,soạn thảo hợp đồng|rà soát hợp đồng|contract drafting|hợp đồng thương mại|soạn thảo văn bản pháp lý
+cleaning,Vệ sinh công nghiệp,Industrial cleaning,vi,Lao động & dịch vụ,domain,,,0.05,vệ sinh công nghiệp|tạp vụ|dọn dẹp|giặt là|giặt ủi|lau dọn
+corporate-law,Pháp luật doanh nghiệp,Corporate law,vi,Pháp lý & nhân sự,domain,,,0.35,luật doanh nghiệp|pháp luật doanh nghiệp|corporate law|M&A|sở hữu trí tuệ|luật đầu tư
+plc-automation,PLC / tự động hóa,PLC / automation,en,Thiết kế kỹ thuật,tech,,,0.25,PLC|SCADA|HMI|lập trình PLC
+spa-beauty,Kỹ thuật spa – thẩm mỹ,Spa & beauty techniques,vi,Lao động & dịch vụ,domain,,,0.03,kỹ thuật viên spa|massage|chăm sóc da|gội đầu dưỡng sinh|làm móng|\bnail|phun xăm|liệu trình
+cooking,Nấu ăn / chế biến món,Cooking,vi,Lao động & dịch vụ,domain,,,0.05,nấu ăn|chế biến món|\bbếp Á|\bbếp Âu|nấu món|sơ chế|chế biến thực phẩm
+electronics-assembly,Lắp ráp điện tử (SMT),Electronics assembly,vi,Lao động & dịch vụ,domain,,,0.25,SMT|lắp ráp linh kiện|lắp ráp điện tử|hàn linh kiện|lắp ráp sản phẩm
+rag,RAG / tìm kiếm vector,RAG / vector search,en,AI & học máy,tech,,,0.25,RAG|LangChain|LlamaIndex|vector database|vector search|embedding
+cfa,Chứng chỉ CFA,CFA,en,Kế toán & tài chính,cert,,,0.35,CFA
+industrial-sewing,May công nghiệp,Industrial sewing,vi,Lao động & dịch vụ,domain,,,0.10,may công nghiệp|máy may công nghiệp|thợ may|cắt may|may mẫu
+restaurant-service,Phục vụ nhà hàng,Restaurant service,vi,Lao động & dịch vụ,domain,,,0.05,phục vụ bàn|phục vụ nhà hàng|nghiệp vụ nhà hàng|setup bàn|order món|chạy bàn
+forklift,Lái xe nâng,Forklift operation,vi,Lao động & dịch vụ,cert,,,0.05,xe nâng|lái xe nâng|forklift
+bartending,Pha chế đồ uống,Drink preparation,vi,Lao động & dịch vụ,domain,,,0.05,pha chế|barista|bartender|pha cà phê|pha chế đồ uống
+gmp,Thực hành sản xuất tốt (GMP),Good manufacturing practice,en,An toàn & tiêu chuẩn,domain,,,0.20,GMP
+insurance-advisory,Tư vấn bảo hiểm,Insurance advisory,vi,Kế toán & tài chính,domain,,,0.30,tư vấn bảo hiểm|bảo hiểm nhân thọ|bảo hiểm phi nhân thọ|chứng chỉ đại lý bảo hiểm
+hotel-operations,Nghiệp vụ khách sạn,Hotel operations,vi,Lao động & dịch vụ,domain,,,0.15,buồng phòng|lễ tân khách sạn|front office|housekeeping|Opera PMS|nghiệp vụ lễ tân
+credit-appraisal,Thẩm định tín dụng,Credit appraisal,vi,Kế toán & tài chính,domain,,,0.45,thẩm định tín dụng|credit analysis|thẩm định khách hàng|thẩm định hồ sơ vay|phân tích tín dụng|quản lý rủi ro tín dụng
+welding,Hàn,Welding,vi,Lao động & dịch vụ,domain,,,0.05,\bthợ hàn|\bhàn TIG|\bhàn MIG|\bhàn điện|\bkỹ thuật hàn|welding|\bhàn CO2
+security-guard,Nghiệp vụ bảo vệ,Security guarding,vi,Lao động & dịch vụ,cert,,,0.10,nghiệp vụ bảo vệ|chứng chỉ nghiệp vụ bảo vệ|tuần tra
+caregiving,Chăm sóc người già / trẻ em,Caregiving,vi,Lao động & dịch vụ,domain,,,0.03,chăm sóc người già|chăm sóc trẻ|giúp việc gia đình|chăm sóc người bệnh|trông trẻ

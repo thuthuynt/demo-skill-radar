@@ -50,7 +50,7 @@ sources:
       Disallow: /jobseekers/ajax.php?*
     terms_checked: false   # [người] đọc điều khoản sử dụng, đổi thành true
     crawl_delay_seconds: 2
-    max_pages_per_run: 600
+    max_pages_per_run: 1500
 
   # Nguồn lao động phổ thông + văn phòng phổ thông (thêm 12/10/2026)
   - name: jobsgo

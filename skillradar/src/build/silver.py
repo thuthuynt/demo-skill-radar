@@ -27,6 +27,7 @@ from src.log import get_logger
 log = get_logger("silver")
 
 DB = WAREHOUSE_DIR / "skillradar.duckdb"
+TIENG_ANH_MASKED = re.compile(r"([Tt]iếng|TIẾNG) \[đã ẩn\]")
 COMPANY_NOISE = re.compile(
     r"\b(cong ty|cty|tnhh|mtv|co phan|cp|jsc|ltd|limited|company|co|corp|corporation|"
     r"inc|tap doan|chi nhanh|viet nam|vietnam|vn|group|tong cong ty|mot thanh vien)\b")
@@ -107,7 +108,9 @@ def build_rows() -> list[dict]:
                 "salary_min": smin, "salary_max": smax, "salary_unit": sunit,
                 "lang": lang(r["description_raw"]),
                 "job_family_id": fam, "job_family_method": fam_how, "in_scope": fam not in OUT_OF_SCOPE,
-                "description": r["description_raw"],
+                # parser cũ che nhầm "Anh" trong "Tiếng Anh"; chỉ khôi phục được chữ "Anh".
+                # shortcut: các từ viết hoa ngay sau đó đã mất hẳn, tải lại tin nếu cần đủ
+                "description": TIENG_ANH_MASKED.sub(r"\1 Anh", r["description_raw"]),
                 # còn trong danh sách tin của ngày chụp gần nhất VÀ chưa quá hạn nộp
                 "is_open": origin == "crawl" and latest.get(r["source"]) in days
                            and (valid is None or valid >= latest[r["source"]]),
