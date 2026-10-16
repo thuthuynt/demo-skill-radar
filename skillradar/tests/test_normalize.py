@@ -65,3 +65,13 @@ def test_degree_line_does_not_count_as_domain_skill():
     assert "audit" not in found and "excel" in found
     found = match("Kế toán tổng hợp", "Yêu cầu\nCó kinh nghiệm kiểm toán nội bộ", m)
     assert "audit" in found
+
+
+def test_scene_blank_span_hides_whole_term():
+    from src.build.scenes import blank_span
+    q = "Thành thạo Excel nâng cao, Excellence là điểm cộng"
+    i, j = blank_span(q, "excel")
+    assert q[i:j] == "Excel" and i == 11
+    q = "Có khả năng sử dụng phần mềm kế toán MISA."
+    i, j = blank_span(q, "phan mem ke toan")
+    assert q[i:j] == "phần mềm kế toán"

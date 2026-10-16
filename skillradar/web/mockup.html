@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SkillRadar — mockup hành trình học sinh</title>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap");
+:root {
+  --duck:#ffc93c; --duck-soft:#fff1c2; --bill:#f26b1d; --bill-ink:#b5470b; --pond:#0e2a33;
+  --bg:#f6f8f7; --surface:#fff; --sunk:#eaf0ef; --ink:#0e2a33; --muted:#4f6870; --line:#d3dedd;
+  --water:#2c7be5; --reed:#1e9e6a; --reed-soft:#dcf3e8; --alert:#d63c3c;
+  --quack:3px 3px 0 #0e2a33;
+  --display:"Bricolage Grotesque",system-ui,sans-serif; --sans:"Be Vietnam Pro",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+* { box-sizing:border-box; }
+body { margin:0; background:#dfe7e5; color:var(--ink); font:15px/1.5 var(--sans); }
+.intro { max-width:1180px; margin:0 auto; padding:28px 20px 8px; }
+.intro h1 { font:800 30px/1.1 var(--display); letter-spacing:-.02em; margin:0 0 6px; }
+.intro p { color:var(--muted); margin:0; max-width:60rem; }
+.rail { display:flex; gap:28px; overflow-x:auto; padding:24px 20px 40px; scroll-snap-type:x mandatory; max-width:100%; }
+.step { flex:0 0 auto; scroll-snap-align:center; }
+.step .label { font:700 12px/16px var(--sans); letter-spacing:.1em; text-transform:uppercase; color:var(--bill-ink); margin:0 0 4px; }
+.step .label b { color:var(--ink); }
+.step .why { font-size:13px; color:var(--muted); width:340px; margin:0 0 12px; min-height:58px; }
+
+/* khung điện thoại */
+.phone { width:340px; height:720px; background:var(--bg); border-radius:44px; border:10px solid #0b1f25; overflow:hidden;
+  position:relative; box-shadow:0 30px 60px rgba(14,42,51,.25); display:flex; flex-direction:column; }
+.notch { height:30px; display:flex; justify-content:space-between; align-items:center; padding:0 22px; font:600 12px var(--sans); color:var(--ink); }
+.appbar { display:flex; align-items:center; justify-content:space-between; padding:6px 16px 10px; }
+.logo { font:800 17px var(--display); letter-spacing:-.02em; }
+.logo span { background:var(--duck); padding:0 5px; border-radius:5px; margin-left:1px; }
+.pill { font:600 12px var(--sans); border:1px solid var(--line); border-radius:999px; padding:3px 10px; background:var(--surface); display:inline-flex; gap:5px; align-items:center; }
+.pill b { font-family:var(--mono); }
+.screen { flex:1; padding:4px 16px 16px; display:flex; flex-direction:column; gap:12px; overflow:hidden; }
+.eyebrow { font:700 11px/14px var(--sans); letter-spacing:.1em; text-transform:uppercase; color:var(--bill-ink); }
+svg.i { width:18px; height:18px; stroke:currentColor; stroke-width:1.75; fill:none; stroke-linecap:round; stroke-linejoin:round; flex:0 0 auto; }
+
+/* 1. lướt vai */
+.stack { position:relative; flex:1; }
+.rcard { position:absolute; inset:0; background:var(--surface); border:2px solid var(--pond); border-radius:24px; padding:18px; display:flex; flex-direction:column; gap:10px; }
+.rcard.back1 { transform:rotate(-4deg) translate(-6px,6px); background:var(--duck-soft); border-color:var(--line); }
+.rcard.back2 { transform:rotate(3deg) translate(6px,4px); background:var(--sunk); border-color:var(--line); }
+.rcard.front { box-shadow:var(--quack); animation:nudge 3.2s ease-in-out infinite; }
+@keyframes nudge { 0%,70%,100% { transform:none; } 80% { transform:translateX(14px) rotate(2deg); } 90% { transform:translateX(-4px); } }
+.arch { align-self:flex-start; font:600 12px var(--sans); background:var(--pond); color:var(--duck); border-radius:999px; padding:3px 10px; }
+.rname { font:800 40px/1 var(--display); letter-spacing:-.03em; }
+.bigfact { background:var(--duck); color:var(--pond); border-radius:16px; padding:14px; }
+.bigfact b { display:block; font:800 44px/1 var(--mono); letter-spacing:-.04em; }
+.bigfact span { font-weight:600; }
+.minis { display:flex; gap:8px; }
+.mini { flex:1; background:var(--sunk); border-radius:12px; padding:8px 10px; font-size:12px; color:var(--muted); }
+.mini b { display:block; color:var(--ink); font:700 16px var(--mono); }
+.quote { border:1px dashed var(--line); border-radius:12px; padding:10px; font-size:13px; }
+.quote q { display:block; font-style:italic; }
+.quote small { color:var(--muted); font-size:11px; }
+.swipebar { display:flex; justify-content:space-between; align-items:center; padding:2px 6px; }
+.round { width:58px; height:58px; border-radius:50%; display:grid; place-items:center; border:2px solid var(--line); background:var(--surface); }
+.round.yes { width:auto; border-radius:999px; padding:0 22px; background:var(--duck); border-color:var(--pond); box-shadow:var(--quack); font:700 16px var(--sans); gap:8px; display:flex; }
+.hint { text-align:center; font-size:12px; color:var(--muted); }
+
+/* 2. cảnh trong ngày */
+.scenehead { display:flex; justify-content:space-between; align-items:center; }
+.clock { font:700 13px var(--mono); background:var(--pond); color:var(--duck); border-radius:999px; padding:3px 10px; }
+.dots { display:flex; gap:5px; } .dots i { width:22px; height:6px; border-radius:6px; background:var(--line); } .dots i.on { background:var(--bill); }
+.chat { display:flex; gap:8px; align-items:flex-end; }
+.avatar { width:34px; height:34px; border-radius:50%; background:var(--water); color:#fff; display:grid; place-items:center; font:700 13px var(--sans); flex:0 0 auto; }
+.bubble { background:var(--surface); border:1px solid var(--line); border-radius:16px 16px 16px 4px; padding:10px 12px; font-size:14px; }
+.bubble b { display:block; font-size:12px; color:var(--muted); font-weight:600; }
+.ask { font:800 20px/1.2 var(--display); }
+.opt { display:flex; gap:10px; align-items:center; background:var(--surface); border:2px solid var(--line); border-radius:14px; padding:11px 12px; font-weight:600; }
+.opt small { display:block; font-weight:400; color:var(--muted); font-size:12px; }
+.opt.right { border-color:var(--reed); background:var(--reed-soft); }
+.opt .ico { width:34px; height:34px; border-radius:10px; background:var(--sunk); display:grid; place-items:center; flex:0 0 auto; }
+.toast { background:var(--pond); color:#fff; border-radius:14px; padding:11px 12px; font-size:13px; display:flex; gap:10px; align-items:center; animation:pop .5s ease-out both 1s; }
+.toast b { color:var(--duck); }
+@keyframes pop { from { transform:translateY(16px); opacity:0; } to { transform:none; opacity:1; } }
+
+/* 3. thẻ kỹ năng */
+.reveal { text-align:center; }
+.reveal .eyebrow { color:var(--reed); }
+.flip { perspective:1000px; width:250px; height:380px; margin:0 auto; cursor:pointer; }
+.flip .inner { position:relative; width:100%; height:100%; transition:transform .6s; transform-style:preserve-3d; }
+.flip.on .inner { transform:rotateY(180deg); }
+.face { position:absolute; inset:0; backface-visibility:hidden; border-radius:22px; padding:6px; }
+.face.front { background:conic-gradient(from 210deg, var(--duck), var(--bill), var(--duck), #fff3c4, var(--duck)); box-shadow:var(--quack); }
+.face.back { transform:rotateY(180deg); background:var(--pond); color:#eaf2f1; padding:18px; text-align:left; font-size:13px; display:flex; flex-direction:column; gap:10px; }
+.face.back q { font-style:italic; color:#fff; }
+.face.back small { color:#9db3b8; }
+.cardin { background:var(--surface); border-radius:17px; height:100%; padding:14px; display:flex; flex-direction:column; gap:10px; text-align:left; }
+.rarity { display:flex; justify-content:space-between; font:700 11px var(--sans); letter-spacing:.08em; text-transform:uppercase; }
+.rarity .tier { color:var(--bill-ink); }
+.art { height:92px; border-radius:12px; background:radial-gradient(circle at 30% 30%, var(--duck-soft), var(--sunk)); display:grid; place-items:center; color:var(--pond); }
+.art svg { width:52px; height:52px; stroke-width:1.5; }
+.cname { font:800 25px/1.05 var(--display); letter-spacing:-.02em; }
+.stat { display:flex; flex-wrap:wrap; gap:2px 8px; align-items:center; font-size:12px; color:var(--muted); }
+.stat .k { width:100%; font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+.stat b { color:var(--ink); font-size:14px; }
+.stat b { font-family:var(--mono); }
+.dots10 { display:flex; gap:3px; } .dots10 i { width:9px; height:9px; border-radius:50%; background:var(--line); } .dots10 i.on { background:var(--bill); }
+.shields { display:flex; gap:3px; color:var(--water); } .shields svg { width:16px; height:16px; fill:currentColor; stroke:none; } .shields .off { color:var(--line); }
+.tapflip { font-size:12px; color:var(--muted); }
+.level { background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:10px 12px; text-align:left; }
+.level .top { display:flex; justify-content:space-between; font-size:13px; font-weight:600; }
+.xp { height:10px; background:var(--sunk); border-radius:999px; margin-top:6px; overflow:hidden; } .xp i { display:block; height:100%; width:66%; background:var(--reed); border-radius:999px; }
+
+/* 4. bộ bài */
+.slots { display:grid; grid-template-columns:repeat(5,1fr); gap:6px; }
+.slot { aspect-ratio:2/3; border-radius:10px; background:var(--surface); border:2px solid var(--pond); padding:5px; display:flex; flex-direction:column; justify-content:space-between; font:700 10px/1.15 var(--sans); }
+.slot .dot { width:8px; height:8px; border-radius:50%; background:var(--bill); }
+.slot.r-common { background:var(--sunk); border-color:var(--line); } .slot.r-common .dot { background:var(--muted); }
+.slot.empty { border:2px dashed var(--line); background:transparent; display:grid; place-items:center; color:var(--muted); font-size:20px; }
+.unlock { background:var(--pond); color:#fff; border-radius:18px; padding:14px; }
+.unlock .eyebrow { color:var(--duck); }
+.unlock .big { font:800 32px/1.05 var(--display); letter-spacing:-.02em; }
+.unlock .big em { font-style:normal; color:var(--duck); }
+.people { display:flex; gap:3px; margin-top:10px; } .people svg { width:18px; height:18px; color:#4f6870; } .people .on { color:var(--duck); }
+.insight { background:var(--duck-soft); border-radius:14px; padding:12px; font-size:13px; }
+.insight b.h { display:block; font:800 16px/1.25 var(--display); margin-bottom:6px; }
+.bars2 { display:grid; grid-template-columns:auto 1fr auto; gap:4px 8px; align-items:center; font-size:12px; margin-top:6px; }
+.bars2 i { height:9px; border-radius:0 4px 4px 0; background:var(--bill); display:block; } .bars2 i.g { background:var(--muted); }
+.bars2 b { font-family:var(--mono); }
+.next { display:flex; align-items:center; gap:10px; background:var(--surface); border:2px solid var(--pond); box-shadow:var(--quack); border-radius:14px; padding:10px 12px; font-weight:600; }
+.next .plus { margin-left:auto; font:700 13px var(--mono); color:var(--reed); }
+
+/* 5. thẻ chia sẻ */
+.story { flex:1; background:linear-gradient(160deg, #0e2a33 0%, #16414d 55%, #b5470b 130%); color:#fff; border-radius:24px; padding:20px; display:flex; flex-direction:column; gap:12px; position:relative; overflow:hidden; }
+.story::after { content:""; position:absolute; width:260px; height:260px; border-radius:50%; background:var(--duck); opacity:.12; right:-90px; top:-80px; }
+.story .eyebrow { color:var(--duck); }
+.story .arche { font:800 38px/1 var(--display); letter-spacing:-.03em; }
+.story .sub { color:#c9dadb; font-size:13px; }
+.fan { position:relative; height:120px; margin:4px 0; }
+.fan .m { position:absolute; width:84px; height:118px; border-radius:12px; background:var(--surface); color:var(--ink); padding:8px; font:700 12px/1.2 var(--display); border:3px solid var(--duck); }
+.fan .m:nth-child(1) { left:8px; transform:rotate(-10deg); } .fan .m:nth-child(2) { left:96px; top:-6px; } .fan .m:nth-child(3) { left:184px; transform:rotate(10deg); }
+.fan .m small { display:block; font:600 10px var(--sans); color:var(--bill-ink); margin-bottom:4px; letter-spacing:.06em; text-transform:uppercase; }
+.sgrid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.sgrid div { background:rgba(255,255,255,.08); border-radius:12px; padding:9px; font-size:12px; color:#c9dadb; }
+.sgrid b { display:block; color:#fff; font:700 18px var(--mono); }
+.challenge { margin-top:auto; background:var(--duck); color:var(--pond); border-radius:14px; padding:11px; font-weight:700; display:flex; justify-content:space-between; align-items:center; }
+.source { font-size:10px; color:#9db3b8; text-align:center; }
+.sharebar { display:flex; gap:8px; } .sharebar span { flex:1; text-align:center; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:9px 0; font-weight:600; font-size:13px; }
+
+@media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="receipt" viewBox="0 0 24 24"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M8 7h8M8 11h8M8 15h5"/></symbol>
+  <symbol id="table" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></symbol>
+  <symbol id="chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></symbol>
+  <symbol id="shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></symbol>
+  <symbol id="user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></symbol>
+  <symbol id="spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></symbol>
+</svg>
+
+<div class="intro">
+  <h1>Hành trình học sinh — mockup</h1>
+  <p>5 màn, mỗi màn dưới 1 phút. Mọi con số và trích dẫn là dữ liệu thật của nhóm Kế toán (12/10–16/10/2026). Kéo ngang để xem; bấm vào thẻ ở màn 3 để lật.</p>
+</div>
+
+<div class="rail">
+
+  <!-- 1 -->
+  <section class="step">
+    <p class="label">1 · <b>Lướt vai</b></p>
+    <p class="why">Không hỏi "bạn muốn làm gì". Lướt thẻ nghề như lướt TikTok: phải = thử, trái = bỏ qua. Mỗi thẻ 1 con số gây chú ý + 1 câu trích từ tin thật.</p>
+    <div class="phone">
+      <div class="notch"><span>9:41</span><span>●●● 5G</span></div>
+      <div class="appbar"><span class="logo">Skill<span>Radar</span></span><span class="pill">Vai <b>3/15</b></span></div>
+      <div class="screen">
+        <div class="stack">
+          <div class="rcard back2"></div>
+          <div class="rcard back1"></div>
+          <div class="rcard front">
+            <span class="arch">Người giữ sổ</span>
+            <div class="rname">Kế toán</div>
+            <div class="bigfact"><b>1.939</b><span>tin đang tuyển kế toán ngay lúc này</span></div>
+            <div class="minis">
+              <div class="mini"><b>17,5 tr</b>lương giữa/tháng</div>
+              <div class="mini"><b>5/10</b>tin cần kế toán thuế</div>
+            </div>
+            <div class="quote"><q>Lập báo cáo thuế (GTGT, TNDN, TNCN) định kỳ và quyết toán thuế năm…</q><small>Trích tin thật · timviec365 · 12/10</small></div>
+          </div>
+        </div>
+        <div class="swipebar">
+          <span class="round" aria-label="Bỏ qua"><svg class="i"><use href="#x"/></svg></span>
+          <span class="round yes">Thử 1 ngày <svg class="i"><use href="#arrow"/></svg></span>
+        </div>
+        <div class="hint">Vuốt phải để thử · trái để bỏ qua</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="step">
+    <p class="label">2 · <b>Một ngày làm Kế toán</b></p>
+    <p class="why">3 cảnh ngắn. Tình huống viết lại từ dòng yêu cầu của tin thật; đáp án là kỹ năng thật của nghề. Chọn đúng thì nhận thẻ.</p>
+    <div class="phone">
+      <div class="notch"><span>9:41</span><span>●●● 5G</span></div>
+      <div class="appbar"><span class="logo">Skill<span>Radar</span></span><span class="pill">Cảnh <b>1/3</b></span></div>
+      <div class="screen">
+        <div class="scenehead"><span class="clock">09:00 · Thứ Hai</span><span class="dots"><i class="on"></i><i></i><i></i></span></div>
+        <div class="chat"><span class="avatar">TP</span>
+          <div class="bubble"><b>Chị Lan · Trưởng phòng</b>Cuối quý rồi em. Thứ Sáu chị cần tờ khai thuế GTGT nhé!</div></div>
+        <div class="quote"><q>Biết lập BCTC, báo cáo thuế, quyết toán thuế TNDN, thuế TNCN</q><small>Trích tin thật · jobsgo · 12/10</small></div>
+        <div class="ask">Bạn rút thẻ nào?</div>
+        <div class="opt right"><span class="ico"><svg class="i"><use href="#receipt"/></svg></span><span>Kế toán thuế<small>Kê khai, quyết toán các loại thuế</small></span></div>
+        <div class="opt"><span class="ico"><svg class="i"><use href="#table"/></svg></span><span>Excel<small>Tính toán, bảng biểu</small></span></div>
+        <div class="opt"><span class="ico"><svg class="i"><use href="#chat"/></svg></span><span>Chăm sóc khách hàng<small>Giải đáp, hỗ trợ khách</small></span></div>
+        <div class="toast"><svg class="i"><use href="#spark"/></svg><span>Chuẩn! <b>5 trong 10</b> tin kế toán ghi rõ cần kỹ năng này. Excel cũng giúp được, nhưng chưa đủ.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="step">
+    <p class="label">3 · <b>Thẻ mới</b></p>
+    <p class="why">Thẻ sưu tầm có độ hiếm và 3 chỉ số nói bằng lời: nghề cần bao nhiêu, đáng giá bao nhiêu, AI thay được bao nhiêu (Khiên AI). Lật thẻ để xem nguồn.</p>
+    <div class="phone">
+      <div class="notch"><span>9:41</span><span>●●● 5G</span></div>
+      <div class="appbar"><span class="logo">Skill<span>Radar</span></span><span class="pill">Bộ bài <b>3</b></span></div>
+      <div class="screen reveal">
+        <div class="eyebrow">+1 thẻ mới</div>
+        <div class="flip" onclick="this.classList.toggle('on')" role="button" tabindex="0" aria-label="Lật thẻ" onkeydown="if(event.key==='Enter')this.classList.toggle('on')">
+          <div class="inner">
+            <div class="face front"><div class="cardin">
+              <div class="rarity"><span class="tier">Đáng giá</span><span>Kế toán · #04</span></div>
+              <div class="art"><svg class="i"><use href="#receipt"/></svg></div>
+              <div class="cname">Kế toán thuế</div>
+              <div class="stat"><span class="k">Nhu cầu</span><span class="dots10"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></span><b>5/10 tin</b></div>
+              <div class="stat"><span class="k">Lương giữa</span><b>18 tr</b><span>· 15 tr nếu tin không đòi*</span></div>
+              <div class="stat"><span class="k">Khiên AI</span><span class="shields"><svg><use href="#shield"/></svg><svg><use href="#shield"/></svg><svg><use href="#shield"/></svg><svg class="off"><use href="#shield"/></svg><svg class="off"><use href="#shield"/></svg></span><span>AI hỗ trợ, khó thay hết</span></div>
+            </div></div>
+            <div class="face back">
+              <div class="eyebrow" style="color:var(--duck)">Mặt sau · nguồn</div>
+              <q>Lập báo cáo thuế (GTGT, TNDN, TNCN) định kỳ và quyết toán thuế năm…</q>
+              <div>Nhu cầu: 976/1.939 tin kế toán đang mở có yêu cầu kỹ năng này.</div>
+              <div>*Lương: trung vị của 345 tin có ghi lương. Tin đòi kỹ năng này thường là vị trí cao hơn, nên đây là tương quan, không phải "học xong là tăng lương".</div>
+              <div>Khiên AI: điểm chuyên gia + mức kỹ năng đi cùng công cụ AI trong tin.</div>
+              <small>itviec · vietnamworks · jobsgo · timviec365 · cập nhật 16/10/2026</small>
+            </div>
+          </div>
+        </div>
+        <div class="tapflip">Chạm để lật thẻ</div>
+        <div class="level"><div class="top"><span>Kế toán tập sự · Lv 2</span><span>2/3 thẻ lên Lv 3</span></div><div class="xp"><i></i></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="step">
+    <p class="label">4 · <b>Bộ bài của bạn</b></p>
+    <p class="why">5 ô như đội hình trong game. Không còn "74 tin": nói bằng tỷ lệ dễ hiểu. Và một phát hiện thật từ dữ liệu, kiểu mà chỉ SkillRadar mới có.</p>
+    <div class="phone">
+      <div class="notch"><span>9:41</span><span>●●● 5G</span></div>
+      <div class="appbar"><span class="logo">Skill<span>Radar</span></span><span class="pill">Kế toán · <b>Lv 2</b></span></div>
+      <div class="screen">
+        <div class="slots">
+          <div class="slot r-common"><span class="dot"></span>Kế toán</div>
+          <div class="slot r-common"><span class="dot"></span>Excel</div>
+          <div class="slot"><span class="dot"></span>Kế toán thuế</div>
+          <div class="slot empty">+</div>
+          <div class="slot empty">+</div>
+        </div>
+        <div class="unlock">
+          <div class="eyebrow">Với 3 thẻ này</div>
+          <div class="big">Bạn đủ sức nộp <em>1 trong 14</em> tin kế toán</div>
+          <div class="people"><svg class="on"><use href="#user"/></svg><svg><use href="#user"/></svg><svg><use href="#user"/></svg><svg><use href="#user"/></svg><svg><use href="#user"/></svg><svg><use href="#user"/></svg><svg><use href="#user"/></svg><svg><use href="#user"/></svg><svg><use href="#user"/></svg><svg><use href="#user"/></svg><svg><use href="#user"/></svg><svg><use href="#user"/></svg><svg><use href="#user"/></svg><svg><use href="#user"/></svg></div>
+        </div>
+        <div class="insight"><b class="h">Excel là vé vào cửa. Báo cáo tài chính mới là thứ tăng lương.</b>
+          Lương giữa tin kế toán (triệu đ/tháng):
+          <div class="bars2">
+            <span>Có Báo cáo tài chính</span><i style="width:100%"></i><b>20</b>
+            <span>Có Excel</span><i class="g" style="width:80%"></i><b>16</b>
+          </div></div>
+        <div class="next"><svg class="i"><use href="#chart"/></svg>Lấy tiếp: Lập báo cáo tài chính<span class="plus">→ 1 trong 9</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="step">
+    <p class="label">5 · <b>Hồ sơ nghề để chia sẻ</b></p>
+    <p class="why">Kiểu "Spotify Wrapped" cho định hướng nghề, đúng khổ story Zalo/Instagram. Link thách bạn bè chứa bộ bài trong đường dẫn — không cần tài khoản, không lưu dữ liệu.</p>
+    <div class="phone">
+      <div class="notch"><span>9:41</span><span>●●● 5G</span></div>
+      <div class="screen" style="padding-top:8px">
+        <div class="story">
+          <div class="eyebrow">Hồ sơ nghề của mình · 2026</div>
+          <div><div class="sub">Kiểu của mình</div><div class="arche">Người giữ sổ</div><div class="sub">Kế toán · Lv 2 · 3 thẻ</div></div>
+          <div class="fan">
+            <div class="m"><small>Phổ thông</small>Kế toán</div>
+            <div class="m"><small>Đáng giá</small>Kế toán thuế</div>
+            <div class="m"><small>Phổ thông</small>Excel</div>
+          </div>
+          <div class="sgrid">
+            <div><b>1/14</b>tin kế toán mình nộp được</div>
+            <div><b>3/5</b>Khiên AI trung bình</div>
+          </div>
+          <div class="challenge"><span>Thách bạn so bộ bài</span><svg class="i"><use href="#arrow"/></svg></div>
+          <div class="source">Số liệu thật từ 12.379 tin tuyển dụng · SkillRadar VN · 16/10/2026</div>
+        </div>
+        <div class="sharebar"><span>Lưu ảnh</span><span>Gửi Zalo</span><span>Sao chép link</span></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

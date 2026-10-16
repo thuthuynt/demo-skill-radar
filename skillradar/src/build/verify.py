@@ -63,6 +63,36 @@ def main() -> int:
     for p in provinces:
         check(f"province {p['code']} n_open", p["n_open"], prov.get(p["code"]))
 
+    # lương có / không có kỹ năng trong nhóm nghề (phần tử 3, 4 của families[].skills)
+    prem = {(f, s): (nw, nwo, mw, mwo) for f, s, nw, nwo, mw, mwo in con.execute(f"""
+        WITH p AS (SELECT posting_id, job_family_id f, (coalesce(salary_min, salary_max) + coalesce(salary_max, salary_min)) / 2 sal
+                   FROM posting WHERE posting_id IN ({OPEN}) AND salary_unit = 'VND'
+                     AND coalesce(salary_min, salary_max) BETWEEN 1e6 AND 2e8),
+             has AS (SELECT DISTINCT posting_id, skill_id FROM fact_posting_skill)
+        SELECT p.f, k.skill_id, count(*) FILTER (WHERE h.posting_id IS NOT NULL), count(*) FILTER (WHERE h.posting_id IS NULL),
+               median(sal) FILTER (WHERE h.posting_id IS NOT NULL), median(sal) FILTER (WHERE h.posting_id IS NULL)
+        FROM p JOIN (SELECT DISTINCT skill_id FROM fact_posting_skill) k ON true
+        LEFT JOIN has h ON h.posting_id = p.posting_id AND h.skill_id = k.skill_id
+        GROUP BY ALL""").fetchall()}
+    for f in families:
+        for sid, _w, sw, swo in f["skills"]:
+            nw, nwo, mw, mwo = prem.get((f["id"], sid), (0, 0, None, None))
+            want = [round(mw, -5), round(mwo, -5)] if nw >= 30 and nwo >= 30 else [None, None]
+            if [sw, swo] != want:
+                errors.append(f"salary {f['id']} {sid}: json={[sw, swo]} sql={want}")
+
+    # cảnh: trích dẫn phải có nguyên văn trong tin nguồn; tin đang mở, đúng nhóm nghề, có kỹ năng đó
+    scenes = load("scenes.json")
+    n_scenes = 0
+    for fid, ss in scenes.items():
+        for sc in ss:
+            n_scenes += 1
+            row = con.execute(f"""SELECT p.job_family_id, p.description, p.posting_id IN ({OPEN}),
+                                 EXISTS (SELECT 1 FROM fact_posting_skill x WHERE x.posting_id = p.posting_id AND x.skill_id = ?)
+                                 FROM posting p WHERE p.posting_id = ?""", [sc["skill"], sc["posting_id"]]).fetchone()
+            if not row or row[0] != fid or sc["quote"] not in row[1] or not row[2] or not row[3]:
+                errors.append(f"scene {fid} {sc['skill']}: trích dẫn không truy ngược được về tin {sc['posting_id']}")
+
     month = {(src, m, sid): v for src, m, sid, v in con.execute("""
         WITH base AS (SELECT * FROM posting WHERE in_scope AND NOT is_repost AND origin = 'archive'),
         tot AS (SELECT source, period_month, count(*) t FROM base GROUP BY ALL)
@@ -77,8 +107,8 @@ def main() -> int:
                 n_points += 1
     con.close()
 
-    log.info("đã kiểm %d kỹ năng, %d nhóm nghề, %d tỉnh, %d điểm lịch sử", len(skills), len(families),
-             len(provinces), n_points)
+    log.info("đã kiểm %d kỹ năng, %d nhóm nghề, %d tỉnh, %d điểm lịch sử, %d cảnh", len(skills), len(families),
+             len(provinces), n_points, n_scenes)
     if errors:
         for e in errors[:30]:
             log.error("LỆCH %s", e)

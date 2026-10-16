@@ -15,6 +15,7 @@ from datetime import datetime, timezone
 import duckdb
 
 from src.build.normalize import FAMILIES, OUT_OF_SCOPE
+from src.build.scenes import build_scenes
 from src.build.silver import DB
 from src.config import LOG_DIR, ROOT, load_assumptions
 from src.log import get_logger
@@ -108,9 +109,28 @@ def main() -> int:
     fam_prov = defaultdict(dict)
     for r in rows(con, "SELECT * FROM m_family_province"):
         fam_prov[r["job_family_id"]][r["province"]] = r["n_open"]
+    # lương giữa (VND/tháng) của tin trong nhóm CÓ / KHÔNG đòi kỹ năng; < 30 tin mỗi phía thì null.
+    # Tương quan, không phải nhân quả: tin đòi kỹ năng cao thường là vị trí cao hơn.
+    prem = {(r["f"], r["s"]): r for r in rows(con, """
+        WITH p AS (SELECT posting_id, job_family_id f, (coalesce(salary_min, salary_max) + coalesce(salary_max, salary_min)) / 2 sal
+                   FROM base_open WHERE salary_unit = 'VND' AND coalesce(salary_min, salary_max) BETWEEN 1e6 AND 2e8),
+             k AS (SELECT job_family_id f, skill_id s FROM m_family_skill),
+             has AS (SELECT DISTINCT posting_id, skill_id FROM fact_posting_skill)
+        SELECT k.f, k.s,
+               count(*) FILTER (WHERE has.posting_id IS NOT NULL) n_with,
+               count(*) FILTER (WHERE has.posting_id IS NULL) n_without,
+               median(p.sal) FILTER (WHERE has.posting_id IS NOT NULL) med_with,
+               median(p.sal) FILTER (WHERE has.posting_id IS NULL) med_without
+        FROM k JOIN p ON p.f = k.f LEFT JOIN has ON has.posting_id = p.posting_id AND has.skill_id = k.s
+        GROUP BY ALL""")}
+    def sal_pair(f, s):
+        r = prem.get((f, s))
+        if not r or r["n_with"] < 30 or r["n_without"] < 30:
+            return [None, None]
+        return [round(r["med_with"], -5), round(r["med_without"], -5)]
     fam_skill = defaultdict(list)
     for r in rows(con, "SELECT job_family_id, skill_id, weight FROM m_family_skill ORDER BY weight DESC"):
-        fam_skill[r["job_family_id"]].append([r["skill_id"], r4(r["weight"])])
+        fam_skill[r["job_family_id"]].append([r["skill_id"], r4(r["weight"]), *sal_pair(r["job_family_id"], r["skill_id"])])
     # lương: trung vị điểm giữa khoảng lương VND/tháng, chỉ tin có ghi lương; < 30 tin thì không công bố
     salary = {r["f"]: r for r in rows(con, """
         SELECT job_family_id f, count(*) n,
@@ -124,6 +144,7 @@ def main() -> int:
                  "skills": fam_skill[f][:30]} for f in FAMILIES if fam_prov.get(f)]
 
     # --- đồng xuất hiện ---
+    scenes = build_scenes(con, families, dim)
     pairs = rows(con, f"SELECT a, b, n, lift FROM m_cooc ORDER BY lift * ln(n) DESC LIMIT {TOP_PAIRS}")
 
     # --- meta + trạng thái ---
@@ -176,7 +197,7 @@ def main() -> int:
     con.close()
 
     sizes = {n: write(n, o) for n, o in [("meta.json", meta), ("skills.json", skills), ("families.json", families),
-                                         ("cooc.json", pairs), ("provinces.json", provinces),
+                                         ("cooc.json", pairs), ("provinces.json", provinces), ("scenes.json", scenes),
                                          ("status.json", status)]}
     total = sum(sizes.values())
     log.info("xuất %s, tổng %.0f KB", {k: f"{v / 1024:.0f}KB" for k, v in sizes.items()}, total / 1024)

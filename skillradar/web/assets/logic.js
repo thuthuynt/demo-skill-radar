@@ -75,3 +75,46 @@ export function bestNext(families, owned, a, k = 3) {
   return [...cands].map(id => ({ id, gain: total(new Set([...owned, id])) - base }))
     .filter(x => x.gain > 0).sort((x, y) => y.gain - x.gain).slice(0, k);
 }
+
+// --- trò chơi (v2) ---
+
+// Độ hiếm theo tỷ lệ toàn thị trường: thẻ hiếm = ít tin đòi hỏi
+export function rarity(overallShare) {
+  return overallShare >= 0.15 ? 'common' : overallShare >= 0.03 ? 'valuable' : 'rare';
+}
+
+// Khiên AI 1–5: càng khó bị AI thay càng nhiều khiên. null khi chưa có điểm.
+export function shields(ai) {
+  if (!ai || ai.score == null) return null;
+  return Math.max(1, Math.min(5, Math.round((1 - ai.score) * 5)));
+}
+
+// Cấp độ trong một nghề theo số thẻ của cây kỹ năng nghề đó
+export function level(family, owned) {
+  const n = treeSkills(family).filter(([id]) => owned.has(id)).length;
+  const lv = n >= 9 ? 5 : n >= 6 ? 4 : n >= 4 ? 3 : n >= 2 ? 2 : 1;
+  return { lv, cards: n, nextAt: [2, 4, 6, 9, null][lv - 1] };
+}
+
+// "1 trong K tin": dễ hiểu hơn số tuyệt đối. null khi chưa mở khóa tin nào.
+export function oneIn(family, owned, a) {
+  const n = unlocked(family, owned, a);
+  return n > 0 ? Math.max(1, Math.round(family.n_open / n)) : null;
+}
+
+// "Vé vào cửa" (nhiều tin cần, lương không cao hơn) vs "thứ tăng lương" (chênh lương lớn nhất, ≥ 2 triệu)
+export function salaryInsight(family) {
+  const withSal = family.skills.filter(s => s[2] != null && s[3] != null);
+  const entry = withSal.filter(s => s[2] <= s[3]).sort((x, y) => y[1] - x[1])[0];
+  const raise = withSal.filter(s => s[2] - s[3] >= 2e6).sort((x, y) => (y[2] - y[3]) - (x[2] - x[3]))[0];
+  return entry && raise ? { entry: entry[0], entryPay: entry[2], raise: raise[0], raisePay: raise[2] } : null;
+}
+
+// Link thách đấu: bộ bài nằm trong đường dẫn, không cần máy chủ / tài khoản
+export function encodeChallenge(familyId, ids) {
+  return `#/thach/${familyId}/${[...ids].sort().join('.')}`;
+}
+export function decodeChallenge(hash) {
+  const m = /^#\/thach\/([a-z-]+)\/([a-z0-9.+#-]+)$/.exec(hash || '');
+  return m ? { family: m[1], ids: m[2].split('.').filter(Boolean) } : null;
+}

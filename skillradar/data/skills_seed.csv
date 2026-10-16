@@ -4,7 +4,7 @@ power-bi,Power BI,Power BI,en,Dữ liệu,tool,,,0.55,Power BI|PowerBI|PBI|báo 
 tableau,Tableau,Tableau,en,Dữ liệu,tool,,,0.52,Tableau|Tableau Desktop
 excel,Excel,Microsoft Excel,en,Dữ liệu,tool,,,0.62,Excel|MS Excel|Microsoft Excel|thành thạo Excel|pivot table|hàm Excel|VLOOKUP
 google-sheets,Google Sheets,Google Sheets,en,Dữ liệu,tool,,,0.6,Google Sheets|Google Sheet|Trang tính
-data-engineering,Kỹ thuật dữ liệu,Data engineering,vi,Dữ liệu,domain,,,0.32,data engineering|kỹ thuật dữ liệu|xây dựng pipeline|data pipeline|ETL|ELT
+data-engineering,Kỹ thuật dữ liệu,Data engineering,vi,Dữ liệu,domain,,,0.32,data engineering|kỹ thuật dữ liệu|xây dựng pipeline|data pipeline|ETL
 data-warehouse,Kho dữ liệu,Data warehouse,vi,Dữ liệu,domain,,,0.3,data warehouse|kho dữ liệu|DWH|data mart
 dbt,dbt,dbt,en,Dữ liệu,tool,,,0.28,dbt|data build tool
 airflow,Airflow,Apache Airflow,en,Dữ liệu,tool,,,0.26,Airflow|Apache Airflow|DAG
@@ -25,13 +25,13 @@ tensorflow,TensorFlow,TensorFlow,en,AI & học máy,tool,,,0.22,TensorFlow|Keras
 pytorch,PyTorch,PyTorch,en,AI & học máy,tool,,,0.22,PyTorch
 python,Python,Python,en,Lập trình,tech,,,0.41,Python|Python 3|lập trình Python
 java,Java,Java,en,Lập trình,tech,,,0.44,Java|Java Core|Spring Boot|J2EE
-javascript,JavaScript,JavaScript,en,Lập trình,tech,,,0.48,JavaScript|JS|ES6|TypeScript|TS
+javascript,JavaScript,JavaScript,en,Lập trình,tech,,,0.48,JavaScript|JS|ES6|TypeScript
 react,React,React,en,Lập trình,tech,,,0.51,React|ReactJS|React.js|Next.js|NextJS
 vue,Vue,Vue.js,en,Lập trình,tech,,,0.51,Vue|VueJS|Vue.js|Nuxt
 angular,Angular,Angular,en,Lập trình,tech,,,0.5,Angular|AngularJS
 nodejs,Node.js,Node.js,en,Lập trình,tech,,,0.49,Node.js|NodeJS|Node|ExpressJS
 php,PHP,PHP,en,Lập trình,tech,,,0.55,PHP|Laravel|CodeIgniter
-dotnet,.NET,.NET,en,Lập trình,tech,,,0.47,.NET|dotnet|ASP.NET|C#|CSharp
+dotnet,.NET,.NET,en,Lập trình,tech,,,0.47,\b.NET|dotnet|ASP.NET|C#|CSharp
 golang,Go,Go,en,Lập trình,tech,,,0.38,Golang|\bGo\b
 mobile-dev,Lập trình di động,Mobile development,vi,Lập trình,domain,,,0.45,Android|iOS|Flutter|React Native|Kotlin|Swift|lập trình di động
 api-design,Thiết kế API,API design,vi,Lập trình,domain,,,0.4,REST API|RESTful|API design|thiết kế API|GraphQL|microservices|APIs|\bREST|WebSocket|gRPC
@@ -83,7 +83,7 @@ procurement,Mua hàng,Procurement,vi,Vận hành văn phòng,domain,,,0.48,mua h
 logistics,Vận hành kho vận,Logistics,vi,Vận hành văn phòng,domain,,,0.41,logistics|kho vận|chuỗi cung ứng|supply chain|xuất nhập khẩu|demand planning|\bS&OP|lập kế hoạch cung ứng
 project-management,Quản lý dự án,Project management,vi,Quản trị,domain,,,0.27,quản lý dự án|project management|project manager|PMP|quản trị dự án
 agile,Agile Scrum,Agile Scrum,en,Quản trị,domain,,,0.25,Agile|Scrum|Kanban|Scrum Master|sprint
-product-management,Quản lý sản phẩm,Product management,vi,Quản trị,domain,,,0.24,product manager|quản lý sản phẩm|product owner|PO|roadmap sản phẩm
+product-management,Quản lý sản phẩm,Product management,vi,Quản trị,domain,,,0.24,product manager|quản lý sản phẩm|product owner|roadmap sản phẩm
 people-management,Quản lý đội nhóm,People management,vi,Quản trị,soft,,,0.1,quản lý đội nhóm|team lead|quản lý nhân sự trực tiếp|dẫn dắt đội|kỹ năng lãnh đạo|leadership|khả năng lãnh đạo|quản lý đội ngũ
 process-improvement,Cải tiến quy trình,Process improvement,vi,Quản trị,domain,,,0.34,cải tiến quy trình|process improvement|Lean|Six Sigma|tối ưu quy trình|5S|Kaizen|Lean manufacturing
 recruitment,Tuyển dụng,Recruitment,vi,Quản trị,domain,,,0.56,tuyển dụng nhân sự|recruitment|talent acquisition|săn đầu người|headhunt|headhunter|sàng lọc hồ sơ|phỏng vấn ứng viên|đăng tin tuyển dụng

@@ -4,7 +4,7 @@
     {
       "name": "skillradar-web",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8090", "--bind", "127.0.0.1", "--directory", "skillradar/web"],
+      "runtimeArgs": ["skillradar/ops/devserver.py", "8090"],
       "port": 8090
     }
   ]

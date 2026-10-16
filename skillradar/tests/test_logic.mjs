@@ -44,3 +44,36 @@ test('gợi ý học tiếp chỉ đưa kỹ năng chưa có và có lợi', () 
   assert.ok(next.length > 0);
   for (const n of next) { assert.ok(!owned.has(n.id)); assert.ok(n.gain > 0); }
 });
+
+import { rarity, shields, level, oneIn, salaryInsight, encodeChallenge, decodeChallenge } from '../web/assets/logic.js';
+
+test('độ hiếm, khiên AI, cấp độ', () => {
+  assert.equal(rarity(0.3), 'common'); assert.equal(rarity(0.05), 'valuable'); assert.equal(rarity(0.01), 'rare');
+  assert.equal(shields({ score: 0 }), 5); assert.equal(shields({ score: 0.95 }), 1); assert.equal(shields(null), null);
+  const ids = treeSkills(it).map(([id]) => id);
+  assert.equal(level(it, new Set()).lv, 1);
+  assert.equal(level(it, new Set(ids.slice(0, 4))).lv, 3);
+  assert.equal(level(it, new Set(ids)).lv, 5);
+});
+
+test('"1 trong K" giảm khi có thêm kỹ năng', () => {
+  const ids = treeSkills(it).map(([id]) => id);
+  assert.equal(oneIn(it, new Set(), { ...A, apply_rate_ceiling: 0 }), null);
+  assert.ok(oneIn(it, new Set(ids.slice(0, 2)), A) > oneIn(it, new Set(ids.slice(0, 6)), A));
+});
+
+test('nhận định lương chỉ khi đủ dữ liệu, chênh ≥ 2 triệu', () => {
+  for (const f of families) {
+    const s = salaryInsight(f);
+    if (!s) continue;
+    const raise = f.skills.find(x => x[0] === s.raise), entry = f.skills.find(x => x[0] === s.entry);
+    assert.ok(raise[2] - raise[3] >= 2e6);
+    assert.ok(entry[2] <= entry[3]);
+  }
+});
+
+test('link thách đấu mã hóa và giải mã lại đúng', () => {
+  const h = encodeChallenge('ke-toan', ['excel', 'accounting', 'tax-accounting']);
+  assert.deepEqual(decodeChallenge(h), { family: 'ke-toan', ids: ['accounting', 'excel', 'tax-accounting'] });
+  assert.equal(decodeChallenge('#/thach/<script>/x'), null);
+});
