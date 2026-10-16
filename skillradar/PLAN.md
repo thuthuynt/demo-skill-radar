@@ -10,13 +10,34 @@ dùng ảnh chụp tỷ trọng trên tin đang mở — xem `docs/METRICS.md` �
 
 ---
 
-## Trạng thái 16/10 — còn 6 ngày
+## Trạng thái 17/10 — còn 5 ngày
 
-**Đi trước kế hoạch ~2 ngày.** Dữ liệu thật đã chạy hết đường ống tới `web/data/*.json` (277 KB),
-`verify` khớp toàn bộ. Việc lớn còn lại: nối giao diện, deploy, kiểm thử, video.
+**Đi trước kế hoạch ~2 ngày.** Đường ống dữ liệu thật chạy hết tới `web/data/*.json`, `verify` khớp toàn
+bộ (kể cả 45 cảnh trích dẫn và lương có/không kỹ năng). Ba trang cho ba nhóm người dùng đã chạy bằng số thật.
 
 | Hạng mục | Trạng thái |
 |---|---|
+| Crawl hằng ngày 07:00 | ✅ chạy đều 13–17/10 |
+| 4 nguồn | itviec ✅ · jobsgo ✅ · timviec365 ✅ · **vietnamworks ⚠ sitemap 404 từ 14/10** (ảnh chụp 13/10) |
+| Silver / trích kỹ năng | ✅ 39k tin, danh mục v3 (159 kỹ năng), 92% tin trong phạm vi có ≥1 kỹ năng chuyên môn |
+| Chỉ số + dự báo ARIMA | ✅ 142 chuỗi, mô hình thắng mốc ngây thơ 55% |
+| **Trang học sinh** (`/`) | ✅ lướt nghề → một ngày đi làm (cảnh trích tin thật, điền ô trống) → thẻ kỹ năng → hồ sơ PNG + link thách đấu |
+| **Trang nhà trường** (`/nha-truong/`) | ✅ đối chiếu chương trình: tích kỹ năng đã dạy → mức đáp ứng, kỹ năng thiếu, kỹ năng đang lên, CSV |
+| **Trang cơ quan quản lý** (`/co-quan/`) | ✅ nhóm nghề × tỉnh, kỹ năng theo tỉnh, tác động AI, lương, biến động 12 tháng, chất lượng dữ liệu |
+| Tập chuẩn F1 | ⏸ công cụ gán nhãn xong; chờ chọn cách dùng LLM |
+| Deploy | ⏳ **[người]** Cloudflare Pages: build output directory → `skillradar/web` |
+
+**Việc của bạn:**
+1. Đọc lại toàn bộ chữ: `web/copy.vi.json` (học sinh) và `web/copy.pro.vi.json` (nhà trường, cơ quan) — đặc biệt
+   tên "kiểu người" (archetypes) và thứ tự lướt nghề
+2. Điều khoản sử dụng 4 nguồn + email xin phép (kèm báo vietnamworks hỏng sitemap) — *vẫn chưa làm*
+3. Duyệt `ai_expert_score` 60 kỹ năng mới (`data/skill_candidates.csv`)
+4. Cloudflare Pages: đổi build output directory thành `skillradar/web` để công bố
+5. Chọn cách làm tập chuẩn F1 (A/B/C) + API key
+
+**Rủi ro:** vietnamworks hỏng tới hạn nộp; chưa có F1 thật (trang chất lượng ghi "chưa đo").
+
+---|---|
 | Crawl hằng ngày 07:00 | ✅ chạy đều 13–16/10 (lỗi launchd 14/10 đã sửa) |
 | 4 nguồn | itviec ✅ · jobsgo ✅ · timviec365 ✅ · **vietnamworks ⚠ sitemap 404 từ 14/10** (dùng ảnh chụp 13/10) |
 | Lịch sử Internet Archive | ✅ 01/2025–09/2026; itviec 16, vietnamworks 17 tháng dùng được |
