@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SkillRadar VN — kỹ năng của bạn còn giá trong bao lâu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0A1310;--panel:#0F1B17;--panel2:#132520;--line:#1E332B;--line2:#2A4438;
+  --ink:#E8F1EB;--muted:#8FA79A;--dim:#5E7568;
+  --accent:#35D39A;--accent-soft:rgba(53,211,154,.14);--amber:#E9A83C;--red:#E4705C;
+  --shadow:0 18px 40px -24px rgba(0,0,0,.9);
+  color-scheme:dark;box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-theme="light"]{
+  --bg:#EDF2EE;--panel:#FFFFFF;--panel2:#F5F8F5;--line:#DCE5DF;--line2:#C6D4CB;
+  --ink:#0B1712;--muted:#5C7268;--dim:#8FA096;
+  --accent:#0F7D55;--accent-soft:rgba(15,125,85,.10);--amber:#A76A0C;--red:#BC4E39;
+  --shadow:0 16px 34px -26px rgba(11,23,18,.45);color-scheme:light}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:132px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+ font-family:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px 80px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+[hidden]{display:none !important}
+
+header.bar{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 90%,transparent);
+ backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.bar-in{max-width:1140px;margin:0 auto;padding:11px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto}
+.brand b{font-weight:800;font-size:16.5px;letter-spacing:-.02em;display:block;line-height:1.15}
+.brand span{color:var(--muted);font-size:12px;display:block}
+.who-hint{margin-left:auto;font-size:12.5px;color:var(--dim)}
+.who{border-bottom:1px solid var(--line);background:var(--panel2)}
+.who-in{max-width:1140px;margin:0 auto;padding:8px 20px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.who-t{display:flex;flex-direction:column;gap:2px;align-items:flex-start;text-align:left;
+ padding:9px 13px;border:1px solid transparent;border-radius:11px;background:none;cursor:pointer;font:inherit;
+ transition:background .14s,border-color .14s}
+.who-t b{font-size:14px;font-weight:600;color:var(--muted);letter-spacing:-.01em;line-height:1.25}
+.who-t span{font-size:11.5px;color:var(--dim);line-height:1.3}
+.who-t:hover{background:var(--panel)}
+.who-t:hover b{color:var(--ink)}
+.who-t[aria-selected="true"]{background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.who-t[aria-selected="true"] b{color:var(--ink)}
+.who-t[aria-selected="true"] span{color:var(--muted)}
+button.ghost{font:inherit;font-size:13px;color:var(--ink);background:var(--panel);border:1px solid var(--line);
+ border-radius:9px;padding:7px 11px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+button.ghost:hover{border-color:var(--line2)}
+
+/* câu hỏi mở đầu viết như một câu nói */
+.ask{margin:42px 0 30px;font-size:clamp(23px,3.4vw,34px);line-height:1.5;font-weight:600;letter-spacing:-.02em;max-width:24ch}
+.ask .slot{display:inline-block;position:relative}
+.ask .txt{font-weight:800;color:var(--accent);padding:0 20px 2px 0;
+ border-bottom:2px dashed color-mix(in srgb,var(--accent) 55%,transparent);
+ background-image:linear-gradient(45deg,transparent 50%,var(--accent) 50%),linear-gradient(135deg,var(--accent) 50%,transparent 50%);
+ background-position:calc(100% - 9px) calc(50% + 1px),calc(100% - 4px) calc(50% + 1px);background-size:5px 5px,5px 5px;background-repeat:no-repeat}
+.ask .slot:hover .txt{border-bottom-style:solid}
+.ask select{position:absolute;left:0;top:0;width:100%;height:100%;opacity:0;cursor:pointer;appearance:none;border:0;
+ font-family:inherit;font-size:15px;font-weight:500;line-height:1.4}
+.ask select option{font-size:15px;font-weight:500;color:var(--ink);background:var(--panel)}
+.skillrow{margin:0 0 34px}
+.skillrow .lbl{font-size:13px;color:var(--muted);margin-bottom:10px}
+.opts{display:flex;gap:8px;flex-wrap:wrap}
+.opt{font:inherit;font-size:13.5px;background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+ border-radius:999px;padding:7px 14px;cursor:pointer}
+.opt:hover{border-color:var(--line2)}
+.opt[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#04120C;font-weight:600}
+:root[data-theme="light"] .opt[aria-pressed="true"]{color:#fff}
+.opt[aria-pressed="true"]::before{content:"✓ ";font-weight:700}
+
+/* câu trả lời */
+.answer{background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 8%,var(--panel)),var(--panel));
+ border:1px solid var(--line);border-radius:18px;padding:26px 26px 8px;box-shadow:var(--shadow)}
+.ahead{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:26px;align-items:end;margin-bottom:6px}
+.abig{font-size:clamp(26px,3.6vw,38px);font-weight:800;letter-spacing:-.03em;line-height:1.18;margin:0;max-width:22ch}
+.abig em{font-style:normal;color:var(--accent)}
+.abig em.bad{color:var(--amber)}
+.asub{color:var(--muted);font-size:14px;margin-top:10px;max-width:56ch}
+.nums{display:flex;gap:28px;flex-wrap:wrap}
+.nums div .v{font-size:27px;font-weight:700;letter-spacing:-.025em;line-height:1}
+.nums div .l{font-size:12px;color:var(--muted);margin-top:5px;max-width:15ch}
+.chart-wrap{width:100%;overflow-x:auto;margin-top:6px;-webkit-overflow-scrolling:touch}
+#fork,#h-chart,#n-chart{min-width:700px}
+#ts,#plane,#gap{min-width:620px}
+.clegend{display:flex;gap:18px;flex-wrap:wrap;font-size:12px;color:var(--muted);padding:2px 2px 16px}
+.clegend i{width:16px;height:0;border-top-width:2.5px;display:inline-block;vertical-align:middle;margin-right:6px}
+
+section{margin-top:46px}
+.shead{display:flex;align-items:baseline;gap:13px;flex-wrap:wrap;margin-bottom:16px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+.shead h2{margin:0;font-size:19px;font-weight:700;letter-spacing:-.02em}
+.shead p{margin:0;font-size:13px;color:var(--muted)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+
+.doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.door{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:18px;cursor:pointer;
+ display:flex;flex-direction:column;gap:12px;text-align:left;font:inherit;color:inherit;transition:border-color .15s,background .15s}
+.door:hover{border-color:var(--line2)}
+.door[aria-pressed="true"]{border-color:var(--accent);background:linear-gradient(180deg,var(--accent-soft),var(--panel))}
+.door .kind{font-size:11.5px;color:var(--muted);letter-spacing:.01em}
+.door h3{margin:0;font-size:18px;font-weight:700;letter-spacing:-.02em}
+.door .cov{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--muted)}
+.pbar{flex:1;height:6px;border-radius:99px;background:var(--panel2);border:1px solid var(--line);overflow:hidden}
+.pbar i{display:block;height:100%;background:var(--accent);transition:width .45s cubic-bezier(.4,0,.2,1)}
+.door .gainbox{display:flex;align-items:baseline;gap:8px}
+.door .gain{font-size:24px;font-weight:700;color:var(--accent);letter-spacing:-.02em}
+.door .gsub{font-size:12px;color:var(--muted)}
+.door .meta{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:11px;margin-top:auto}
+
+.bridge{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.bridge>div{padding:17px;border-right:1px solid var(--line);background:var(--panel)}
+.bridge>div:last-child{border-right:0}
+.bridge .when{font-size:11.5px;color:var(--accent);font-weight:600;margin-bottom:6px}
+.bridge .what{font-size:16.5px;font-weight:700;margin-bottom:5px}
+.bridge .desc{font-size:12.5px;color:var(--muted)}
+.bridge .end{background:var(--panel2)}
+
+.why{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,320px);gap:18px}
+.slist{display:flex;flex-direction:column;gap:7px}
+.srow{display:flex;align-items:center;gap:11px;padding:10px 13px;background:var(--panel);border:1px solid var(--line);border-radius:11px;
+ font-size:13.5px;text-align:left;color:inherit;font-family:inherit;cursor:pointer;width:100%}
+.srow:hover{border-color:var(--line2)}
+.srow .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+.srow .tr{width:74px;flex:none}
+.badge{font-size:11px;border-radius:6px;padding:2px 7px;white-space:nowrap}
+.b-up{background:var(--accent-soft);color:var(--accent)}
+.b-down{background:color-mix(in srgb,var(--red) 16%,transparent);color:var(--red)}
+.b-warn{background:color-mix(in srgb,var(--amber) 18%,transparent);color:var(--amber)}
+.honest{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;font-size:13px;color:var(--muted)}
+.honest h4{margin:0 0 9px;font-size:13.5px;color:var(--ink);font-weight:700}
+.honest p{margin:0 0 10px}
+.honest p:last-child{margin:0}
+.empty{color:var(--muted);font-size:13.5px;padding:15px;border:1px dashed var(--line2);border-radius:11px}
+
+/* tab thị trường */
+.sel{position:relative}
+.sel label{position:absolute;top:-8px;left:10px;background:var(--bg);padding:0 5px;font-size:10.5px;color:var(--dim)}
+select.plain{font:inherit;font-size:13.5px;color:var(--ink);background:var(--panel);border:1px solid var(--line);
+ border-radius:10px;padding:9px 30px 9px 12px;cursor:pointer;appearance:none;min-width:150px;
+ background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);
+ background-position:calc(100% - 16px) 50%,calc(100% - 11px) 50%;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+h1.mk{font-size:clamp(26px,4vw,38px);line-height:1.1;letter-spacing:-.035em;font-weight:800;margin:34px 0 12px}
+.lede{color:var(--muted);max-width:56ch;margin:0 0 24px;font-size:15.5px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:26px}
+.kpi{border:1px solid var(--line);border-radius:12px;padding:13px 14px;background:var(--panel)}
+.kpi .v{font-size:24px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
+.kpi .l{font-size:12px;color:var(--muted);margin-top:3px}
+.kpi .d{font-size:12px;margin-top:6px}
+.up{color:var(--accent)}.down{color:var(--red)}
+.radarbox{background:radial-gradient(circle at 50% 46%,color-mix(in srgb,var(--accent) 7%,transparent) 0,transparent 62%),var(--panel);
+ border:1px solid var(--line);border-radius:16px;padding:16px 14px 10px;position:relative;overflow:hidden}
+.radarbox h3{margin:0 0 2px;font-size:14px;font-weight:600}
+.radarbox p{margin:0 0 4px;font-size:12px;color:var(--muted)}
+.radar-stage{position:relative;aspect-ratio:11/10;width:100%}
+.radar-stage svg{position:absolute;inset:0;width:100%;height:100%}
+.sweep{position:absolute;left:50%;top:49%;width:56%;aspect-ratio:1/1;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;
+ background:conic-gradient(from 0deg,color-mix(in srgb,var(--accent) 34%,transparent) 0deg,transparent 46deg,transparent 360deg);
+ -webkit-mask:radial-gradient(circle at 50% 50%,#000 0 47%,transparent 47.4%);
+ mask:radial-gradient(circle at 50% 50%,#000 0 47%,transparent 47.4%);opacity:0;mix-blend-mode:screen}
+:root[data-theme="light"] .sweep{mix-blend-mode:multiply}
+.sweep.on{animation:spin 2.2s linear 3,fadeout 6.6s linear forwards}
+@keyframes spin{from{transform:translate(-50%,-50%) rotate(0)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes fadeout{0%,74%{opacity:1}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.sweep.on{animation:none;opacity:0}.pbar i{transition:none}}
+.axis-lbl{font-size:10.5px;fill:var(--muted)}
+.legend{display:flex;gap:16px;justify-content:center;font-size:11.5px;color:var(--muted);padding:4px 0 2px;flex-wrap:wrap}
+.legend i{width:14px;height:2px;display:inline-block;vertical-align:middle;margin-right:6px}
+.warn{background:color-mix(in srgb,var(--amber) 12%,var(--panel));border:1px solid color-mix(in srgb,var(--amber) 38%,var(--line));
+ border-radius:12px;padding:13px 15px;font-size:13px;margin-top:18px}
+.note{font-size:12.5px;color:var(--muted);margin-top:14px;padding-top:12px;border-top:1px dashed var(--line2)}
+.tablebar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+input[type=search]{font:inherit;font-size:13.5px;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:9px 12px;min-width:210px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{text-align:left;font-weight:600;font-size:11.5px;color:var(--muted);padding:0 10px 9px;white-space:nowrap;cursor:pointer;border-bottom:1px solid var(--line)}
+th.num,td.num{text-align:right}
+td{padding:10px;border-bottom:1px solid var(--line);white-space:nowrap}
+tbody tr{cursor:pointer}tbody tr:hover{background:var(--panel2)}
+td.name{white-space:normal;font-weight:500}
+.pill{font-size:11px;border-radius:6px;padding:2px 7px;border:1px solid var(--line2);color:var(--muted)}
+.status{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.status div{background:var(--panel);padding:16px}
+.status .v{font-size:21px;font-weight:600}
+.status .l{font-size:12px;color:var(--muted);margin-top:2px}
+.status .s{font-size:11.5px;color:var(--dim);margin-top:7px}
+.levers{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px}
+.lever{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:18px;display:flex;flex-direction:column;gap:11px}
+.lever .tagn{font-size:11.5px;color:var(--muted)}
+.lever h3{margin:0;font-size:17px;font-weight:700;letter-spacing:-.02em}
+.lever .big{font-size:25px;font-weight:700;color:var(--accent);letter-spacing:-.02em}
+.lever .big.bad{color:var(--amber)}
+.lever p{margin:0;font-size:13px;color:var(--muted)}
+.lever ul{margin:0;padding-left:17px;font-size:13px;color:var(--muted)}
+.lever li{margin-bottom:3px}
+button.linky{font:inherit;font-size:inherit;color:var(--accent);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.srow.flag{border-color:color-mix(in srgb,var(--amber) 45%,var(--line));background:color-mix(in srgb,var(--amber) 7%,var(--panel))}
+.rec-up{color:var(--accent);font-weight:600}
+.rec-dn{color:var(--amber);font-weight:600}
+footer{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);color:var(--dim);font-size:12.5px}
+.tip{position:fixed;z-index:60;pointer-events:none;background:var(--panel);border:1px solid var(--line2);border-radius:9px;
+ padding:8px 10px;font-size:12px;box-shadow:var(--shadow);opacity:0;transition:opacity .12s;max-width:240px}
+.tip.on{opacity:1}
+.tip b{display:block;font-size:12.5px;margin-bottom:2px}
+@media (max-width:900px){
+  .ahead{grid-template-columns:1fr;gap:18px;align-items:start}
+  .doors{grid-template-columns:1fr}
+  .why{grid-template-columns:1fr}
+  .kpis{grid-template-columns:1fr 1fr}
+  .bridge{grid-template-columns:1fr}
+  .bridge>div{border-right:0;border-bottom:1px solid var(--line)}
+}
+@media (max-width:760px){
+  .who-in{grid-template-columns:1fr 1fr;padding:7px 14px;gap:6px}
+  .who-t{padding:8px 11px}
+  .who-t span{display:none}
+  .who-hint{display:none}
+}
+@media (max-width:560px){.wrap{padding:0 14px 60px}.bar-in{padding:10px 14px}.answer{padding:20px 16px 6px}.nums{gap:20px}
+  .who-t b{font-size:13px}}
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="bar-in">
+    <div class="brand">
+      <svg width="28" height="28" viewBox="0 0 30 30" fill="none" aria-hidden="true">
+        <circle cx="15" cy="15" r="13" stroke="var(--line2)"/><circle cx="15" cy="15" r="8.5" stroke="var(--line2)"/>
+        <circle cx="15" cy="15" r="4" stroke="var(--line2)"/><path d="M15 15 L26 9" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round"/>
+        <circle cx="21.5" cy="10.5" r="2.4" fill="var(--accent)"/><circle cx="10" cy="20" r="1.6" fill="var(--amber)"/>
+      </svg>
+      <div><b>SkillRadar VN</b><span>Radar kỹ năng thị trường lao động</span></div>
+    </div>
+    <span class="who-hint">Chọn vai trò của bạn ở dưới</span>
+    <button class="ghost" id="theme" aria-label="Đổi giao diện sáng tối"><span id="themeIcon">☀</span><span id="themeTxt">Nền sáng</span></button>
+  </div>
+  <nav class="who"><div class="who-in" role="tablist" aria-label="Bạn là ai">
+    <button class="who-t" role="tab" id="tab-hs" aria-selected="true" aria-controls="view-hs">
+      <b>Học sinh chọn ngành</b><span>sắp thi, muốn biết ra trường thì sao</span></button>
+    <button class="who-t" role="tab" id="tab-me" aria-selected="false" aria-controls="view-me">
+      <b>Sinh viên &amp; người đi làm</b><span>đã có nghề, muốn biết còn giá bao lâu</span></button>
+    <button class="who-t" role="tab" id="tab-nt" aria-selected="false" aria-controls="view-nt">
+      <b>Nhà trường</b><span>cân nhắc mở ngành, sửa chương trình</span></button>
+    <button class="who-t" role="tab" id="tab-pl" aria-selected="false" aria-controls="view-pl">
+      <b>Cơ quan quản lý</b><span>chỉ tiêu, đào tạo lại, hướng nghiệp</span></button>
+  </div></nav>
+</header>
+
+<div class="wrap">
+<div id="view-me" role="tabpanel" aria-labelledby="tab-me" hidden>
+
+  <p class="ask">Tôi đang
+    <span class="slot"><span class="txt" id="t-stage">làm</span><select id="q-stage" aria-label="Bạn đang học hay đang đi làm">
+      <option value="hoc">học</option><option value="lam">làm</option></select></span>
+    <span class="slot"><span class="txt" id="t-job">—</span><select id="q-job" aria-label="Nghề của bạn"></select></span>,
+    định làm việc ở
+    <span class="slot"><span class="txt" id="t-prov">—</span><select id="q-prov" aria-label="Nơi bạn muốn làm việc"></select></span>,
+    <span id="t-hz-pre">và muốn nhìn trước</span>
+    <span class="slot"><span class="txt" id="t-hz">3 năm</span><select id="q-hz" aria-label="Mốc thời gian">
+      <option value="1">1 năm</option><option value="2">2 năm</option><option value="3">3 năm</option><option value="5">5 năm</option></select></span>.
+  </p>
+
+  <div class="skillrow">
+    <div class="lbl" id="q-lbl">Trong số những kỹ năng nghề này hay đòi, bạn làm được những gì rồi?</div>
+    <div class="opts" id="q-skills"></div>
+  </div>
+
+  <div class="answer">
+    <div class="ahead">
+      <div>
+        <h2 class="abig" id="a-head">—</h2>
+        <p class="asub" id="a-sub">—</p>
+      </div>
+      <div class="nums">
+        <div><div class="v mono" id="n-now">—</div><div class="l">việc bạn với tới hôm nay, mỗi tháng</div></div>
+        <div><div class="v mono" id="n-later">—</div><div class="l" id="n-later-l">nếu không học thêm gì</div></div>
+      </div>
+    </div>
+    <div class="chart-wrap"><svg id="fork" viewBox="0 0 1040 400" role="img" aria-label="Số việc bạn với tới theo thời gian, hiện tại và dự báo"></svg></div>
+    <div class="clegend" id="c-legend"></div>
+  </div>
+
+  <section>
+    <div class="shead"><h2>Từ chỗ bạn đang đứng, ba lối đi gần nhất</h2>
+      <p>Xếp theo mức bạn đã đi được bao nhiêu phần đường, không phải theo nghề nào đang hot.</p></div>
+    <div class="doors" id="doors"></div>
+  </section>
+
+  <section>
+    <div class="shead"><h2 id="bh">Cây cầu bắc sang đó</h2><p id="bh2">Chỉ những kỹ năng thật sự cần để đổi hướng, không phải danh sách dài.</p></div>
+    <div class="bridge" id="bridge"></div>
+    <div class="warn" id="bwarn" hidden></div>
+  </section>
+
+  <section>
+    <div class="shead"><h2>Vì sao hệ thống nói như vậy</h2><p>Mỗi kỹ năng bạn có kéo con số lên hay xuống, và kéo bao nhiêu.</p></div>
+    <div class="why">
+      <div class="slist" id="slist"></div>
+      <div class="honest">
+        <h4>Những chỗ con số này yếu</h4>
+        <p>Dữ liệu chỉ gồm tin tuyển dụng đăng công khai trên các cổng việc làm, nên phủ tốt khối văn phòng ở đô thị và phủ kém lao động phổ thông, nông thôn, cũng như các vị trí tuyển qua người quen.</p>
+        <p>Phần trước vạch <b>hôm nay</b> là số đếm thật. Phần sau là phóng chiếu từ lịch sử dựng lại được từ đầu 2022, nên càng đi xa càng loãng: mốc một năm rưỡi còn đáng tin, mốc 5 năm chỉ nên đọc như một kịch bản để chuẩn bị, không phải lời tiên tri.</p>
+        <p>Mô hình không biết bạn giỏi đến đâu, chỉ biết thị trường đang hỏi gì. Một người rất giỏi ở kỹ năng đang xuống vẫn sống tốt hơn con số này gợi ý.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="shead"><h2 id="skh">Nhìn kỹ một kỹ năng</h2><p>Chỉ số nhu cầu theo tháng từ đầu 2022 và dự báo 6 tháng kèm khoảng tin cậy.</p></div>
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:11px;flex-wrap:wrap;margin-bottom:6px">
+        <h3 id="sk-name" style="margin:0;font-size:20px;font-weight:700;letter-spacing:-.02em">—</h3>
+        <span class="pill" id="sk-esco">ESCO —</span><span class="pill" id="sk-group">—</span>
+      </div>
+      <div class="chart-wrap"><svg id="ts" viewBox="0 0 720 260" role="img" aria-label="Chỉ số nhu cầu theo tháng"></svg></div>
+      <div class="note" id="sk-note"></div>
+    </div>
+  </section>
+
+  <footer>Dữ liệu trong bản demo là số liệu mô phỏng để minh họa cách trình bày, chưa phải số thật. Chỉ số, phương pháp dự báo và cách đo chất lượng theo đúng bản đề xuất SkillRadar VN · BTL86-59. <button class="linky" data-goto="mk">Xem số liệu nền →</button></footer>
+</div>
+
+<div id="view-hs" role="tabpanel" aria-labelledby="tab-hs" hidden>
+  <p class="ask">Tôi định thi vào ngành
+    <span class="slot"><span class="txt" id="h-nganh">—</span><select id="q-hnganh" aria-label="Ngành bạn định thi"></select></span>&#8202;,
+    ra trường năm
+    <span class="slot"><span class="txt" id="h-nam">—</span><select id="q-hnam" aria-label="Năm bạn ra trường">
+      <option value="2029">2029</option><option value="2030" selected>2030</option>
+      <option value="2031">2031</option><option value="2032">2032</option></select></span>,
+    và muốn làm việc ở
+    <span class="slot"><span class="txt" id="h-tinh">—</span><select id="q-htinh" aria-label="Nơi bạn muốn làm việc"></select></span>.
+  </p>
+
+  <div class="answer">
+    <div class="ahead">
+      <div><h2 class="abig" id="h-head">—</h2><p class="asub" id="h-sub">—</p></div>
+      <div class="nums">
+        <div><div class="v mono" id="h-need">—</div><div class="l">vị trí tuyển mới mỗi năm lúc bạn ra trường</div></div>
+        <div><div class="v mono" id="h-grad">—</div><div class="l">người tốt nghiệp ngành này mỗi năm</div></div>
+        <div><div class="v mono" id="h-sal">—</div><div class="l">lương khởi điểm phổ biến</div></div>
+      </div>
+    </div>
+    <div class="chart-wrap"><svg id="h-chart" viewBox="0 0 1040 360" role="img" aria-label="Nhu cầu tuyển mới và số người tốt nghiệp theo năm"></svg></div>
+    <div class="clegend" id="h-legend"></div>
+  </div>
+
+  <section>
+    <div class="shead"><h2>Bốn năm nữa, chương trình này còn dạy đúng thứ thị trường cần không</h2>
+      <p>Từng kỹ năng cốt lõi của ngành, kèm xu hướng nhu cầu và mức AI can thiệp.</p></div>
+    <div class="why">
+      <div class="slist" id="h-skills"></div>
+      <div class="honest">
+        <h4>Cách đọc phần này</h4>
+        <p>Những dòng gạch vàng là kỹ năng mà thị trường đang giảm hỏi tới và AI đang làm thay phần lớn. Nếu chương trình đào tạo vẫn dành nhiều tín chỉ cho chúng, bạn sẽ bỏ ra bốn năm để học một thứ mất giá dần trong chính bốn năm đó.</p>
+        <p>Không có nghĩa là đừng học ngành này. Có nghĩa là khi chọn trường, hãy hỏi thẳng xem chương trình có dạy những kỹ năng ở nhóm đầu bảng không, và hỏi xem họ cập nhật chương trình lần gần nhất là khi nào.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="shead"><h2>So với các ngành khác, tính tại năm bạn ra trường</h2>
+      <p>Bấm một dòng để xem ngành đó thay cho ngành đang chọn.</p></div>
+    <div class="chart-wrap"><table><thead><tr>
+      <th>Ngành đào tạo</th><th class="num">Vị trí tuyển mới/năm</th><th class="num">Tốt nghiệp/năm</th>
+      <th class="num">Cạnh tranh</th><th class="num">Lương khởi điểm</th><th class="num">Kỹ năng rủi ro AI</th>
+    </tr></thead><tbody id="h-tb"></tbody></table></div>
+    <div class="note">Cạnh tranh là số người tốt nghiệp chia cho số vị trí tuyển mới cùng năm, tính riêng cho địa bàn bạn chọn. Dưới 1,0 nghĩa là nhiều chỗ hơn người; trên 1,0 nghĩa là ngược lại. Đây là dự báo bốn năm nên đọc theo thứ hạng giữa các ngành, đừng bám vào con số lẻ.</div>
+  </section>
+  <footer>Dữ liệu trong bản demo là số liệu mô phỏng. <button class="linky" data-goto="mk">Xem số liệu nền và trang trạng thái →</button></footer>
+</div>
+
+<div id="view-nt" role="tabpanel" aria-labelledby="tab-nt" hidden>
+  <p class="ask">Trường tôi ở
+    <span class="slot"><span class="txt" id="t-ntinh">—</span><select id="q-ntinh" aria-label="Địa bàn của trường"></select></span>,
+    đang cân nhắc mở ngành
+    <span class="slot"><span class="txt" id="t-nnganh">—</span><select id="q-nnganh" aria-label="Ngành định mở"></select></span>
+  </p>
+
+  <div class="answer">
+    <div class="ahead">
+      <div><h2 class="abig" id="n-head">—</h2><p class="asub" id="n-sub">—</p></div>
+      <div class="nums">
+        <div><div class="v mono" id="n-room">—</div><div class="l">dư địa tuyển sinh mỗi năm trên địa bàn</div></div>
+        <div><div class="v mono" id="n-size">—</div><div class="l">quy mô khóa đầu nên cân nhắc</div></div>
+      </div>
+    </div>
+    <div class="chart-wrap"><svg id="n-chart" viewBox="0 0 1040 330" role="img" aria-label="Dư địa tuyển sinh ngành này theo tỉnh"></svg></div>
+    <div class="clegend" id="n-legend"></div>
+  </div>
+
+  <section>
+    <div class="shead"><h2>Nếu mở, nên dạy gì</h2>
+      <p>Khung kỹ năng dựng từ tần suất xuất hiện trong tin tuyển dụng của chính ngành này, 12 tháng gần nhất.</p></div>
+    <div class="levers" id="n-curr"></div>
+    <div class="warn" id="n-warn" hidden></div>
+  </section>
+
+  <section>
+    <div class="shead"><h2>Trước khi trình hội đồng</h2><p>Những giới hạn nên ghi thẳng trong đề án mở ngành.</p></div>
+    <div class="honest">
+      <p><b>Dư địa không phải cam kết việc làm.</b> Con số này là chênh lệch giữa nhu cầu tuyển mới ước tính trên địa bàn và tổng chỉ tiêu các trường đang công bố. Nó không tính sinh viên từ tỉnh khác đến học rồi ở lại, cũng không tính sinh viên của trường bạn ra tỉnh khác làm việc.</p>
+      <p><b>Độ trễ bốn năm.</b> Khóa đầu tiên của bạn ra trường sau bốn năm, nên con số đáng quan tâm là nhu cầu tại thời điểm đó, không phải hôm nay. Biểu đồ phía trên đã chiếu tới mốc đó, nhưng càng xa càng loãng.</p>
+      <p><b>Khung kỹ năng là điểm khởi đầu, không phải chương trình.</b> Nó cho biết thị trường đang hỏi gì và hỏi nhiều đến đâu. Việc chuyển thành học phần, tín chỉ và chuẩn đầu ra vẫn là việc của hội đồng khoa học nhà trường.</p>
+    </div>
+  </section>
+  <footer>Dữ liệu trong bản demo là số liệu mô phỏng. <button class="linky" data-goto="mk">Xem số liệu nền và trang trạng thái →</button></footer>
+</div>
+
+<div id="view-mk" role="tabpanel" hidden>
+  <h1 class="mk">Số liệu nền</h1>
+  <p class="lede">Phần chung phía sau cả bốn lát cắt: chỉ số nhu cầu theo tháng của từng kỹ năng, tác động của AI, và các số đo chất lượng của chính hệ thống. <button class="linky" data-goto="hs">← quay lại</button></p>
+  <div class="filters">
+    <div class="sel"><label for="f-nganh">Ngành</label>
+      <select class="plain" id="f-nganh"><option value="all">Tất cả ngành</option><option value="cntt">Công nghệ thông tin</option><option value="kdmkt">Kinh doanh – Marketing</option></select></div>
+    <div class="sel"><label for="f-tinh">Địa bàn</label>
+      <select class="plain" id="f-tinh"><option value="all">Toàn quốc</option><option value="hcm">TP. Hồ Chí Minh</option><option value="hn">Hà Nội</option><option value="dn">Đà Nẵng</option><option value="bd">Bình Dương</option><option value="ct">Cần Thơ</option></select></div>
+    <div class="sel"><label for="f-cap">Cấp độ</label>
+      <select class="plain" id="f-cap"><option value="all">Mọi cấp độ</option><option value="fresher">Fresher</option><option value="junior">Junior</option><option value="senior">Senior</option></select></div>
+    <button class="ghost" id="rescan">Quét lại</button>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><div class="v mono" id="k-tin">—</div><div class="l">Tin trong tháng 9/2026</div><div class="d up">+6,2% so với tháng 8</div></div>
+    <div class="kpi"><div class="v mono" id="k-ky">—</div><div class="l">Kỹ năng chuẩn theo dõi</div><div class="d" style="color:var(--muted)">trong lát cắt đang chọn</div></div>
+    <div class="kpi"><div class="v mono" id="k-len">—</div><div class="l">Kỹ năng tăng nhu cầu</div><div class="d" style="color:var(--muted)">còn lại đi ngang hoặc giảm</div></div>
+    <div class="kpi"><div class="v mono" id="k-ai">—</div><div class="l">Kỹ năng trong vùng cảnh báo</div><div class="d down">điểm AI &gt; 0,50 và nhu cầu giảm</div></div>
+  </div>
+  <div class="radarbox" style="max-width:520px;margin:0 auto">
+    <h3>Radar nhu cầu theo nhóm kỹ năng</h3><p>Bán kính là chỉ số nhu cầu, kỳ gốc T9/2025 = 100.</p>
+    <div class="radar-stage"><svg id="radar" viewBox="0 0 440 400" role="img" aria-label="Radar chỉ số nhu cầu"></svg><div class="sweep" id="sweep"></div></div>
+    <div class="legend"><span><i style="background:var(--accent)"></i>Tháng 9/2026</span><span><i style="background:var(--muted)"></i>Cùng kỳ 2025</span></div>
+  </div>
+
+  <section>
+    <div class="shead"><h2>Mặt phẳng tác động của AI</h2><p>Trục ngang: mức AI can thiệp. Trục dọc: nhu cầu 12 tháng qua.</p></div>
+    <div class="card"><div class="chart-wrap"><svg id="plane" viewBox="0 0 760 420" role="img" aria-label="Biểu đồ tác động AI"></svg></div>
+      <div class="warn">Góc dưới bên phải là vùng cần cảnh báo sớm: nhu cầu đang giảm trong khi AI can thiệp mạnh. Đây là danh sách nên đưa tới người lao động và nhà trường trước, chứ không phải sau.</div></div>
+  </section>
+
+  <section>
+    <div class="shead"><h2>Danh mục kỹ năng</h2><p>Bấm một dòng để xem kỹ năng đó ở tab nghề của tôi.</p></div>
+    <div class="tablebar"><input type="search" id="q" placeholder="Tìm kỹ năng, ví dụ: SQL, kiểm thử…" aria-label="Tìm kỹ năng"><span class="pill mono" id="cnt">—</span></div>
+    <div class="chart-wrap"><table><thead><tr>
+      <th data-k="name">Kỹ năng chuẩn</th><th data-k="group">Nhóm</th><th>Từ 2022</th>
+      <th class="num" data-k="index">Chỉ số</th><th class="num" data-k="chg">12 tháng</th>
+      <th class="num" data-k="postings">Tin/tháng</th><th class="num" data-k="ai">Điểm AI</th>
+    </tr></thead><tbody id="tb"></tbody></table></div>
+  </section>
+
+  <section>
+    <div class="shead"><h2>Trang trạng thái</h2><p>Số đo của chính hệ thống, công bố kể cả khi không đẹp.</p></div>
+    <div class="status">
+      <div><div class="v mono">0,842</div><div class="l">F1 trích kỹ năng</div><div class="s">tập chuẩn 300 tin gán nhãn tay · mục tiêu ≥ 0,80</div></div>
+      <div><div class="v mono">0,791</div><div class="l">F1 trên tin trộn Việt – Anh</div><div class="s">nhóm khó nhất, chưa đạt mục tiêu</div></div>
+      <div><div class="v mono">93,4%</div><div class="l">Cụm ánh xạ được vào danh mục</div><div class="s">6,6% còn lại chờ người duyệt</div></div>
+      <div><div class="v mono">11,2%</div><div class="l">MAPE backtest 6 tháng</div><div class="s">mốc ngây thơ 15,8% · tốt hơn 29%</div></div>
+      <div><div class="v mono">18 giờ</div><div class="l">Độ trễ từ lúc đăng tin</div><div class="s">trung vị 7 ngày gần nhất</div></div>
+      <div><div class="v mono">v0.4.2</div><div class="l">Phiên bản danh mục kỹ năng</div><div class="s">công bố kèm ánh xạ ESCO, giấy phép mở</div></div>
+    </div>
+  </section>
+  <footer>Dữ liệu trong bản demo là số liệu mô phỏng để minh họa cách trình bày, chưa phải số thật. <button class="linky" data-goto="hs">← quay lại các lát cắt người dùng</button></footer>
+</div>
+<div id="view-pl" role="tabpanel" aria-labelledby="tab-pl" hidden>
+  <h1 class="mk">Nên can thiệp vào đâu trước</h1>
+  <p class="lede">Ba đòn bẩy trong tay cơ quan quản lý: chỉ tiêu tuyển sinh, ngân sách đào tạo lại, và nội dung hướng nghiệp. Trang này quy dữ liệu tin tuyển dụng về đúng ba thứ đó, kèm con số để bảo vệ quyết định.</p>
+  <div class="filters">
+    <div class="sel"><label for="p-tinh">Địa bàn</label>
+      <select class="plain" id="p-tinh"><option value="all">Toàn quốc</option><option value="hcm">TP. Hồ Chí Minh</option><option value="hn">Hà Nội</option><option value="dn">Đà Nẵng</option><option value="bd">Bình Dương</option><option value="ct">Cần Thơ</option></select></div>
+    <div class="sel"><label for="p-hz">Chân trời</label>
+      <select class="plain" id="p-hz"><option value="1">1 năm tới</option><option value="3" selected>3 năm tới</option><option value="5">5 năm tới</option></select></div>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><div class="v mono" id="p-k1">—</div><div class="l">chỉ tiêu tuyển sinh mỗi năm đang đổ vào ngành thị trường không cần thêm</div><div class="d" style="color:var(--muted)">ngân sách đào tạo đặt sai chỗ</div></div>
+    <div class="kpi"><div class="v mono" id="p-k2">—</div><div class="l">vị trí mỗi năm không có đủ người tốt nghiệp để tuyển</div><div class="d" style="color:var(--muted)">doanh nghiệp phải tuyển từ tỉnh khác hoặc bỏ trống</div></div>
+    <div class="kpi"><div class="v mono" id="p-k3">—</div><div class="l">lao động đang làm công việc mà AI can thiệp mạnh</div><div class="d down">nhóm cần đào tạo lại trước</div></div>
+    <div class="kpi"><div class="v mono" id="p-k4">—</div><div class="l">kỹ năng vừa giảm nhu cầu vừa bị AI thay thế</div><div class="d" style="color:var(--muted)">nên đưa vào cảnh báo hướng nghiệp năm nay</div></div>
+  </div>
+
+  <section style="margin-top:34px">
+    <div class="shead"><h2>Ba việc nên làm trước</h2><p>Xếp theo số người bị ảnh hưởng, không theo mức độ dễ triển khai.</p></div>
+    <div class="levers" id="p-levers"></div>
+  </section>
+
+  <section>
+    <div class="shead"><h2>Đòn bẩy 1 — Chỉ tiêu tuyển sinh</h2><p>So chỉ tiêu hiện tại với số vị trí tuyển mới mà thị trường sẽ cần.</p></div>
+    <div class="chart-wrap"><table><thead><tr>
+      <th>Ngành đào tạo</th><th class="num">Chỉ tiêu/năm</th><th class="num">Nhu cầu tuyển mới/năm</th>
+      <th class="num">Tỷ lệ cầu / chỉ tiêu</th><th class="num">Khuyến nghị</th>
+    </tr></thead><tbody id="p-tb"></tbody></table></div>
+    <div class="note">Khuyến nghị là mức điều chỉnh mỗi năm, đã giới hạn ở ±20% để không gây sốc cho các trường. Chỉ tiêu không phải số tuyển sinh thực và cũng không phải số tốt nghiệp, nên đây là tín hiệu định hướng chứ không phải lệnh phân bổ.</div>
+  </section>
+
+  <section>
+    <div class="shead"><h2>Đòn bẩy 2 — Bản đồ lệch cung cầu giữa các tỉnh</h2><p>Nơi nào đang đào tạo cho thị trường của tỉnh khác.</p></div>
+    <div class="card"><div class="chart-wrap"><svg id="gap" viewBox="0 0 760 320" role="img" aria-label="Lệch cung cầu theo tỉnh"></svg></div>
+      <div class="note">Chỉ số này đọc như tín hiệu mất cân đối, không phải bằng chứng thất nghiệp: sinh viên tốt nghiệp hoàn toàn có thể đi tỉnh khác làm việc, và với các tỉnh nhỏ thì đó là chuyện bình thường.</div></div>
+  </section>
+
+  <section>
+    <div class="shead"><h2>Đòn bẩy 3 — Danh sách cảnh báo sớm</h2><p>Kỹ năng nên đưa vào tài liệu hướng nghiệp và chương trình đào tạo lại ngay năm nay.</p></div>
+    <div class="chart-wrap"><table><thead><tr>
+      <th>Kỹ năng</th><th>Nhóm</th><th class="num">Nhu cầu 12 tháng</th><th class="num">Điểm AI</th>
+      <th class="num">Tin/tháng</th><th>Hướng chuyển gợi ý</th>
+    </tr></thead><tbody id="p-warn"></tbody></table></div>
+  </section>
+
+  <section>
+    <div class="shead"><h2>Trước khi dùng những con số này</h2><p>Những giới hạn cần nói rõ trong bất kỳ tờ trình nào trích dẫn trang này.</p></div>
+    <div class="honest">
+      <p><b>Phạm vi dữ liệu.</b> Chỉ gồm tin tuyển dụng đăng công khai trên các cổng việc làm. Phủ tốt khối văn phòng và kỹ thuật ở đô thị, phủ kém lao động phổ thông, khu vực phi chính thức, nông nghiệp và các vị trí tuyển qua quan hệ. Không dùng thay cho điều tra lao động việc làm của Tổng cục Thống kê, mà dùng để bù phần độ trễ 6–12 tháng của điều tra đó.</p>
+      <p><b>Quy đổi sang nhu cầu tuyển mới.</b> Số vị trí tuyển mới mỗi năm được ước tính từ số tin tuyển dụng, sau khi trừ tin đăng lại và ước lượng tỷ lệ vị trí dành cho người mới ra trường. Tỷ lệ này là giả định, cần hiệu chỉnh bằng khảo sát doanh nghiệp trước khi dùng cho quyết định phân bổ chỉ tiêu.</p>
+      <p><b>Chân trời dự báo.</b> Mốc 1 năm dựa trên chuỗi số thật. Mốc 3 và 5 năm là kịch bản ngoại suy, nên dùng để chuẩn bị phương án chứ không dùng làm căn cứ pháp lý. Mỗi kỳ công bố đều kèm đối chiếu dự báo cũ với thực tế.</p>
+    </div>
+  </section>
+  <footer>Dữ liệu trong bản demo là số liệu mô phỏng để minh họa cách trình bày, chưa phải số thật. <button class="linky" data-goto="mk">Xem số liệu nền và trang trạng thái →</button></footer>
+</div>
+</div>
+<div class="tip" id="tip"></div>
+<script>
+"use strict";
+function rng(s){let a=s>>>0;return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function hash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+/* lịch sử dựng lại từ đầu 2022 bằng bản lưu, tới T9/2026 */
+const HN=57, BI=HN-13; /* BI là kỳ gốc T9/2025 */
+const MONTHS=(()=>{const a=[];let y=2022,m=1;for(let i=0;i<HN;i++){a.push("T"+m+"/"+String(y).slice(2));m++;if(m>12){m=1;y++}}return a})();
+const FUT=["T10/26","T11/26","T12/26","T1/27","T2/27","T3/27"];
+/* t=0 là T9/2026 */
+function mlabel(t){let m=9+t,y=2026;while(m>12){m-=12;y++}while(m<1){m+=12;y--}return"T"+m+"/"+y}
+function mshort(t){let m=9+t,y=2026;while(m>12){m-=12;y++}return"T"+m+"/"+String(y).slice(2)}
+
+const RAW=[
+["Kỹ thuật dữ liệu","cntt","S1.2.3",38,0.34,1840,34,"Dữ liệu",3],
+["SQL","cntt","S1.2.1",14,0.46,6120,24,"Dữ liệu",1],
+["Power BI","cntt","S1.2.4",9,0.58,2310,22,"Dữ liệu",1],
+["Học máy","cntt","S1.3.2",47,0.22,980,45,"AI & học máy",3],
+["Kỹ thuật prompt","cntt","S1.3.9",214,0.08,640,31,"AI & học máy",1],
+["Vận hành mô hình MLOps","cntt","S1.3.5",63,0.19,410,43,"AI & học máy",3],
+["Kiểm thử tự động","cntt","S1.4.2",26,0.31,1520,27,"Kiểm thử",2],
+["Kiểm thử thủ công","cntt","S1.4.1",-31,0.86,1180,15,"Kiểm thử",1],
+["Kiểm thử hiệu năng","cntt","S1.4.4",11,0.28,520,30,"Kiểm thử",2],
+["React","cntt","S1.1.6",6,0.51,3240,28,"Lập trình",2],
+["Java","cntt","S1.1.2",-4,0.44,4010,32,"Lập trình",3],
+["Python","cntt","S1.1.4",29,0.41,4780,30,"Lập trình",2],
+["Kubernetes","cntt","S1.5.3",34,0.21,870,41,"Hạ tầng & vận hành",3],
+["Điện toán đám mây","cntt","S1.5.1",22,0.25,2260,36,"Hạ tầng & vận hành",2],
+["An toàn thông tin","cntt","S1.6.1",41,0.16,930,38,"Hạ tầng & vận hành",3],
+["Quản trị hệ thống","cntt","S1.5.6",-18,0.63,740,21,"Hạ tầng & vận hành",2],
+["Quảng cáo trả phí","kdmkt","S2.3.2",5,0.61,2140,20,"Marketing số",1],
+["Tối ưu tìm kiếm SEO","kdmkt","S2.3.4",-12,0.74,1420,18,"Marketing số",1],
+["Viết nội dung","kdmkt","S2.3.7",-27,0.91,2680,14,"Nội dung & sáng tạo",1],
+["Thiết kế đồ họa","kdmkt","S2.4.1",-19,0.78,1760,16,"Nội dung & sáng tạo",2],
+["Dựng video","kdmkt","S2.4.5",8,0.66,980,17,"Nội dung & sáng tạo",2],
+["Phân tích marketing","kdmkt","S2.3.9",33,0.37,890,26,"Phân tích kinh doanh",2],
+["Phân tích nghiệp vụ","kdmkt","S2.1.3",17,0.33,1310,28,"Phân tích kinh doanh",2],
+["Nhập liệu, xử lý hồ sơ","kdmkt","S2.6.2",-44,0.94,1620,10,"Vận hành văn phòng",1],
+["Chăm sóc khách hàng","kdmkt","S2.5.1",-9,0.69,3410,13,"Vận hành văn phòng",1],
+["Bán hàng doanh nghiệp","kdmkt","S2.2.1",12,0.18,2870,25,"Bán hàng",2],
+["Quản lý dự án","kdmkt","S2.1.1",15,0.27,1930,33,"Quản trị",2],
+["Tiếng Anh giao tiếp","kdmkt","S3.1.1",7,0.35,5240,0,"Ngôn ngữ",3],
+];
+const GROUPS=[...new Set(RAW.map(r=>r[7]))];
+const EFF_M={1:2,2:4,3:6};
+const JOBS=[
+ {k:"pm",label:"lập trình phần mềm",base:5200,need:{"Java":42,"Python":38,"React":35,"SQL":44,"Điện toán đám mây":26,"Kiểm thử tự động":18,"Kubernetes":14,"Tiếng Anh giao tiếp":52,"An toàn thông tin":9,"Quản lý dự án":11}},
+ {k:"qa",label:"kiểm thử phần mềm",base:2100,need:{"Kiểm thử tự động":58,"Kiểm thử thủ công":46,"Kiểm thử hiệu năng":22,"SQL":37,"Python":31,"Java":18,"Tiếng Anh giao tiếp":49,"Điện toán đám mây":12}},
+ {k:"da",label:"phân tích dữ liệu",base:1800,need:{"SQL":78,"Power BI":54,"Python":46,"Phân tích nghiệp vụ":33,"Kỹ thuật dữ liệu":29,"Phân tích marketing":21,"Học máy":17,"Tiếng Anh giao tiếp":47}},
+ {k:"de",label:"kỹ sư dữ liệu và AI",base:1150,need:{"Python":71,"SQL":66,"Kỹ thuật dữ liệu":62,"Điện toán đám mây":41,"Học máy":38,"Kubernetes":27,"Vận hành mô hình MLOps":24,"Kỹ thuật prompt":14,"Tiếng Anh giao tiếp":44}},
+ {k:"mkt",label:"marketing số",base:3400,need:{"Quảng cáo trả phí":61,"Tối ưu tìm kiếm SEO":48,"Viết nội dung":44,"Phân tích marketing":32,"Thiết kế đồ họa":27,"Dựng video":21,"Power BI":11,"Tiếng Anh giao tiếp":38}},
+ {k:"biz",label:"kinh doanh và vận hành",base:4600,need:{"Bán hàng doanh nghiệp":57,"Chăm sóc khách hàng":43,"Quản lý dự án":31,"Phân tích nghiệp vụ":26,"Nhập liệu, xử lý hồ sơ":24,"Tiếng Anh giao tiếp":45,"SQL":12}},
+];
+const PROVS=[{k:"hcm",label:"TP.HCM",s:.44},{k:"hn",label:"Hà Nội",s:.31},{k:"dn",label:"Đà Nẵng",s:.08},
+ {k:"bd",label:"Bình Dương",s:.07},{k:"ct",label:"Cần Thơ",s:.03},{k:"all",label:"bất cứ đâu",s:1}];
+const MUL_TINH={all:[1,1],hcm:[.44,1.06],hn:[.31,1.03],dn:[.08,.93],bd:[.07,.88],ct:[.03,.84]};
+const MUL_CAP={all:[1,1],fresher:[.29,.86],junior:[.42,1.0],senior:[.29,1.14]};
+
+function build(st){
+  const out=[];
+  for(const r of RAW){
+    if(st.nganh!=="all"&&r[1]!==st.nganh)continue;
+    const rd=rng(hash(r[0]+st.tinh+st.cap)),[pm,im]=MUL_TINH[st.tinh],[pc,ic]=MUL_CAP[st.cap],j=.92+rd()*.16;
+    const chg=r[3]*(im*ic)*j,postings=Math.max(12,Math.round(r[5]*pm*pc*j));
+    const g=Math.pow(Math.max(.12,1+chg/100),1/12)-1,hist=[],noise=rng(hash(r[0]+"h"));
+    /* nhịp tăng giảm của 12 tháng gần nhất không được suy ngược nguyên vẹn về tận 2022,
+       nên tốc độ được giảm dần khi lùi về quá khứ */
+    for(let i=0;i<HN;i++){const dd=i-BI, ge=dd<0?g*Math.exp(dd/30):g, b=100*Math.pow(1+ge,dd);
+      hist.push(Math.max(6,b+b*Math.sin((i+2)/12*Math.PI*2)*(.024+noise()*.016)+b*(noise()-.5)*.05))}
+    const last=hist[HN-1],slope=(hist[HN-1]-hist[HN-7])/6,fc=[],lo=[],hi=[];
+    for(let i=1;i<=6;i++){const v=last+slope*i*.82,w=(4.5+i*2.9)*(1+Math.abs(slope)/9);fc.push(v);lo.push(v-w);hi.push(v+w)}
+    out.push({name:r[0],group:r[7],cat:r[1],esco:r[2],ai:r[4],salary:r[6],effort:r[8],g,
+      index:last,chg:(hist[HN-1]/hist[BI]-1)*100,postings,hist,fc,lo,hi});
+  }
+  return out;
+}
+const ALL=build({nganh:"all",tinh:"all",cap:"all"});
+const byName=n=>ALL.find(d=>d.name===n);
+
+const NS="http://www.w3.org/2000/svg";
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function clear(n){while(n.firstChild)n.removeChild(n.firstChild)}
+const fmt=n=>Math.round(n).toLocaleString("vi-VN");
+const dec=(n,k)=>n.toFixed(k||2).replace(".",",");
+const pct=n=>(n>=0?"+":"−")+Math.abs(n).toFixed(1).replace(".",",")+"%";
+const tip=document.getElementById("tip");
+function showTip(e,h){tip.innerHTML=h;tip.classList.add("on");
+  const r=tip.getBoundingClientRect();let x=e.clientX+14,y=e.clientY+14;
+  if(x+r.width>innerWidth-8)x=e.clientX-r.width-14;
+  if(y+r.height>innerHeight-8)y=e.clientY-r.height-14;
+  tip.style.left=x+"px";tip.style.top=y+"px"}
+function hideTip(){tip.classList.remove("on")}
+function wrapLabel(s){if(s.length<=11)return[s];
+  const w=s.split(" ");let a="",b="";
+  for(const x of w){if((a+" "+x).trim().length<=Math.ceil(s.length/2)||!a)a=(a+" "+x).trim();else b=(b+" "+x).trim()}
+  return b?[a,b]:[a]}
+
+/* ============ MÔ HÌNH: SỐ VIỆC BẠN VỚI TỚI ============ */
+const me={stage:"lam",job:"biz",prov:"hcm",hz:3,
+  have:new Set(["Nhập liệu, xử lý hồ sơ","Chăm sóc khách hàng","Tiếng Anh giao tiếp"]),
+  door:null,skill:"Nhập liệu, xử lý hồ sơ"};
+const jobOf=k=>JOBS.find(j=>j.k===k);
+const provOf=k=>PROVS.find(p=>p.k===k);
+const HZ=60;
+
+function jobGrowth(j){
+  let w=0,s=0;
+  for(const n in j.need){const d=byName(n);if(!d)continue;w+=j.need[n];s+=d.g*j.need[n]}
+  return s/w;
+}
+function jobHist(j,i){ /* chỉ số tương đối so với hôm nay, tháng lịch sử i (0..23) */
+  let w=0,s=0;
+  for(const n in j.need){const d=byName(n);if(!d)continue;w+=j.need[n];s+=(d.hist[i]/d.hist[HN-1])*j.need[n]}
+  return s/w;
+}
+function cover(j,set){
+  let tot=0,got=0;
+  for(const n in j.need){tot+=j.need[n];if(set.has(n))got+=j.need[n]}
+  return got/tot;
+}
+/* độ phủ hiệu dụng tại thời điểm t: kỹ năng đang mất giá thì đóng góp ít dần */
+function coverAt(j,set,t){
+  let tot=0,got=0;
+  for(const n in j.need){
+    tot+=j.need[n];
+    if(!set.has(n))continue;
+    const d=byName(n);if(!d){got+=j.need[n];continue}
+    const f=t<=0?(t<0?d.hist[HN-1+t]/d.hist[HN-1]:1):Math.pow(1+d.g*Math.exp(-t/36),t);
+    got+=j.need[n]*Math.max(.25,Math.min(1.6,f));
+  }
+  return got/tot;
+}
+/* tỷ lệ tin bạn nộp hồ sơ được, theo mức đáp ứng yêu cầu: càng gần đủ càng tăng nhanh, không bao giờ chạm 100% */
+function shape(c){return .34/(1+Math.exp(-(c-.62)/.155))}
+function reachAt(set,t,pShare){
+  let sum=0;
+  for(const j of JOBS){
+    const c=coverAt(j,set,t);const s=shape(c);if(s<=0)continue;
+    let mult;
+    if(t<0)mult=jobHist(j,HN-1+t);
+    else{const g=jobGrowth(j);mult=Math.pow(1+g*Math.exp(-t/36),t)}
+    sum+=j.base*pShare*mult*s;
+  }
+  return sum;
+}
+function series(set,pShare){
+  const h=[],f=[];
+  for(let t=-(HN-1);t<=0;t++)h.push(reachAt(set,t,pShare));
+  for(let t=0;t<=HZ;t++)f.push(reachAt(set,t,pShare));
+  return{h,f};
+}
+function bridgeFor(j,set){
+  const all=Object.keys(j.need).filter(n=>!set.has(n)&&byName(n));
+  /* không bao giờ khuyên học một kỹ năng đang vừa giảm nhu cầu vừa bị AI thay thế */
+  const safe=all.filter(n=>{const d=byName(n);return d.ai<=.6&&d.chg>-5});
+  const miss=(safe.length?safe:all).sort((a,b)=>j.need[b]-j.need[a]);
+  const pick=[];let c=cover(j,set);
+  for(const n of miss){
+    if(pick.length>=3||c>=.78)break;
+    pick.push(n);const s2=new Set([...set,...pick]);c=cover(j,s2);
+  }
+  const months=Math.min(14,pick.reduce((a,n)=>a+EFF_M[byName(n).effort],0));
+  return{pick,months,cov:c};
+}
+
+/* ============ GIAO DIỆN CÂU HỎI ============ */
+function renderAsk(){
+  const qs=document.getElementById("q-stage");
+  if(!qs.dataset.done){qs.value=me.stage;qs.dataset.done="1"}
+  document.getElementById("t-stage").textContent=me.stage==="hoc"?"học":"làm";
+  const qj=document.getElementById("q-job");
+  if(!qj.options.length)qj.innerHTML=JOBS.map(j=>'<option value="'+j.k+'">'+j.label+'</option>').join("");
+  qj.value=me.job;document.getElementById("t-job").textContent=jobOf(me.job).label;
+  const qp=document.getElementById("q-prov");
+  if(!qp.options.length)qp.innerHTML=PROVS.map(p=>'<option value="'+p.k+'">'+p.label+'</option>').join("");
+  qp.value=me.prov;document.getElementById("t-prov").textContent=provOf(me.prov).label;
+  const qh=document.getElementById("q-hz");qh.value=String(me.hz);
+  document.getElementById("t-hz").textContent=me.hz+" năm";
+  document.getElementById("t-hz-pre").textContent=me.stage==="hoc"?"và sẽ ra trường sau":"và muốn nhìn trước";
+  const need=jobOf(me.job).need;
+  const box=document.getElementById("q-skills");
+  box.innerHTML=Object.keys(need).sort((a,b)=>need[b]-need[a])
+    .map(n=>'<button class="opt" aria-pressed="'+me.have.has(n)+'" data-s="'+n.replace(/"/g,"&quot;")+'">'+n+'</button>').join("");
+  box.querySelectorAll("button").forEach(b=>b.onclick=()=>{
+    const n=b.dataset.s;me.have.has(n)?me.have.delete(n):me.have.add(n);me.skill=n;me.door=null;render()});
+  document.getElementById("q-lbl").textContent=me.stage==="hoc"
+    ? "Trong số những kỹ năng nghề này hay đòi, bạn đã học được những gì rồi?"
+    : "Trong số những kỹ năng nghề này hay đòi, bạn làm được những gì rồi?";
+}
+/* ============ BIỂU ĐỒ CHÍNH: NGÃ RẼ ============ */
+let CUR=null;
+function drawFork(){
+  const svg=document.getElementById("fork");clear(svg);
+  const W=1040,H=400,L=58,R=132,T=26,B=42;
+  const pShare=provOf(me.prov).s;
+  const base=series(me.have,pShare);
+  const n0=base.f[0];
+  let alt=null,bm=0;
+  if(me.door){
+    const j=jobOf(me.door),br=bridgeFor(j,me.have);bm=br.months;
+    const set2=new Set([...me.have,...br.pick]);
+    const s2=series(set2,pShare);
+    alt=base.f.map((v,t)=>{
+      if(t<bm)return v;
+      const x=Math.min(1,(t-bm)/9),w=x*x*(3-2*x);
+      return v*(1-w)+s2.f[t]*w;
+    });
+  }
+  const lo=base.f.map((v,t)=>v*Math.max(.15,1-(.04+t*.0072)));
+  const hi=base.f.map((v,t)=>v*(1+(.04+t*.0072)));
+  const vals=[...base.h,...hi,...(alt||[])];
+  const ymax=Math.max(...vals)*1.1,ymin=0;
+  const X=t=>L+(t+HN-1)*(W-L-R)/(HN-1+HZ),Y=v=>T+(H-T-B)*(1-(v-ymin)/(ymax-ymin));
+
+  for(let k=0;k<=4;k++){const v=ymin+(ymax-ymin)*k/4;
+    el("line",{x1:L,y1:Y(v),x2:W-R,y2:Y(v),stroke:"var(--line)"},svg);
+    el("text",{x:L-9,y:Y(v)+4,"text-anchor":"end","font-size":10.5,fill:"var(--dim)",class:"mono"},svg).textContent=fmt(v)}
+  for(let y=2022;y<=2031;y++){
+    const tt=(y-2026)*12-8;
+    if(tt<-(HN-1)||tt>HZ)continue;
+    el("line",{x1:X(tt),y1:T,x2:X(tt),y2:H-B,stroke:"var(--line)",opacity:.55},svg);
+    el("text",{x:X(tt),y:H-16,"text-anchor":"middle","font-size":11,fill:"var(--dim)",class:"mono"},svg).textContent=y;
+  }
+  /* dải tin cậy */
+  const bandPts=[];
+  for(let t=0;t<=HZ;t++)bandPts.push([X(t),Y(hi[t])]);
+  for(let t=HZ;t>=0;t--)bandPts.push([X(t),Y(lo[t])]);
+  el("path",{d:"M"+bandPts.map(p=>p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" L")+" Z",fill:"var(--amber)",opacity:.1},svg);
+
+  const line=(pts,stroke,w,dash)=>el("path",{d:pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" "),
+    fill:"none",stroke,"stroke-width":w,"stroke-linejoin":"round","stroke-linecap":"round","stroke-dasharray":dash||"none"},svg);
+  line(base.h.map((v,i)=>[X(i-(HN-1)),Y(v)]),"var(--accent)",2.6);
+  line(base.f.map((v,t)=>[X(t),Y(v)]),"var(--amber)",2.4,"7 5");
+  if(alt)line(alt.map((v,t)=>[X(t),Y(v)]),"var(--accent)",2.8);
+
+  /* vạch hôm nay */
+  el("line",{x1:X(0),y1:T-6,x2:X(0),y2:H-B,stroke:"var(--ink)","stroke-width":1.2,opacity:.55},svg);
+  el("text",{x:X(0)-7,y:T-12,"text-anchor":"end","font-size":11,"font-weight":600,fill:"var(--ink)"},svg).textContent="hôm nay";
+  el("text",{x:X(0)+7,y:T-12,"font-size":11,fill:"var(--dim)"},svg).textContent="dự báo";
+
+  /* mốc cá nhân */
+  const mk=Math.min(HZ,me.hz*12);
+  if(mk<=HZ){
+    el("line",{x1:X(mk),y1:Y(base.f[mk])-14,x2:X(mk),y2:H-B,stroke:"var(--muted)","stroke-width":1,"stroke-dasharray":"3 4",opacity:.8},svg);
+    const t=el("text",{x:X(mk),y:Y(base.f[mk])-22,"text-anchor":"middle","font-size":11,fill:"var(--muted)"},svg);
+    t.textContent=me.stage==="hoc"?"bạn ra trường":me.hz+" năm nữa";
+  }
+  /* điểm mất giá */
+  if(CUR&&CUR.drop>0){
+    const t=CUR.drop;
+    el("circle",{cx:X(t),cy:Y(base.f[t]),r:5,fill:"var(--amber)",stroke:"var(--panel)","stroke-width":2},svg);
+    const lb=el("text",{x:X(t),y:Y(base.f[t])+22,"text-anchor":"middle","font-size":10.5,fill:"var(--amber)"},svg);
+    lb.textContent="mất 1/5 số việc · "+mshort(t);
+  }
+  /* nhãn cuối đường */
+  const endLbl=(v,txt,col,dy)=>{
+    el("line",{x1:X(HZ),y1:Y(v),x2:X(HZ)+10,y2:Y(v)+dy,stroke:col,"stroke-width":1,opacity:.6},svg);
+    const g=el("text",{x:X(HZ)+14,y:Y(v)+dy+4,"font-size":11.5,fill:col,"font-weight":600},svg);
+    g.textContent=txt;
+  };
+  endLbl(base.f[HZ],fmt(base.f[HZ])+" việc",alt?"var(--amber)":"var(--amber)",alt?14:0);
+  if(alt)endLbl(alt[HZ],fmt(alt[HZ])+" việc",'var(--accent)',-6);
+
+  /* điểm tương tác */
+  for(let t=-(HN-1);t<=HZ;t+=1){
+    if(t%4&&t!==HZ)continue;
+    const v=t<0?base.h[t+HN-1]:base.f[t];
+    const c=el("circle",{cx:X(t),cy:Y(v),r:9,fill:"transparent"},svg);c.style.cursor="crosshair";
+    const av=alt&&t>=0?alt[t]:null;
+    c.addEventListener("mousemove",e=>showTip(e,"<b>"+mlabel(t)+"</b>"+
+      (t<0?"đếm thật: ":"nếu không đổi gì: ")+fmt(v)+" việc/tháng"+
+      (av?"<br>nếu đi lối đã chọn: "+fmt(av)+" việc/tháng":"")));
+    c.addEventListener("mouseleave",hideTip);
+  }
+  const leg=document.getElementById("c-legend");
+  leg.innerHTML='<span><i style="border-top:2.5px solid var(--accent)"></i>đã đếm được từ tin tuyển dụng</span>'+
+    '<span><i style="border-top:2.5px dashed var(--amber)"></i>nếu bạn không học thêm gì</span>'+
+    (alt?'<span><i style="border-top:2.5px solid var(--accent)"></i>nếu bạn đi lối '+jobOf(me.door).label+'</span>':'')+
+    '<span style="color:var(--dim)">vùng mờ là khoảng dao động, rộng dần theo thời gian</span>';
+  return{base,alt,bm};
+}
+
+/* ============ CÂU TRẢ LỜI ============ */
+function renderAnswer(){
+  const pShare=provOf(me.prov).s;
+  const f=[];for(let t=0;t<=HZ;t++)f.push(reachAt(me.have,t,pShare));
+  const now=f[0];
+  let drop=-1;
+  for(let t=1;t<=HZ;t++)if(f[t]<now*.8){drop=t;break}
+  CUR={now,drop};
+  const mk=Math.min(HZ,me.hz*12);
+  const later=f[mk];
+  const head=document.getElementById("a-head"),sub=document.getElementById("a-sub");
+  if(!me.have.size){
+    head.innerHTML="Chọn vài kỹ năng bạn làm được, rồi xem chúng còn giá đến bao giờ.";
+    sub.textContent="Hệ thống sẽ đếm xem hôm nay bạn với tới bao nhiêu tin tuyển dụng, và con số đó đi về đâu trong 5 năm tới.";
+    document.getElementById("n-now").textContent="—";
+    document.getElementById("n-later").textContent="—";
+    return;
+  }
+  const j=jobOf(me.job),cv=Math.round(cover(j,me.have)*100);
+  const ch3=(f[mk]/now-1)*100;
+  if(ch3<=-15)head.innerHTML="Số việc bạn với tới <em class=\"bad\">giảm khoảng "+Math.round(-ch3)+"%</em> trong "+me.hz+" năm tới.";
+  else if(ch3>=15)head.innerHTML="Số việc bạn với tới <em>tăng khoảng "+Math.round(ch3)+"%</em> trong "+me.hz+" năm tới.";
+  else head.innerHTML="Số việc bạn với tới <em>gần như đi ngang</em> trong "+me.hz+" năm tới.";
+  const held=[...me.have].filter(n=>byName(n)&&j.need[n]);
+  const up=held.filter(n=>byName(n).chg>3).sort((a,b)=>j.need[b]*byName(b).chg-j.need[a]*byName(a).chg);
+  const dn=held.filter(n=>byName(n).chg<-3).sort((a,b)=>j.need[a]*byName(a).chg-j.need[b]*byName(b).chg);
+  let s="Bạn đáp ứng khoảng "+cv+"% yêu cầu thường gặp của nghề "+j.label+", tương đương "+fmt(now)+
+    " tin tuyển dụng mỗi tháng "+(me.prov==="all"?"trên cả nước":"ở "+provOf(me.prov).label)+" mà bạn nộp hồ sơ được ngay hôm nay. ";
+  if(up.length&&dn.length)s+=up[0]+" đang gánh con số này, còn "+dn[0]+" kéo nó xuống nhanh nhất.";
+  else if(dn.length)s+=dn[0]+" là thứ kéo con số này xuống nhanh nhất.";
+  else if(up.length)s+=up[0]+" là thứ đang đẩy con số này lên.";
+  sub.textContent=s;
+  document.getElementById("n-now").textContent=fmt(now);
+  document.getElementById("n-later").textContent=fmt(later);
+  const dl=document.getElementById("n-later-l");
+  dl.textContent=(me.stage==="hoc"?"khi bạn ra trường, ":me.hz+" năm nữa, ")+mshort(mk)+", nếu không học thêm gì";
+  document.getElementById("n-later").style.color=later<now*.92?"var(--amber)":later>now*1.08?"var(--accent)":"var(--ink)";
+}
+
+/* ============ BA LỐI ĐI ============ */
+function renderDoors(){
+  const pShare=provOf(me.prov).s;
+  const cands=JOBS.map(j=>{
+    const br=bridgeFor(j,me.have);
+    const set2=new Set([...me.have,...br.pick]);
+    const t=Math.min(HZ,br.months+6);
+    const gain=reachAt(set2,t,pShare)-reachAt(me.have,t,pShare);
+    return{j,br,gain,cov:cover(j,me.have),t};
+  });
+  const cur=cands.find(c=>c.j.k===me.job);
+  const others=cands.filter(c=>c.j.k!==me.job&&c.cov>=.1).sort((a,b)=>(b.cov-a.cov)||(b.gain-a.gain)).slice(0,2);
+  const list=[cur,...others];
+  if(!me.door)me.door=cur.j.k;
+  const box=document.getElementById("doors");
+  box.innerHTML=list.map((c,i)=>{
+    const kind=i===0?"Ở lại nghề hiện tại, nâng cấp":"Chuyển hướng gần";
+    const cv=Math.round(c.cov*100);
+    return '<button class="door" aria-pressed="'+(me.door===c.j.k)+'" data-d="'+c.j.k+'">'+
+      '<div class="kind">'+kind+'</div><h3>'+c.j.label.charAt(0).toUpperCase()+c.j.label.slice(1)+'</h3>'+
+      '<div class="cov"><span>bạn đã đi được</span><span class="pbar"><i style="width:'+cv+'%"></i></span><span class="mono">'+cv+'%</span></div>'+
+      '<div class="gainbox"><span class="gain">+'+fmt(c.gain)+'</span><span class="gsub">việc/tháng sau khi học xong</span></div>'+
+      '<div class="meta">'+(c.br.pick.length?"Cần thêm "+c.br.pick.length+" kỹ năng · khoảng "+c.br.months+" tháng":"Bạn đã đủ kỹ năng phổ biến của nghề này")+'</div></button>';
+  }).join("");
+  box.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{me.door=b.dataset.d;render()});
+  return list;
+}
+
+/* ============ CÂY CẦU ============ */
+function renderBridge(){
+  const j=jobOf(me.door),br=bridgeFor(j,me.have),pShare=provOf(me.prov).s;
+  document.getElementById("bh").textContent=(me.door===me.job?"Nâng cấp trong nghề ":"Cây cầu sang nghề ")+j.label;
+  const box=document.getElementById("bridge");
+  if(!br.pick.length){
+    box.innerHTML='<div><div class="when">Không cần bắc cầu</div><div class="what">Bạn đã có đủ</div>'+
+      '<div class="desc">Với nghề này bạn đã phủ hết các kỹ năng phổ biến. Việc còn lại là đi sâu và có sản phẩm để chứng minh, chứ không phải học thêm kỹ năng mới.</div></div>';
+    document.getElementById("bwarn").hidden=true;return;
+  }
+  let acc=0;
+  const cells=br.pick.map((n,i)=>{
+    const d=byName(n),m=EFF_M[d.effort];const from=acc;acc+=m;
+    const lvl=d.ai>.6?'<span class="badge b-warn">AI can thiệp mạnh</span>':d.ai<.35?'<span class="badge b-up">AI chưa với tới</span>':'<span class="badge b-warn">AI can thiệp một phần</span>';
+    return '<div><div class="when">Tháng '+(from+1)+'–'+acc+'</div><div class="what">'+n+'</div>'+
+      '<div class="desc">Xuất hiện trong '+j.need[n]+'% tin tuyển dụng nghề này. Nhu cầu '+pct(d.chg)+' trong 12 tháng qua. '+lvl+'</div></div>';
+  });
+  const set2=new Set([...me.have,...br.pick]);
+  const t=Math.min(HZ,br.months+6);
+  const after=reachAt(set2,t,pShare),before=reachAt(me.have,t,pShare);
+  let sal=0,w=0;for(const n in j.need){const d=byName(n);if(d){sal+=(d.salary||18)*j.need[n];w+=j.need[n]}}
+  cells.push('<div class="end"><div class="when">Sau khoảng '+br.months+' tháng</div>'+
+    '<div class="what">'+fmt(after)+' việc/tháng</div>'+
+    '<div class="desc">Gấp '+dec(after/Math.max(1,before),1)+' lần con số bạn với tới nếu không làm gì ở cùng thời điểm. Lương trung vị của nghề này hiện khoảng '+Math.round(sal/w)+' triệu.</div></div>');
+  box.innerHTML=cells.join("");
+  const risky=[...me.have].filter(n=>byName(n)&&byName(n).ai>.6&&byName(n).chg<0);
+  const wn=document.getElementById("bwarn");
+  if(risky.length){wn.hidden=false;
+    wn.innerHTML="Một lưu ý thẳng thắn: <b>"+risky.join(", ")+"</b> đang vừa giảm nhu cầu vừa bị AI can thiệp mạnh. "+
+      (risky.length>1?"Những kỹ năng đó":"Kỹ năng đó")+" vẫn giúp bạn xin việc hôm nay, nhưng nếu chỉ dựa vào đó thì đường cong ở trên chính là thứ bạn cần nhìn kỹ.";
+  }else wn.hidden=true;
+}
+
+/* ============ VÌ SAO ============ */
+function sparkSm(d,w,h){
+  const lo=Math.min(...d.hist),hi=Math.max(...d.hist);
+  const X=i=>i*w/(HN-1),Y=v=>h-2-(v-lo)/((hi-lo)||1)*(h-4);
+  return '<svg class="tr" width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'" aria-hidden="true"><path d="'+
+    d.hist.map((v,i)=>(i?"L":"M")+X(i).toFixed(1)+" "+Y(v).toFixed(1)).join(" ")+
+    '" fill="none" stroke="'+(d.chg>=0?"var(--accent)":"var(--red)")+'" stroke-width="1.5" stroke-linejoin="round"/></svg>';
+}
+function renderWhy(){
+  const box=document.getElementById("slist");
+  const have=[...me.have].filter(n=>byName(n));
+  if(!have.length){box.innerHTML='<div class="empty">Chưa chọn kỹ năng nào. Khi bạn chọn ở trên, phần này cho biết từng kỹ năng đang kéo con số lên hay kéo xuống.</div>';return}
+  box.innerHTML=have.map(n=>{
+    const d=byName(n);
+    let b='<span class="badge '+(d.chg>=0?"b-up":"b-down")+'">'+pct(d.chg)+'</span>';
+    if(d.ai>.6)b+=' <span class="badge b-warn">AI thay phần lớn</span>';
+    else if(d.ai<.35)b+=' <span class="badge b-up">AI chưa với tới</span>';
+    return '<button class="srow" data-s="'+n.replace(/"/g,"&quot;")+'"><span class="nm">'+n+'</span>'+
+      sparkSm(d,74,20)+b+'<span class="mono" style="color:var(--muted);font-size:12px">'+fmt(d.postings)+' tin</span></button>';
+  }).join("");
+  box.querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>{me.skill=b.dataset.s;drawSkill()});
+}
+/* ============ HỒ SƠ MỘT KỸ NĂNG ============ */
+function drawTS(d){
+  const svg=document.getElementById("ts");clear(svg);
+  const W=720,H=260,L=44,R=18,T=16,B=30,n=HN+6;
+  const all=[...d.hist,...d.hi,...d.lo];let lo=Math.min(...all),hi=Math.max(...all);
+  const pad=(hi-lo)*.18||10;lo=Math.max(0,lo-pad);hi+=pad;
+  const X=i=>L+i*(W-L-R)/(n-1),Y=v=>T+(H-T-B)*(1-(v-lo)/(hi-lo));
+  for(let k=0;k<=4;k++){const v=lo+(hi-lo)*k/4;
+    el("line",{x1:L,y1:Y(v),x2:W-R,y2:Y(v),stroke:"var(--line)"},svg);
+    el("text",{x:L-8,y:Y(v)+4,"text-anchor":"end","font-size":10,fill:"var(--dim)",class:"mono"},svg).textContent=v.toFixed(0)}
+  el("line",{x1:X(HN-1),y1:T,x2:X(HN-1),y2:H-B,stroke:"var(--line2)","stroke-dasharray":"4 4"},svg);
+  const band=[];
+  for(let i=0;i<6;i++)band.push([X(HN+i),Y(d.hi[i])]);
+  for(let i=5;i>=0;i--)band.push([X(HN+i),Y(d.lo[i])]);
+  el("path",{d:"M"+X(HN-1)+" "+Y(d.hist[HN-1])+" "+band.map(p=>"L"+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" ")+" Z",fill:"var(--amber)",opacity:.16},svg);
+  const line=(p,s,w,dash)=>el("path",{d:p.map((q,i)=>(i?"L":"M")+q[0].toFixed(1)+" "+q[1].toFixed(1)).join(" "),
+    fill:"none",stroke:s,"stroke-width":w,"stroke-linejoin":"round","stroke-linecap":"round","stroke-dasharray":dash||"none"},svg);
+  line(d.hist.map((v,i)=>[X(i),Y(v)]),"var(--accent)",2.2);
+  line([[X(HN-1),Y(d.hist[HN-1])],...d.fc.map((v,i)=>[X(HN+i),Y(v)])],"var(--amber)",2.2,"6 4");
+  [...MONTHS,...FUT].forEach((m,i)=>{
+    if(i%9===0||i===n-1)el("text",{x:X(i),y:H-11,"text-anchor":"middle","font-size":9.5,fill:"var(--dim)",class:"mono"},svg).textContent=m;
+    const v=i<HN?d.hist[i]:d.fc[i-HN];
+    el("circle",{cx:X(i),cy:Y(v),r:i===HN-1?3.6:1.7,fill:i<HN?"var(--accent)":"var(--amber)"},svg);
+    const g=el("circle",{cx:X(i),cy:Y(v),r:11,fill:"transparent"},svg);g.style.cursor="crosshair";
+    g.addEventListener("mousemove",e=>showTip(e,"<b>"+m+"</b>chỉ số "+dec(v,1)+(i>=24?"<br>khoảng "+d.lo[i-24].toFixed(0)+" – "+d.hi[i-24].toFixed(0):"")));
+    g.addEventListener("mouseleave",hideTip)});
+}
+function drawSkill(){
+  const d=byName(me.skill)||ALL[0];
+  document.getElementById("sk-name").textContent=d.name;
+  document.getElementById("sk-esco").textContent="ESCO "+d.esco;
+  document.getElementById("sk-group").textContent=d.group;
+  let note;
+  if(d.ai>.6&&d.chg<0)note="Nhu cầu giảm "+Math.abs(d.chg).toFixed(0)+"% trong 12 tháng, và AI can thiệp vào phần lớn công việc của kỹ năng này (điểm "+dec(d.ai)+"). Vẫn xin được việc hôm nay, nhưng không nên là chỗ dựa duy nhất.";
+  else if(d.ai<.35&&d.chg>20)note="Nhu cầu tăng "+d.chg.toFixed(0)+"% và AI chưa can thiệp nhiều (điểm "+dec(d.ai)+"). Dải dự báo vẫn rộng dần theo thời gian, nên đọc theo khoảng chứ đừng bám một con số.";
+  else note="Nhu cầu "+(d.chg>=0?"tăng ":"giảm ")+Math.abs(d.chg).toFixed(0)+"% trong 12 tháng, điểm tác động AI "+dec(d.ai)+". Khoảng tin cậy 80% cho T3/2027 là "+d.lo[5].toFixed(0)+" – "+d.hi[5].toFixed(0)+".";
+  document.getElementById("sk-note").textContent=note;
+  document.getElementById("skh").textContent=me.have.has(d.name)?"Nhìn kỹ một kỹ năng bạn đang có":"Nhìn kỹ một kỹ năng";
+  drawTS(d);
+}
+
+/* ============ TAB THỊ TRƯỜNG ============ */
+const mk={nganh:"all",tinh:"all",cap:"all",sort:"postings",dir:-1,q:""};
+let DATA=[];
+function sweepOn(){const s=document.getElementById("sweep");s.classList.remove("on");void s.offsetWidth;s.classList.add("on")}
+function drawRadar(){
+  const svg=document.getElementById("radar");clear(svg);
+  const cx=220,cy=196,R=116;
+  const gs=GROUPS.filter(g=>DATA.some(d=>d.group===g));
+  const now=gs.map(g=>{const s=DATA.filter(d=>d.group===g);return s.reduce((a,b)=>a+b.index,0)/s.length});
+  const prev=gs.map(g=>{const s=DATA.filter(d=>d.group===g);return s.reduce((a,b)=>a+b.hist[BI],0)/s.length});
+  const max=Math.max(140,...now,...prev)*1.05;
+  const ang=i=>-Math.PI/2+i/gs.length*Math.PI*2;
+  const pt=(i,v)=>[cx+Math.cos(ang(i))*R*(v/max),cy+Math.sin(ang(i))*R*(v/max)];
+  [.25,.5,.75,1].forEach(f=>el("circle",{cx,cy,r:R*f,fill:"none",stroke:"var(--line2)","stroke-width":f===1?1.1:.7,opacity:f===1?.9:.5},svg));
+  el("text",{x:cx+5,y:cy-R*(100/max)-4,class:"axis-lbl mono",fill:"var(--dim)","font-size":9},svg).textContent="100";
+  gs.forEach((g,i)=>{const[x,y]=pt(i,max);el("line",{x1:cx,y1:cy,x2:x,y2:y,stroke:"var(--line2)","stroke-width":.7,opacity:.7},svg)});
+  const poly=(v,s,f,w,dash)=>el("path",{d:v.map((q,i)=>{const[x,y]=pt(i,q);return(i?"L":"M")+x.toFixed(1)+" "+y.toFixed(1)}).join(" ")+" Z",
+    fill:f||"none",stroke:s,"stroke-width":w,"stroke-linejoin":"round","stroke-dasharray":dash||"none"},svg);
+  poly(prev,"var(--muted)",null,1.2,"4 4");poly(now,"var(--accent)","var(--accent-soft)",2);
+  gs.forEach((g,i)=>{
+    const[x,y]=pt(i,now[i]);el("circle",{cx:x,cy:y,r:3.4,fill:"var(--accent)"},svg);
+    const a=ang(i),lx=cx+Math.cos(a)*(R+30),ly=cy+Math.sin(a)*(R+26);
+    const anchor=Math.abs(Math.cos(a))<.25?"middle":(Math.cos(a)>0?"start":"end");
+    const lines=wrapLabel(g);
+    const t=el("text",{x:lx,y:ly+3-(lines.length-1)*5.5,"text-anchor":anchor,class:"axis-lbl"},svg);
+    lines.forEach((s,k)=>{const sp=el("tspan",{x:lx,dy:k?11:0},t);sp.textContent=s});
+    const hit=el("circle",{cx:lx,cy:ly,r:24,fill:"transparent"},svg);
+    [t,hit].forEach(nd=>{nd.style.cursor="pointer";
+      nd.addEventListener("mousemove",e=>showTip(e,"<b>"+g+"</b>chỉ số "+now[i].toFixed(0)+" · cùng kỳ "+prev[i].toFixed(0)));
+      nd.addEventListener("mouseleave",hideTip);
+      nd.addEventListener("click",()=>{const s=DATA.filter(d=>d.group===g).sort((p,q)=>q.postings-p.postings)[0];if(s)openSkill(s.name)})});
+  });
+}
+function drawPlane(){
+  const svg=document.getElementById("plane");clear(svg);
+  const W=760,H=420,L=52,R=30,T=18,B=44,X=v=>L+v*(W-L-R),ymax=85,ymin=-60;
+  const clamp=v=>Math.max(ymin+3,Math.min(ymax-3,v)),Y=v=>T+(H-T-B)*(1-(v-ymin)/(ymax-ymin));
+  el("rect",{x:X(.5),y:Y(0),width:W-R-X(.5),height:H-B-Y(0),fill:"var(--red)",opacity:.09},svg);
+  el("rect",{x:L,y:T,width:X(.5)-L,height:Y(0)-T,fill:"var(--accent)",opacity:.07},svg);
+  for(let k=0;k<=4;k++){const v=ymin+(ymax-ymin)*k/4;
+    el("line",{x1:L,y1:Y(v),x2:W-R,y2:Y(v),stroke:"var(--line)"},svg);
+    el("text",{x:L-8,y:Y(v)+4,"text-anchor":"end","font-size":10,fill:"var(--dim)",class:"mono"},svg).textContent=(v>0?"+":"")+v.toFixed(0)+"%"}
+  el("line",{x1:L,y1:Y(0),x2:W-R,y2:Y(0),stroke:"var(--line2)","stroke-width":1.4},svg);
+  el("line",{x1:X(.5),y1:T,x2:X(.5),y2:H-B,stroke:"var(--line2)","stroke-dasharray":"4 5"},svg);
+  el("text",{x:X(.06),y:H-14,"font-size":11,fill:"var(--muted)"},svg).textContent="AI ít can thiệp";
+  el("text",{x:X(.94),y:H-14,"text-anchor":"end","font-size":11,fill:"var(--muted)"},svg).textContent="AI can thiệp mạnh";
+  el("text",{x:W-R-10,y:H-B-12,"text-anchor":"end","font-size":12,"font-weight":600,fill:"var(--red)",opacity:.92},svg).textContent="Vùng cảnh báo sớm";
+  const placed=[],place=(x,y)=>{let ny=y,t=0;
+    while(placed.some(q=>Math.abs(q.y-ny)<11&&Math.abs(q.x-x)<130)&&t<6){ny+=13;t++}placed.push({x,y:ny});return ny};
+  DATA.forEach(d=>{
+    const r=4+Math.sqrt(d.postings)/13,danger=d.ai>.5&&d.chg<0,good=d.ai<.5&&d.chg>0,cy0=Y(clamp(d.chg));
+    if(d.chg>ymax-3)el("path",{d:"M"+(X(d.ai)-5)+" "+(cy0-r-4)+" L"+(X(d.ai)+5)+" "+(cy0-r-4)+" L"+X(d.ai)+" "+(cy0-r-11)+" Z",fill:"var(--accent)",opacity:.8},svg);
+    const c=el("circle",{cx:X(d.ai),cy:cy0,r,fill:danger?"var(--red)":good?"var(--accent)":"var(--muted)",opacity:.7},svg);
+    c.style.cursor="pointer";
+    c.addEventListener("mousemove",e=>showTip(e,"<b>"+d.name+"</b>điểm AI "+dec(d.ai)+" · 12 tháng "+pct(d.chg)+"<br>"+fmt(d.postings)+" tin/tháng"));
+    c.addEventListener("mouseleave",hideTip);c.addEventListener("click",()=>openSkill(d.name));
+    if(d.postings>2600||(danger&&d.postings>1500)){const left=d.ai>.68;
+      el("text",{x:X(d.ai)+(left?-(r+6):r+6),y:place(X(d.ai),cy0+3.5),"text-anchor":left?"end":"start","font-size":10,fill:"var(--muted)"},svg).textContent=d.name}
+  });
+}
+const PROV2=[["TP. Hồ Chí Minh",1.42],["Hà Nội",1.28],["Đà Nẵng",.86],["Bình Dương",1.11],["Hải Phòng",.74],
+ ["Cần Thơ",.51],["Nghệ An",.38],["Thái Nguyên",.44],["Huế",.62],["Đắk Lắk",.33]];
+function drawGap(){
+  const svg=document.getElementById("gap");clear(svg);
+  const W=760,H=320,L=130,R=90,T=16,B=30;
+  const rows=PROV2.map(([n,v])=>({n,v:Math.log(v),r:v}));
+  const m=Math.max(...rows.map(r=>Math.abs(r.v)))*1.25,mid=L+(W-L-R)/2;
+  const X=v=>mid+v/m*((W-L-R)/2),rh=(H-T-B)/rows.length;
+  el("line",{x1:mid,y1:T,x2:mid,y2:H-B,stroke:"var(--line2)","stroke-width":1.2},svg);
+  rows.forEach((r,i)=>{const y=T+i*rh+rh/2,pos=r.v>=0;
+    el("rect",{x:pos?mid:X(r.v),y:y-rh*.28,width:Math.abs(X(r.v)-mid),height:rh*.56,rx:3,fill:pos?"var(--accent)":"var(--amber)",opacity:.85},svg);
+    el("text",{x:L-12,y:y+4,"text-anchor":"end","font-size":12,fill:"var(--ink)"},svg).textContent=r.n;
+    el("text",{x:pos?X(r.v)+8:X(r.v)-8,y:y+4,"text-anchor":pos?"start":"end","font-size":11,fill:"var(--muted)",class:"mono"},svg).textContent="×"+dec(r.r)});
+  el("text",{x:mid+8,y:H-10,"font-size":11,fill:"var(--muted)"},svg).textContent="nhu cầu vượt chỉ tiêu đào tạo";
+  el("text",{x:mid-8,y:H-10,"text-anchor":"end","font-size":11,fill:"var(--muted)"},svg).textContent="đào tạo vượt nhu cầu";
+}
+function drawTable(){
+  const tb=document.getElementById("tb"),q=mk.q.trim().toLowerCase();
+  let rows=DATA.filter(d=>!q||d.name.toLowerCase().includes(q)||d.group.toLowerCase().includes(q));
+  rows=rows.slice().sort((a,b)=>{const va=a[mk.sort],vb=b[mk.sort];
+    return(typeof va==="string"?va.localeCompare(vb,"vi"):va-vb)*mk.dir});
+  document.getElementById("cnt").textContent=rows.length+" kỹ năng";
+  tb.innerHTML=rows.map(d=>'<tr data-n="'+d.name.replace(/"/g,"&quot;")+'"><td class="name">'+d.name+'</td>'+
+    '<td><span class="pill">'+d.group+'</span></td><td>'+sparkSm(d,76,22)+'</td>'+
+    '<td class="num mono">'+d.index.toFixed(0)+'</td><td class="num mono '+(d.chg>=0?"up":"down")+'">'+pct(d.chg)+'</td>'+
+    '<td class="num mono">'+fmt(d.postings)+'</td>'+
+    '<td class="num mono" style="color:'+(d.ai>.6?"var(--red)":d.ai<.3?"var(--accent)":"var(--muted)")+'">'+dec(d.ai)+'</td></tr>').join("");
+  tb.querySelectorAll("tr").forEach(tr=>tr.onclick=()=>openSkill(tr.dataset.n));
+}
+function drawKPI(){
+  document.getElementById("k-tin").textContent=fmt(DATA.reduce((a,b)=>a+b.postings,0)*1.64);
+  document.getElementById("k-ky").textContent=DATA.length+" / 412";
+  document.getElementById("k-len").textContent=DATA.filter(d=>d.chg>0).length+"/"+DATA.length;
+  document.getElementById("k-ai").textContent=String(DATA.filter(d=>d.ai>.5&&d.chg<0).length);
+}
+function renderMarket(anim){DATA=build(mk);drawKPI();drawRadar();drawPlane();drawTable();if(anim)sweepOn()}
+
+/* ============ TAB HOẠCH ĐỊNH CHÍNH SÁCH ============ */
+/* chỉ tiêu tuyển sinh cả nước, mô phỏng */
+const QUOTA=[
+ {n:"Công nghệ thông tin",j:"pm",q:21000},
+ {n:"Kỹ thuật phần mềm và kiểm thử",j:"qa",q:4200},
+ {n:"Khoa học dữ liệu và phân tích",j:"da",q:3100},
+ {n:"Trí tuệ nhân tạo",j:"de",q:1500},
+ {n:"Marketing và truyền thông",j:"mkt",q:26000},
+ {n:"Quản trị kinh doanh và văn phòng",j:"biz",q:68000},
+];
+/* quy mô lao động cả nước theo nhóm nghề, mô phỏng */
+const WF={pm:210000,qa:46000,da:38000,de:15000,mkt:130000,biz:640000};
+const NEW_RATE=.28; /* tỷ lệ vị trí dành cho người mới ra trường */
+const pol={tinh:"all",hz:3};
+
+function jobDemandNew(j,share,years){
+  const g=jobGrowth(j),t=years*12;
+  return j.base*share*12*NEW_RATE*Math.pow(1+g*Math.exp(-t/36),t);
+}
+function aiExposure(j){
+  let tot=0,hot=0;
+  for(const n in j.need){const d=byName(n);if(!d)continue;tot+=j.need[n];if(d.ai>.6)hot+=j.need[n]}
+  return hot/tot;
+}
+function renderPolicy(){
+  const share=MUL_TINH[pol.tinh][0],years=pol.hz;
+  const rows=QUOTA.map(r=>{
+    const j=jobOf(r.j),quota=r.q*share,need=jobDemandNew(j,share,years);
+    return{...r,job:j,quota,need,ratio:need/quota};
+  });
+  const excess=rows.reduce((a,r)=>a+Math.max(0,r.quota-r.need),0);
+  const missing=rows.reduce((a,r)=>a+Math.max(0,r.need-r.quota),0);
+  const exposed=JOBS.reduce((a,j)=>a+WF[j.k]*share*aiExposure(j),0);
+  const warn=ALL.filter(d=>d.ai>.6&&d.chg<0).sort((a,b)=>b.postings-a.postings);
+  document.getElementById("p-k1").textContent=fmt(excess);
+  document.getElementById("p-k2").textContent=fmt(missing);
+  document.getElementById("p-k3").textContent=fmt(exposed);
+  document.getElementById("p-k4").textContent=String(warn.length);
+
+  /* ba việc nên làm trước */
+  const over=rows.filter(r=>r.ratio<.85).sort((a,b)=>(b.quota-b.need)-(a.quota-a.need));
+  const under=rows.filter(r=>r.ratio>1.2).sort((a,b)=>(b.need-b.quota)-(a.need-a.quota));
+  const bigExposed=JOBS.map(j=>({j,n:WF[j.k]*share*aiExposure(j)})).sort((a,b)=>b.n-a.n)[0];
+  const bridgeSet=new Set(Object.keys(bigExposed.j.need).sort((a,b)=>bigExposed.j.need[b]-bigExposed.j.need[a]).slice(0,3));
+  /* lối chuyển khả thi nhất: cầu ngắn nhất, rồi mới tới độ phủ, rồi tới nơi ít rủi ro AI */
+  const target=JOBS.filter(j=>j.k!==bigExposed.j.k&&aiExposure(j)<.3)
+    .map(j=>({j,br:bridgeFor(j,bridgeSet),cov:cover(j,bridgeSet)}))
+    .sort((a,b)=>(a.br.months-b.br.months)||(b.cov-a.cov)||(aiExposure(a.j)-aiExposure(b.j)))[0];
+  const br=target.br;
+  const shift=Math.round(Math.min(excess,missing*1.6)/1000)*1000;
+  document.getElementById("p-levers").innerHTML=
+   '<div class="lever"><div class="tagn">Đòn bẩy: chỉ tiêu tuyển sinh</div>'+
+   '<h3>Dịch chỉ tiêu, không cần tăng tổng</h3><div class="big bad">'+fmt(shift)+' chỉ tiêu</div>'+
+   '<p>Có thể chuyển dần khỏi '+over.slice(0,2).map(r=>r.n.toLowerCase()).join(" và ")+
+   ', sang '+under.slice(0,2).map(r=>r.n.toLowerCase()).join(" và ")+
+   '. Tổng chỉ tiêu giữ nguyên nên không cần thêm ngân sách, chỉ cần thay đổi cơ cấu.</p></div>'+
+
+   '<div class="lever"><div class="tagn">Đòn bẩy: ngân sách đào tạo lại</div>'+
+   '<h3>Nhóm cần chạm tới trước</h3><div class="big bad">'+fmt(bigExposed.n)+' người</div>'+
+   '<p>Đông nhất trong vùng AI can thiệp mạnh là nhóm '+bigExposed.j.label+
+   '. Cây cầu ngắn nhất từ nhóm này sang '+target.j.label+' đi qua:</p>'+
+   '<ul>'+br.pick.map(n=>'<li>'+n+' — khoảng '+EFF_M[byName(n).effort]+' tháng</li>').join("")+'</ul>'+
+   '<p>Một khóa '+br.months+' tháng cho nhóm này rẻ hơn nhiều so với xử lý hậu quả khi họ mất việc cùng lúc.</p></div>'+
+
+   '<div class="lever"><div class="tagn">Đòn bẩy: nội dung hướng nghiệp</div>'+
+   '<h3>Sửa tài liệu hướng nghiệp năm nay</h3><div class="big bad">'+warn.length+' kỹ năng</div>'+
+   '<p>Đang vừa giảm nhu cầu vừa bị AI can thiệp mạnh, nhưng vẫn xuất hiện nhiều trong tư vấn chọn ngành:</p>'+
+   '<ul>'+warn.slice(0,3).map(d=>'<li>'+d.name+' — '+pct(d.chg)+', điểm AI '+dec(d.ai)+'</li>').join("")+'</ul>'+
+   '<p>Đây là thứ sửa được ngay trong một kỳ, không cần chờ nghị quyết.</p></div>';
+
+  /* bảng chỉ tiêu */
+  document.getElementById("p-tb").innerHTML=rows.slice().sort((a,b)=>b.ratio-a.ratio).map(r=>{
+    const d=Math.max(-20,Math.min(20,(r.ratio-1)*100));
+    const rec=Math.abs(d)<6?'<span style="color:var(--muted)">giữ nguyên</span>'
+      :d>0?'<span class="rec-up">tăng ~'+Math.round(d)+'%/năm</span>'
+           :'<span class="rec-dn">giảm ~'+Math.round(-d)+'%/năm</span>';
+    return '<tr><td class="name">'+r.n+'</td><td class="num mono">'+fmt(r.quota)+'</td>'+
+      '<td class="num mono">'+fmt(r.need)+'</td>'+
+      '<td class="num mono" style="color:'+(r.ratio>1.2?"var(--accent)":r.ratio<.85?"var(--amber)":"var(--muted)")+'">'+dec(r.ratio)+'</td>'+
+      '<td class="num">'+rec+'</td></tr>';
+  }).join("");
+
+  /* bảng cảnh báo sớm */
+  document.getElementById("p-warn").innerHTML=warn.map(d=>{
+    const from=new Set([d.name]);
+    const to=JOBS.map(j=>({j,w:j.need[d.name]||0})).filter(x=>x.w>0).sort((a,b)=>b.w-a.w)[0];
+    let sug="—";
+    if(to){
+      const alt=JOBS.filter(j=>j.k!==to.j.k).map(j=>({j,c:cover(j,new Set(Object.keys(to.j.need).slice(0,4)))}))
+        .sort((a,b)=>b.c-a.c)[0];
+      const b2=bridgeFor(alt.j,from);
+      sug=alt.j.label+" (qua "+b2.pick.slice(0,2).join(", ")+")";
+    }
+    return '<tr data-n="'+d.name.replace(/"/g,"&quot;")+'"><td class="name">'+d.name+'</td>'+
+      '<td><span class="pill">'+d.group+'</span></td>'+
+      '<td class="num mono down">'+pct(d.chg)+'</td>'+
+      '<td class="num mono" style="color:var(--red)">'+dec(d.ai)+'</td>'+
+      '<td class="num mono">'+fmt(d.postings)+'</td><td>'+sug+'</td></tr>';
+  }).join("");
+  document.getElementById("p-warn").querySelectorAll("tr").forEach(tr=>tr.onclick=()=>openSkill(tr.dataset.n));
+  drawGap();
+}
+
+/* ============ HỌC SINH CHỌN NGÀNH ============ */
+const GRAD_RATE=.82;   /* chỉ tiêu -> tốt nghiệp */
+const hs={ng:"da",nam:2030,tinh:"hcm"};
+const nt={tinh:"ct",ng:"da"};
+const qrow=k=>QUOTA.find(r=>r.j===k);
+
+function hsCalc(k,years,share){
+  const r=qrow(k),j=jobOf(k);
+  const need=jobDemandNew(j,share,years);
+  const grad=r.q*share*GRAD_RATE;
+  let w=0,s=0;for(const n in j.need){const d=byName(n);if(d){s+=(d.salary||18)*j.need[n];w+=j.need[n]}}
+  const risky=Object.keys(j.need).filter(n=>{const d=byName(n);return d&&d.ai>.6&&d.chg<0});
+  return{r,j,need,grad,comp:grad/need,sal:Math.round(s/w*.62),risky,total:Object.keys(j.need).length};
+}
+function renderHS(){
+  const sel=document.getElementById("q-hnganh");
+  if(!sel.options.length)sel.innerHTML=QUOTA.map(r=>'<option value="'+r.j+'">'+r.n+'</option>').join("");
+  sel.value=hs.ng;document.getElementById("h-nganh").textContent=qrow(hs.ng).n;
+  const st=document.getElementById("q-htinh");
+  if(!st.options.length)st.innerHTML=PROVS.map(p=>'<option value="'+p.k+'">'+p.label+'</option>').join("");
+  st.value=hs.tinh;document.getElementById("h-tinh").textContent=provOf(hs.tinh).label;
+  document.getElementById("q-hnam").value=String(hs.nam);
+  document.getElementById("h-nam").textContent=hs.nam;
+
+  const share=provOf(hs.tinh).s,years=hs.nam-2026;
+  const c=hsCalc(hs.ng,years,share);
+  const head=document.getElementById("h-head"),sub=document.getElementById("h-sub");
+  if(c.comp>1.35)head.innerHTML="Năm "+hs.nam+", ngành này có <em class=\"bad\">"+dec(c.comp,1)+" người tranh một chỗ</em>.";
+  else if(c.comp<.8)head.innerHTML="Năm "+hs.nam+", ngành này <em>thiếu người</em>: mỗi người tốt nghiệp có "+dec(1/c.comp,1)+" chỗ để chọn.";
+  else head.innerHTML="Năm "+hs.nam+", cung và cầu ngành này <em>gần cân bằng</em>.";
+  sub.textContent="Tính riêng "+(hs.tinh==="all"?"trên cả nước":"ở "+provOf(hs.tinh).label)+
+    ", vào năm bạn ra trường thị trường cần khoảng "+fmt(c.need)+" người mới mỗi năm, trong khi các trường cho ra khoảng "+
+    fmt(c.grad)+". "+(c.risky.length?c.risky.length+" trong "+c.total+" kỹ năng cốt lõi của ngành đang vừa giảm nhu cầu vừa bị AI làm thay, nên phần dưới đáng đọc kỹ.":"Không kỹ năng cốt lõi nào của ngành đang nằm trong vùng cảnh báo AI.");
+  document.getElementById("h-need").textContent=fmt(c.need);
+  document.getElementById("h-grad").textContent=fmt(c.grad);
+  document.getElementById("h-sal").textContent=c.sal+" tr";
+
+  /* biểu đồ nhu cầu và tốt nghiệp theo năm */
+  const svg=document.getElementById("h-chart");clear(svg);
+  const W=1040,H=360,L=64,R=120,T=26,B=42;
+  const yrs=[];for(let y=2025;y<=hs.nam+2;y++)yrs.push(y);
+  const needs=yrs.map(y=>jobDemandNew(c.j,share,y-2026));
+  const grads=yrs.map(()=>c.grad);
+  const ymax=Math.max(...needs,...grads)*1.18;
+  const X=i=>L+i*(W-L-R)/(yrs.length-1),Y=v=>T+(H-T-B)*(1-v/ymax);
+  for(let k=0;k<=4;k++){const v=ymax*k/4;
+    el("line",{x1:L,y1:Y(v),x2:W-R,y2:Y(v),stroke:"var(--line)"},svg);
+    el("text",{x:L-9,y:Y(v)+4,"text-anchor":"end","font-size":10.5,fill:"var(--dim)",class:"mono"},svg).textContent=fmt(v)}
+  yrs.forEach((y,i)=>el("text",{x:X(i),y:H-16,"text-anchor":"middle","font-size":11,fill:"var(--dim)",class:"mono"},svg).textContent=y);
+  /* vùng chênh lệch */
+  const poly=needs.map((v,i)=>[X(i),Y(v)]).concat(grads.map((v,i)=>[X(i),Y(v)]).reverse());
+  el("path",{d:"M"+poly.map(p=>p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" L")+" Z",
+    fill:c.comp>1?"var(--amber)":"var(--accent)",opacity:.13},svg);
+  const line=(pts,s,w,dash)=>el("path",{d:pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" "),
+    fill:"none",stroke:s,"stroke-width":w,"stroke-linejoin":"round","stroke-dasharray":dash||"none"},svg);
+  line(grads.map((v,i)=>[X(i),Y(v)]),"var(--muted)",2.2,"6 5");
+  line(needs.map((v,i)=>[X(i),Y(v)]),"var(--accent)",2.8);
+  const gi=yrs.indexOf(hs.nam);
+  el("line",{x1:X(gi),y1:T-6,x2:X(gi),y2:H-B,stroke:"var(--ink)","stroke-width":1.2,opacity:.55},svg);
+  el("text",{x:X(gi),y:T-12,"text-anchor":"middle","font-size":11,"font-weight":600,fill:"var(--ink)"},svg).textContent="bạn ra trường";
+  el("circle",{cx:X(gi),cy:Y(needs[gi]),r:5,fill:"var(--accent)",stroke:"var(--panel)","stroke-width":2},svg);
+  el("text",{x:X(yrs.length-1)+14,y:Y(needs[yrs.length-1])+4,"font-size":11.5,fill:"var(--accent)","font-weight":600},svg).textContent=fmt(needs[yrs.length-1])+" chỗ";
+  el("text",{x:X(yrs.length-1)+14,y:Y(grads[yrs.length-1])+4,"font-size":11.5,fill:"var(--muted)","font-weight":600},svg).textContent=fmt(c.grad)+" người";
+  yrs.forEach((y,i)=>{const g=el("circle",{cx:X(i),cy:Y(needs[i]),r:10,fill:"transparent"},svg);g.style.cursor="crosshair";
+    g.addEventListener("mousemove",e=>showTip(e,"<b>"+y+"</b>cần "+fmt(needs[i])+" người mới<br>tốt nghiệp "+fmt(c.grad)+" người"));
+    g.addEventListener("mouseleave",hideTip)});
+  document.getElementById("h-legend").innerHTML=
+    '<span><i style="border-top:2.8px solid var(--accent)"></i>vị trí tuyển mới mỗi năm</span>'+
+    '<span><i style="border-top:2.2px dashed var(--muted)"></i>số người tốt nghiệp mỗi năm</span>'+
+    '<span style="color:var(--dim)">vùng tô là phần chênh lệch giữa hai đường</span>';
+
+  /* kỹ năng cốt lõi của ngành */
+  const box=document.getElementById("h-skills");
+  box.innerHTML=Object.keys(c.j.need).sort((a,b)=>c.j.need[b]-c.j.need[a]).map(n=>{
+    const d=byName(n);if(!d)return"";
+    const bad=d.ai>.6&&d.chg<0;
+    let bd='<span class="badge '+(d.chg>=0?"b-up":"b-down")+'">'+pct(d.chg)+'</span>';
+    if(bad)bd+=' <span class="badge b-warn">AI đang làm thay</span>';
+    return '<button class="srow'+(bad?" flag":"")+'" data-s="'+n.replace(/"/g,"&quot;")+'">'+
+      '<span class="nm">'+n+'</span><span class="mono" style="color:var(--muted);font-size:12px;width:46px;text-align:right">'+
+      c.j.need[n]+'%</span>'+sparkSm(d,74,20)+bd+'</button>';
+  }).join("");
+  box.querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>{me.skill=b.dataset.s;setTab("me")});
+
+  /* bảng so sánh ngành */
+  document.getElementById("h-tb").innerHTML=QUOTA.map(r=>hsCalc(r.j,years,share))
+    .sort((a,b)=>a.comp-b.comp).map(x=>
+    '<tr data-j="'+x.r.j+'"'+(x.r.j===hs.ng?' class="sel"':'')+'><td class="name">'+x.r.n+'</td>'+
+    '<td class="num mono">'+fmt(x.need)+'</td><td class="num mono">'+fmt(x.grad)+'</td>'+
+    '<td class="num mono" style="color:'+(x.comp>1.35?"var(--amber)":x.comp<.8?"var(--accent)":"var(--muted)")+'">'+dec(x.comp,1)+'</td>'+
+    '<td class="num mono">'+x.sal+' tr</td>'+
+    '<td class="num mono" style="color:'+(x.risky.length?"var(--red)":"var(--muted)")+'">'+x.risky.length+'/'+x.total+'</td></tr>').join("");
+  document.getElementById("h-tb").querySelectorAll("tr").forEach(tr=>tr.onclick=()=>{hs.ng=tr.dataset.j;renderHS()});
+}
+
+/* ============ NHÀ TRƯỜNG MỞ NGÀNH ============ */
+function ntCalc(k,tinh){
+  const share=MUL_TINH[tinh][0],r=qrow(k),j=jobOf(k);
+  const need=jobDemandNew(j,share,4);
+  const quota=r.q*share;
+  return{r,j,need,quota,room:need-quota*GRAD_RATE,share};
+}
+function renderNT(){
+  const st=document.getElementById("q-ntinh");
+  if(!st.options.length)st.innerHTML=PROVS.filter(p=>p.k!=="all").map(p=>'<option value="'+p.k+'">'+p.label+'</option>').join("");
+  st.value=nt.tinh;document.getElementById("t-ntinh").textContent=provOf(nt.tinh).label;
+  const sn=document.getElementById("q-nnganh");
+  if(!sn.options.length)sn.innerHTML=QUOTA.map(r=>'<option value="'+r.j+'">'+r.n+'</option>').join("");
+  sn.value=nt.ng;document.getElementById("t-nnganh").textContent=qrow(nt.ng).n;
+
+  const c=ntCalc(nt.ng,nt.tinh);
+  const size=Math.max(0,Math.round(c.room*.6/10)*10);
+  const head=document.getElementById("n-head"),sub=document.getElementById("n-sub");
+  if(c.room>c.quota*.3)head.innerHTML="Địa bàn này <em>còn dư địa</em> cho ngành "+c.r.n.toLowerCase()+".";
+  else if(c.room>-c.quota*.1)head.innerHTML="Dư địa <em>mỏng</em>, mở được nhưng phải khác biệt.";
+  else head.innerHTML="Địa bàn này <em class=\"bad\">đang đào tạo vượt nhu cầu</em> ở ngành này.";
+  sub.textContent="Khi khóa đầu tiên ra trường vào năm "+(2026+4)+", "+provOf(nt.tinh).label+
+    " cần khoảng "+fmt(c.need)+" người mới mỗi năm cho nhóm nghề này, trong khi các trường trên địa bàn đang cho ra khoảng "+
+    fmt(c.quota*GRAD_RATE)+" người. "+(c.room>0?"Phần chênh là chỗ cho một chương trình mới.":"Mở thêm ở đây đồng nghĩa với việc sinh viên của bạn sẽ phải đi tỉnh khác làm việc.");
+  document.getElementById("n-room").textContent=fmt(Math.max(0,c.room));
+  document.getElementById("n-size").textContent=size?fmt(size)+" chỉ tiêu":"—";
+
+  /* dư địa theo tỉnh */
+  const svg=document.getElementById("n-chart");clear(svg);
+  const rows=PROVS.filter(p=>p.k!=="all").map(p=>({p,v:ntCalc(nt.ng,p.k).room}));
+  const W=1040,H=330,L=150,R=110,T=18,B=34;
+  const m=Math.max(...rows.map(r=>Math.abs(r.v)))*1.2||1,mid=L+(W-L-R)*.42;
+  const X=v=>mid+v/m*((W-L-R)*.52),rh=(H-T-B)/rows.length;
+  el("line",{x1:mid,y1:T,x2:mid,y2:H-B,stroke:"var(--line2)","stroke-width":1.2},svg);
+  rows.forEach((r,i)=>{
+    const y=T+i*rh+rh/2,pos=r.v>=0,isSel=r.p.k===nt.tinh;
+    el("rect",{x:pos?mid:X(r.v),y:y-rh*.26,width:Math.abs(X(r.v)-mid),height:rh*.52,rx:3,
+      fill:pos?"var(--accent)":"var(--amber)",opacity:isSel?1:.45},svg);
+    el("text",{x:L-14,y:y+4,"text-anchor":"end","font-size":12.5,fill:isSel?"var(--ink)":"var(--muted)","font-weight":isSel?600:400},svg).textContent=r.p.label;
+    el("text",{x:pos?X(r.v)+8:X(r.v)-8,y:y+4,"text-anchor":pos?"start":"end","font-size":11,fill:"var(--muted)",class:"mono"},svg).textContent=(pos?"+":"−")+fmt(Math.abs(r.v));
+  });
+  el("text",{x:mid+8,y:H-11,"font-size":11,fill:"var(--muted)"},svg).textContent="còn chỗ cho chương trình mới";
+  el("text",{x:mid-8,y:H-11,"text-anchor":"end","font-size":11,fill:"var(--muted)"},svg).textContent="đã đào tạo vượt nhu cầu";
+  document.getElementById("n-legend").innerHTML='<span style="color:var(--dim)">Dư địa tuyển sinh mỗi năm của ngành '+c.r.n.toLowerCase()+', tính tại thời điểm khóa đầu ra trường. Cột đậm là tỉnh bạn chọn.</span>';
+
+  /* khung chương trình */
+  const names=Object.keys(c.j.need).sort((a,b)=>c.j.need[b]-c.j.need[a]);
+  const grp=[["Bắt buộc","hơn 40% tin tuyển dụng","Thiếu những thứ này thì hồ sơ sinh viên bị loại ngay vòng đầu, nên đây là phần không được cắt khi cân đối tín chỉ.",names.filter(n=>c.j.need[n]>40)],
+             ["Nên có","20% đến 40% tin","Đưa vào học phần tự chọn hoặc đồ án là hợp lý, vì đây là phần tạo khác biệt giữa sinh viên của bạn và sinh viên trường khác.",names.filter(n=>c.j.need[n]<=40&&c.j.need[n]>=20)],
+             ["Tùy chọn","dưới 20% tin","Hữu ích cho hướng chuyên sâu, nhưng không nên chiếm nhiều tín chỉ trong chương trình chuẩn.",names.filter(n=>c.j.need[n]<20)]];
+  document.getElementById("n-curr").innerHTML=grp.filter(g=>g[3].length).map(g=>
+    '<div class="lever"><div class="tagn">Xuất hiện trong '+g[1]+'</div><h3>'+g[0]+'</h3>'+
+    '<ul>'+g[3].map(n=>{const d=byName(n);
+      const bad=d&&d.ai>.6&&d.chg<0;
+      return '<li'+(bad?' style="color:var(--amber)"':'')+'>'+n+' — '+c.j.need[n]+'% tin'+(bad?', đang bị AI làm thay':'')+'</li>'}).join("")+'</ul>'+
+    '<p>'+g[2]+'</p></div>').join("");
+  const bad=names.filter(n=>{const d=byName(n);return d&&d.ai>.6&&d.chg<0});
+  const wn=document.getElementById("n-warn");
+  if(bad.length){wn.hidden=false;
+    wn.innerHTML="Nếu mở ngành này, đừng xây chương trình quanh <b>"+bad.join(", ")+"</b>. "+
+      "Những kỹ năng đó vẫn xuất hiện nhiều trong tin tuyển dụng hôm nay, nhưng nhu cầu đang giảm và AI đang làm thay phần lớn, nên khóa đầu tiên của bạn sẽ ra trường vào đúng lúc chúng mất giá.";
+  }else wn.hidden=true;
+}
+
+/* ============ ĐIỀU PHỐI ============ */
+function render(){renderAsk();renderAnswer();renderDoors();drawFork();renderBridge();renderWhy();drawSkill()}
+const VIEWS=["hs","me","nt","pl","mk"];
+function setTab(t){
+  VIEWS.forEach(k=>{document.getElementById("view-"+k).hidden=k!==t});
+  ["hs","me","nt","pl"].forEach(k=>document.getElementById("tab-"+k).setAttribute("aria-selected",String(k===t)));
+  if(t==="hs")renderHS();
+  else if(t==="me")render();
+  else if(t==="nt")renderNT();
+  else if(t==="pl")renderPolicy();
+  else renderMarket(true);
+  scrollTo({top:0,behavior:"smooth"});
+}
+function openSkill(n){me.skill=n;setTab("me");drawSkill();
+  document.getElementById("skh").scrollIntoView({behavior:"smooth",block:"center"})}
+["hs","me","nt","pl"].forEach(k=>document.getElementById("tab-"+k).onclick=()=>setTab(k));
+document.querySelectorAll("[data-goto]").forEach(b=>b.onclick=()=>setTab(b.dataset.goto));
+document.getElementById("q-hnganh").onchange=e=>{hs.ng=e.target.value;renderHS()};
+document.getElementById("q-hnam").onchange=e=>{hs.nam=+e.target.value;renderHS()};
+document.getElementById("q-htinh").onchange=e=>{hs.tinh=e.target.value;renderHS()};
+document.getElementById("q-ntinh").onchange=e=>{nt.tinh=e.target.value;renderNT()};
+document.getElementById("q-nnganh").onchange=e=>{nt.ng=e.target.value;renderNT()};
+document.getElementById("p-tinh").onchange=e=>{pol.tinh=e.target.value;renderPolicy()};
+document.getElementById("p-hz").onchange=e=>{pol.hz=+e.target.value;renderPolicy()};
+
+document.getElementById("q-job").onchange=e=>{me.job=e.target.value;me.door=null;render()};
+document.getElementById("q-prov").onchange=e=>{me.prov=e.target.value;render()};
+document.getElementById("q-hz").onchange=e=>{me.hz=+e.target.value;render()};
+document.getElementById("q-stage").onchange=e=>{me.stage=e.target.value;render()};
+["nganh","tinh","cap"].forEach(k=>document.getElementById("f-"+k).addEventListener("change",e=>{mk[k]=e.target.value;renderMarket(true)}));
+document.getElementById("q").addEventListener("input",e=>{mk.q=e.target.value;drawTable()});
+document.querySelectorAll("th[data-k]").forEach(th=>th.onclick=()=>{
+  const k=th.dataset.k;if(mk.sort===k)mk.dir*=-1;else{mk.sort=k;mk.dir=(k==="name"||k==="group")?1:-1}drawTable()});
+document.getElementById("rescan").onclick=()=>renderMarket(true);
+const root=document.documentElement;
+function applyTheme(t){
+  root.setAttribute("data-theme",t);
+  document.getElementById("themeTxt").textContent=t==="dark"?"Nền sáng":"Nền tối";
+  document.getElementById("themeIcon").textContent=t==="dark"?"☀":"☾";
+  try{localStorage.setItem("sr-theme",t)}catch(e){}
+  requestAnimationFrame(()=>{
+    const cur=VIEWS.find(k=>!document.getElementById("view-"+k).hidden)||"hs";
+    if(cur==="hs")renderHS();else if(cur==="me")render();else if(cur==="nt")renderNT();
+    else if(cur==="pl")renderPolicy();else renderMarket(false);});
+}
+document.getElementById("theme").onclick=()=>applyTheme(root.getAttribute("data-theme")==="dark"?"light":"dark");
+try{const t=localStorage.getItem("sr-theme");if(t==="light"){root.setAttribute("data-theme","light");
+  document.getElementById("themeTxt").textContent="Nền tối";document.getElementById("themeIcon").textContent="☾"}}catch(e){}
+DATA=build(mk);setTab("hs");
+</script>
+</body>
+</html>

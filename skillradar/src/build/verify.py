@@ -47,8 +47,16 @@ def main() -> int:
 
     fam = dict(con.execute(f"""SELECT job_family_id, count(*) FROM posting
                                WHERE posting_id IN ({OPEN}) GROUP BY 1""").fetchall())
+    sal = {f: (n, m) for f, n, m in con.execute(f"""
+        SELECT job_family_id, count(*), median((coalesce(salary_min, salary_max) + coalesce(salary_max, salary_min)) / 2)
+        FROM posting WHERE posting_id IN ({OPEN}) AND salary_unit = 'VND'
+          AND coalesce(salary_min, salary_max) BETWEEN 1e6 AND 2e8 GROUP BY 1""").fetchall()}
     for f in families:
         check(f"family {f['id']} n_open", f["n_open"], fam.get(f["id"]))
+        n, med = sal.get(f["id"], (0, None))
+        want = round(med, -5) if n >= 30 else None
+        if f["salary_median_vnd"] != want:
+            errors.append(f"family {f['id']} salary: json={f['salary_median_vnd']} sql={want}")
 
     prov = dict(con.execute(f"""SELECT province_code, count(*) FROM posting
                                 WHERE posting_id IN ({OPEN}) AND province_code IS NOT NULL GROUP BY 1""").fetchall())

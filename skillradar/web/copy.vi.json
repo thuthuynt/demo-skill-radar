@@ -1,0 +1,126 @@
+{
+  "_ghi_chu": "Toàn bộ chữ hiển thị của trang học sinh. Sửa thoải mái; giữ nguyên các khóa (tên bên trái dấu hai chấm) và {biến} trong ngoặc nhọn.",
+
+  "brand": "SkillRadar",
+  "tagline": "Kỹ năng nào mở nhiều cửa nhất? Xem bằng tin tuyển dụng thật.",
+
+  "home": {
+    "eyebrow": "DÀNH CHO HỌC SINH, SINH VIÊN",
+    "title": "Chưa biết mình muốn làm gì? Thử vài vai trước đã.",
+    "lead": "Trả lời 6 câu chọn nhanh, nhận 3 nghề để thử. Không cần đăng ký, không lưu gì lên mạng.",
+    "cta_try": "Thử vai ngay",
+    "cta_know": "Mình biết nghề rồi",
+    "cta_all": "Xem cả 15 nhóm nghề",
+    "stat_open": "tin tuyển dụng đang mở",
+    "stat_skills": "kỹ năng được theo dõi",
+    "stat_days": "ngày thu thập liên tục"
+  },
+
+  "quiz": {
+    "eyebrow": "CÂU {n} / {total}",
+    "title": "Bạn thích việc nào hơn?",
+    "skip": "Bỏ qua câu này",
+    "questions": [
+      {"a": {"text": "Tính toán số liệu, bảng tính", "families": ["ke-toan", "tai-chinh-ngan-hang", "cntt", "logistics"]},
+       "b": {"text": "Trò chuyện với người lạ", "families": ["kinh-doanh", "cskh", "dich-vu-ban-le", "nhan-su"]}},
+      {"a": {"text": "Làm việc với máy tính", "families": ["cntt", "thiet-ke", "marketing", "hanh-chinh"]},
+       "b": {"text": "Làm bằng tay, với hàng hóa, máy móc", "families": ["lao-dong-pho-thong", "logistics", "dich-vu-ban-le"]}},
+      {"a": {"text": "Sáng tạo hình ảnh, nội dung", "families": ["marketing", "thiet-ke"]},
+       "b": {"text": "Làm đúng quy trình, thật chính xác", "families": ["ke-toan", "phap-ly", "hanh-chinh", "tai-chinh-ngan-hang"]}},
+      {"a": {"text": "Giúp đỡ, chăm sóc người khác", "families": ["cskh", "giao-duc", "nhan-su", "dich-vu-ban-le"]},
+       "b": {"text": "Một mình giải bài toán khó", "families": ["cntt", "tai-chinh-ngan-hang", "phap-ly"]}},
+      {"a": {"text": "Ngồi một chỗ, tập trung lâu", "families": ["hanh-chinh", "ke-toan", "cntt", "thiet-ke"]},
+       "b": {"text": "Đi lại nhiều, gặp nhiều người", "families": ["kinh-doanh", "logistics", "lao-dong-pho-thong"]}},
+      {"a": {"text": "Thuyết phục người khác đồng ý", "families": ["kinh-doanh", "marketing", "tai-chinh-ngan-hang"]},
+       "b": {"text": "Giảng giải, hướng dẫn người khác", "families": ["giao-duc", "nhan-su", "phap-ly"]}}
+    ]
+  },
+
+  "deal": {
+    "eyebrow": "3 VAI ĐỂ THỬ",
+    "title": "Thử đóng 3 vai này xem sao",
+    "because": "Vì bạn chọn: {reasons}",
+    "keep": "Giữ vai này",
+    "kept": "Đã giữ",
+    "redraw": "Rút vai khác",
+    "open": "Thử một ngày làm vai này",
+    "method": "Gợi ý dựa trên câu trả lời của bạn, theo cách ghép do nhóm dự án đặt ra (không phải trắc nghiệm tính cách)."
+  },
+
+  "role": {
+    "eyebrow": "MỘT NGÀY LÀM",
+    "open_jobs": "tin đang tuyển",
+    "salary": "lương giữa (trung vị)",
+    "salary_none": "chưa đủ tin ghi lương",
+    "per_month": "triệu đ/tháng",
+    "skills_title": "Cây kỹ năng — tích những gì bạn có hoặc định học",
+    "skills_hint": "% = tỷ lệ tin của nghề này đòi hỏi kỹ năng đó",
+    "meter_title": "Bạn mở khóa khoảng",
+    "meter_unit": "tin có thể ứng tuyển",
+    "meter_of": "trên {n} tin đang mở",
+    "meter_note": "Ước lượng theo giả định: dù đủ kỹ năng, một người chỉ ứng tuyển được tối đa 34% tin của nhóm nghề (vì còn cấp bậc, lĩnh vực, ngôn ngữ). Đây là giả định, không phải số đo.",
+    "ai_title": "Độ \"đụng\" AI của nghề",
+    "add_deck": "Thêm vào bộ bài",
+    "in_deck": "Có trong bộ bài"
+  },
+
+  "families": {
+    "cntt": {"short": "Viết phần mềm, quản lý hệ thống, làm việc với dữ liệu.", "day": "Sáng họp nhóm 15 phút, chiều viết và kiểm tra code, cuối ngày sửa lỗi người dùng báo."},
+    "kinh-doanh": {"short": "Tìm khách hàng, tư vấn, chốt đơn hàng.", "day": "Gọi điện, gặp khách, báo giá, theo dõi doanh số của mình so với mục tiêu tháng."},
+    "ke-toan": {"short": "Ghi chép, kiểm tra và báo cáo tiền của công ty.", "day": "Nhập chứng từ, đối chiếu sổ sách, làm báo cáo thuế, trả lời câu hỏi của sếp về chi phí."},
+    "tai-chinh-ngan-hang": {"short": "Cho vay, đầu tư, quản lý rủi ro về tiền.", "day": "Thẩm định hồ sơ vay, gặp khách hàng, phân tích số liệu tài chính, viết tờ trình."},
+    "marketing": {"short": "Làm cho nhiều người biết và thích sản phẩm.", "day": "Lên ý tưởng bài đăng, chạy quảng cáo, đo số người xem, chỉnh lại nội dung."},
+    "nhan-su": {"short": "Tuyển người, đào tạo, chăm lo cho nhân viên.", "day": "Lọc hồ sơ, phỏng vấn ứng viên, tính lương, giải đáp thắc mắc của nhân viên."},
+    "hanh-chinh": {"short": "Giữ cho văn phòng chạy trơn tru.", "day": "Soạn văn bản, quản lý giấy tờ, đặt lịch họp, mua sắm vật dụng."},
+    "logistics": {"short": "Đưa hàng hóa đi đúng nơi, đúng lúc.", "day": "Theo dõi đơn hàng, làm thủ tục hải quan, liên hệ nhà vận chuyển, kiểm kho."},
+    "phap-ly": {"short": "Đảm bảo công ty làm đúng luật.", "day": "Rà soát hợp đồng, tư vấn rủi ro pháp lý, làm hồ sơ với cơ quan nhà nước."},
+    "cskh": {"short": "Giải đáp và hỗ trợ khách hàng.", "day": "Trả lời điện thoại, tin nhắn, xử lý khiếu nại, ghi nhận ý kiến khách hàng."},
+    "giao-duc": {"short": "Dạy học, hướng dẫn người khác.", "day": "Soạn bài, đứng lớp, chấm bài, gặp phụ huynh hoặc học viên."},
+    "thiet-ke": {"short": "Tạo hình ảnh, video, giao diện.", "day": "Nhận yêu cầu, phác thảo, làm trên phần mềm thiết kế, sửa theo góp ý."},
+    "quan-ly": {"short": "Điều hành một bộ phận hoặc cả công ty.", "day": "Họp, ra quyết định, đặt mục tiêu, kèm cặp đội ngũ."},
+    "dich-vu-ban-le": {"short": "Phục vụ khách tại cửa hàng, nhà hàng, khách sạn.", "day": "Đón khách, pha chế hoặc phục vụ, tính tiền, giữ quầy sạch sẽ."},
+    "lao-dong-pho-thong": {"short": "Sản xuất, kho bãi, lái xe, giao hàng.", "day": "Vận hành máy hoặc xe, đóng gói, kiểm hàng, tuân thủ an toàn lao động."}
+  },
+
+  "card": {
+    "demand": "Nhu cầu",
+    "trend": "12 tháng qua",
+    "ai": "AI",
+    "tier_common": "Phổ thông",
+    "tier_valuable": "Đáng giá",
+    "tier_rare": "Hiếm",
+    "trend_up": "đang tăng",
+    "trend_down": "đang giảm",
+    "trend_flat": "đi ngang",
+    "trend_none": "chưa đủ lịch sử",
+    "ai_low": "AI khó thay",
+    "ai_mid": "AI hỗ trợ một phần",
+    "ai_high": "AI làm được nhiều",
+    "ai_none": "chưa có điểm"
+  },
+
+  "deck": {
+    "nav": "Bộ bài",
+    "eyebrow": "BỘ BÀI KỸ NĂNG CỦA BẠN",
+    "title": "Bộ bài này hợp với nghề nào?",
+    "empty": "Bộ bài đang trống. Thử một vai và tích kỹ năng bạn có để thêm thẻ.",
+    "unlock": "mở khóa ~{n} tin",
+    "total": "Tổng cộng bạn ứng tuyển được khoảng {n} tin trên {all} tin đang mở.",
+    "remove": "Bỏ thẻ",
+    "next": "Thẻ nên học tiếp để mở nhiều cửa nhất",
+    "next_gain": "+{n} tin"
+  },
+
+  "all": {
+    "eyebrow": "TẤT CẢ NHÓM NGHỀ",
+    "title": "15 nhóm nghề, xếp theo số tin đang tuyển"
+  },
+
+  "source": {
+    "label": "ⓘ Số liệu lấy từ đâu?",
+    "body": "{n} tin tuyển dụng công khai đang mở trên itviec, vietnamworks, jobsgo, timviec365 (ảnh chụp mới nhất: {dates}). Tỷ lệ = số tin đòi hỏi kỹ năng / số tin đang mở. Lịch sử theo tháng lấy từ mẫu bản lưu Internet Archive. Điểm AI = điểm chuyên gia + mức kỹ năng đi cùng công cụ AI trong tin, chưa đo theo thời gian.",
+    "data_link": "Xem số liệu thô"
+  },
+
+  "footer": "SkillRadar VN — bài dự thi BTL86-59. Dữ liệu cập nhật {date}. Không thu thập dữ liệu cá nhân."
+}

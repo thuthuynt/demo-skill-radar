@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SkillRadar VN — số liệu thật</title>
+<style>
+  :root { color-scheme: light;
+    --surface:#fcfcfb; --card:#ffffff; --line:#e6e5e1; --grid:#ecebe7;
+    --text:#0b0b0b; --text-2:#52514e; --muted:#8a8984;
+    --s1:#2a78d6; --s1-band:rgba(42,120,214,.16); --ref:#8a8984; }
+  @media (prefers-color-scheme: dark) { :root:where(:not([data-theme="light"])) { color-scheme: dark;
+    --surface:#1a1a19; --card:#222220; --line:#3a3936; --grid:#2e2d2a;
+    --text:#ffffff; --text-2:#c3c2b7; --muted:#8f8e86;
+    --s1:#3987e5; --s1-band:rgba(57,135,229,.22); --ref:#8f8e86; } }
+  :root[data-theme="dark"] { color-scheme: dark;
+    --surface:#1a1a19; --card:#222220; --line:#3a3936; --grid:#2e2d2a;
+    --text:#ffffff; --text-2:#c3c2b7; --muted:#8f8e86;
+    --s1:#3987e5; --s1-band:rgba(57,135,229,.22); --ref:#8f8e86; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--surface); color:var(--text); font:15px/1.5 system-ui,-apple-system,sans-serif; }
+  .wrap { max-width:1180px; margin:0 auto; padding:20px 16px 48px; }
+  h1 { font-size:22px; margin:0 0 4px; } h2 { font-size:17px; margin:0 0 12px; } h3 { font-size:14px; margin:0 0 6px; }
+  .sub, .note { color:var(--text-2); font-size:13px; }
+  .note { margin:6px 0 0; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:16px; }
+  .grid { display:grid; grid-template-columns:minmax(0,5fr) minmax(0,6fr); gap:16px; margin-top:16px; }
+  @media (max-width:860px) { .grid { grid-template-columns:1fr; } }
+  .tiles { display:flex; flex-wrap:wrap; gap:12px; margin:14px 0 0; }
+  .tile { flex:1 1 150px; } .tile b { display:block; font-size:22px; } .tile span { color:var(--text-2); font-size:12px; }
+  .filters { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:12px; }
+  .filters label { font-size:12px; color:var(--text-2); display:flex; flex-direction:column; gap:2px; }
+  select { font:inherit; padding:6px 8px; border:1px solid var(--line); border-radius:6px; background:var(--card); color:var(--text); min-width:180px; }
+  .bars { list-style:none; margin:0; padding:0; }
+  .bar { display:grid; grid-template-columns:minmax(0,11rem) minmax(0,1fr) 3.4rem; gap:8px; align-items:center;
+         padding:3px 4px; border-radius:6px; cursor:pointer; }
+  .bar:hover, .bar:focus-visible, .bar[aria-selected="true"] { background:var(--grid); outline:none; }
+  .bar .name { font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .bar .track { height:14px; }
+  .bar .fill { height:100%; background:var(--s1); border-radius:0 4px 4px 0; min-width:2px; }
+  .bar .val { font-size:13px; text-align:right; font-variant-numeric:tabular-nums; color:var(--text-2); }
+  .kv { display:flex; flex-wrap:wrap; gap:6px 18px; font-size:13px; color:var(--text-2); margin:4px 0 12px; }
+  .kv b { color:var(--text); font-weight:600; }
+  .panels { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  @media (max-width:560px) { .panels { grid-template-columns:1fr; } }
+  svg text { fill:var(--muted); font-size:10px; }
+  .axis { stroke:var(--line); } .gl { stroke:var(--grid); }
+  .tip { position:fixed; pointer-events:none; background:var(--card); color:var(--text); border:1px solid var(--line);
+         border-radius:6px; padding:6px 8px; font-size:12px; box-shadow:0 2px 8px rgba(0,0,0,.15); display:none; z-index:10; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th, td { text-align:left; padding:5px 6px; border-bottom:1px solid var(--line); }
+  td.num, th.num { text-align:right; font-variant-numeric:tabular-nums; }
+  .empty { color:var(--muted); font-size:13px; padding:12px 0; }
+  button.theme { font:inherit; font-size:12px; border:1px solid var(--line); background:var(--card); color:var(--text); border-radius:6px; padding:4px 10px; cursor:pointer; float:right; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <button class="theme" id="theme" aria-label="Đổi nền sáng/tối">Nền sáng / tối</button>
+  <h1>SkillRadar VN — số liệu thật</h1>
+  <div class="sub" id="meta">Đang tải…</div>
+  <div class="tiles" id="tiles"></div>
+
+  <div class="grid">
+    <section class="card" aria-labelledby="h-rank">
+      <h2 id="h-rank">Kỹ năng được yêu cầu nhiều nhất</h2>
+      <div class="filters">
+        <label>Nhóm nghề <select id="fFam"></select></label>
+        <label>Tỉnh / thành <select id="fProv"></select></label>
+      </div>
+      <ol class="bars" id="bars" role="listbox" aria-label="Xếp hạng kỹ năng"></ol>
+      <p class="note" id="rankNote"></p>
+    </section>
+
+    <section class="card" aria-labelledby="h-skill">
+      <h2 id="h-skill">Chọn một kỹ năng</h2>
+      <div class="kv" id="skillKv"></div>
+      <h3>Tỷ trọng theo tháng (mẫu lưu trữ) và dự báo 6 tháng</h3>
+      <div class="panels" id="panels"></div>
+      <p class="note" id="fcNote"></p>
+      <h3 style="margin-top:14px">Nhóm nghề yêu cầu kỹ năng này nhiều nhất</h3>
+      <table><thead><tr><th>Nhóm nghề</th><th class="num">Tỷ lệ tin</th><th class="num">Số tin</th></tr></thead>
+        <tbody id="famTable"></tbody></table>
+    </section>
+  </div>
+
+  <section class="card" style="margin-top:16px" aria-labelledby="h-cov">
+    <h2 id="h-cov">Chất lượng: tỷ lệ tin có ≥1 kỹ năng chuyên môn, theo nhóm nghề</h2>
+    <table><thead><tr><th>Nhóm nghề</th><th class="num">Số tin</th><th class="num">Có kỹ năng</th><th class="num">Tỷ lệ</th></tr></thead>
+      <tbody id="covTable"></tbody></table>
+    <p class="note" id="statusNote"></p>
+  </section>
+</div>
+<div class="tip" id="tip" role="tooltip"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+const pct = (x, d = 1) => x == null ? '—' : (100 * x).toFixed(d).replace('.', ',') + '%';
+const num = x => x == null ? '—' : x.toLocaleString('vi-VN');
+const el = (tag, attrs = {}, text) => { const e = document.createElement(tag); Object.assign(e, attrs); if (text != null) e.textContent = text; return e; };
+const SVGNS = 'http://www.w3.org/2000/svg';
+const sv = (tag, attrs) => { const e = document.createElementNS(SVGNS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
+let D, current;
+
+const tip = $('tip');
+function showTip(ev, html) { tip.replaceChildren(...html); tip.style.display = 'block';
+  const x = Math.min(ev.clientX + 12, innerWidth - tip.offsetWidth - 8); tip.style.left = x + 'px'; tip.style.top = (ev.clientY + 12) + 'px'; }
+const hideTip = () => tip.style.display = 'none';
+
+$('theme').onclick = () => {
+  const dark = matchMedia('(prefers-color-scheme: dark)').matches;
+  const cur = document.documentElement.dataset.theme || (dark ? 'dark' : 'light');
+  document.documentElement.dataset.theme = cur === 'dark' ? 'light' : 'dark';
+};
+
+async function load() {
+  const get = n => fetch('data/' + n).then(r => { if (!r.ok) throw new Error(n); return r.json(); });
+  const [meta, skills, families, provinces, status] = await Promise.all(
+    ['meta.json', 'skills.json', 'families.json', 'provinces.json', 'status.json'].map(get));
+  D = { meta, skills, families, provinces, status, byId: Object.fromEntries(skills.map(s => [s.id, s])),
+        famName: Object.fromEntries(families.map(f => [f.id, f.name])) };
+  renderMeta(); renderFilters(); renderRank(); renderCoverage();
+  select(skills[0].id);
+}
+
+function renderMeta() {
+  const m = D.meta;
+  const src = m.sources.map(s => `${s.source} (chụp ${s.latest.split('-').reverse().join('/')})`).join(' · ');
+  $('meta').textContent = `Cập nhật ${new Date(m.generated_at).toLocaleString('vi-VN')} · nguồn: ${src} · danh mục v${m.taxonomy.version}`;
+  const tiles = [[num(m.n_open), 'tin đang mở trong phạm vi (đã bỏ tin đăng lại)'],
+    [m.days_collected, `ngày thu thập (${m.first_day} → ${m.last_day})`],
+    [m.taxonomy.skills, 'kỹ năng trong danh mục'],
+    [`${m.history_months.itviec ?? 0} / ${m.history_months.vietnamworks ?? 0}`, 'tháng lịch sử dùng được (itviec / vietnamworks)']];
+  $('tiles').replaceChildren(...tiles.map(([v, l]) => { const t = el('div', {className: 'card tile'}); t.append(el('b', {}, v), el('span', {}, l)); return t; }));
+}
+
+function renderFilters() {
+  const fam = $('fFam'), prov = $('fProv');
+  fam.append(el('option', {value: ''}, 'Tất cả nhóm nghề'));
+  D.families.forEach(f => fam.append(el('option', {value: f.id}, `${f.name} (${num(f.n_open)})`)));
+  prov.append(el('option', {value: ''}, 'Cả nước'));
+  const top = new Set(D.skills.flatMap(s => s.by_province.map(p => p[0])));
+  D.provinces.filter(p => top.has(p.code)).forEach(p => prov.append(el('option', {value: p.code}, `${p.name} (${num(p.n_open)})`)));
+  fam.onchange = () => { if (fam.value) prov.value = ''; renderRank(); };
+  prov.onchange = () => { if (prov.value) fam.value = ''; renderRank(); };
+}
+
+function ranking() {
+  const f = $('fFam').value, p = $('fProv').value;
+  if (f) { const fam = D.families.find(x => x.id === f);
+    return {rows: fam.skills.map(([id, w]) => [id, w]), note: `Tỷ lệ tin đang mở của nhóm "${fam.name}" có yêu cầu kỹ năng (${num(fam.n_open)} tin).`}; }
+  if (p) return {rows: D.skills.map(s => [s.id, (s.by_province.find(x => x[0] === p) || [])[1]]).filter(r => r[1] != null),
+                 note: 'Tỷ lệ tin đang mở tại tỉnh có yêu cầu kỹ năng. Chỉ 12 tỉnh nhiều tin nhất có lát cắt này.'};
+  return {rows: D.skills.map(s => [s.id, s.open.share]), note: 'Tỷ lệ tin đang mở có yêu cầu kỹ năng. ' + D.meta.notes.open};
+}
+
+function renderRank() {
+  const {rows, note} = ranking();
+  rows.sort((a, b) => b[1] - a[1]);
+  const top = rows.slice(0, 25), max = top.length ? top[0][1] : 1;
+  $('bars').replaceChildren(...top.map(([id, v]) => {
+    const s = D.byId[id], li = el('li', {className: 'bar', tabIndex: 0});
+    li.setAttribute('role', 'option'); li.dataset.id = id;
+    li.setAttribute('aria-label', `${s.vi}: ${pct(v)}`);
+    const track = el('div', {className: 'track'}), fill = el('div', {className: 'fill'});
+    fill.style.width = (100 * v / max) + '%'; track.append(fill);
+    li.append(el('span', {className: 'name'}, s.vi), track, el('span', {className: 'val'}, pct(v)));
+    li.onclick = () => select(id); li.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(id); } };
+    li.onmousemove = e => showTip(e, [el('b', {}, s.vi), el('div', {}, `${pct(v)} tin · nhóm: ${s.group}`)]);
+    li.onmouseleave = hideTip;
+    return li;
+  }));
+  $('rankNote').textContent = note;
+  markSelected();
+}
+const markSelected = () => document.querySelectorAll('.bar').forEach(b => b.setAttribute('aria-selected', b.dataset.id === current));
+
+function select(id) {
+  current = id; markSelected();
+  const s = D.byId[id];
+  $('h-skill').textContent = `${s.vi}` + (s.en && s.en !== s.vi ? ` / ${s.en}` : '');
+  const kv = [['Nhóm', s.group], ['Loại', s.type], ['Tin đang mở', `${pct(s.open.share)} (${num(s.open.n)} tin)`]];
+  if (s.ai) kv.push(['Điểm AI', s.ai.score != null ? s.ai.score.toFixed(2) : '—'],
+                    ['chuyên gia', s.ai.expert?.toFixed(2)], ['đồng xuất hiện AI', s.ai.has_cooc ? pct(s.ai.cooc) : 'chưa đủ tin']);
+  $('skillKv').replaceChildren(...kv.map(([k, v]) => { const d = el('span', {}, k + ': '); d.append(el('b', {}, v ?? '—')); return d; }));
+  const panels = ['itviec', 'vietnamworks'].filter(src => (s.history[src] || []).length);
+  $('panels').replaceChildren(...(panels.length ? panels.map(src => chart(s, src))
+    : [el('div', {className: 'empty'}, 'Kỹ năng này chưa có chuỗi lịch sử đủ dài trong mẫu lưu trữ.')]));
+  const fcs = Object.entries(s.forecast);
+  $('fcNote').textContent = fcs.length
+    ? fcs.map(([src, f]) => `${src}: ${f.model}, ${f.n_months} tháng; kiểm tra ngược 3 tháng: sai số mô hình ${pct(f.mae_model)} vs mốc ngây thơ ${pct(f.mae_naive)} → ${f.beats_naive ? 'mô hình tốt hơn' : 'mô hình KHÔNG tốt hơn mốc ngây thơ'}.`).join(' ') + ' ' + D.meta.notes.forecast
+    : 'Chưa dự báo: cần ≥12 tháng dùng được và tỷ trọng trung bình ≥2%. ' + D.meta.notes.history;
+  $('famTable').replaceChildren(...s.by_family.map(([f, v, n]) => {
+    const tr = el('tr'); tr.append(el('td', {}, D.famName[f] || f), el('td', {className: 'num'}, pct(v)), el('td', {className: 'num'}, num(n))); return tr; }));
+}
+
+function chart(s, src) {
+  const hist = s.history[src], fc = s.forecast[src];
+  const W = 360, H = 190, m = {l: 34, r: 10, t: 22, b: 22};
+  const months = hist.map(h => h[0]).concat(fc ? fc.months : []);
+  const first = months[0], idx = mo => { const [y, mm] = mo.split('-').map(Number), [y0, m0] = first.split('-').map(Number); return (y - y0) * 12 + mm - m0; };
+  const span = Math.max(1, idx(months[months.length - 1]));
+  const ymax = Math.max(...hist.map(h => h[1]), ...(fc ? fc.hi : [0])) * 1.1 || 0.01;
+  const X = mo => m.l + (W - m.l - m.r) * idx(mo) / span, Y = v => H - m.b - (H - m.t - m.b) * v / ymax;
+  const svg = sv('svg', {viewBox: `0 0 ${W} ${H}`, width: '100%', role: 'img', 'aria-label': `${s.vi} trên ${src}`});
+  svg.append(sv('text', {x: m.l, y: 12, style: 'fill:var(--text-2);font-size:11px;font-weight:600'}));
+  svg.lastChild.textContent = src;
+  for (let k = 0; k <= 4; k++) { const v = ymax * k / 4;
+    svg.append(sv('line', {x1: m.l, x2: W - m.r, y1: Y(v), y2: Y(v), class: 'gl'}));
+    const t = sv('text', {x: m.l - 4, y: Y(v) + 3, 'text-anchor': 'end'}); t.textContent = Math.round(100 * v) + '%'; svg.append(t); }
+  [first, months[months.length - 1]].forEach((mo, k) => { const t = sv('text', {x: X(mo), y: H - 6, 'text-anchor': k ? 'end' : 'start'}); t.textContent = mo; svg.append(t); });
+  if (fc) {
+    const band = fc.months.map((mo, i) => `${X(mo)},${Y(fc.hi[i])}`).concat(fc.months.slice().reverse().map((mo, i) => `${X(mo)},${Y(fc.lo[fc.lo.length - 1 - i])}`));
+    svg.append(sv('polygon', {points: band.join(' '), fill: 'var(--s1-band)'}));
+    svg.append(sv('polyline', {points: [[hist[hist.length - 1][0], hist[hist.length - 1][1]], ...fc.months.map((mo, i) => [mo, fc.share[i]])].map(([mo, v]) => `${X(mo)},${Y(v)}`).join(' '),
+      fill: 'none', stroke: 'var(--s1)', 'stroke-width': 2, 'stroke-dasharray': '4 3'}));
+    const ny = Y(fc.naive);
+    svg.append(sv('line', {x1: X(hist[hist.length - 1][0]), x2: X(fc.months[fc.months.length - 1]), y1: ny, y2: ny, stroke: 'var(--ref)', 'stroke-width': 1.5, 'stroke-dasharray': '2 3'}));
+    const t = sv('text', {x: X(hist[hist.length - 1][0]) + 2, y: ny + 12, 'text-anchor': 'start'}); t.textContent = 'mốc ngây thơ'; svg.append(t);
+  }
+  // nối điểm liền tháng; tháng thiếu mẫu để hở, không nội suy
+  let seg = [];
+  const flush = () => { if (seg.length > 1) svg.append(sv('polyline', {points: seg.join(' '), fill: 'none', stroke: 'var(--s1)', 'stroke-width': 2})); seg = []; };
+  hist.forEach((h, i) => { if (i && idx(h[0]) - idx(hist[i - 1][0]) > 1) flush(); seg.push(`${X(h[0])},${Y(h[1])}`); });
+  flush();
+  hist.forEach(h => {
+    const c = sv('circle', {cx: X(h[0]), cy: Y(h[1]), r: 3, fill: 'var(--s1)', stroke: 'var(--card)', 'stroke-width': 2});
+    const hit = sv('circle', {cx: X(h[0]), cy: Y(h[1]), r: 9, fill: 'transparent'});
+    hit.onmousemove = e => showTip(e, [el('b', {}, h[0]), el('div', {}, `${pct(h[1])} (${h[2]}/${h[3]} tin mẫu)`)]);
+    hit.onmouseleave = hideTip; svg.append(c, hit);
+  });
+  if (fc) fc.months.forEach((mo, i) => {
+    const hit = sv('circle', {cx: X(mo), cy: Y(fc.share[i]), r: 9, fill: 'transparent'});
+    hit.onmousemove = e => showTip(e, [el('b', {}, mo + ' (dự báo)'), el('div', {}, `${pct(fc.share[i])} · khoảng 80%: ${pct(fc.lo[i])}–${pct(fc.hi[i])}`)]);
+    hit.onmouseleave = hideTip; svg.append(hit);
+  });
+  const box = el('div'); box.append(svg); return box;
+}
+
+function renderCoverage() {
+  const fam = D.status.coverage_by_family;
+  $('covTable').replaceChildren(...fam.map(c => {
+    const tr = el('tr'); tr.append(el('td', {}, D.famName[c.job_family_id] || c.job_family_id), el('td', {className: 'num'}, num(c.n)),
+      el('td', {className: 'num'}, num(c.hit)), el('td', {className: 'num'}, pct(c.share))); return tr; }));
+  const ev = D.status.extract_eval;
+  $('statusNote').textContent = `F1 trích kỹ năng: ${ev.all ? `${ev.all.f1} trên ${ev.all.n} tin gán tay` : 'chưa đo (chưa có tập chuẩn gán nhãn)'}. `
+    + `Độ trễ trung vị từ ngày đăng tới ngày thu: ${D.status.median_latency_days} ngày. `
+    + `Dự báo: ${D.status.forecast.map(f => `${f.source} ${f.beats}/${f.n} chuỗi thắng mốc ngây thơ`).join(', ')}. `
+    + `Nguồn bị chặn / đã loại: ${D.status.blocked_or_excluded_sources.join(', ')}.`;
+}
+
+load().catch(e => { $('meta').textContent = 'Không tải được dữ liệu (' + e.message + '). Mở trang qua máy chủ cục bộ, không mở file trực tiếp.'; });
+</script>
+</body>
+</html>

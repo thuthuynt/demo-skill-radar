@@ -17,3 +17,4 @@ deploy: build
 
 test:
 	$(PY) -m pytest -q tests
+	node --test tests/test_logic.mjs

@@ -111,7 +111,15 @@ def main() -> int:
     fam_skill = defaultdict(list)
     for r in rows(con, "SELECT job_family_id, skill_id, weight FROM m_family_skill ORDER BY weight DESC"):
         fam_skill[r["job_family_id"]].append([r["skill_id"], r4(r["weight"])])
+    # lương: trung vị điểm giữa khoảng lương VND/tháng, chỉ tin có ghi lương; < 30 tin thì không công bố
+    salary = {r["f"]: r for r in rows(con, """
+        SELECT job_family_id f, count(*) n,
+               median((coalesce(salary_min, salary_max) + coalesce(salary_max, salary_min)) / 2) med
+        FROM base_open WHERE salary_unit = 'VND' AND coalesce(salary_min, salary_max) BETWEEN 1e6 AND 2e8
+        GROUP BY 1""")}
     families = [{"id": f, "name": FAMILIES[f], "in_scope": f not in OUT_OF_SCOPE,
+                 "salary_median_vnd": round(salary[f]["med"], -5) if f in salary and salary[f]["n"] >= 30 else None,
+                 "salary_n": salary[f]["n"] if f in salary else 0,
                  "n_open": sum(fam_prov[f].values()), "by_province": fam_prov[f],
                  "skills": fam_skill[f][:30]} for f in FAMILIES if fam_prov.get(f)]
 
@@ -151,7 +159,7 @@ def main() -> int:
             "history": "Chuỗi tháng lấy từ MẪU bản lưu Internet Archive (~150 tin/tháng/nguồn); chỉ dùng tỷ trọng, "
                        "không dùng số đếm. Tháng dưới 80 tin bị bỏ, không nội suy.",
             "ai": "Điểm chuyên gia + đồng xuất hiện với công cụ AI, chưa đo theo chuỗi thời gian.",
-            "forecast": "Xu hướng tuyến tính trên chuỗi mẫu, luôn kèm mốc ngây thơ (trung bình 3 tháng cuối) "
+            "forecast": "ARIMA trên chuỗi mẫu (chưa tách mùa vụ), luôn kèm mốc ngây thơ (trung bình 3 tháng cuối) "
                         "và kết quả kiểm tra ngược 3 tháng.",
         },
     }
