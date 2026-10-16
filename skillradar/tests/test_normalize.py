@@ -54,3 +54,14 @@ def test_job_family_labor_title_wins_over_source_category():
     assert job_family("vietnamworks", "Chuyên viên kinh doanh B2B", vnw) == ("kinh-doanh", "source")
     assert job_family("timviec365", "Tuyển Tài Xế Xe Tải", {}) == ("lao-dong-pho-thong", "title_first")
     assert job_family("itviec", "Senior Java Developer", {}) == ("cntt", "source")
+
+
+def test_degree_line_does_not_count_as_domain_skill():
+    from src.extract.run import compile_matchers, match
+    entries = [("audit", "kiểm toán", False, True), ("excel", "Excel", False, True)]
+    m = compile_matchers(entries, {"audit"})
+    found = match("Kế toán tổng hợp",
+                  "Yêu cầu\nTốt nghiệp chuyên ngành Kế toán, Kiểm toán; thành thạo Excel", m)
+    assert "audit" not in found and "excel" in found
+    found = match("Kế toán tổng hợp", "Yêu cầu\nCó kinh nghiệm kiểm toán nội bộ", m)
+    assert "audit" in found

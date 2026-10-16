@@ -1,12 +1,13 @@
 # Công cụ AI dùng để đo tín hiệu đồng xuất hiện (METRICS.md mục 3).
-# Một dòng một cụm, khớp không phân biệt hoa thường và dấu.
+# Một dòng một cụm, khớp không phân biệt hoa thường và dấu, theo biên từ.
+# Đã bỏ (13/10, khớp nhầm quá nhiều): "prompt" trơn, "trí tuệ nhân tạo", "Claude" trơn, "Copilot" trơn.
 ChatGPT
 GPT-4
 GPT-5
-Claude
+Claude AI
 Gemini
-Copilot
 GitHub Copilot
+Microsoft Copilot
 Midjourney
 Stable Diffusion
 LangChain
@@ -15,8 +16,11 @@ Hugging Face
 AI tạo sinh
 generative AI
 GenAI
-trí tuệ nhân tạo
-prompt
+prompt engineering
 LLM
+LLMs
 RAG
 vector database
+công cụ AI
+AI tools
+ứng dụng AI

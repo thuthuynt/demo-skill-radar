@@ -70,7 +70,7 @@ sources:
       Disallow: /*?ssid=
     terms_checked: false   # [người]
     crawl_delay_seconds: 2
-    max_pages_per_run: 600
+    max_pages_per_run: 1500
 
   - name: timviec365
     base_url: https://timviec365.vn

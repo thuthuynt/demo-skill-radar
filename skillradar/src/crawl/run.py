@@ -112,7 +112,11 @@ def crawl(client: PoliteClient, sources: list[dict], limit: int | None, refetch:
         for src in sources:
             name = src["name"]
             open_urls = open_urls_of(client, src)
-            (day_dir / f"{name}.open.txt").write_text("\n".join(open_urls) + "\n", encoding="utf-8")
+            if open_urls:
+                (day_dir / f"{name}.open.txt").write_text("\n".join(open_urls) + "\n", encoding="utf-8")
+            else:
+                # sitemap/danh sách hỏng: không ghi ảnh chụp rỗng, nếu không silver coi mọi tin của nguồn là đã đóng
+                log.error("%s: không lấy được danh sách tin đang mở, giữ ảnh chụp hôm trước", name)
             new = [u for u in open_urls if u not in seen]
             current = PARSER_VERSION.get(src["method"], 1)
             # --refetch: tải lại tin còn mở mà bản ghi được bóc bằng parser cũ có lỗi

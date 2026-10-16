@@ -10,6 +10,39 @@ dùng ảnh chụp tỷ trọng trên tin đang mở — xem `docs/METRICS.md` �
 
 ---
 
+## Trạng thái 16/10 — còn 6 ngày
+
+**Đi trước kế hoạch ~2 ngày.** Dữ liệu thật đã chạy hết đường ống tới `web/data/*.json` (277 KB),
+`verify` khớp toàn bộ. Việc lớn còn lại: nối giao diện, deploy, kiểm thử, video.
+
+| Hạng mục | Trạng thái |
+|---|---|
+| Crawl hằng ngày 07:00 | ✅ chạy đều 13–16/10 (lỗi launchd 14/10 đã sửa) |
+| 4 nguồn | itviec ✅ · jobsgo ✅ · timviec365 ✅ · **vietnamworks ⚠ sitemap 404 từ 14/10** (dùng ảnh chụp 13/10) |
+| Lịch sử Internet Archive | ✅ 01/2025–09/2026; itviec 16, vietnamworks 17 tháng dùng được |
+| Silver / trích kỹ năng | ✅ 38k tin, 159 kỹ năng, 93% tin trong phạm vi có ≥1 kỹ năng chuyên môn |
+| Chỉ số + dự báo ARIMA | ✅ 142 chuỗi, mô hình thắng mốc ngây thơ 55% |
+| Export + verify + `make build` | ✅ |
+| Tập chuẩn F1 | ⏸ công cụ gán nhãn xong; 2/150 tin; chờ chọn cách dùng LLM (A/B/C) |
+| Giao diện số thật | ⏳ 18–19/10 |
+| Deploy | ⏳ 20/10 |
+| Commit | ⚠ việc 13–16/10 chưa commit (công cụ gán nhãn, sửa launchd, gold/export/verify, ARIMA, Makefile) |
+
+**Việc của bạn — đang trễ, giám khảo sẽ hỏi:**
+1. Đọc điều khoản sử dụng 4 nguồn, đặt `terms_checked: true` — *chưa làm (0/4)*
+2. Gửi email xin phép + báo vietnamworks hỏng sitemap, ghi `docs/COMPLIANCE.md` — *chưa làm*
+3. Duyệt `ai_expert_score` 60 kỹ năng mới (`data/skill_candidates.csv`, ~30 phút) — *chưa làm*
+4. Chọn cách làm tập chuẩn F1 (A: bạn 40 tin + Claude, đo κ / B / C) + API key — *chờ*
+5. Chỉ tiêu tuyển sinh: nhập tập nhỏ hoặc bỏ lát cắt lệch cung cầu — *chưa quyết*
+
+**Rủi ro:**
+- vietnamworks hỏng tới hạn nộp → ảnh chụp tin đang mở của nguồn này dừng ở 13/10; giao diện ghi
+  ngày chụp riêng từng nguồn. Không dùng API nội bộ khi chưa được phép.
+- Không có F1 thật thì trang trạng thái phải ghi "chưa đo" — giám khảo sẽ hỏi.
+- jobsgo tồn ~2,3k tin chưa tải; đã nâng trần lên 1500/ngày (16/10).
+
+---
+
 ## 12/10 — Khung repo ✅
 
 - [x] venv Python 3.11, `src/config.py`, logger ghi `logs/`
@@ -81,6 +114,17 @@ Song song (Claude Code): bảng gold `fact_posting_skill` + bảng chiều, theo
 > Xong khi: 300+ kỹ năng; `python -m src.extract.evaluate` in F1 theo 3 nhóm kèm cỡ mẫu.
 
 ## 17/10 — Chỉ số, export, verify
+
+**Tiến độ (làm sớm 14/10):**
+- [x] `src.build.gold`: tỷ trọng tin đang mở (theo nhóm nghề / tỉnh / cấp độ), lịch sử tháng theo nguồn
+      (itviec 16, vietnamworks 17 tháng dùng được), điểm AI, đồng xuất hiện, trọng số nhóm nghề
+- [x] Dự báo ARIMA (statsmodels, chọn bậc theo AIC) + mốc ngây thơ + kiểm tra ngược 3 tháng, chỉ kỹ năng
+      tỷ trọng TB ≥ 2%: 142 chuỗi, mô hình thắng mốc ngây thơ ở 78 (55%) — công bố đúng như vậy
+- [x] `src.build.export` -> `web/data/*.json` 287 KB; `src.build.verify` khớp toàn bộ; `make build`
+- [x] Không tính kỹ năng nghiệp vụ ở dòng bằng cấp ("tốt nghiệp chuyên ngành Kiểm toán")
+- [ ] vietnamworks: sitemap trả 404 từ 14/10 — thử lại chiều 14/10, nếu còn hỏng thì đọc trang danh sách
+- [x] Cho phép `statsmodels` (CLAUDE.md, 14/10); METRICS.md mô tả đúng cách làm ARIMA hiện tại
+
 
 - **[người, ~nửa ngày]** Nhập tay tập nhỏ chỉ tiêu tuyển sinh, có `source_note`.
   Không kịp → ẩn lát cắt lệch cung cầu.

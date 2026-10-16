@@ -48,7 +48,8 @@ Hạn nộp: **22/10/2026** (10 ngày kể từ 12/10). Không có ngày đệm.
   commit + push. Không dùng `wrangler pages deploy`, không tạo dự án Pages mới.
 - **Python 3.11**, thư viện tối thiểu: `httpx`, `selectolax`, `duckdb`, `pyyaml`,
   `python-dateutil` (phân tích ngày đăng), `rapidfuzz` (khoảng cách Levenshtein khi
-  khử trùng). Không thêm framework. Không Scrapy, không Airflow, không Docker.
+  khử trùng), `statsmodels` (ARIMA cho dự báo, cho phép từ 14/10/2026). Không thêm
+  framework. Không Scrapy, không Airflow, không Docker. Không Prophet (cần cmdstan, nặng).
 - **Kho dữ liệu ba tầng**: bronze (JSONL thô) → silver (duckdb, đã chuẩn hóa) →
   gold (duckdb, hạt `một tin × một kỹ năng`). Xem `docs/DATA_SCHEMA.md`.
 - **Không dùng LLM trong đường ống v1.** Trích kỹ năng bằng từ điển + luật.

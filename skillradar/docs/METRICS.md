@@ -108,9 +108,18 @@ khảo sát doanh nghiệp để hiệu chỉnh trước khi dùng cho quyết �
 Không vẽ đường dự báo cho tới khi có **12 kỳ đầy đủ**. Chỗ biểu đồ dự báo hiển thị:
 "Chưa đủ lịch sử để dự báo. Chỉ số sẽ bật khi đủ 12 kỳ, hiện có N kỳ."
 
-Khi bật: chân trời 6–18 tháng, ARIMA hoặc Prophet có tách mùa vụ, luôn kèm khoảng
+Khi bật: chân trời 6–18 tháng, ARIMA (`statsmodels` SARIMAX), luôn kèm khoảng
 tin cậy, và **luôn hiển thị mốc ngây thơ bên cạnh**. Nếu mô hình không đánh bại
 được mốc ngây thơ thì báo cáo đúng như vậy.
+
+Cách làm hiện tại (`src/build/gold.py`):
+- Chuỗi: tỷ trọng tháng trên MẪU lưu trữ, tách theo nguồn. Tháng dưới 80 tin để trống
+  (Kalman filter của SARIMAX bỏ qua), **không nội suy**.
+- Chọn bậc theo AIC trong {(0,1,1), (1,1,0), (1,0,0)+hằng số}. Chưa tách mùa vụ: cần ≥ 24
+  tháng, hiện có 16–17.
+- Dải 80% từ `get_forecast().conf_int(alpha=0.2)`, chân trời 6 tháng.
+- Mốc ngây thơ: trung bình 3 tháng dùng được cuối cùng.
+- Kiểm tra ngược: giữ lại 3 tháng cuối, so sai số tuyệt đối trung bình mô hình vs mốc ngây thơ.
 
 ## 6. Chỉ số chất lượng — trang trạng thái
 

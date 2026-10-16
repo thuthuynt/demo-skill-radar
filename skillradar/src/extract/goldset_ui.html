@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gán nhãn tập chuẩn</title>
+<style>
+  :root { --bg:#fafaf9; --fg:#1c1917; --muted:#78716c; --line:#e7e5e4; --card:#fff; --accent:#0f766e; --chip:#ccfbf1; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#1c1917; --fg:#f5f5f4; --muted:#a8a29e; --line:#44403c; --card:#292524; --accent:#2dd4bf; --chip:#134e4a; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; font:15px/1.5 system-ui, sans-serif; background:var(--bg); color:var(--fg); }
+  header { display:flex; gap:12px; align-items:center; padding:10px 16px; border-bottom:1px solid var(--line); position:sticky; top:0; background:var(--bg); z-index:1; }
+  header .grow { flex:1; }
+  main { display:grid; grid-template-columns: minmax(0,3fr) minmax(280px,2fr); gap:16px; padding:16px; }
+  @media (max-width: 800px) { main { grid-template-columns: 1fr; } }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:16px; }
+  .side { position:sticky; top:60px; align-self:start; }
+  @media (max-width: 800px) { .side { position:static; } }
+  h1 { font-size:18px; margin:0 0 4px; }
+  .meta { color:var(--muted); font-size:13px; margin-bottom:12px; }
+  .sec { font-size:12px; font-weight:600; text-transform:uppercase; color:var(--muted); margin:14px 0 4px; }
+  .line { margin:2px 0; white-space:pre-wrap; }
+  input[type=search], input[type=text] { width:100%; padding:8px; border:1px solid var(--line); border-radius:6px; background:var(--bg); color:var(--fg); font:inherit; }
+  #results { max-height:45vh; overflow:auto; margin-top:8px; }
+  .opt { display:flex; gap:8px; padding:4px 2px; cursor:pointer; align-items:flex-start; }
+  .opt small { color:var(--muted); display:block; }
+  .chips { display:flex; flex-wrap:wrap; gap:6px; min-height:28px; margin:8px 0; }
+  .chip { background:var(--chip); border-radius:14px; padding:2px 10px; font-size:13px; }
+  .chip button { border:0; background:none; color:inherit; cursor:pointer; padding:0 0 0 4px; }
+  button.primary { background:var(--accent); color:#fff; border:0; border-radius:6px; padding:8px 14px; font:inherit; cursor:pointer; }
+  button.ghost { background:none; border:1px solid var(--line); color:var(--fg); border-radius:6px; padding:8px 12px; font:inherit; cursor:pointer; }
+  .done { color:var(--accent); font-weight:600; }
+  .row { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+  :focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+</style>
+</head>
+<body>
+<header>
+  <strong>Tập chuẩn F1</strong>
+  <span id="progress" class="grow" aria-live="polite"></span>
+  <button class="ghost" id="prev" aria-label="Tin trước">←</button>
+  <span id="pos"></span>
+  <button class="ghost" id="next" aria-label="Tin sau">→</button>
+  <button class="ghost" id="nextTodo">Tin chưa gán tiếp theo</button>
+</header>
+<main>
+  <section class="card" aria-label="Nội dung tin">
+    <h1 id="title"></h1>
+    <div class="meta" id="meta"></div>
+    <div id="body"></div>
+  </section>
+  <section class="card side" aria-label="Kỹ năng">
+    <label for="q"><strong>Tìm kỹ năng</strong> (tên Việt, tên Anh hoặc alias)</label>
+    <input id="q" type="search" autocomplete="off" placeholder="vd: excel, kế toán thuế, lái xe…">
+    <div id="results" role="listbox" aria-label="Kết quả tìm"></div>
+    <div class="sec">Đã chọn</div>
+    <div class="chips" id="chosen"></div>
+    <label for="missing" class="sec" style="display:block">Kỹ năng có trong tin nhưng CHƯA có trong danh mục (cách nhau dấu ;)</label>
+    <input id="missing" type="text">
+    <div class="row">
+      <button class="primary" id="save">Lưu &amp; sang tin sau (Ctrl+Enter)</button>
+      <button class="ghost" id="none">Tin không có kỹ năng nào</button>
+    </div>
+    <p class="meta">Chỉ chọn kỹ năng tin <em>yêu cầu hoặc mô tả</em> trong công việc, không tính mục quyền lợi. Nhãn lưu ngay vào <code>data/goldset.jsonl</code>.</p>
+  </section>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+const fold = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D').toLowerCase();
+let S, i = 0, chosen = new Set();
+
+async function load() {
+  S = await (await fetch('/api/state')).json();
+  S.skills.forEach(s => s.key = fold([s.vi, s.en, s.id, s.aliases].join(' ')));
+  const firstTodo = S.items.findIndex(it => !S.labels[it.posting_id]);
+  show(firstTodo < 0 ? 0 : firstTodo);
+}
+
+function show(n) {
+  i = Math.max(0, Math.min(S.items.length - 1, n));
+  const it = S.items[i], lab = S.labels[it.posting_id];
+  $('title').textContent = it.title;
+  $('meta').textContent = `${it.source} · ${it.job_family_id} · ngôn ngữ: ${it.lang}` + (lab ? ' · ĐÃ GÁN' : '');
+  const body = $('body'); body.replaceChildren();
+  let last = null;
+  for (const [sec, line] of it.sections) {
+    if (sec !== last) { const h = document.createElement('div'); h.className = 'sec'; h.textContent = sec; body.append(h); last = sec; }
+    const p = document.createElement('div'); p.className = 'line'; p.textContent = line; body.append(p);
+  }
+  chosen = new Set(lab ? lab.skills : []);
+  $('missing').value = lab ? lab.missing.join('; ') : '';
+  $('q').value = ''; renderResults(); renderChosen();
+  const done = Object.keys(S.labels).length;
+  $('progress').innerHTML = `<span class="done">${done}</span> / ${S.items.length} tin đã gán`;
+  $('pos').textContent = `#${i + 1}`;
+  window.scrollTo(0, 0); $('q').focus();
+}
+
+function renderResults() {
+  const q = fold($('q').value.trim()), box = $('results'); box.replaceChildren();
+  if (!q) return;
+  for (const s of S.skills.filter(s => s.key.includes(q)).slice(0, 30)) {
+    const row = document.createElement('label'); row.className = 'opt'; row.setAttribute('role', 'option');
+    const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = chosen.has(s.id);
+    cb.onchange = () => { cb.checked ? chosen.add(s.id) : chosen.delete(s.id); renderChosen(); };
+    const t = document.createElement('span'); t.textContent = `${s.vi} / ${s.en}`;
+    const sm = document.createElement('small'); sm.textContent = s.group; t.append(sm);
+    row.append(cb, t); box.append(row);
+  }
+}
+
+function renderChosen() {
+  const box = $('chosen'); box.replaceChildren();
+  const byId = Object.fromEntries(S.skills.map(s => [s.id, s]));
+  for (const id of chosen) {
+    const c = document.createElement('span'); c.className = 'chip'; c.textContent = byId[id] ? byId[id].vi : id;
+    const x = document.createElement('button'); x.textContent = '×'; x.setAttribute('aria-label', `Bỏ ${c.textContent}`);
+    x.onclick = () => { chosen.delete(id); renderChosen(); renderResults(); };
+    c.append(x); box.append(c);
+  }
+}
+
+async function save(skills) {
+  const it = S.items[i];
+  const missing = $('missing').value.split(';').map(s => s.trim()).filter(Boolean);
+  const r = await fetch('/api/label', { method: 'POST', headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ posting_id: it.posting_id, skills: [...skills], missing }) });
+  if (!r.ok) { alert('Lưu lỗi: ' + await r.text()); return; }
+  S.labels[it.posting_id] = { posting_id: it.posting_id, skills: [...skills], missing };
+  const nxt = S.items.findIndex((x, k) => k > i && !S.labels[x.posting_id]);
+  show(nxt < 0 ? i + 1 : nxt);
+}
+
+$('q').oninput = renderResults;
+$('save').onclick = () => save(chosen);
+$('none').onclick = () => { if (!chosen.size || confirm('Bỏ các kỹ năng đã chọn và lưu là không có kỹ năng?')) save(new Set()); };
+$('prev').onclick = () => show(i - 1);
+$('next').onclick = () => show(i + 1);
+$('nextTodo').onclick = () => { const n = S.items.findIndex(x => !S.labels[x.posting_id]); if (n >= 0) show(n); };
+document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') save(chosen); });
+load();
+</script>
+</body>
+</html>

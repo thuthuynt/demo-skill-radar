@@ -35,6 +35,8 @@ HEADINGS = [
     ("description", r"(mo ta|job description|responsibilit|nhiem vu|the job|cong viec|trach nhiem|what you ll do)"),
 ]
 MAX_HEADING_LEN = 60
+DEGREE_LINE = re.compile(r"\b(tot nghiep|chuyen nganh|bang cap|trinh do hoc van|hoc van|degree|"
+                         r"bachelor|major in|graduated?)\b")
 
 
 def sections(text: str) -> list[tuple[str, str]]:
@@ -71,8 +73,9 @@ def load_dictionary() -> tuple[list, dict]:
     return entries, dim
 
 
-def compile_matchers(entries):
-    """Hai regex hợp: khớp chặt trên văn bản gốc, khớp lỏng trên văn bản đã fold."""
+def compile_matchers(entries, domain_ids=frozenset()):
+    """Hai regex hợp: khớp chặt trên văn bản gốc, khớp lỏng trên văn bản đã fold.
+    domain_ids: kỹ năng nghiệp vụ, không tính khi chỉ xuất hiện ở dòng bằng cấp / chuyên ngành."""
     strict = {a: (sid, ex) for sid, a, s, ex in entries if s}
     loose = {fold(a): (sid, ex) for sid, a, s, ex in entries if not s and fold(a)}
 
@@ -81,12 +84,12 @@ def compile_matchers(entries):
 
     strict_re = re.compile(rf"(?<![\w+#.]){alt(strict)}(?![\w+#])") if strict else None
     loose_re = re.compile(rf"(?<!\w){alt(loose)}(?!\w)") if loose else None
-    return strict_re, strict, loose_re, loose
+    return strict_re, strict, loose_re, loose, frozenset(domain_ids)
 
 
 def match(title: str, desc: str, matchers) -> dict[str, tuple[str, str, str]]:
     """skill_id -> (cụm khớp, cách khớp, mục) — giữ lần khớp đầu tiên, ưu tiên mục yêu cầu."""
-    strict_re, strict, loose_re, loose = matchers
+    strict_re, strict, loose_re, loose, domain_ids = matchers
     found: dict[str, tuple[str, str, str]] = {}
     rank = {"requirement": 0, "title": 1, "description": 2}
     for sec, line in [("title", title)] + sections(desc):
@@ -95,6 +98,9 @@ def match(title: str, desc: str, matchers) -> dict[str, tuple[str, str, str]]:
             hits += [(m.group(0), *strict[m.group(0)]) for m in strict_re.finditer(line)]
         if loose_re:
             hits += [(m.group(0), *loose[m.group(0)]) for m in loose_re.finditer(fold(line))]
+        # "Tốt nghiệp chuyên ngành Kế toán, Kiểm toán" là yêu cầu bằng cấp, không phải kỹ năng
+        if sec != "title" and DEGREE_LINE.search(fold(line)):
+            hits = [h for h in hits if h[1] not in domain_ids]
         for term, sid, exact in hits:
             if sid not in found or rank[sec] < rank[found[sid][2]]:
                 found[sid] = (term, "dict_exact" if exact else "dict_alias", sec)
@@ -120,7 +126,7 @@ def candidates(line: str) -> list[str]:
 
 def main() -> int:
     entries, dim = load_dictionary()
-    matchers = compile_matchers(entries)
+    matchers = compile_matchers(entries, {s for s, r in dim.items() if r["skill_type"] == "domain"})
     stop = {fold(l) for l in STOPTERMS.read_text(encoding="utf-8").splitlines()
             if l.strip() and not l.startswith("#")}
     known = {fold(a) for _, a, _, _ in entries} | {fold(r["name_vi"]) for r in dim.values()}

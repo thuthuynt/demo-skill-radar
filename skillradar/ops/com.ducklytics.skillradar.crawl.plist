@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <!-- Chạy crawler mỗi ngày 07:00. Máy ngủ lúc 07:00 thì launchd chạy bù khi máy thức;
-     máy TẮT hẳn thì không chạy bù. caffeinate giữ máy không ngủ trong lúc crawl. -->
+     máy TẮT hẳn thì không chạy bù. caffeinate giữ máy không ngủ trong lúc crawl.
+     launchd không được vào ~/Documents sau khi khởi động lại (lỗi 78 EX_CONFIG, 14/10/2026):
+     không đặt WorkingDirectory / log launchd trong ~/Documents; chỉ python (đã được cấp quyền)
+     mở file dự án. Log launchd ở ~/Library/Logs/skillradar/. -->
 <plist version="1.0">
 <dict>
   <key>Label</key>
   <string>com.ducklytics.skillradar.crawl</string>
-  <key>WorkingDirectory</key>
-  <string>/Users/thuy.tnguyen/Documents/GitHub/demo-skill-radar/skillradar</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PYTHONPATH</key>
+    <string>/Users/thuy.tnguyen/Documents/GitHub/demo-skill-radar/skillradar</string>
+  </dict>
   <key>ProgramArguments</key>
   <array>
     <string>/usr/bin/caffeinate</string>
@@ -24,8 +30,8 @@
     <integer>0</integer>
   </dict>
   <key>StandardOutPath</key>
-  <string>/Users/thuy.tnguyen/Documents/GitHub/demo-skill-radar/skillradar/logs/launchd.out</string>
+  <string>/Users/thuy.tnguyen/Library/Logs/skillradar/launchd.out</string>
   <key>StandardErrorPath</key>
-  <string>/Users/thuy.tnguyen/Documents/GitHub/demo-skill-radar/skillradar/logs/launchd.err</string>
+  <string>/Users/thuy.tnguyen/Library/Logs/skillradar/launchd.err</string>
 </dict>
 </plist>
