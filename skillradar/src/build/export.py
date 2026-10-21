@@ -109,7 +109,7 @@ def main() -> int:
     fam_prov = defaultdict(dict)
     for r in rows(con, "SELECT * FROM m_family_province"):
         fam_prov[r["job_family_id"]][r["province"]] = r["n_open"]
-    # lương giữa (VND/tháng) của tin trong nhóm CÓ / KHÔNG đòi kỹ năng; < 30 tin mỗi phía thì null.
+    # lương trung vị (VND/tháng) của tin trong nhóm CÓ / KHÔNG đòi kỹ năng; < 30 tin mỗi phía thì null.
     # Tương quan, không phải nhân quả: tin đòi kỹ năng cao thường là vị trí cao hơn.
     prem = {(r["f"], r["s"]): r for r in rows(con, """
         WITH p AS (SELECT posting_id, job_family_id f, (coalesce(salary_min, salary_max) + coalesce(salary_max, salary_min)) / 2 sal

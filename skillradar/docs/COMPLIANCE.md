@@ -48,3 +48,14 @@ xóa file này — nó chứng minh gặp chặn là dừng.
   trên trang ngắn) kèm test hồi quy. Các dòng gốc giữ nguyên, không xóa.
 - vieclam24h.vn (403, cả robots.txt) và vieclamtot.com (403 Cloudflare ở sitemap) là chặn
   thật — đã dừng, không thử lại.
+
+## 21/10/2026 — jobsgo chặn crawler, vietnamworks bỏ sitemap
+
+- **jobsgo**: sau 122 request ngày 21/10, jobsgo.vn trả 403 kèm trang chặn của Cloudflare
+  ("Attention Required") cho user-agent đã khai báo. Crawler dừng nguồn và ghi
+  `logs/blocked.jsonl`. Theo cam kết, không vượt rào; backfill jobsgo qua Internet Archive
+  cũng đã dừng (chưa ghi tin nào), vì làm vậy là đi vòng qua lệnh chặn. Ảnh chụp tin đang mở
+  giữ ở ngày 21/10.
+- **vietnamworks**: `sitemap/jobs.xml` và `sitemap/sitemap.xml` (khai báo trong robots.txt)
+  trả 404 từ 14/10; trang tin đổi sang đuôi `-jd`, danh sách tin tải bằng API nội bộ.
+  Không dùng API khi chưa được phép; ảnh chụp giữ ở 13/10.

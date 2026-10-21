@@ -3,9 +3,10 @@
   "configurations": [
     {
       "name": "skillradar-web",
-      "runtimeExecutable": "python3",
+      "runtimeExecutable": "skillradar/.venv/bin/python",
       "runtimeArgs": ["skillradar/ops/devserver.py", "8090"],
-      "port": 8090
+      "port": 8090,
+      "autoPort": false
     }
   ]
 }

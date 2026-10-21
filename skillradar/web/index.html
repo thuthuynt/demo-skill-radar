@@ -2,31 +2,51 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>SkillRadar — lướt nghề, đi làm thử, gom thẻ kỹ năng</title>
-<meta name="description" content="Chưa biết làm nghề gì? Lướt thử 15 nghề, chơi một ngày đi làm dựng từ tin tuyển dụng thật, gom thẻ kỹ năng nhà tuyển dụng cần.">
-<meta property="og:title" content="SkillRadar — nghề nào hợp với bạn?">
-<meta property="og:description" content="Lướt 15 nghề trong 2 phút. Số liệu thật từ hàng chục nghìn tin tuyển dụng.">
-<meta name="theme-color" content="#0e2a33">
-<link rel="stylesheet" href="assets/student.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SkillRadar VN — nhu cầu kỹ năng từ tin tuyển dụng thật</title>
+<meta name="description" content="Nhu cầu kỹ năng của thị trường lao động Việt Nam, dựng từ tin tuyển dụng công khai, cập nhật hằng ngày.">
+<link rel="stylesheet" href="assets/pro.css">
+<style>
+  .pick { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:28px; }
+  @media (max-width:860px) { .pick { grid-template-columns:1fr; } }
+  .pick a { display:flex; flex-direction:column; gap:10px; background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:22px;
+    text-decoration:none; color:var(--ink); transition:border-color .15s, transform .15s; }
+  .pick a:hover { border-color:var(--pond); transform:translateY(-2px); }
+  .pick a.main { border:2px solid var(--pond); box-shadow:var(--quack); }
+  .pick h2 { font-size:24px; } .pick p { margin:0; color:var(--muted); }
+  .pick span { margin-top:auto; font-weight:700; color:var(--bill-ink); }
+</style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
-  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
-  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></symbol>
-  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></symbol>
-  <symbol id="i-cards" viewBox="0 0 24 24"><rect x="3" y="6" width="12" height="15" rx="2"/><path d="M8 3h11a2 2 0 0 1 2 2v13"/></symbol>
-  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></symbol>
-</svg>
 <header class="top"><div class="in">
-  <a class="logo" href="#/">Skill<span>Radar</span></a>
-  <span class="grow"></span>
-  <a class="pill count" href="#/bai"><svg class="i" style="width:16px;height:16px"><use href="#i-cards"/></svg>Bộ bài <b id="deckCount">0</b></a>
-  <button class="pill" id="theme" aria-label="Đổi nền sáng/tối">◐</button>
+  <a class="logo" href="./">Skill<span>Radar</span></a><span class="grow"></span>
+  <button class="theme" id="theme" aria-label="Đổi nền sáng/tối">◐</button>
 </div></header>
-<main id="app" aria-live="polite">Đang tải…</main>
-<footer><div class="in"><span id="footer"></span><a href="nha-truong/">Dành cho nhà trường</a><a href="co-quan/">Dành cho cơ quan quản lý</a><a href="data.html">Số liệu thô</a></div></footer>
-<script type="module" src="assets/app.js"></script>
+<main>
+  <p class="eyebrow">SKILLRADAR VN</p>
+  <h1>Thị trường lao động đang cần kỹ năng gì?</h1>
+  <p class="lead" id="lead">Dựng từ tin tuyển dụng công khai, cập nhật hằng ngày. Mọi con số truy ngược được về dữ liệu đã thu.</p>
+  <div class="tiles" id="tiles"></div>
+  <div class="pick">
+    <a class="main" href="hoc-sinh/"><h2>Học sinh, sinh viên</h2><p>Nghề nào đang cần người, lương bao nhiêu, cần học kỹ năng gì.</p><span>Khám phá nghề →</span></a>
+    <a href="nha-truong/"><h2>Nhà trường</h2><p>Đối chiếu chương trình đào tạo với kỹ năng nhà tuyển dụng đang yêu cầu.</p><span>Đối chiếu chương trình →</span></a>
+    <a href="co-quan/"><h2>Cơ quan quản lý</h2><p>Nhu cầu kỹ năng theo nhóm nghề và địa phương, tác động của AI.</p><span>Xem tổng quan →</span></a>
+  </div>
+</main>
+<footer><div class="in"><span id="foot"></span><a href="data.html">Số liệu thô</a><a href="tro-choi/">Phiên bản trò chơi</a></div></footer>
+<script>
+  // con số thật trên trang chủ; lỗi tải thì trang vẫn dùng được (chỉ thiếu ô số)
+  fetch('data/meta.json').then(r => r.json()).then(m => {
+    const t = [[m.n_open.toLocaleString('vi-VN'), 'tin tuyển dụng đang mở'], [m.days_collected, 'ngày thu thập liên tục'],
+               [m.taxonomy.skills, 'kỹ năng được theo dõi'], [m.sources.length, 'nguồn tin tuyển dụng']];
+    document.getElementById('tiles').innerHTML = t.map(([v, l]) => `<div class="tile"><b>${v}</b><span>${l}</span></div>`).join('');
+    document.getElementById('foot').textContent = 'SkillRadar VN — bài dự thi BTL86-59. Cập nhật ' + new Date(m.generated_at).toLocaleDateString('vi-VN') + '. Không thu thập dữ liệu cá nhân.';
+  }).catch(() => {});
+  document.getElementById('theme').onclick = () => {
+    const dark = matchMedia('(prefers-color-scheme: dark)').matches;
+    const cur = document.documentElement.dataset.theme || (dark ? 'dark' : 'light');
+    document.documentElement.dataset.theme = cur === 'dark' ? 'light' : 'dark';
+  };
+</script>
 </body>
 </html>

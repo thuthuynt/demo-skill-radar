@@ -1,88 +1,226 @@
 {
-  "_ghi_chu": "Chữ hiển thị của trang nhà trường (uni) và cơ quan quản lý (gov). Sửa thoải mái; giữ nguyên khóa và {biến}.",
-
-  "common": {
-    "theme": "Đổi nền sáng/tối",
-    "updated": "Cập nhật {date}",
-    "sources": "Nguồn: itviec, vietnamworks, jobsgo, timviec365 (ảnh chụp mới nhất: {dates})",
-    "tile_open": "tin tuyển dụng đang mở",
-    "tile_days": "ngày thu thập liên tục",
-    "tile_skills": "kỹ năng trong danh mục",
-    "tile_hist": "tháng lịch sử (itviec / vietnamworks)",
-    "csv": "Tải CSV",
-    "method": "Phương pháp & giới hạn",
-    "method_body": [
-      "Dữ liệu: tin tuyển dụng công khai đang mở, thu thập hằng ngày tuân thủ robots.txt, không thu thập dữ liệu cá nhân. Tin đăng lại bị loại.",
-      "Tỷ lệ = số tin đòi hỏi kỹ năng / số tin đang mở của nhóm nghề. Kỹ năng trích bằng từ điển song ngữ (đã duyệt tay), không dùng mô hình AI.",
-      "Lịch sử theo tháng lấy từ MẪU bản lưu Internet Archive (~150 tin/tháng/nguồn): chỉ dùng tỷ trọng, không dùng số đếm. Tháng thiếu mẫu để trống, không nội suy.",
-      "Lương: trung vị khoảng lương của tin có ghi lương; so sánh có/không có kỹ năng là tương quan, không phải nhân quả.",
-      "Điểm AI = 0,65 × điểm chuyên gia + 0,35 × mức kỹ năng đi cùng công cụ AI trong tin; chưa đo theo chuỗi thời gian.",
-      "Phạm vi: việc văn phòng mọi ngành và lao động phổ thông. Kỹ thuật/xây dựng/sản xuất chuyên môn, y tế chưa trong phạm vi."
-    ],
-    "data_link": "Số liệu thô và JSON",
-    "student_link": "Trang cho học sinh, sinh viên",
-    "nav_uni": "Nhà trường",
-    "nav_gov": "Cơ quan quản lý",
-    "trend": {"up": "tăng", "down": "giảm", "flat": "đi ngang", "none": "chưa đủ lịch sử"},
-    "ai": {"low": "thấp", "mid": "trung bình", "high": "cao", "none": "—"}
+ "_ghi_chu": "Chữ hiển thị của trang nhà trường (uni) và cơ quan quản lý (gov). Sửa thoải mái; giữ nguyên khóa và {biến}.",
+ "common": {
+  "theme": "Đổi nền sáng/tối",
+  "updated": "Cập nhật {date}",
+  "sources": "Nguồn: itviec, vietnamworks, jobsgo, timviec365 (ảnh chụp mới nhất: {dates})",
+  "tile_open": "tin tuyển dụng đang mở",
+  "tile_days": "ngày thu thập liên tục",
+  "tile_skills": "kỹ năng trong danh mục",
+  "tile_hist": "tháng lịch sử (itviec / vietnamworks)",
+  "csv": "Tải CSV",
+  "method": "Phương pháp & giới hạn",
+  "method_body": [
+   "Dữ liệu: tin tuyển dụng công khai đang mở, thu thập hằng ngày tuân thủ robots.txt, không thu thập dữ liệu cá nhân. Tin đăng lại bị loại.",
+   "Tỷ lệ = số tin đòi hỏi kỹ năng / số tin đang mở của nhóm nghề. Kỹ năng trích bằng từ điển song ngữ (đã duyệt tay), không dùng mô hình AI.",
+   "Lịch sử theo tháng lấy từ MẪU bản lưu Internet Archive (~150 tin/tháng/nguồn): chỉ dùng tỷ trọng, không dùng số đếm. Tháng thiếu mẫu để trống, không nội suy.",
+   "Lương: trung vị khoảng lương của tin có ghi lương; so sánh có/không có kỹ năng là tương quan, không phải nhân quả.",
+   "Điểm AI = 0,65 × điểm chuyên gia + 0,35 × mức kỹ năng đi cùng công cụ AI trong tin; chưa đo theo chuỗi thời gian.",
+   "Phạm vi: việc văn phòng mọi ngành và lao động phổ thông. Kỹ thuật/xây dựng/sản xuất chuyên môn, y tế chưa trong phạm vi."
+  ],
+  "data_link": "Số liệu thô và JSON",
+  "student_link": "Trang cho học sinh, sinh viên",
+  "nav_uni": "Nhà trường",
+  "nav_gov": "Cơ quan quản lý",
+  "trend": {
+   "up": "tăng",
+   "down": "giảm",
+   "flat": "đi ngang",
+   "none": "chưa đủ lịch sử"
   },
-
-  "uni": {
-    "aud": "Dành cho nhà trường",
-    "eyebrow": "ĐỐI CHIẾU CHƯƠNG TRÌNH ĐÀO TẠO",
-    "title": "Chương trình của bạn có dạy đúng kỹ năng thị trường đang cần?",
-    "lead": "Chọn nhóm nghề đầu ra, đánh dấu kỹ năng chương trình đã dạy. Trang tính mức đáp ứng theo nhu cầu thật và liệt kê kỹ năng còn thiếu.",
-    "pick_family": "Nhóm nghề đầu ra",
-    "tile_family_open": "tin {family} đang mở",
-    "tile_salary": "lương giữa (triệu đ/tháng)",
-    "tile_ai": "mức tác động AI",
-    "table_title": "Kỹ năng nhà tuyển dụng yêu cầu",
-    "col_taught": "Đã dạy",
-    "col_skill": "Kỹ năng",
-    "col_share": "Tỷ lệ tin",
-    "col_trend": "12 tháng qua",
-    "col_pay": "Lương có / không (tr)",
-    "col_ai": "Tác động AI",
-    "coverage_title": "Mức đáp ứng của chương trình",
-    "coverage_body": "Tính theo trọng số nhu cầu: kỹ năng nhiều tin cần đóng góp nhiều hơn.",
-    "gap_title": "Kỹ năng còn thiếu, xếp theo nhu cầu",
-    "gap_none": "Chương trình đã phủ toàn bộ kỹ năng trong bảng.",
-    "rising_title": "Kỹ năng đang lên trên thị trường",
-    "rising_body": "Thay đổi tỷ trọng 12 tháng qua trong mẫu lưu trữ (toàn thị trường, theo nguồn có chuỗi dài nhất). Chỉ kỹ năng chiếm ≥ 2% tin.",
-    "trend_note": "Xu hướng tính trên toàn thị trường, không riêng nhóm nghề."
+  "ai": {
+   "low": "thấp",
+   "mid": "trung bình",
+   "high": "cao",
+   "none": "—"
   },
-
-  "gov": {
-    "aud": "Dành cho cơ quan quản lý",
-    "eyebrow": "TỔNG QUAN THỊ TRƯỜNG LAO ĐỘNG TỪ TIN TUYỂN DỤNG",
-    "title": "Nhu cầu kỹ năng theo nhóm nghề và địa phương",
-    "lead": "Số liệu dựng từ tin tuyển dụng công khai, cập nhật hằng ngày. Mọi con số truy ngược được về dữ liệu đã thu và được kiểm chứng tự động trước mỗi lần công bố.",
-    "heat_title": "Tin đang mở theo nhóm nghề và tỉnh/thành",
-    "heat_note": "8 tỉnh/thành nhiều tin nhất; còn lại gộp vào \"Khác\". Một tin có thể ghi nhiều tỉnh, ở đây tính theo tỉnh đầu tiên.",
-    "skills_title": "Kỹ năng được yêu cầu nhiều nhất",
-    "pick_province": "Tỉnh/thành",
-    "all_country": "Cả nước",
-    "ai_title": "Mức tác động AI theo nhóm nghề",
-    "ai_note": "Trung bình điểm AI các kỹ năng chính của nhóm nghề, có trọng số theo tỷ lệ tin. Điểm cao = công việc của nhóm có nhiều phần AI hỗ trợ hoặc làm thay được.",
-    "salary_title": "Lương giữa theo nhóm nghề",
-    "salary_note": "Trung vị khoảng lương của tin có ghi lương (triệu đ/tháng). Nhóm dưới 30 tin có lương không hiển thị.",
-    "trend_title": "Kỹ năng biến động mạnh nhất 12 tháng qua",
-    "trend_note": "Thay đổi tỷ trọng (điểm %) trong mẫu lưu trữ. Cột cuối: mô hình dự báo ARIMA có thắng mốc ngây thơ ở kiểm tra ngược không — nếu không, không nên dùng dự báo để ra quyết định.",
-    "col_skill": "Kỹ năng",
-    "col_source": "Nguồn",
-    "col_change": "Thay đổi",
-    "col_now": "Hiện tại",
-    "col_model": "Dự báo đáng tin?",
-    "yes": "Có",
-    "no": "Không",
-    "gap_title": "Lệch cung – cầu đào tạo",
-    "gap_off": "Chưa bật. Cần số liệu chỉ tiêu tuyển sinh theo ngành và tỉnh có nguồn công bố; nhóm dự án không ước lượng khi chưa có số liệu.",
-    "quality_title": "Chất lượng dữ liệu",
-    "q_coverage": "Tỷ lệ tin trong phạm vi có ≥1 kỹ năng chuyên môn, theo nhóm nghề",
-    "q_f1": "Độ chính xác trích kỹ năng (F1)",
-    "q_f1_none": "Chưa đo — tập chuẩn gán nhãn đang được xây dựng.",
-    "q_latency": "Độ trễ trung vị từ ngày đăng tới ngày thu: {d} ngày",
-    "q_forecast": "Dự báo thắng mốc ngây thơ: {list}",
-    "q_blocked": "Nguồn đã loại (từ chối crawler hoặc không đọc được): {list}"
-  }
+  "nav_student": "Học sinh, sinh viên"
+ },
+ "uni": {
+  "aud": "Dành cho nhà trường",
+  "eyebrow": "ĐỐI CHIẾU CHƯƠNG TRÌNH ĐÀO TẠO",
+  "title": "Chương trình của bạn có dạy đúng kỹ năng thị trường đang cần?",
+  "lead": "Chọn nhóm nghề đầu ra, đánh dấu kỹ năng chương trình đã dạy. Trang tính mức đáp ứng theo nhu cầu thật và liệt kê kỹ năng còn thiếu.",
+  "pick_family": "Nhóm nghề đầu ra",
+  "tile_family_open": "tin {family} đang mở",
+  "tile_salary": "lương trung vị (triệu đ/tháng)",
+  "tile_ai": "mức tác động AI",
+  "table_title": "Kỹ năng nhà tuyển dụng yêu cầu",
+  "col_taught": "Đã dạy",
+  "col_skill": "Kỹ năng",
+  "col_share": "Tỷ lệ tin",
+  "col_trend": "12 tháng qua",
+  "col_pay": "Lương có / không (tr)",
+  "col_ai": "Tác động AI",
+  "coverage_title": "Mức đáp ứng của chương trình",
+  "coverage_body": "Tính theo trọng số nhu cầu: kỹ năng nhiều tin cần đóng góp nhiều hơn.",
+  "gap_title": "Kỹ năng còn thiếu, xếp theo nhu cầu",
+  "gap_none": "Chương trình đã phủ toàn bộ kỹ năng trong bảng.",
+  "rising_title": "Kỹ năng đang lên trên thị trường",
+  "rising_body": "Thay đổi tỷ trọng 12 tháng qua trong mẫu lưu trữ (toàn thị trường, theo nguồn có chuỗi dài nhất). Chỉ kỹ năng chiếm ≥ 2% tin.",
+  "trend_note": "Xu hướng tính trên toàn thị trường, không riêng nhóm nghề."
+ },
+ "gov": {
+  "aud": "Dành cho cơ quan quản lý",
+  "eyebrow": "TỔNG QUAN THỊ TRƯỜNG LAO ĐỘNG TỪ TIN TUYỂN DỤNG",
+  "title": "Nhu cầu kỹ năng theo nhóm nghề và địa phương",
+  "lead": "Số liệu dựng từ tin tuyển dụng công khai, cập nhật hằng ngày. Mọi con số truy ngược được về dữ liệu đã thu và được kiểm chứng tự động trước mỗi lần công bố.",
+  "heat_title": "Tin đang mở theo nhóm nghề và tỉnh/thành",
+  "heat_note": "8 tỉnh/thành nhiều tin nhất; còn lại gộp vào \"Khác\". Một tin có thể ghi nhiều tỉnh, ở đây tính theo tỉnh đầu tiên.",
+  "skills_title": "Kỹ năng được yêu cầu nhiều nhất",
+  "pick_province": "Tỉnh/thành",
+  "all_country": "Cả nước",
+  "ai_title": "Mức tác động AI theo nhóm nghề",
+  "ai_note": "Trung bình điểm AI các kỹ năng chính của nhóm nghề, có trọng số theo tỷ lệ tin. Điểm cao = công việc của nhóm có nhiều phần AI hỗ trợ hoặc làm thay được.",
+  "salary_title": "Lương trung vị theo nhóm nghề",
+  "salary_note": "Trung vị khoảng lương của tin có ghi lương (triệu đ/tháng). Nhóm dưới 30 tin có lương không hiển thị.",
+  "trend_title": "Kỹ năng biến động mạnh nhất 12 tháng qua",
+  "trend_note": "Thay đổi tỷ trọng (điểm %) trong mẫu lưu trữ. Cột cuối: mô hình dự báo ARIMA có thắng mốc ngây thơ ở kiểm tra ngược không — nếu không, không nên dùng dự báo để ra quyết định.",
+  "col_skill": "Kỹ năng",
+  "col_source": "Nguồn",
+  "col_change": "Thay đổi",
+  "col_now": "Hiện tại",
+  "col_model": "Dự báo đáng tin?",
+  "yes": "Có",
+  "no": "Không",
+  "gap_title": "Lệch cung – cầu đào tạo",
+  "gap_off": "Chưa bật. Cần số liệu chỉ tiêu tuyển sinh theo ngành và tỉnh có nguồn công bố; nhóm dự án không ước lượng khi chưa có số liệu.",
+  "quality_title": "Chất lượng dữ liệu",
+  "q_coverage": "Tỷ lệ tin trong phạm vi có ≥1 kỹ năng chuyên môn, theo nhóm nghề",
+  "q_f1": "Độ chính xác trích kỹ năng (F1)",
+  "q_f1_none": "Chưa đo — tập chuẩn gán nhãn đang được xây dựng.",
+  "q_latency": "Độ trễ trung vị từ ngày đăng tới ngày thu: {d} ngày",
+  "q_forecast": "Dự báo thắng mốc ngây thơ: {list}",
+  "q_blocked": "Nguồn đã loại (từ chối crawler hoặc không đọc được): {list}"
+ },
+ "student": {
+  "aud": "Dành cho học sinh, sinh viên",
+  "eyebrow": "CHỌN NGHỀ BẰNG DỮ LIỆU THẬT",
+  "title": "Nghề nào đang cần người, và cần kỹ năng gì?",
+  "lead": "Xem 15 nhóm nghề qua hàng chục nghìn tin tuyển dụng đang mở: bao nhiêu chỗ đang tuyển, lương bao nhiêu, cần học những gì.",
+  "search_label": "Tìm nghề hoặc kỹ năng",
+  "search_ph": "vd: kế toán, Excel, lái xe, marketing…",
+  "search_jobs": "Nghề",
+  "search_skills": "Kỹ năng",
+  "search_none": "Không tìm thấy. Thử từ khác, ví dụ \"bán hàng\" hoặc \"tiếng Anh\".",
+  "sort_label": "Sắp xếp",
+  "sort_open": "Nhiều tin tuyển nhất",
+  "sort_salary": "Lương cao nhất",
+  "sort_ai": "Ít bị AI ảnh hưởng nhất",
+  "card_open": "tin đang tuyển",
+  "card_salary": "lương trung vị/tháng",
+  "card_ai": "Ảnh hưởng của AI",
+  "view": "Xem nghề này",
+  "back": "← Tất cả nghề",
+  "what": "Nghề này làm gì?",
+  "day": "Một ngày làm việc",
+  "numbers": "Con số chính",
+  "n_open": "tin đang tuyển",
+  "salary": "lương trung vị (triệu đ/tháng)",
+  "salary_none": "chưa đủ tin ghi lương",
+  "where": "Tuyển nhiều nhất ở",
+  "skills_title": "Cần học những kỹ năng gì?",
+  "skills_lead": "Xếp theo số tin yêu cầu. \"6/10\" nghĩa là cứ 10 tin tuyển thì 6 tin ghi rõ cần kỹ năng này.",
+  "col_skill": "Kỹ năng",
+  "col_need": "Bao nhiêu tin cần",
+  "col_type": "Loại",
+  "col_pay": "Lương có / không có kỹ năng",
+  "type": {
+   "domain": "Chuyên môn",
+   "tool": "Công cụ",
+   "tech": "Công nghệ",
+   "cert": "Chứng chỉ",
+   "soft": "Kỹ năng mềm",
+   "language": "Ngoại ngữ"
+  },
+  "pay_note": "Lương trung vị của tin có ghi lương, có / không yêu cầu kỹ năng (triệu đ). Tin đòi kỹ năng cao thường là vị trí cao hơn, nên đây là tương quan, không phải \"học xong là tăng lương\".",
+  "quotes_title": "Nhà tuyển dụng viết gì?",
+  "quotes_lead": "Trích nguyên văn từ tin tuyển dụng đang mở.",
+  "quote_src": "{source} · {date}",
+  "insight_title": "Điều đáng biết",
+  "insight": "{entry} là yêu cầu cơ bản, gần như tin nào cũng có. {raise} là kỹ năng đi kèm mức lương cao hơn rõ rệt: {raisePay} triệu so với {basePay} triệu.",
+  "ai_title": "AI ảnh hưởng nghề này thế nào?",
+  "ai_body": {
+   "low": "Phần lớn kỹ năng của nghề này AI khó làm thay. AI chủ yếu là công cụ hỗ trợ.",
+   "mid": "AI làm được một phần công việc (soạn văn bản, tính toán, báo cáo). Người làm nghề cần biết dùng AI để làm nhanh hơn.",
+   "high": "Nhiều đầu việc của nghề này AI đã làm được. Nên học thêm kỹ năng khó thay (phân tích, giao tiếp, chuyên môn sâu) và cách dùng công cụ AI.",
+   "none": "Chưa đủ dữ liệu để đánh giá."
+  },
+  "ai_scale": {
+   "low": "Thấp",
+   "mid": "Trung bình",
+   "high": "Cao",
+   "none": "—"
+  },
+  "similar_title": "Nghề gần giống (dùng nhiều kỹ năng chung)",
+  "skill_eyebrow": "KỸ NĂNG",
+  "skill_overall": "trên toàn bộ tin đang mở cần kỹ năng này",
+  "skill_trend": "12 tháng qua",
+  "skill_jobs": "Nghề cần kỹ năng này nhiều nhất",
+  "skill_ai": "Ảnh hưởng của AI lên kỹ năng này",
+  "game_link": "Thử phiên bản trò chơi",
+  "families": {
+   "cntt": {
+    "short": "Viết phần mềm, quản lý hệ thống, làm việc với dữ liệu.",
+    "day": "Sáng họp nhóm 15 phút, chiều viết và kiểm tra code, cuối ngày sửa lỗi người dùng báo."
+   },
+   "kinh-doanh": {
+    "short": "Tìm khách hàng, tư vấn, chốt đơn hàng.",
+    "day": "Gọi điện, gặp khách, báo giá, theo dõi doanh số của mình so với mục tiêu tháng."
+   },
+   "ke-toan": {
+    "short": "Ghi chép, kiểm tra và báo cáo tiền của công ty.",
+    "day": "Nhập chứng từ, đối chiếu sổ sách, làm báo cáo thuế, trả lời câu hỏi của sếp về chi phí."
+   },
+   "tai-chinh-ngan-hang": {
+    "short": "Cho vay, đầu tư, quản lý rủi ro về tiền.",
+    "day": "Thẩm định hồ sơ vay, gặp khách hàng, phân tích số liệu tài chính, viết tờ trình."
+   },
+   "marketing": {
+    "short": "Làm cho nhiều người biết và thích sản phẩm.",
+    "day": "Lên ý tưởng bài đăng, chạy quảng cáo, đo số người xem, chỉnh lại nội dung."
+   },
+   "nhan-su": {
+    "short": "Tuyển người, đào tạo, chăm lo cho nhân viên.",
+    "day": "Lọc hồ sơ, phỏng vấn ứng viên, tính lương, giải đáp thắc mắc của nhân viên."
+   },
+   "hanh-chinh": {
+    "short": "Giữ cho văn phòng chạy trơn tru.",
+    "day": "Soạn văn bản, quản lý giấy tờ, đặt lịch họp, mua sắm vật dụng."
+   },
+   "logistics": {
+    "short": "Đưa hàng hóa đi đúng nơi, đúng lúc.",
+    "day": "Theo dõi đơn hàng, làm thủ tục hải quan, liên hệ nhà vận chuyển, kiểm kho."
+   },
+   "phap-ly": {
+    "short": "Đảm bảo công ty làm đúng luật.",
+    "day": "Rà soát hợp đồng, tư vấn rủi ro pháp lý, làm hồ sơ với cơ quan nhà nước."
+   },
+   "cskh": {
+    "short": "Giải đáp và hỗ trợ khách hàng.",
+    "day": "Trả lời điện thoại, tin nhắn, xử lý khiếu nại, ghi nhận ý kiến khách hàng."
+   },
+   "giao-duc": {
+    "short": "Dạy học, hướng dẫn người khác.",
+    "day": "Soạn bài, đứng lớp, chấm bài, gặp phụ huynh hoặc học viên."
+   },
+   "thiet-ke": {
+    "short": "Tạo hình ảnh, video, giao diện.",
+    "day": "Nhận yêu cầu, phác thảo, làm trên phần mềm thiết kế, sửa theo góp ý."
+   },
+   "quan-ly": {
+    "short": "Điều hành một bộ phận hoặc cả công ty.",
+    "day": "Họp, ra quyết định, đặt mục tiêu, kèm cặp đội ngũ."
+   },
+   "dich-vu-ban-le": {
+    "short": "Phục vụ khách tại cửa hàng, nhà hàng, khách sạn.",
+    "day": "Đón khách, pha chế hoặc phục vụ, tính tiền, giữ quầy sạch sẽ."
+   },
+   "lao-dong-pho-thong": {
+    "short": "Sản xuất, kho bãi, lái xe, giao hàng.",
+    "day": "Vận hành máy hoặc xe, đóng gói, kiểm hàng, tuân thủ an toàn lao động."
+   }
+  },
+  "salary_explain": "Lương trung vị: một nửa số tin trả cao hơn, một nửa trả thấp hơn. Chỉ tính tin có ghi lương."
+ }
 }

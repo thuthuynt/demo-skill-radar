@@ -102,4 +102,28 @@ input[type=checkbox] { width:18px; height:18px; accent-color:var(--pond); }
   .card { padding:14px; }
   select { min-width:0; width:100%; }
   .filters, .filters label { width:100%; }
+  .hide-sm { display:none; }
 }
+
+/* trang học sinh (bản đơn giản) */
+.jobs { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:14px; }
+.job { background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:18px; display:flex; flex-direction:column; gap:10px;
+  text-decoration:none; color:inherit; transition:border-color .15s, transform .15s; }
+.job:hover { border-color:var(--pond); transform:translateY(-2px); }
+.job h3 { font:750 19px/1.25 var(--display); letter-spacing:-.01em; }
+.job p { margin:0; color:var(--muted); font-size:14px; }
+.job .facts { display:flex; gap:18px; margin-top:auto; padding-top:6px; }
+.job .facts b { display:block; font:700 18px var(--mono); }
+.job .facts span { font-size:12px; color:var(--muted); }
+.job .more { font-weight:600; color:var(--bill-ink); font-size:14px; }
+.search { position:relative; max-width:560px; margin-top:22px; }
+.search input { width:100%; font:inherit; font-size:16px; padding:13px 14px; border:2px solid var(--pond); border-radius:12px; background:var(--surface); color:var(--ink); }
+.results { margin-top:10px; display:flex; flex-direction:column; gap:6px; }
+.results a { display:flex; justify-content:space-between; gap:10px; background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:10px 14px; text-decoration:none; color:var(--ink); }
+.results small { color:var(--muted); }
+.quote { margin:0; border-left:3px solid var(--duck); background:var(--surface); border-radius:0 10px 10px 0; padding:10px 14px; }
+.quote q { font-style:italic; } .quote small { display:block; color:var(--muted); font-size:12px; margin-top:4px; }
+.need { display:inline-flex; gap:3px; vertical-align:middle; margin-right:6px; }
+.need i { width:8px; height:8px; border-radius:50%; background:var(--line); } .need i.on { background:var(--bill); }
+.back { display:inline-block; margin-bottom:14px; font-weight:600; text-decoration:none; }
+.prose p { margin:6px 0 0; }

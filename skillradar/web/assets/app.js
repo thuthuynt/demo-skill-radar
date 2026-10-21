@@ -42,7 +42,7 @@ function renderCount() { const b = document.getElementById('deckCount'); if (b) 
 function sourceBox() {
   const dates = D.meta.sources.map(s => `${s.source} ${ddmm(s.latest)}`).join(', ');
   return h('details', { class: 'src' }, h('summary', {}, T.source.label), h('p', {}, fill(T.source.body, { n: fmt(D.meta.n_open), dates })),
-    h('a', { href: 'data.html' }, T.source.data_link));
+    h('a', { href: '../data.html' }, T.source.data_link));
 }
 
 // ---------- thẻ nghề ----------
@@ -391,7 +391,7 @@ window.addEventListener('hashchange', () => { document.querySelector('.overlay')
 async function boot() {
   const get = p => fetch(p).then(r => { if (!r.ok) throw new Error(p); return r.json(); });
   const [copy, meta, skills, families, scenes] = await Promise.all(
-    ['copy.vi.json', 'data/meta.json', 'data/skills.json', 'data/families.json', 'data/scenes.json'].map(get));
+    ['../copy.vi.json', '../data/meta.json', '../data/skills.json', '../data/families.json', '../data/scenes.json'].map(get));
   T = copy; D = { meta, skills, families, scenes, byId: Object.fromEntries(skills.map(s => [s.id, s])) };
   document.getElementById('footer').textContent = fill(T.footer, { date: new Date(meta.generated_at).toLocaleDateString('vi-VN') });
   route();
