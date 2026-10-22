@@ -42,10 +42,11 @@ Hạn nộp: **22/10/2026** (10 ngày kể từ 12/10). Không có ngày đệm.
   JSON tĩnh trong `web/data/`. Deploy toàn bộ `web/` lên Cloudflare Pages.
   Không D1, không Worker, không API. Lý do: dưới 2 tuần, mọi thành phần chạy lúc
   demo đều là rủi ro.
-- **Deploy qua git**: dự án Cloudflare Pages đã nối với repo này, tên miền
-  `demo-skill-radar.ducklytics.com`, build output directory là `skillradar/web`.
-  `web/data/*.json` được commit vào repo; `make deploy` = build → export → verify →
-  commit + push. Không dùng `wrangler pages deploy`, không tạo dự án Pages mới.
+- **Deploy bằng wrangler (đổi 22/10)**: dự án Cloudflare Pages `demo-skill-radar`
+  (tên miền `demo-skill-radar.ducklytics.com`) đã mất kết nối git, Cloudflare không cho
+  nối lại → tải thẳng `web/` bằng `npx wrangler pages deploy`. `web/data/*.json` vẫn
+  commit vào repo; `make deploy` = build → export → verify → commit + push → wrangler.
+  Không tạo dự án Pages mới.
 - **Python 3.11**, thư viện tối thiểu: `httpx`, `selectolax`, `duckdb`, `pyyaml`,
   `python-dateutil` (phân tích ngày đăng), `rapidfuzz` (khoảng cách Levenshtein khi
   khử trùng), `statsmodels` (ARIMA cho dự báo, cho phép từ 14/10/2026). Không thêm

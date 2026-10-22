@@ -14,6 +14,7 @@ deploy: build
 	git add web/
 	git diff --cached --quiet || git commit -m "Cập nhật dữ liệu $$(date -u +%Y-%m-%d)"
 	git push origin main
+	npx wrangler pages deploy web --project-name demo-skill-radar --branch main --commit-dirty=true
 
 test:
 	$(PY) -m pytest -q tests

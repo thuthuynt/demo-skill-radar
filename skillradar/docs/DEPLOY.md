@@ -2,19 +2,16 @@
 
 Chỉ deploy thư mục `web/`. Đây là trang tĩnh thuần, không có backend.
 
-Dùng dự án Cloudflare Pages **đã nối git** với repo này, tên miền
-<https://demo-skill-radar.ducklytics.com>. Pages tự build lại mỗi khi push lên
-`main`. Không dùng `wrangler pages deploy`, không tạo dự án Pages mới.
+Dự án Cloudflare Pages `demo-skill-radar`, tên miền
+<https://demo-skill-radar.ducklytics.com>. Dự án **đã mất kết nối git** (bản deploy cuối
+qua git là 20/9) và Cloudflare không cho nối lại, nên từ 22/10 deploy bằng
+`npx wrangler pages deploy` (tải thẳng `web/`). Push lên GitHub **không** tự deploy.
 
-## Lần đầu **[người]**
+## Lần đầu trên một máy **[người]**
 
-Trong Cloudflare dashboard → dự án Pages → Settings → Builds:
-
-- Framework preset: **None**
-- Build command: *(để trống)*
-- Build output directory: đổi từ `/` thành **`skillradar/web`**
-
-Sau khi đổi, cập nhật mục "Triển khai" trong `README.md` ở gốc repo cho khớp.
+```bash
+npx wrangler login      # mở trình duyệt, đăng nhập Cloudflare (OAuth)
+```
 
 `web/data/*.json` **được commit vào repo** — đó là cách dữ liệu lên site.
 Không đưa `warehouse/`, `logs/` hay file duckdb vào git.
@@ -32,6 +29,7 @@ deploy: build
 	git add web/
 	git diff --cached --quiet || git commit -m "Cập nhật dữ liệu $$(date -u +%Y-%m-%d)"
 	git push origin main
+	npx wrangler pages deploy web --project-name demo-skill-radar --branch main --commit-dirty=true
 
 build:
 	python -m src.extract.run
@@ -40,7 +38,7 @@ build:
 	python -m src.build.verify      # dừng nếu có số liệu không truy ngược được
 ```
 
-`verify` lỗi thì `make` dừng trước bước commit, không có gì lên site.
+`verify` lỗi thì `make` dừng trước bước commit và deploy, không có gì lên site.
 
 ## Kiểm tra trước khi coi là xong
 
