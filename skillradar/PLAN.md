@@ -31,7 +31,7 @@ bộ (kể cả 45 cảnh trích dẫn và lương có/không kỹ năng). Ba tr
 1. Đọc lại toàn bộ chữ: `web/copy.vi.json` (học sinh) và `web/copy.pro.vi.json` (nhà trường, cơ quan) — đặc biệt
    tên "kiểu người" (archetypes) và thứ tự lướt nghề
 2. Điều khoản sử dụng 4 nguồn + email xin phép (kèm báo vietnamworks hỏng sitemap) — *vẫn chưa làm*
-3. Duyệt `ai_expert_score` 60 kỹ năng mới (`data/skill_candidates.csv`)
+3. Duyệt `ai_replacement_score` 60 kỹ năng mới (`data/skill_candidates.csv`)
 4. Cloudflare Pages: đổi build output directory thành `skillradar/web` để công bố
 5. Chọn cách làm tập chuẩn F1 (A/B/C) + API key
 
@@ -52,7 +52,7 @@ bộ (kể cả 45 cảnh trích dẫn và lương có/không kỹ năng). Ba tr
 **Việc của bạn — đang trễ, giám khảo sẽ hỏi:**
 1. Đọc điều khoản sử dụng 4 nguồn, đặt `terms_checked: true` — *chưa làm (0/4)*
 2. Gửi email xin phép + báo vietnamworks hỏng sitemap, ghi `docs/COMPLIANCE.md` — *chưa làm*
-3. Duyệt `ai_expert_score` 60 kỹ năng mới (`data/skill_candidates.csv`, ~30 phút) — *chưa làm*
+3. Duyệt `ai_replacement_score` 60 kỹ năng mới (`data/skill_candidates.csv`, ~30 phút) — *chưa làm*
 4. Chọn cách làm tập chuẩn F1 (A: bạn 40 tin + Claude, đo κ / B / C) + API key — *chờ*
 5. Chỉ tiêu tuyển sinh: nhập tập nhỏ hoặc bỏ lát cắt lệch cung cầu — *chưa quyết*
 
@@ -109,8 +109,8 @@ bộ (kể cả 45 cảnh trích dẫn và lương có/không kỹ năng). Ba tr
 - [x] `data/unmatched_terms.csv`: 3,2k cụm (≥3 tin), cột `decision` để duyệt
 - [x] Bổ sung 60 kỹ năng + 13 lượt alias từ `data/skill_candidates.csv` (13/10) -> 159 kỹ năng,
       93,2% tin trong phạm vi có ≥1 kỹ năng chuyên môn; lao động phổ thông 81%, giáo dục còn 70%
-- [ ] **[người]** Duyệt `ai_expert_score` của 60 kỹ năng mới — hiện là ĐỀ XUẤT của Claude
-      (cột `note`/`ai_expert_score` trong `data/skill_candidates.csv`), phải do bạn chốt trước khi công bố
+- [ ] **[người]** Duyệt `ai_replacement_score` của 60 kỹ năng mới — hiện là ĐỀ XUẤT của Claude
+      (cột `note`/`ai_replacement_score` trong `data/skill_candidates.csv`), phải do bạn chốt trước khi công bố
 - [x] Sửa lọc dữ liệu cá nhân che nhầm "Tiếng Anh"; silver khôi phục chữ "Anh" cho ~2,1k chỗ đã ghi
 
 
@@ -163,7 +163,7 @@ Thay `RAW`, `JOBS`, `QUOTA` trong `web/index.html` bằng `fetch()` từ `web/da
 - Biểu đồ theo tháng → ảnh chụp tin đang mở, ghi "hiện có N ngày".
 - Dự báo: nếu backfill **go** → mô hình + khoảng tin cậy + mốc ngây thơ bên cạnh,
   ghi rõ phần lịch sử là dữ liệu lưu trữ. Nếu **no-go** → "chưa đủ lịch sử để dự báo".
-- Nhãn điểm AI "điểm chuyên gia + đồng xuất hiện".
+- Nhãn "Mức ảnh hưởng của AI" = khả năng AI làm thay (nhóm đánh giá) + mức đi cùng công cụ AI.
 - Trang trạng thái: F1 + cỡ mẫu, tỷ lệ ánh xạ, tỷ lệ tin chưa gán nhóm nghề, số tin,
   số nguồn, số ngày thu thập, độ trễ trung vị, độ phủ theo ngày, phiên bản danh mục.
 - Chân trang: nguồn và thời điểm cập nhật thật.

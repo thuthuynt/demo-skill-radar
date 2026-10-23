@@ -65,7 +65,7 @@
     "back_title": "Mặt sau · nguồn",
     "back_demand": "Nhu cầu: {n}/{total} tin {family} đang mở có yêu cầu kỹ năng này.",
     "back_pay": "*Lương: trung vị tin có ghi lương. Tin đòi kỹ năng này thường là vị trí cao hơn, nên đây là tương quan, không phải \"học xong là tăng lương\".",
-    "back_ai": "Khiên AI: từ điểm chuyên gia và mức kỹ năng đi cùng công cụ AI trong tin, chưa đo theo thời gian.",
+    "back_ai": "Khiên AI: từ khả năng AI làm thay (nhóm đánh giá) và mức đi cùng công cụ AI trong tin tuyển dụng, chưa đo theo thời gian.",
     "back_rarity": "Độ hiếm: tính trên toàn bộ tin đang mở (Hiếm < 3%, Đáng giá 3–15%, Phổ thông ≥ 15%)."
   },
 

@@ -45,7 +45,7 @@ function render() {
     h('div', { class: 'section filters' }, h('label', {}, U.pick_family, select)),
     tiles([[fmt(f.n_open), fill(U.tile_family_open, { family: f.name.toLowerCase() })],
       [tr(f.salary_median_vnd), U.tile_salary],
-      [ai != null ? ai.toFixed(2) : '—', `${U.tile_ai}: ${C.ai[aiBadge({ score: ai })]}`]]),
+      [ai != null ? ai.toFixed(2) : '—', `${U.tile_ai}: ${C.ai[aiBadge({ impact: ai })]}`]]),
     h('section', { class: 'section grid2' },
       h('div', { class: 'card' }, h('h2', {}, U.coverage_title), h('div', { class: 'big', style: 'margin-top:10px' }, pct(covered)),
         h('div', { class: 'meter', role: 'meter', 'aria-valuenow': Math.round(100 * covered), 'aria-valuemin': 0, 'aria-valuemax': 100 },

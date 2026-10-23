@@ -1,4 +1,4 @@
-skill_id,name_vi,name_en,canonical_lang,skill_group,skill_type,esco_code,vnqf_level,ai_expert_score,aliases
+skill_id,name_vi,name_en,canonical_lang,skill_group,skill_type,esco_code,vnqf_level,ai_replacement_score,aliases
 sql,SQL,SQL,en,Dữ liệu,tech,,,0.45,SQL|T-SQL|PL/SQL|truy vấn SQL|viết query|query SQL|MySQL|PostgreSQL|SQL Server
 power-bi,Power BI,Power BI,en,Dữ liệu,tool,,,0.55,Power BI|PowerBI|PBI|báo cáo Power BI|làm dashboard Power BI
 tableau,Tableau,Tableau,en,Dữ liệu,tool,,,0.52,Tableau|Tableau Desktop

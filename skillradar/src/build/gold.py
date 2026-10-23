@@ -5,7 +5,8 @@
 Công thức theo docs/METRICS.md. Quy ước chung: chỉ tính tin `in_scope AND NOT is_repost`.
 - m_skill_open:   tỷ trọng kỹ năng trên tin ĐANG MỞ (bản crawl), cắt theo nhóm nghề / tỉnh / cấp độ
 - m_skill_month:  tỷ trọng theo tháng trên MẪU lưu trữ (archive), tách theo nguồn
-- m_ai:           điểm AI = 0.65 × điểm chuyên gia + 0.35 × đồng xuất hiện công cụ AI (chuẩn hóa)
+- m_ai:           mức ảnh hưởng của AI = 0.65 × khả năng AI làm thay (nhóm đánh giá)
+                  + 0.35 × thứ hạng % của mức đi cùng công cụ AI trong tin
 - m_cooc:         cặp kỹ năng hay đi cùng nhau (lift)
 - m_family:       số tin đang mở theo nhóm nghề × tỉnh, trọng số kỹ năng của từng nhóm (cho chỉ số tiếp cận)
 - m_forecast:     ARIMA (statsmodels) trên chuỗi tháng + mốc ngây thơ + kiểm tra ngược
@@ -145,21 +146,25 @@ def main() -> int:
         JOIN tot t ON t.source = p.source AND t.month = p.period_month
         WHERE p.origin = 'archive' GROUP BY ALL""")
 
-    # 3. điểm AI
+    # 3. mức ảnh hưởng của AI
+    # Chuẩn hóa bằng thứ hạng %, không min–max: các kỹ năng AI (LLM, prompt...) luôn ~100% đi cùng
+    # công cụ AI, nên min–max dồn mọi kỹ năng khác về gần 0 và phần 0.35 gần như không đóng góp.
+    # Kỹ năng chưa đủ tin để đo đồng xuất hiện: chỉ dùng khả năng AI làm thay, không gán 0.
     ai_flags(con)
     con.execute(f"""
         CREATE OR REPLACE TABLE m_ai AS
         WITH c AS (
-            SELECT f.skill_id, count(*) n, avg(a.has_ai::INT) cooc
+            SELECT f.skill_id, count(*) n, avg(a.has_ai::INT) ai_tool_cooccurrence
             FROM base_open p JOIN fact_posting_skill f USING (posting_id) JOIN posting_ai a USING (posting_id)
             GROUP BY 1 HAVING count(*) >= {MIN_SKILL_OPEN}),
-        r AS (SELECT min(cooc) lo, max(cooc) hi FROM c)
-        SELECT d.skill_id, d.ai_expert_score::DOUBLE expert, c.n, c.cooc,
-               (c.cooc - r.lo) / nullif(r.hi - r.lo, 0) cooc_norm,
-               0.65 * d.ai_expert_score::DOUBLE + 0.35 * coalesce((c.cooc - r.lo) / nullif(r.hi - r.lo, 0), 0) ai_score,
+        r AS (SELECT skill_id, percent_rank() OVER (ORDER BY ai_tool_cooccurrence) ai_tool_cooccurrence_rank FROM c)
+        SELECT d.skill_id, d.ai_replacement_score::DOUBLE ai_replacement_score, c.n, c.ai_tool_cooccurrence,
+               r.ai_tool_cooccurrence_rank,
+               coalesce(0.65 * d.ai_replacement_score::DOUBLE + 0.35 * r.ai_tool_cooccurrence_rank,
+                        d.ai_replacement_score::DOUBLE) ai_impact_score,
                c.n IS NOT NULL has_cooc
-        FROM dim_skill d LEFT JOIN c USING (skill_id), r
-        WHERE d.ai_expert_score <> ''""")
+        FROM dim_skill d LEFT JOIN c USING (skill_id) LEFT JOIN r USING (skill_id)
+        WHERE d.ai_replacement_score <> ''""")
 
     # 4. đồng xuất hiện (lift = P(a,b) / P(a)P(b)) trên tin đang mở
     con.execute(f"""

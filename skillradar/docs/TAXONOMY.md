@@ -16,7 +16,7 @@ theo giấy phép mở.
 | `skill_type` | `tool` / `tech` / `cert` / `domain` / `soft` / `language` |
 | `esco_code` | mã ESCO, để trống nếu chưa ánh xạ |
 | `vnqf_level` | bậc Khung trình độ quốc gia, để trống nếu chưa đối chiếu |
-| `ai_expert_score` | 0–1, bạn gán tay. 0 = AI chưa với tới, 1 = AI làm thay gần hết |
+| `ai_replacement_score` | 0–1, nhóm gán tay: khả năng AI làm thay. 0 = AI chưa với tới, 1 = AI làm thay gần hết |
 | `aliases` | các cách viết khác, ngăn bằng dấu `\|` |
 
 ## Quy tắc đặt tên chuẩn

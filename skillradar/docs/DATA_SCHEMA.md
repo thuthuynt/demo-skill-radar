@@ -61,7 +61,7 @@ Quyết định thiết kế quan trọng nhất. Mọi chỉ số về sau ch�
 ### Bảng chiều
 
 - `dim_skill`: `skill_id`, `name_vi`, `name_en`, `canonical_lang`, `skill_group`,
-  `skill_type`, `esco_code`, `vnqf_level`, `ai_expert_score`, `version`
+  `skill_type`, `esco_code`, `vnqf_level`, `ai_replacement_score`, `version`
 - `dim_company`: `company_id`, `name`, `name_normalized`
 - `dim_province`: `province_code`, `name`, `region`
 - `dim_job_family`: `job_family_id`, `name`; bảng nối `job_family_skill` với trọng số

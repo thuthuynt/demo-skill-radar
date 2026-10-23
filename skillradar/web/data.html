@@ -180,8 +180,8 @@ function select(id) {
   const s = D.byId[id];
   $('h-skill').textContent = `${s.vi}` + (s.en && s.en !== s.vi ? ` / ${s.en}` : '');
   const kv = [['Nhóm', s.group], ['Loại', s.type], ['Tin đang mở', `${pct(s.open.share)} (${num(s.open.n)} tin)`]];
-  if (s.ai) kv.push(['Điểm AI', s.ai.score != null ? s.ai.score.toFixed(2) : '—'],
-                    ['chuyên gia', s.ai.expert?.toFixed(2)], ['đồng xuất hiện AI', s.ai.has_cooc ? pct(s.ai.cooc) : 'chưa đủ tin']);
+  if (s.ai) kv.push(['Mức ảnh hưởng của AI', s.ai.impact != null ? s.ai.impact.toFixed(2) : '—'],
+                    ['Khả năng AI làm thay', s.ai.replacement?.toFixed(2)], ['Mức đi cùng công cụ AI', s.ai.has_cooc ? pct(s.ai.tool_cooc) : 'chưa đủ tin']);
   $('skillKv').replaceChildren(...kv.map(([k, v]) => { const d = el('span', {}, k + ': '); d.append(el('b', {}, v ?? '—')); return d; }));
   const panels = ['itviec', 'vietnamworks'].filter(src => (s.history[src] || []).length);
   $('panels').replaceChildren(...(panels.length ? panels.map(src => chart(s, src))

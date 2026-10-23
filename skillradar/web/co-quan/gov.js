@@ -45,7 +45,7 @@ function aiBlock() {
   const max = rows[0]?.[1] || 1;
   return h('div', { class: 'card' }, h('h2', {}, G.ai_title),
     h('table', { style: 'margin-top:10px' }, h('tbody', {}, rows.map(([f, a]) => h('tr', {}, h('td', {}, f.name),
-      h('td', {}, bar(a, max, a.toFixed(2), 'acc')), h('td', {}, h('span', { class: 'chip' }, C.ai[aiBadge({ score: a })])))))),
+      h('td', {}, bar(a, max, a.toFixed(2), 'acc')), h('td', {}, h('span', { class: 'chip' }, C.ai[aiBadge({ impact: a })])))))),
     h('p', { class: 'note' }, G.ai_note));
 }
 

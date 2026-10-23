@@ -98,7 +98,8 @@ def main() -> int:
             "by_family": sorted(cuts["job_family"], key=lambda v: -v[1])[:8],
             "by_province": sorted(cuts["province"], key=lambda v: -v[1]),
             "by_seniority": cuts["seniority"],
-            "ai": {"expert": r4(x["expert"]), "cooc": r4(x["cooc"]), "score": r4(x["ai_score"]),
+            "ai": {"replacement": r4(x["ai_replacement_score"]), "tool_cooc": r4(x["ai_tool_cooccurrence"]),
+                   "tool_cooc_rank": r4(x["ai_tool_cooccurrence_rank"]), "impact": r4(x["ai_impact_score"]),
                    "has_cooc": x["has_cooc"]} if x else None,
             "history": hist[sid],
             "forecast": fc[sid],
@@ -179,7 +180,7 @@ def main() -> int:
             "open": "Tỷ trọng trên các tin đang mở tại ngày chụp gần nhất của từng nguồn; thiếu các tin đã đóng.",
             "history": "Chuỗi tháng lấy từ MẪU bản lưu Internet Archive (~150 tin/tháng/nguồn); chỉ dùng tỷ trọng, "
                        "không dùng số đếm. Tháng dưới 80 tin bị bỏ, không nội suy.",
-            "ai": "Điểm chuyên gia + đồng xuất hiện với công cụ AI, chưa đo theo chuỗi thời gian.",
+            "ai": "Mức ảnh hưởng của AI = khả năng AI làm thay (nhóm đánh giá) + mức đi cùng công cụ AI trong tin, chưa đo theo thời gian.",
             "forecast": "ARIMA trên chuỗi mẫu (chưa tách mùa vụ), luôn kèm mốc ngây thơ (trung bình 3 tháng cuối) "
                         "và kết quả kiểm tra ngược 3 tháng.",
         },

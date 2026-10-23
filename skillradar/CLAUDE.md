@@ -85,9 +85,10 @@ KHÔNG:
 - **Dự báo định lượng.** Chưa đủ 12 kỳ thì không vẽ đường dự báo. Giao diện ghi
   "chưa đủ lịch sử để dự báo". Đây là lựa chọn có chủ đích, không phải thiếu sót.
 - **Tín hiệu AI số 1** (so sánh trước/sau 2022) — cần lịch sử chưa có.
-  Vòng 2 chỉ dùng tín hiệu 2 (đồng xuất hiện với công cụ AI, đo được ngay) và
-  tín hiệu 3 (điểm chuyên gia trong `data/skills_seed.csv`). Giao diện phải ghi rõ
-  điểm AI hiện là "điểm chuyên gia + đồng xuất hiện", chưa phải đo theo chuỗi.
+  Vòng 2 chỉ dùng tín hiệu 2 (mức đi cùng công cụ AI, đo được ngay) và tín hiệu 3
+  (khả năng AI làm thay, nhóm gán tay trong `data/skills_seed.csv`). Tên hiển thị:
+  "Mức ảnh hưởng của AI". Giao diện phải ghi rõ đây là "khả năng AI làm thay (nhóm
+  đánh giá) + mức đi cùng công cụ AI", chưa phải đo theo chuỗi.
 - Backfill lịch sử từ Internet Archive — việc tùy chọn, chỉ làm nếu còn thời gian đệm.
 
 ## Quy ước code

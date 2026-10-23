@@ -70,20 +70,32 @@ Thiết kế đầy đủ có ba tín hiệu. **Vòng 2 chỉ chạy được ha
 | tín hiệu | trạng thái vòng 2 |
 |---|---|
 | 1. Xu hướng tỷ trọng trước và sau cuối 2022 | **TẮT** — chưa có lịch sử |
-| 2. Đồng xuất hiện với công cụ AI trong cùng tin | BẬT, đo từ dữ liệu thật |
-| 3. Điểm chuyên gia gán tay cho từng kỹ năng | BẬT, trong `data/skills_seed.csv` |
+| 2. Mức đi cùng công cụ AI trong cùng tin | BẬT, đo từ dữ liệu thật |
+| 3. Khả năng AI làm thay, nhóm gán tay cho từng kỹ năng | BẬT, trong `data/skills_seed.csv` |
 
 ```
-cooc(skill) = tỷ lệ tin có skill mà đồng thời nhắc tới công cụ AI
-              (danh sách trong data/ai_tools.txt)
-ai_score    = 0.65 × ai_expert_score + 0.35 × chuẩn_hóa(cooc)
+ai_tool_cooccurrence(skill) = tỷ lệ tin đang mở có skill mà đồng thời nhắc tới công cụ AI
+                              (danh sách trong data/ai_tools.txt; cần ≥ MIN_SKILL_OPEN tin)
+ai_tool_cooccurrence_rank   = percent_rank của ai_tool_cooccurrence giữa các kỹ năng (0–1)
+ai_impact_score             = 0.65 × ai_replacement_score + 0.35 × ai_tool_cooccurrence_rank
+                              (chưa đủ tin để đo đồng xuất hiện: = ai_replacement_score)
+```
+
+`ai_replacement_score` (0–1): nhóm đánh giá AI hiện làm thay được bao nhiêu phần kỹ năng.
+Chuẩn hóa bằng thứ hạng %, không min–max: các kỹ năng AI (LLM, prompt engineering) luôn
+~100% đi cùng công cụ AI, nên min–max dồn mọi kỹ năng khác về gần 0 (lỗi trước 23/10/2026).
+
+```
+tên hiển thị: ai_impact_score = "Mức ảnh hưởng của AI"
+              ai_replacement_score = "Khả năng AI làm thay (nhóm đánh giá)"
+              ai_tool_cooccurrence = "Mức đi cùng công cụ AI"
 ```
 
 `data/ai_tools.txt` chỉ chứa tên sản phẩm/kỹ thuật cụ thể. Không dùng cụm chung dễ
 khớp nhầm (`prompt` đơn lẻ, `trí tuệ nhân tạo`, `Claude` hay `Copilot` đứng một mình).
 
-Giao diện **phải** ghi nhãn "điểm chuyên gia + đồng xuất hiện, chưa đo theo chuỗi
-thời gian". Khi đủ 12 kỳ thì bật tín hiệu 1 và đổi trọng số.
+Giao diện **phải** ghi rõ "khả năng AI làm thay (nhóm đánh giá) + mức đi cùng công cụ AI,
+chưa đo theo thời gian". Khi đủ 12 kỳ thì bật tín hiệu 1 và đổi trọng số.
 
 ## 4. Lệch cung cầu — có điều kiện
 

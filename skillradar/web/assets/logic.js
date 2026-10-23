@@ -41,8 +41,8 @@ export function tier(share) {
 }
 
 export function aiBadge(ai) {
-  if (!ai || ai.score == null) return 'none';
-  return ai.score < 0.3 ? 'low' : ai.score <= 0.5 ? 'mid' : 'high';
+  if (!ai || ai.impact == null) return 'none';
+  return ai.impact < 0.3 ? 'low' : ai.impact <= 0.5 ? 'mid' : 'high';
 }
 
 // Mô tả 12 tháng qua từ chuỗi lịch sử dài nhất: TB 3 tháng cuối so với TB 3 tháng đầu cửa sổ
@@ -57,11 +57,11 @@ export function trend(history) {
   return rel > 0.15 ? 'up' : rel < -0.15 ? 'down' : 'flat';
 }
 
-// Mức độ "đụng" AI của nghề: trung bình điểm AI các kỹ năng, trọng số theo tỷ lệ tin
+// Mức ảnh hưởng của AI lên nghề: trung bình mức ảnh hưởng của các kỹ năng, trọng số theo tỷ lệ tin
 export function familyAi(family, skillsById) {
   let s = 0, w = 0;
   for (const [id, wt] of treeSkills(family)) {
-    const sc = skillsById[id]?.ai?.score;
+    const sc = skillsById[id]?.ai?.impact;
     if (sc != null) { s += sc * wt; w += wt; }
   }
   return w ? s / w : null;
@@ -85,8 +85,8 @@ export function rarity(overallShare) {
 
 // Khiên AI 1–5: càng khó bị AI thay càng nhiều khiên. null khi chưa có điểm.
 export function shields(ai) {
-  if (!ai || ai.score == null) return null;
-  return Math.max(1, Math.min(5, Math.round((1 - ai.score) * 5)));
+  if (!ai || ai.impact == null) return null;
+  return Math.max(1, Math.min(5, Math.round((1 - ai.impact) * 5)));
 }
 
 // Cấp độ trong một nghề theo số thẻ của cây kỹ năng nghề đó

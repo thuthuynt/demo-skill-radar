@@ -15,7 +15,7 @@
    "Tỷ lệ = số tin đòi hỏi kỹ năng / số tin đang mở của nhóm nghề. Kỹ năng trích bằng từ điển song ngữ (đã duyệt tay), không dùng mô hình AI.",
    "Lịch sử theo tháng lấy từ MẪU bản lưu Internet Archive (~150 tin/tháng/nguồn): chỉ dùng tỷ trọng, không dùng số đếm. Tháng thiếu mẫu để trống, không nội suy.",
    "Lương: trung vị khoảng lương của tin có ghi lương; so sánh có/không có kỹ năng là tương quan, không phải nhân quả.",
-   "Điểm AI = 0,65 × điểm chuyên gia + 0,35 × mức kỹ năng đi cùng công cụ AI trong tin; chưa đo theo chuỗi thời gian.",
+   "Mức ảnh hưởng của AI = 0,65 × khả năng AI làm thay (nhóm đánh giá) + 0,35 × mức đi cùng công cụ AI trong tin tuyển dụng (xếp hạng giữa các kỹ năng); chưa đo theo thời gian.",
    "Phạm vi: việc văn phòng mọi ngành và lao động phổ thông. Kỹ thuật/xây dựng/sản xuất chuyên môn, y tế chưa trong phạm vi."
   ],
   "data_link": "Số liệu thô và JSON",
@@ -71,7 +71,7 @@
   "pick_province": "Tỉnh/thành",
   "all_country": "Cả nước",
   "ai_title": "Mức tác động AI theo nhóm nghề",
-  "ai_note": "Trung bình điểm AI các kỹ năng chính của nhóm nghề, có trọng số theo tỷ lệ tin. Điểm cao = công việc của nhóm có nhiều phần AI hỗ trợ hoặc làm thay được.",
+  "ai_note": "Trung bình mức ảnh hưởng của AI lên các kỹ năng chính của nhóm nghề, có trọng số theo tỷ lệ tin. Điểm cao = công việc của nhóm có nhiều phần AI hỗ trợ hoặc làm thay được.",
   "salary_title": "Lương trung vị theo nhóm nghề",
   "salary_note": "Trung vị khoảng lương của tin có ghi lương (triệu đ/tháng). Nhóm dưới 30 tin có lương không hiển thị.",
   "trend_title": "Kỹ năng biến động mạnh nhất 12 tháng qua",

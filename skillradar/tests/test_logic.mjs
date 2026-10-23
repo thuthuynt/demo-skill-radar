@@ -32,7 +32,7 @@ test('trắc nghiệm: nghề được chọn nhiều nhất đứng đầu, kè
 
 test('hạng thẻ, huy hiệu AI, xu hướng', () => {
   assert.equal(tier(0.3), 'common'); assert.equal(tier(0.1), 'valuable'); assert.equal(tier(0.01), 'rare');
-  assert.equal(aiBadge(null), 'none'); assert.equal(aiBadge({ score: 0.6 }), 'high');
+  assert.equal(aiBadge(null), 'none'); assert.equal(aiBadge({ impact: 0.6 }), 'high');
   const flat = { s: Array.from({ length: 12 }, (_, i) => [`m${i}`, 0.1]) };
   const up = { s: Array.from({ length: 12 }, (_, i) => [`m${i}`, 0.1 + 0.02 * i]) };
   assert.equal(trend(flat), 'flat'); assert.equal(trend(up), 'up'); assert.equal(trend({ s: [['m', 1]] }), 'none');
@@ -49,7 +49,7 @@ import { rarity, shields, level, oneIn, salaryInsight, encodeChallenge, decodeCh
 
 test('độ hiếm, khiên AI, cấp độ', () => {
   assert.equal(rarity(0.3), 'common'); assert.equal(rarity(0.05), 'valuable'); assert.equal(rarity(0.01), 'rare');
-  assert.equal(shields({ score: 0 }), 5); assert.equal(shields({ score: 0.95 }), 1); assert.equal(shields(null), null);
+  assert.equal(shields({ impact: 0 }), 5); assert.equal(shields({ impact: 0.95 }), 1); assert.equal(shields(null), null);
   const ids = treeSkills(it).map(([id]) => id);
   assert.equal(level(it, new Set()).lv, 1);
   assert.equal(level(it, new Set(ids.slice(0, 4))).lv, 3);
