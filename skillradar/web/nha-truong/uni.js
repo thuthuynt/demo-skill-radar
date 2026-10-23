@@ -1,5 +1,5 @@
 // Trang nhà trường: đối chiếu chương trình đào tạo với kỹ năng nhà tuyển dụng yêu cầu.
-import { h, fill, fmt, pct, tr, store, load, bar, tiles, frame, method, csvButton, change12 } from '../assets/pro.js';
+import { h, fill, fmt, pct, tr, store, load, bar, tiles, frame, method, csvButton, change12, trendSvg } from '../assets/pro.js';
 import { trend, aiBadge, familyAi } from '../assets/logic.js';
 
 const app = document.getElementById('app');
@@ -31,7 +31,7 @@ function render() {
         h('td', {}, h('input', { type: 'checkbox', 'aria-label': `${U.col_taught}: ${s.vi}`, checked: taught.has(id), onchange: e => toggle(id, e.target.checked) })),
         h('td', {}, s.vi, h('div', { class: 'small muted' }, s.group)),
         h('td', {}, bar(w, maxW, pct(w))),
-        h('td', {}, h('span', { class: `chip ${t === 'up' ? 'up' : t === 'down' ? 'down' : ''}` }, C.trend[t])),
+        h('td', { style: 'white-space:nowrap' }, trendSvg(s), h('span', { class: `chip ${t === 'up' ? 'up' : t === 'down' ? 'down' : ''}` }, C.trend[t])),
         h('td', { class: 'num' }, sw != null ? `${tr(sw)} / ${tr(swo)}` : '—'),
         h('td', {}, h('span', { class: `chip ${a === 'high' ? 'warn' : ''}` }, C.ai[a])));
     })));

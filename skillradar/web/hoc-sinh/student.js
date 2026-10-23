@@ -1,5 +1,5 @@
 // Trang học sinh (bản đơn giản, không trò chơi): khám phá nghề -> trang nghề -> kỹ năng.
-import { h, fill, fmt, tr, store, load, bar, tiles, frame, method, ddmm } from '../assets/pro.js';
+import { h, fill, fmt, tr, store, load, bar, tiles, frame, method, ddmm, trendSvg } from '../assets/pro.js';
 import { treeSkills, trend, aiBadge, familyAi, salaryInsight } from '../assets/logic.js';
 
 const app = document.getElementById('app');
@@ -96,12 +96,14 @@ function jobView(id) {
 function skillView(id) {
   const s = D.byId[id];
   if (!s) { location.hash = '#/'; return []; }
-  const t = trend(s.history), ai = aiBadge(s.ai);
+  const t = trend(s.history), ai = aiBadge(s.ai), chart = trendSvg(s, { w: 640, h: 220, axes: true });
   const jobs = D.families.filter(f => f.in_scope).map(f => [f, (f.skills.find(x => x[0] === id) || [])[1]]).filter(x => x[1])
     .sort((a, b) => b[1] - a[1]).slice(0, 6);
   return [h('a', { class: 'back', href: '#/' }, S.back),
     h('p', { class: 'eyebrow' }, S.skill_eyebrow), h('h1', {}, s.vi), s.en && s.en !== s.vi ? h('p', { class: 'lead' }, s.en) : null,
     tiles([[`${k10(s.open.share)}/10`, S.skill_overall], [C.trend[t], S.skill_trend], [S.ai_scale[ai], S.skill_ai]]),
+    h('section', { class: 'section card' }, h('h2', { style: 'margin-bottom:10px' }, S.trend_title),
+      chart || h('p', { class: 'note' }, S.trend_none), chart ? h('p', { class: 'note' }, fill(S.trend_note, { source: chart.dataset.source })) : null),
     h('section', { class: 'section card' }, h('h2', { style: 'margin-bottom:10px' }, S.skill_jobs),
       h('table', {}, h('tbody', {}, jobs.map(([f, w]) => h('tr', {}, h('td', {}, h('a', { href: `#/nghe/${f.id}` }, f.name)),
         h('td', {}, bar(w, jobs[0][1], `${k10(w)}/10 tin`))))))),

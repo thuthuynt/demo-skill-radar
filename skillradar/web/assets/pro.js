@@ -82,3 +82,36 @@ export function change12(skill) {
   const first = avg(s.slice(0, 3)), last = avg(s.slice(-3));
   return { source: src, delta: last - first, now: last, beats: skill.forecast?.[src]?.beats_naive ?? null };
 }
+
+// Đường xu hướng: 12 điểm tháng cuối của chuỗi lưu trữ dài nhất (cùng chuỗi với trend() và change12()).
+// Tháng không có dữ liệu để trống, không nối qua, đúng nguyên tắc không nội suy.
+export function trendSvg(skill, { w = 96, h = 26, axes = false } = {}) {
+  const [src, series] = Object.entries(skill.history || {}).sort((a, b) => b[1].length - a[1].length)[0] || [];
+  const pts = (series || []).slice(-12);
+  if (pts.length < 2) return null;
+  const mi = m => { const [y, mo] = m.split('-').map(Number); return y * 12 + mo - 1; };
+  const m0 = mi(pts[0][0]), m1 = mi(pts.at(-1)[0]);
+  const pad = axes ? { l: 40, r: 10, t: 10, b: 24 } : { l: 3, r: 3, t: 3, b: 3 };
+  const ymax = Math.max(...pts.map(p => p[1])) * 1.15 || 0.01;
+  const step = ymax > 0.3 ? 0.1 : ymax > 0.12 ? 0.05 : ymax > 0.05 ? 0.02 : 0.01;
+  const top = Math.ceil(ymax / step) * step;
+  const X = m => pad.l + (mi(m) - m0) / Math.max(1, m1 - m0) * (w - pad.l - pad.r);
+  const Y = v => h - pad.b - v / top * (h - pad.t - pad.b);
+  const segs = [];
+  pts.forEach((p, i) => (i && mi(p[0]) - mi(pts[i - 1][0]) === 1 ? segs.at(-1) : segs[segs.push([]) - 1]).push(p));
+  const line = segs.map(s => `<polyline points="${s.map(p => `${X(p[0]).toFixed(1)},${Y(p[1]).toFixed(1)}`).join(' ')}" fill="none" stroke="var(--water)" stroke-width="${axes ? 2.5 : 1.8}" stroke-linecap="round" stroke-linejoin="round"/>`).join('');
+  const lbl = m => m.slice(5) + '/' + m.slice(2, 4);
+  const pctl = v => (100 * v).toLocaleString('vi-VN', { maximumFractionDigits: 1 }) + '%';
+  let grid = '', xl = '';
+  if (axes) {
+    for (let v = 0; v <= top + 1e-9; v += step) grid += `<line x1="${pad.l}" x2="${w - pad.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${pad.l - 6}" y="${Y(v) + 4}" text-anchor="end" font-size="11" fill="var(--muted)">${pctl(v)}</text>`;
+    const every = m1 - m0 > 8 ? 2 : 1;
+    for (let k = m0; k <= m1; k += every) { const m = `${Math.floor(k / 12)}-${String(k % 12 + 1).padStart(2, '0')}`; xl += `<text x="${X(m)}" y="${h - 6}" text-anchor="middle" font-size="11" fill="var(--muted)">${lbl(m)}</text>`; }
+  }
+  const dots = pts.map((p, i) => `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="${axes ? 4 : i === pts.length - 1 ? 2.6 : 0}" fill="var(--water)"><title>${lbl(p[0])}: ${pctl(p[1])} (${p[2]}/${p[3]} tin)</title></circle>`).join('');
+  const wrap = document.createElement('span');
+  wrap.className = axes ? 'trendchart' : 'spark';
+  wrap.innerHTML = `<svg viewBox="0 0 ${w} ${h}" ${axes ? 'width="100%"' : `width="${w}" height="${h}"`} role="img" aria-label="Tỷ trọng 12 tháng, nguồn ${src}">${grid}${xl}${line}${dots}</svg>`;
+  wrap.dataset.source = src;
+  return wrap;
+}

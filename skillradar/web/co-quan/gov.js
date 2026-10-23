@@ -1,5 +1,5 @@
 // Trang cơ quan quản lý: tổng quan nhu cầu kỹ năng theo nhóm nghề và địa phương.
-import { h, fill, fmt, pct, tr, store, load, bar, tiles, commonTiles, frame, method, csvButton, change12 } from '../assets/pro.js';
+import { h, fill, fmt, pct, tr, store, load, bar, tiles, commonTiles, frame, method, csvButton, change12, trendSvg } from '../assets/pro.js';
 import { aiBadge, familyAi } from '../assets/logic.js';
 
 const app = document.getElementById('app');
@@ -63,7 +63,7 @@ function trendBlock() {
   const up = all.filter(x => x.c.delta > 0).sort((a, b) => b.c.delta - a.c.delta).slice(0, 6);
   const down = all.filter(x => x.c.delta < 0).sort((a, b) => a.c.delta - b.c.delta).slice(0, 6);
   const row = ({ s, c }) => h('tr', {}, h('td', {}, s.vi), h('td', { class: 'small muted' }, c.source),
-    h('td', { class: 'num' }, h('span', { class: `chip ${c.delta > 0 ? 'up' : 'down'}` }, `${c.delta > 0 ? '+' : ''}${(100 * c.delta).toFixed(1)} điểm %`)),
+    h('td', { class: 'num', style: 'white-space:nowrap' }, trendSvg(s), h('span', { class: `chip ${c.delta > 0 ? 'up' : 'down'}` }, `${c.delta > 0 ? '+' : ''}${(100 * c.delta).toFixed(1)} điểm %`)),
     h('td', { class: 'num' }, pct(c.now, 1)),
     h('td', {}, c.beats == null ? '—' : h('span', { class: `chip ${c.beats ? 'up' : 'warn'}` }, c.beats ? G.yes : G.no)));
   return h('section', { class: 'section card' }, h('h2', {}, G.trend_title),

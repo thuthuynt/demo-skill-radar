@@ -127,3 +127,6 @@ input[type=checkbox] { width:18px; height:18px; accent-color:var(--pond); }
 .need i { width:8px; height:8px; border-radius:50%; background:var(--line); } .need i.on { background:var(--bill); }
 .back { display:inline-block; margin-bottom:14px; font-weight:600; text-decoration:none; }
 .prose p { margin:6px 0 0; }
+.spark { display:inline-block; vertical-align:middle; margin-right:6px; }
+.spark svg { display:block; overflow:visible; }
+.trendchart svg { display:block; max-width:100%; overflow:visible; }
