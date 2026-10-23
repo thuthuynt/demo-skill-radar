@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<!-- Chạy crawler mỗi ngày 07:00. Máy ngủ lúc 07:00 thì launchd chạy bù khi máy thức;
-     máy TẮT hẳn thì không chạy bù. caffeinate giữ máy không ngủ trong lúc crawl.
+<!-- Chạy crawler mỗi ngày 07:00, dự phòng 12:30 (23/10/2026: máy tắt lúc 07:00 làm lỡ lượt sáng).
+     Lượt 12:30 tự bỏ qua nếu lượt sáng đã xong (src.crawl.run: done_today).
+     Máy ngủ thì launchd chạy bù khi máy thức; máy TẮT hẳn thì không chạy bù. caffeinate giữ máy không ngủ trong lúc crawl.
      launchd không được vào ~/Documents sau khi khởi động lại (lỗi 78 EX_CONFIG, 14/10/2026):
      không đặt WorkingDirectory / log launchd trong ~/Documents; chỉ python (đã được cấp quyền)
      mở file dự án. Log launchd ở ~/Library/Logs/skillradar/. -->
@@ -23,12 +24,20 @@
     <string>src.crawl.run</string>
   </array>
   <key>StartCalendarInterval</key>
-  <dict>
-    <key>Hour</key>
-    <integer>7</integer>
-    <key>Minute</key>
-    <integer>0</integer>
-  </dict>
+  <array>
+    <dict>
+      <key>Hour</key>
+      <integer>7</integer>
+      <key>Minute</key>
+      <integer>0</integer>
+    </dict>
+    <dict>
+      <key>Hour</key>
+      <integer>12</integer>
+      <key>Minute</key>
+      <integer>30</integer>
+    </dict>
+  </array>
   <key>StandardOutPath</key>
   <string>/Users/thuy.tnguyen/Library/Logs/skillradar/launchd.out</string>
   <key>StandardErrorPath</key>

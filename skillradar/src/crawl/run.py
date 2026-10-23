@@ -100,6 +100,16 @@ def already_fetched() -> dict[str, int]:
     return seen
 
 
+def done_today(sources: list[dict]) -> bool:
+    """True nếu coverage.jsonl đã có dòng hôm nay (UTC, như crawl()) cho mọi nguồn được chọn."""
+    today = datetime.now(timezone.utc).date().isoformat()
+    path = LOG_DIR / "coverage.jsonl"
+    if not path.exists():
+        return False
+    done = {r["source"] for r in map(json.loads, open(path, encoding="utf-8")) if r.get("date") == today}
+    return {s["name"] for s in sources} <= done
+
+
 def crawl(client: PoliteClient, sources: list[dict], limit: int | None, refetch: bool = False) -> int:
     today = datetime.now(timezone.utc).date().isoformat()
     day_dir = BRONZE / today
@@ -184,6 +194,8 @@ def main() -> int:
     ap.add_argument("--limit", type=int, help="ghi đè max_pages_per_run cho lần chạy này")
     ap.add_argument("--refetch", action="store_true",
                     help="tải lại tin còn mở có bản ghi từ parser cũ (xem PARSER_VERSION)")
+    ap.add_argument("--force", action="store_true",
+                    help="chạy cả khi hôm nay mọi nguồn đã có dòng trong coverage.jsonl")
     ap.add_argument("--source", action="append",
                     help="chỉ chạy nguồn này (lặp lại được); mặc định chạy tất cả")
     args = ap.parse_args()
@@ -202,6 +214,10 @@ def main() -> int:
         except BlockingIOError:
             log.warning("đang có một lần crawl khác chạy, bỏ qua lần này")
             return 3
+        # launchd chạy 07:00 và 12:30 (dự phòng khi máy tắt lúc 07:00): lần nào đã xong thì lần sau bỏ qua
+        if not args.force and not args.limit and done_today(sources):
+            log.info("hôm nay đã crawl xong mọi nguồn, bỏ qua (dùng --force để chạy lại)")
+            return 0
         return crawl(client, sources, args.limit, args.refetch)
     finally:
         client.close()
