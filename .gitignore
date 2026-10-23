@@ -16,3 +16,4 @@ skillradar/probe_report.txt
 *.duckdb.wal
 .venv/
 __pycache__/
+.wrangler/

@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SkillRadar VN Deck</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one 16:9 "scope screen" at a time on desktop, stacked cards on phones; radar yellow is the only loud colour */
+:root {
+  --bg: #eef1f4;
+  --stage: #ffffff;
+  --panel: #f2f4f7;
+  --panel-2: #e5eaf0;
+  --ink: #1b2733;
+  --ink-2: #4a5867;
+  --muted: #74828f;
+  --line: #d3dae2;
+  --radar: #f2bd2c;
+  --radar-ink: #1b2733;
+  --rust: #b0501a;
+  --good: #2e7d6b;
+  --bad: #c0392b;
+  --night: #1b2733;
+  --night-2: #2a3a4a;
+  --night-ink: #e8edf2;
+  --f-display: "Bricolage Grotesque", "Be Vietnam Pro", system-ui, sans-serif;
+  --f-body: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f161d; --stage: #17212b; --panel: #1f2b37; --panel-2: #263442;
+    --ink: #e8edf2; --ink-2: #b4c0cc; --muted: #8a99a8; --line: #2f3e4d;
+    --radar: #f5c742; --radar-ink: #1b2733; --rust: #e38a52; --good: #5cbfa6; --bad: #ef7a6c;
+    --night: #0b1117; --night-2: #1d2a36; --night-ink: #e8edf2;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f161d; --stage: #17212b; --panel: #1f2b37; --panel-2: #263442;
+  --ink: #e8edf2; --ink-2: #b4c0cc; --muted: #8a99a8; --line: #2f3e4d;
+  --radar: #f5c742; --radar-ink: #1b2733; --rust: #e38a52; --good: #5cbfa6; --bad: #ef7a6c;
+  --night: #0b1117; --night-2: #1d2a36; --night-ink: #e8edf2;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 12px 20px;
+}
+html[data-lang="vi"] [lang="en"], html[data-lang="en"] [lang="vi"] { display: none !important; }
+h1, h2, h3 { font-family: var(--f-display); margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+p { margin: 0; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--radar); outline-offset: 2px; }
+
+/* top bar */
+.bar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; max-width: 1180px; margin: 0 auto 12px; }
+.brand { font-family: var(--f-display); font-weight: 800; font-size: 18px; }
+.brand b { background: var(--radar); color: var(--radar-ink); padding: 0 6px; border-radius: 6px; font-weight: 800; }
+.bar .sp { flex: 1; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; background: var(--stage); }
+.seg button { border: 0; background: none; padding: 5px 12px; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--ink-2); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--stage); }
+.tool { border: 1px solid var(--line); background: var(--stage); border-radius: 999px; padding: 5px 12px; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--ink-2); }
+.tool[aria-pressed="true"] { border-color: var(--radar); color: var(--ink); }
+
+/* stage */
+.deck { max-width: 1180px; margin: 0 auto; display: grid; gap: 16px; }
+.slide {
+  background: var(--stage); border-radius: 14px; padding: clamp(18px, 3.2vw, 44px);
+  display: flex; flex-direction: column; gap: clamp(14px, 2vw, 24px); min-width: 0;
+  box-shadow: 0 1px 2px rgb(0 0 0 / .06), 0 8px 30px rgb(20 30 45 / .06);
+}
+.slide.dark { background: var(--night); color: var(--night-ink); }
+.eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--rust); }
+.dark .eyebrow { color: var(--radar); }
+.slide h2 { font-size: clamp(26px, 3.4vw, 40px); font-weight: 700; }
+.notes { display: none; border-top: 1px dashed var(--line); padding-top: 12px; color: var(--ink-2); font-size: 14px; }
+.dark .notes { color: #b4c0cc; border-color: var(--night-2); }
+.notes::before { content: "🎙 "; }
+html.show-notes .notes { display: block; }
+
+@media (min-width: 860px) {
+  .deck.present .slide { display: none; aspect-ratio: 16 / 9; overflow: hidden; }
+  .deck.present .slide.on { display: flex; }
+  html.show-notes .deck.present .slide.on { aspect-ratio: auto; min-height: calc(1180px * 9 / 16); }
+}
+.nav { max-width: 1180px; margin: 12px auto 0; display: none; align-items: center; gap: 12px; }
+@media (min-width: 860px) { .nav { display: flex; } }
+.nav button { border: 1px solid var(--line); background: var(--stage); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 18px; }
+.nav button:disabled { opacity: .35; cursor: default; }
+.dots { display: flex; gap: 6px; flex: 1; }
+.dots button { flex: 1; height: 6px; border-radius: 3px; border: 0; padding: 0; background: var(--line); cursor: pointer; width: auto; }
+.dots button.on { background: var(--radar); }
+.count { font-family: var(--f-mono); font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; min-width: 48px; text-align: right; }
+.hint { font-size: 12px; color: var(--muted); }
+
+/* shared */
+.grid2 { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(16px, 2.5vw, 32px); min-width: 0; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 760px) { .grid2, .grid3 { grid-template-columns: 1fr; } }
+.box { background: var(--panel); border-radius: 12px; padding: 16px 18px; min-width: 0; }
+.muted { color: var(--ink-2); }
+.small { font-size: 14px; }
+.mono { font-family: var(--f-mono); }
+ul.clean { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
+
+/* 1 overview */
+.hero { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(16px, 3vw, 40px); align-items: center; flex: 1; }
+@media (max-width: 760px) { .hero { grid-template-columns: 1fr; } }
+.hero h1 { font-size: clamp(38px, 6vw, 72px); font-weight: 800; line-height: 1; }
+.hero h1 span { color: var(--radar); }
+.lead { font-size: clamp(16px, 1.6vw, 20px); color: #c7d1db; max-width: 34ch; margin-top: 14px; }
+.who { display: grid; gap: 8px; margin-top: 18px; }
+.who div { display: grid; grid-template-columns: 9.5em 1fr; gap: 10px; background: var(--night-2); border-radius: 10px; padding: 10px 14px; font-size: 15px; }
+.who b { color: var(--radar); }
+.scope { position: relative; aspect-ratio: 1; max-width: 340px; width: 100%; justify-self: center; border-radius: 50%;
+  background: radial-gradient(circle, transparent 0 24%, rgb(245 199 66 / .18) 24.3% 24.8%, transparent 25% 49%, rgb(245 199 66 / .18) 49.3% 49.8%, transparent 50% 74%, rgb(245 199 66 / .22) 74.3% 74.8%, transparent 75%);
+  border: 1px solid rgb(245 199 66 / .35); overflow: hidden; }
+.scope::before { content: ""; position: absolute; inset: 0; border-radius: 50%;
+  background: conic-gradient(from 0deg, rgb(245 199 66 / .45), rgb(245 199 66 / 0) 22%, transparent 100%);
+  animation: sweep 6s linear infinite; }
+@keyframes sweep { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .scope::before { animation: none; } }
+.blip { position: absolute; transform: translate(-50%, -50%); text-align: center; font-size: 12px; color: var(--night-ink); line-height: 1.15; }
+.blip b { display: block; font-family: var(--f-display); font-size: clamp(20px, 2.4vw, 30px); color: var(--radar); }
+.foot { font-family: var(--f-mono); font-size: 12px; color: #8a99a8; }
+
+/* 2 architecture */
+.arch { display: grid; grid-template-columns: 1fr auto 1.05fr auto 1.3fr auto 1fr auto 1fr; align-items: center; gap: 8px; }
+.col { display: grid; gap: 8px; min-width: 0; }
+.col .cap { font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; text-align: center; }
+.node { border: 1px solid transparent; background: var(--panel); border-radius: 10px; padding: 9px 10px; text-align: center; cursor: pointer; font-size: 14px; font-weight: 600; line-height: 1.25; width: 100%; }
+.node small { display: block; font-weight: 400; font-size: 12px; color: var(--ink-2); }
+.node:hover { border-color: var(--radar); }
+.node.sel { border-color: var(--radar); box-shadow: 0 0 0 2px var(--radar) inset; }
+.node.dark { background: var(--night); color: var(--night-ink); }
+.node.dark small { color: #b4c0cc; }
+.node.hot { background: var(--radar); color: var(--radar-ink); }
+.node.hot small { color: var(--radar-ink); }
+.node.dash { background: transparent; border: 1px dashed var(--muted); }
+.wh { border: 1px dashed var(--muted); border-radius: 12px; padding: 8px; display: grid; gap: 6px; }
+.down { text-align: center; color: var(--muted); line-height: 1; font-size: 14px; }
+.arr { color: var(--muted); font-size: 20px; }
+@media (max-width: 860px) { .arch { grid-template-columns: 1fr; } .arr { transform: rotate(90deg); justify-self: center; } }
+.rules-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.detail { background: var(--panel); border-radius: 12px; padding: 12px 16px; font-size: 15px; min-height: 3.2em; }
+.detail b { color: var(--rust); }
+
+/* 3 crawl */
+.rules { display: grid; gap: 10px; }
+.rule { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; }
+.rule i { font-style: normal; width: 34px; height: 34px; border-radius: 50%; background: var(--radar); color: var(--radar-ink); display: grid; place-items: center; font-weight: 700; font-family: var(--f-mono); }
+.rule b { display: block; }
+.tbl { width: 100%; border-collapse: collapse; font-size: 15px; font-variant-numeric: tabular-nums; }
+.tbl th { text-align: left; font-size: 12px; font-family: var(--f-mono); color: var(--rust); font-weight: 600; padding: 6px 6px 6px 0; }
+.tbl td { padding: 7px 6px 7px 0; border-top: 1px solid var(--line); }
+.tbl .r { text-align: right; }
+.pill { display: inline-block; font-size: 11px; font-weight: 700; padding: 1px 8px; border-radius: 999px; }
+.pill.ok { background: color-mix(in srgb, var(--good) 18%, transparent); color: var(--good); }
+.pill.stop { background: color-mix(in srgb, var(--bad) 18%, transparent); color: var(--bad); }
+.pill.warn { background: color-mix(in srgb, var(--radar) 30%, transparent); color: var(--ink); }
+
+/* 4 layers */
+.layer h3 { font-size: 24px; color: var(--rust); }
+.layer .sub { font-style: italic; color: var(--ink-2); font-size: 14px; margin: 2px 0 10px; }
+.layer.gold { background: var(--panel-2); }
+
+/* 5 modeling */
+.metric { display: grid; gap: 2px; }
+.metric b { color: var(--rust); font-size: 17px; }
+.chart { display: grid; gap: 8px; }
+.row { display: grid; grid-template-columns: 9.5em 1fr; gap: 10px; align-items: center; font-size: 14px; }
+.track { position: relative; height: 22px; }
+.fill { height: 100%; background: var(--radar); border-radius: 0 6px 6px 0; transition: width .6s ease; }
+.val { position: absolute; top: 50%; transform: translateY(-50%); font-family: var(--f-mono); font-size: 12px; font-variant-numeric: tabular-nums; padding-left: 6px; }
+.axis { font-family: var(--f-mono); font-size: 11px; color: var(--muted); }
+
+/* 6 sample */
+.kv { display: grid; grid-template-columns: 7.5em 1fr; gap: 6px 10px; font-size: 15px; }
+.kv span:nth-child(odd) { font-family: var(--f-mono); color: var(--ink-2); font-size: 13px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { background: var(--stage); border: 1px solid var(--line); padding: 4px 12px; border-radius: 999px; font-size: 14px; font-weight: 600; cursor: default; }
+.chip:hover { border-color: var(--radar); }
+.dark .chip { background: var(--night-2); border-color: var(--night-2); }
+
+/* 7 status */
+.blk { display: grid; grid-template-columns: 8.5em 1fr; gap: 4px 12px; font-size: 14px; padding: 8px 0; border-top: 1px solid var(--line); }
+.blk:first-of-type { border-top: 0; }
+.done li::marker { content: "✓  "; color: var(--good); }
+
+/* 8 next */
+.steps { display: grid; gap: 10px; counter-reset: s; }
+.step { display: grid; grid-template-columns: 40px 13em 1fr; gap: 14px; align-items: center; }
+@media (max-width: 760px) { .step { grid-template-columns: 40px 1fr; } .step p { grid-column: 2; } }
+.step i { font-style: normal; width: 40px; height: 40px; border-radius: 50%; background: var(--ink); color: var(--radar); display: grid; place-items: center; font-weight: 700; font-family: var(--f-mono); }
+
+/* 9 demo */
+.demo a { color: var(--radar); font-family: var(--f-display); font-size: clamp(20px, 2.4vw, 28px); font-weight: 700; text-decoration: none; }
+.demo a:hover { text-decoration: underline; }
+.dcard { background: var(--night-2); border-radius: 12px; padding: 16px 18px; display: grid; gap: 6px; color: var(--night-ink); text-decoration: none; }
+.dcard:hover { outline: 2px solid var(--radar); }
+.dcard h3 { font-size: 22px; }
+.dcard code { font-family: var(--f-mono); color: var(--radar); font-size: 13px; }
+.dcard p { color: #c7d1db; font-size: 15px; }
+.demo a.datalink { display: inline-flex; gap: 10px; align-items: baseline; font-family: var(--f-body); font-size: 16px; font-weight: 600; border: 1px solid var(--radar); border-radius: 999px; padding: 8px 16px; justify-self: start; }
+.demo a.datalink small { color: #c7d1db; font-weight: 400; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="brand">Skill<b>Radar</b> VN</div>
+  <span class="hint" lang="vi">← → để chuyển slide · N để xem ghi chú</span>
+  <span class="hint" lang="en">← → to move · N for notes</span>
+  <span class="sp"></span>
+  <div class="seg" role="group" aria-label="Language">
+    <button id="lang-vi" data-lang="vi">Tiếng Việt</button>
+    <button id="lang-en" data-lang="en">English</button>
+  </div>
+  <button class="tool" id="notes-btn" aria-pressed="false"><span lang="vi">Ghi chú</span><span lang="en">Notes</span></button>
+</div>
+
+<main class="deck present" id="deck">
+
+<!-- 1 -->
+<section class="slide dark" id="s1">
+  <div class="hero">
+    <div>
+      <p class="eyebrow"><span lang="vi">Bài dự thi BTL86-59 · vòng 2</span><span lang="en">Contest BTL86-59 · round 2</span></p>
+      <h1>Skill<span>Radar</span> VN</h1>
+      <p class="lead"><span lang="vi">Thị trường lao động Việt Nam thực sự cần kỹ năng gì? Đo từ tin tuyển dụng công khai, cập nhật mỗi ngày.</span><span lang="en">Which skills does Vietnam's job market actually ask for? Measured from real, public job postings, refreshed daily.</span></p>
+      <div class="who">
+        <div><b lang="vi">Học sinh 17–23</b><b lang="en">Students 17–23</b><span lang="vi">Chọn nghề, biết cần học gì</span><span lang="en">Pick a job and know what to learn</span></div>
+        <div><b lang="vi">Nhà trường</b><b lang="en">Universities</b><span lang="vi">Đối chiếu chương trình với nhu cầu</span><span lang="en">Check curricula against demand</span></div>
+        <div><b lang="vi">Cơ quan quản lý</b><b lang="en">Government</b><span lang="vi">Nắm thị trường lao động theo vùng</span><span lang="en">Read the labour market by region</span></div>
+      </div>
+    </div>
+    <div class="scope" aria-label="Key numbers">
+      <div class="blip" style="left:50%;top:22%"><b class="n" data-vi="43.809" data-en="43,809">43.809</b><span lang="vi">tin tuyển dụng</span><span lang="en">postings</span></div>
+      <div class="blip" style="left:24%;top:55%"><b>159</b><span lang="vi">kỹ năng</span><span lang="en">skills</span></div>
+      <div class="blip" style="left:76%;top:55%"><b>17</b><span lang="vi">tháng lịch sử</span><span lang="en">months history</span></div>
+      <div class="blip" style="left:50%;top:80%"><b>4</b><span lang="vi">nguồn (1 đang đứng)</span><span lang="en">sources (1 frozen)</span></div>
+    </div>
+  </div>
+  <p class="foot">demo-skill-radar.ducklytics.com</p>
+  <p class="notes"><span lang="vi">30 giây. Vấn đề: học sinh chọn ngành mà không có dữ liệu; nhà trường và cơ quan quản lý thiếu số liệu nhu cầu kỹ năng mới. Chúng tôi đọc tin tuyển dụng công khai mỗi ngày và biến chúng thành chỉ số kỹ năng cho ba nhóm người dùng.</span><span lang="en">30s. Students pick majors blind; schools and government lack fresh skill-demand data. We read public job postings every day and turn them into a skill index for three audiences.</span></p>
+</section>
+
+<!-- 2 -->
+<section class="slide" id="s2">
+  <p class="eyebrow"><span lang="vi">Cách hoạt động</span><span lang="en">How it works</span></p>
+  <h2><span lang="vi">Kiến trúc: từ crawl tới website</span><span lang="en">Architecture: from crawl to website</span></h2>
+  <div class="arch" id="arch">
+    <div class="col">
+      <div class="cap"><span lang="vi">Trang tuyển dụng</span><span lang="en">Job sites</span></div>
+      <button class="node" data-k="src">itviec<small><span class="pill ok">OK</span></small></button>
+      <button class="node" data-k="src">vietnamworks<small><span class="pill stop" lang="vi">đứng 13/10</span><span class="pill stop" lang="en">frozen 13/10</span></small></button>
+      <button class="node" data-k="src">jobsgo<small><span class="pill warn" lang="vi">chập chờn</span><span class="pill warn" lang="en">flaky</span></small></button>
+      <button class="node" data-k="src">timviec365<small><span class="pill ok">OK</span></small></button>
+      <button class="node dash" data-k="ia">Internet Archive<small>2025–2026</small></button>
+    </div>
+    <div class="arr">→</div>
+    <div class="col">
+      <div class="cap">launchd · 07:00</div>
+      <button class="node dark" data-k="crawl"><span lang="vi">Crawler lịch sự</span><span lang="en">Polite crawler</span><small lang="vi">robots · 2 giây · xóa PII</small><small lang="en">robots · 2 s · PII cut</small></button>
+      <button class="node" data-k="bf"><span lang="vi">Bổ sung lịch sử</span><span lang="en">Backfill</span><small lang="vi">150 tin / tháng</small><small lang="en">150 postings / month</small></button>
+    </div>
+    <div class="arr">→</div>
+    <div class="col">
+      <div class="cap"><span lang="vi">Kho DuckDB</span><span lang="en">DuckDB warehouse</span></div>
+      <div class="wh">
+        <button class="node" data-k="bronze">Bronze<small lang="vi">JSONL thô theo ngày</small><small lang="en">raw JSONL per day</small></button>
+        <div class="down">↓</div>
+        <button class="node" data-k="silver">Silver<small lang="vi">43.809 tin</small><small lang="en">43,809 postings</small></button>
+        <div class="down">↓</div>
+        <button class="node hot" data-k="gold">Gold<small lang="vi">tin × kỹ năng · chỉ số</small><small lang="en">posting × skill · metrics</small></button>
+      </div>
+    </div>
+    <div class="arr">→</div>
+    <div class="col">
+      <div class="cap"><span lang="vi">Xuất</span><span lang="en">Export</span></div>
+      <button class="node" data-k="export"><span lang="vi">Xuất + kiểm tra</span><span lang="en">Export + verify</span><small>7 JSON · 295 KB</small></button>
+    </div>
+    <div class="arr">→</div>
+    <div class="col">
+      <div class="cap">Cloudflare Pages</div>
+      <button class="node hot" data-k="site"><span lang="vi">Học sinh</span><span lang="en">Students</span></button>
+      <button class="node hot" data-k="site"><span lang="vi">Nhà trường</span><span lang="en">Universities</span></button>
+      <button class="node hot" data-k="site"><span lang="vi">Cơ quan</span><span lang="en">Government</span></button>
+    </div>
+  </div>
+  <div class="rules-row">
+    <span class="chip">robots.txt</span>
+    <span class="chip" lang="vi">Khai báo danh tính + email thật</span><span class="chip" lang="en">Honest user-agent + real email</span>
+    <span class="chip" lang="vi">≥ 2 giây mỗi trang</span><span class="chip" lang="en">≥ 2 s per host</span>
+    <span class="chip" lang="vi">Gặp 403 / CAPTCHA là dừng</span><span class="chip" lang="en">Stop on 403 / CAPTCHA</span>
+    <span class="chip" lang="vi">Xóa dữ liệu cá nhân trước khi lưu</span><span class="chip" lang="en">Personal data cut before saving</span>
+  </div>
+  <p class="small muted"><span lang="vi">Đã loại vì chặn crawler: vieclam24h, vieclamtot, mywork, careerviet, topcv. Trang nào nói không thì dừng.</span><span lang="en">Excluded because they block crawlers: vieclam24h, vieclamtot, mywork, careerviet, topcv. When a site says no, we stop.</span></p>
+  <div class="detail" id="detail" aria-live="polite"></div>
+  <p class="small muted"><b lang="vi">Công nghệ:</b><b lang="en">Stack:</b> Python 3.11 · httpx · selectolax · DuckDB · statsmodels (ARIMA) · <span lang="vi">từ điển + luật, không LLM · JS thuần · một laptop</span><span lang="en">dictionary rules, no LLM · vanilla JS · one laptop</span></p>
+  <p class="notes"><span lang="vi">1,5 phút. Mọi thứ chạy trên một laptop. Bên trái: bốn nguồn và trạng thái hôm nay; vietnamworks gỡ sitemap, jobsgo chặn một ngày. Crawler theo năm nguyên tắc đã viết trong hồ sơ dự thi. Sau đó là ba tầng kho dữ liệu, bước kiểm tra tính lại mọi số bằng SQL, và website tĩnh không backend. Bấm vào từng ô để giải thích.</span><span lang="en">1.5 min. Everything runs on one laptop. Left: the four sites and their status today; vietnamworks removed its sitemap, jobsgo blocked us for a day. The crawler follows five rules from our contest application. Then three warehouse layers, a verify step that recomputes every number with SQL, and static sites with no backend. Click a box to explain it.</span></p>
+</section>
+
+<!-- 4 -->
+<section class="slide" id="s3">
+  <p class="eyebrow"><span lang="vi">Cách hoạt động</span><span lang="en">How it works</span></p>
+  <h2><span lang="vi">Lưu trữ và biến đổi, qua một tin thật</span><span lang="en">Store and transform, on one real posting</span></h2>
+  <div class="grid3">
+    <div class="box layer"><h3>Bronze</h3><p class="sub"><span lang="vi">Dữ liệu thô, chỉ ghi thêm</span><span lang="en">Raw, append-only</span></p>
+      <ul class="clean small"><li><span lang="vi">JSONL theo nguồn, theo ngày</span><span lang="en">JSONL per source per day</span></li><li><span lang="vi">347 MB + 95 MB bản lưu</span><span lang="en">347 MB + 95 MB archive</span></li></ul></div>
+    <div class="box layer"><h3>Silver</h3><p class="sub"><span lang="vi">Mỗi tin một dòng sạch</span><span lang="en">One clean row per posting</span></p>
+      <ul class="clean small"><li><span lang="vi">34 tỉnh (bản đồ sau 7/2025)</span><span lang="en">34 provinces (post-7/2025 map)</span></li><li><span lang="vi">15 nhóm nghề · 43.809 tin</span><span lang="en">15 job families · 43,809 postings</span></li></ul></div>
+    <div class="box layer gold"><h3>Gold</h3><p class="sub"><span lang="vi">Mỗi dòng là một tin × một kỹ năng</span><span lang="en">One row per posting × skill</span></p>
+      <ul class="clean small"><li><span lang="vi">Từ điển 159 kỹ năng, tên gọi Việt + Anh</span><span lang="en">Dictionary of 159 skills, vi + en aliases</span></li><li><span lang="vi">212.140 dòng tin–kỹ năng</span><span lang="en">212,140 posting-skill rows</span></li></ul></div>
+  </div>
+  <div class="grid2">
+    <div class="box">
+      <p class="mono small" style="color:var(--rust);font-weight:600;margin-bottom:10px">silver.posting</p>
+      <div class="kv">
+        <span>source</span><b>itviec</b>
+        <span>title</span><b>Data Engineer SQL / Spark / ETL</b>
+                <span>job_family</span><b>cntt (IT)</b>
+        <span>salary</span><b><span lang="vi">800–1.300 USD / tháng</span><span lang="en">800–1,300 USD / month</span></b>
+                      </div>
+    </div>
+    <div class="box" style="background:var(--panel-2)">
+      <p class="mono small" style="color:var(--rust);font-weight:600;margin-bottom:10px">gold.fact_posting_skill · <span lang="vi">12 dòng</span><span lang="en">12 rows</span></p>
+      <div class="chips" id="chips"></div>
+      <p class="small muted" style="margin-top:14px"><span lang="vi">Mỗi dòng giữ lại cụm từ đã khớp và mục chứa nó, nên mọi con số trên website đều truy ngược được tới câu gốc trong tin.</span><span lang="en">Each row keeps the matched phrase and its section, so any number on the site traces back to the sentence in the posting.</span></p>
+    </div>
+  </div>
+  <p class="notes"><span lang="vi">1,5 phút. Phía trên: ba tầng kho dữ liệu. Phía dưới: một tin itviec thật ở tầng silver và 12 kỹ năng từ điển tìm được ở tầng gold. Không dùng LLM: từ điển đã duyệt + luật. Bỏ qua phần phúc lợi và dòng bằng cấp. Mỗi dòng gold giữ lại cụm từ đã khớp, nên mọi số đều truy ngược được.</span><span lang="en">1.5 min. Top: the three warehouse layers. Bottom: one real itviec posting in silver and the 12 skills the dictionary found in gold. No LLM: a reviewed dictionary plus rules. Benefit sections and degree lines are skipped. Each gold row keeps the matched phrase, so every number traces back.</span></p>
+</section>
+
+<!-- 5 -->
+<section class="slide" id="s4">
+  <p class="eyebrow"><span lang="vi">Cách hoạt động</span><span lang="en">How it works</span></p>
+  <h2><span lang="vi">Mô hình: chúng tôi tính gì</span><span lang="en">Modeling: what we compute</span></h2>
+  <div class="grid2">
+    <div style="display:grid;gap:14px">
+      <div class="metric"><b lang="vi">Tỷ trọng nhu cầu</b><b lang="en">Demand share</b><span class="small muted" lang="vi">% tin đang mở cần một kỹ năng, theo nghề, tỉnh, cấp bậc</span><span class="small muted" lang="en">% of open postings asking for a skill, by job, province, level</span></div>
+      <div class="metric"><b lang="vi">Chênh lệch lương</b><b lang="en">Salary premium</b><span class="small muted" lang="vi">lương trung vị khi tin có và không có kỹ năng (tương quan, không phải nhân quả)</span><span class="small muted" lang="en">median pay with vs without the skill (correlation, not cause)</span></div>
+      <div class="metric"><b lang="vi">Mức ảnh hưởng của AI (cao = dễ bị thay)</b><b lang="en">AI exposure (higher = more at risk)</b><span class="small muted" lang="vi">AI đã làm được bao nhiêu phần kỹ năng: 0,65 × điểm chuyên gia + 0,35 × đồng xuất hiện với công cụ AI</span><span class="small muted" lang="en">how much of the skill AI can already do: 0.65 × expert score + 0.35 × co-mention with AI tools</span></div>
+      <div class="metric"><b lang="vi">Dự báo</b><b lang="en">Forecast</b><span class="small muted" lang="vi">ARIMA trên chuỗi 17 tháng, thắng cách dự báo đơn giản ở 57% trong 138 lần kiểm tra ngược</span><span class="small muted" lang="en">ARIMA on a 17-month series, beats the naive baseline in 57% of 138 back-tests</span></div>
+    </div>
+    <div class="box">
+      <b class="small" lang="vi">Kỹ năng hàng đầu · % tin đang mở</b><b class="small" lang="en">Top skills · % of open postings</b>
+      <div class="chart" id="chart" style="margin-top:12px"></div>
+      <div class="row axis" style="margin-top:4px"><span></span><span style="display:flex;justify-content:space-between"><span>0</span><span>10</span><span>20</span><span>30</span><span>40</span></span></div>
+    </div>
+  </div>
+  <p class="notes"><span lang="vi">1 phút. Giới hạn: đây là ảnh chụp tin đang mở, thiếu tin đã đóng. Chỉ dự báo kỹ năng có tỷ trọng ≥ 2%, luôn đặt cạnh dự báo đơn giản. Chỉ số tháng chưa bật cho tới khi đủ một tháng dữ liệu hằng ngày.</span><span lang="en">1 min. Limits: a snapshot of open postings, closed ones missing. Forecast only for skills with ≥ 2% share, always next to a naive baseline. Monthly index stays off until a full month of daily data exists.</span></p>
+</section>
+
+<!-- 7 -->
+<section class="slide" id="s5">
+  <p class="eyebrow"><span lang="vi">Tình hình</span><span lang="en">Status</span></p>
+  <h2><span lang="vi">Tiến độ và vướng mắc</span><span lang="en">Progress and blockers</span></h2>
+  <div class="grid2">
+    <div>
+      <h3 style="color:var(--good);font-size:20px;margin-bottom:10px"><span lang="vi">Đã xong</span><span lang="en">Done</span></h3>
+      <ul class="clean done">
+        <li><span lang="vi">Crawler chạy hằng ngày từ 12/10 (11 ngày)</span><span lang="en">Daily crawler running since 12/10 (11 days)</span></li>
+        <li><span lang="vi">17 tháng lịch sử từ Internet Archive</span><span lang="en">17 months of history from Internet Archive</span></li>
+        <li><span lang="vi">Từ điển kỹ năng v3: 159 kỹ năng, đã duyệt</span><span lang="en">Skill dictionary v3: 159 skills, reviewed</span></li>
+        <li><span lang="vi">Chỉ số, dự báo ARIMA, bước kiểm tra: mọi số khớp SQL</span><span lang="en">Metrics, ARIMA forecast, verify step: all numbers match SQL</span></li>
+        <li><span lang="vi">3 website đã chạy: học sinh, nhà trường, cơ quan</span><span lang="en">3 websites live: students, universities, government</span></li>
+        <li><span lang="vi">47 bài test tự động đều đạt</span><span lang="en">47 automated tests passing</span></li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3 style="color:var(--bad);font-size:20px;margin-bottom:6px"><span lang="vi">Vướng mắc</span><span lang="en">Blockers</span></h3>
+      <div class="blk"><b>vietnamworks</b><span lang="vi">gỡ sitemap từ 14/10; danh sách tin cần API nội bộ → đứng ở 13/10</span><span lang="en">removed its sitemap 14/10; listing needs their private API → frozen at 13/10</span></div>
+      <div class="blk"><b>jobsgo</b><span lang="vi">bị Cloudflare chặn 21/10, mở lại 22/10, chưa ổn định</span><span lang="en">Cloudflare blocked us 21/10, open again 22/10, fragile</span></div>
+      <div class="blk"><b lang="vi">Độ chính xác</b><b lang="en">Accuracy</b><span lang="vi">tập test F1: mới gán nhãn 2/150 tin, chưa đo được</span><span lang="en">F1 test set: 2 of 150 postings labelled, not measured yet</span></div>
+      <div class="blk"><b lang="vi">Điều khoản</b><b lang="en">Terms</b><span lang="vi">chưa rà điều khoản, chưa gửi email xin phép nguồn nào</span><span lang="en">terms of use and permission emails not done for any source</span></div>
+      <div class="blk"><b lang="vi">Vận hành</b><b lang="en">Ops</b><span lang="vi">crawler chạy trên một laptop: máy ngủ hoặc khởi động lại là mất một ngày</span><span lang="en">crawler lives on one laptop: sleep or reboot loses a day</span></div>
+    </div>
+  </div>
+  <p class="notes"><span lang="vi">1,5 phút. Rủi ro lớn nhất là quyền truy cập dữ liệu, không phải code: hai trong bốn nguồn thay đổi chỉ trong một tuần. Chúng tôi giữ đúng nguyên tắc: trang nào nói không thì dừng.</span><span lang="en">1.5 min. The biggest risk is data access, not code: two of four sources changed in one week. We keep our rule: when a site says no, we stop.</span></p>
+</section>
+
+<!-- 8 -->
+<section class="slide" id="s6">
+  <p class="eyebrow"><span lang="vi">Tình hình</span><span lang="en">Status</span></p>
+  <h2><span lang="vi">Bước tiếp theo</span><span lang="en">What's next</span></h2>
+  <div class="steps">
+    <div class="step"><i>1</i><b lang="vi">Nguồn dữ liệu</b><b lang="en">Data access</b><p class="muted"><span lang="vi">Xin phép vietnamworks, jobsgo hoặc xin nguồn dữ liệu chính thức; thêm nguồn mới cho phép crawl</span><span lang="en">Ask vietnamworks and jobsgo for permission or an official feed; add sources that allow crawling</span></p></div>
+    <div class="step"><i>2</i><b lang="vi">Đo độ chính xác</b><b lang="en">Measure accuracy</b><p class="muted"><span lang="vi">Gán nhãn tập test 150 tin (50 Việt / 50 Anh / 50 trộn), công bố F1 trên trang trạng thái</span><span lang="en">Label the 150-posting test set (50 vi / 50 en / 50 mixed), publish F1 on the status page</span></p></div>
+    <div class="step"><i>3</i><b lang="vi">Độ ổn định</b><b lang="en">Reliability</b><p class="muted"><span lang="vi">Chuyển crawler khỏi laptop sang một máy nhỏ chạy liên tục</span><span lang="en">Move the daily crawl off the laptop to a small always-on machine</span></p></div>
+    <div class="step"><i>4</i><b lang="vi">Chỉ số tháng thật</b><b lang="en">Real monthly index</b><p class="muted"><span lang="vi">Khi đủ một tháng dữ liệu hằng ngày, bật chỉ số tháng và so với chuỗi bản lưu</span><span lang="en">Once a full month of daily data exists, switch on the monthly index and compare with the archive series</span></p></div>
+    <div class="step"><i>5</i><b lang="vi">Cung và cầu</b><b lang="en">Supply vs demand</b><p class="muted"><span lang="vi">Thêm chỉ tiêu tuyển sinh theo ngành để thấy đào tạo đang thiếu ở đâu</span><span lang="en">Add enrolment quotas per major to show where training lags demand</span></p></div>
+  </div>
+  <p class="notes"><span lang="vi">1 phút. Hỏi coach: việc nào quan trọng nhất với giám khảo? Có ai quen bên trang tuyển dụng hay trường đại học không?</span><span lang="en">1 min. Ask the coaches: which of these matters most to judges? Any contacts at job sites or universities?</span></p>
+</section>
+
+<!-- 9 -->
+<section class="slide dark demo" id="s7">
+  <p class="eyebrow">Demo</p>
+  <h2><span lang="vi">Demo nhanh</span><span lang="en">Quick demo</span></h2>
+  <a href="https://demo-skill-radar.ducklytics.com/" target="_blank" rel="noopener">demo-skill-radar.ducklytics.com ↗</a>
+  <div class="grid3">
+    <a class="dcard" href="https://demo-skill-radar.ducklytics.com/hoc-sinh/" target="_blank" rel="noopener"><h3 lang="vi">Học sinh</h3><h3 lang="en">Students</h3><code>/hoc-sinh/</code><p lang="vi">Tìm một nghề → số tin đang tuyển, lương trung vị, kỹ năng cần học, trích dẫn tin thật, ảnh hưởng của AI</p><p lang="en">Search a job → open postings, median pay, skills to learn, real quotes, AI exposure</p></a>
+    <a class="dcard" href="https://demo-skill-radar.ducklytics.com/nha-truong/" target="_blank" rel="noopener"><h3 lang="vi">Nhà trường</h3><h3 lang="en">Universities</h3><code>/nha-truong/</code><p lang="vi">Kỹ năng theo nhóm nghề và cấp bậc, xu hướng, tải CSV để đối chiếu chương trình</p><p lang="en">Skills by job family and level, trends, CSV export to compare with curricula</p></a>
+    <a class="dcard" href="https://demo-skill-radar.ducklytics.com/co-quan/" target="_blank" rel="noopener"><h3 lang="vi">Cơ quan</h3><h3 lang="en">Government</h3><code>/co-quan/</code><p lang="vi">Nhu cầu theo tỉnh, theo nhóm nghề, độ phủ dữ liệu và ghi chú phương pháp</p><p lang="en">Demand by province, job families, data coverage and method notes</p></a>
+  </div>
+  <a class="datalink" href="https://demo-skill-radar.ducklytics.com/du-lieu/" target="_blank" rel="noopener"><span lang="vi">Xem dữ liệu đã thu thập ↗</span><span lang="en">Review the crawled data ↗</span><small lang="vi">dashboard dữ liệu, ảnh chụp 22/10</small><small lang="en">data dashboard, 22/10 snapshot</small></a>
+  <p class="notes"><span lang="vi">3 phút. Học sinh: tìm "kế toán", mở trang nghề, xem bảng kỹ năng và trích dẫn. Nhà trường: một nhóm nghề, nút tải CSV. Cơ quan: xem theo tỉnh và trang trạng thái.</span><span lang="en">3 min. Students: search "kế toán", open the job page, show skills and quotes. Universities: one family, CSV button. Government: province view and the status page.</span></p>
+</section>
+
+</main>
+
+<nav class="nav" aria-label="Slides">
+  <button id="prev" aria-label="Previous slide">←</button>
+  <div class="dots" id="dots"></div>
+  <span class="count" id="count"></span>
+  <button id="next" aria-label="Next slide">→</button>
+</nav>
+
+<script>
+(() => {
+  const root = document.documentElement;
+  const store = { get(k, d) { try { return localStorage.getItem(k) ?? d; } catch { return d; } }, set(k, v) { try { localStorage.setItem(k, v); } catch {} } };
+  const el = (tag, attrs = {}, ...kids) => { const e = document.createElement(tag); Object.assign(e, attrs); e.append(...kids); return e; };
+  const both = (vi, en) => [el('span', { lang: 'vi', textContent: vi }), el('span', { lang: 'en', textContent: en })];
+
+  // language
+  function setLang(l) {
+    root.dataset.lang = l; root.lang = l; store.set('sr-lang', l);
+    document.querySelectorAll('.seg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === l));
+    document.querySelectorAll('.n[data-vi]').forEach(n => { n.textContent = n.dataset[l]; });
+  }
+  document.querySelectorAll('.seg button').forEach(b => b.onclick = () => setLang(b.dataset.lang));
+  setLang(store.get('sr-lang', 'vi'));
+
+  // notes
+  const nb = document.getElementById('notes-btn');
+  const setNotes = on => { root.classList.toggle('show-notes', on); nb.setAttribute('aria-pressed', on); };
+  nb.onclick = () => setNotes(!root.classList.contains('show-notes'));
+
+  // slides
+  const slides = [...document.querySelectorAll('.slide')];
+  const dots = document.getElementById('dots');
+  slides.forEach((s, i) => dots.append(el('button', { 'ariaLabel': `Slide ${i + 1}`, onclick: () => go(i) })));
+  let cur = Math.max(0, slides.findIndex(s => '#' + s.id === location.hash));
+  function go(i) {
+    cur = Math.max(0, Math.min(slides.length - 1, i));
+    slides.forEach((s, k) => s.classList.toggle('on', k === cur));
+    [...dots.children].forEach((d, k) => d.classList.toggle('on', k === cur));
+    document.getElementById('count').textContent = `${cur + 1} / ${slides.length}`;
+    document.getElementById('prev').disabled = cur === 0;
+    document.getElementById('next').disabled = cur === slides.length - 1;
+    try { history.replaceState(null, '', '#' + slides[cur].id); } catch {}
+  }
+  document.getElementById('prev').onclick = () => go(cur - 1);
+  document.getElementById('next').onclick = () => go(cur + 1);
+  document.addEventListener('keydown', e => {
+    if (e.target.closest('input, textarea')) return;
+    if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); go(cur + 1); }
+    else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); go(cur - 1); }
+    else if (e.key === 'Home') go(0);
+    else if (e.key === 'End') go(slides.length - 1);
+    else if (e.key.toLowerCase() === 'n') nb.click();
+  });
+  go(cur);
+
+  // architecture details
+  const D = {
+    src: ['Trang tuyển dụng: đọc sitemap hoặc trang danh sách để biết tin nào đang mở, rồi tải từng tin. Bóc tách bằng JSON-LD, dữ liệu Next.js hoặc HTML.', 'Job sites: read the sitemap or listing pages to know which postings are open, then fetch each one. Parsed from JSON-LD, Next.js data or HTML.'],
+    ia: ['Internet Archive: lấy mẫu bản lưu tin tuyển dụng từ 2025 để có chuỗi 17 tháng. Chỉ dùng tỷ trọng, không dùng số đếm.', 'Internet Archive: samples of archived postings since 2025 give a 17-month series. Used for shares only, never counts.'],
+    crawl: ['Crawler: kiểm tra robots.txt, khai báo email liên hệ, cách 2 giây mỗi request, gặp 403 là dừng, xóa tên / SĐT / email trước khi ghi đĩa. Chạy 07:00 mỗi ngày.', 'Crawler: checks robots.txt, declares a contact email, waits 2 s per request, stops on 403, cuts names / phones / emails before writing. Runs daily at 07:00.'],
+    bf: ['Bổ sung lịch sử: mỗi tháng lấy đều tối đa 150 tin mỗi nguồn; tháng dưới 80 tin bị bỏ, không nội suy.', 'Backfill: up to 150 postings per source per month, sampled evenly; months under 80 postings are dropped, never interpolated.'],
+    bronze: ['Bronze: file JSONL thô theo nguồn và ngày, chỉ ghi thêm. 347 MB tin crawl + 95 MB bản lưu.', 'Bronze: raw JSONL per source per day, append-only. 347 MB crawled + 95 MB archive.'],
+    silver: ['Silver: mỗi tin một dòng. Chuẩn hóa 34 tỉnh, lương về VND/tháng, cấp bậc, ngôn ngữ, 15 nhóm nghề; bỏ tin đăng lại.', 'Silver: one row per posting. Normalised to 34 provinces, VND/month salary, seniority, language, 15 job families; reposts removed.'],
+    gold: ['Gold: mỗi dòng là một tin × một kỹ năng (212.140 dòng), cộng các bảng chỉ số: tỷ trọng, lương, AI, đồng xuất hiện, dự báo ARIMA.', 'Gold: one row per posting × skill (212,140 rows), plus metric tables: shares, pay, AI, co-occurrence, ARIMA forecast.'],
+    export: ['Xuất + kiểm tra: 7 file JSON (295 KB). Bước verify tính lại mọi con số bằng SQL độc lập; lệch là dừng, không deploy.', 'Export + verify: 7 JSON files (295 KB). Verify recomputes every number with independent SQL; any mismatch stops the deploy.'],
+    site: ['Website tĩnh trên Cloudflare Pages, deploy bằng wrangler. Không backend: lúc demo không có gì phải chạy.', 'Static websites on Cloudflare Pages, deployed with wrangler. No backend: nothing has to run at demo time.'],
+  };
+  const det = document.getElementById('detail');
+  const nodes = [...document.querySelectorAll('#arch .node')];
+  function pick(n) {
+    nodes.forEach(x => x.classList.toggle('sel', x.dataset.k === n.dataset.k));
+    const [vi, en] = D[n.dataset.k];
+    det.replaceChildren(...both(vi, en));
+  }
+  nodes.forEach(n => n.onclick = () => pick(n));
+  pick(nodes.find(n => n.dataset.k === 'crawl'));
+
+  // chart: share of open postings, axis 0–40
+  const TOP = [['Tiếng Anh giao tiếp', 'English communication', 38.6], ['Excel', 'Excel', 30.5], ['Tin học văn phòng', 'MS Office', 24.8], ['Giao tiếp', 'Communication', 24.6], ['Kế toán', 'Accounting', 21.2], ['Chăm sóc khách hàng', 'Customer service', 18.7], ['Đàm phán', 'Negotiation', 17.1]];
+  const chart = document.getElementById('chart');
+  TOP.forEach(([vi, en, v]) => {
+    const fill = el('div', { className: 'fill' }); fill.style.width = (v / 40 * 100) + '%';
+    const val = el('span', { className: 'val' }); val.style.left = (v / 40 * 100) + '%';
+    val.append(...both(v.toFixed(1).replace('.', ',') + '%', v.toFixed(1) + '%'));
+    chart.append(el('div', { className: 'row' }, el('span', {}, ...both(vi, en)), el('div', { className: 'track' }, fill, val)));
+  });
+
+  // skill chips
+  const SK = [['SQL', 'SQL'], ['Kỹ thuật dữ liệu', 'Data engineering'], ['Spark', 'Spark'], ['Kho dữ liệu', 'Data warehouse'], ['Python', 'Python'], ['Mô hình dữ liệu', 'Data modeling'], ['dbt', 'dbt'], ['Airflow', 'Airflow'], ['Git', 'Git'], ['Hàng đợi tin', 'Message queues'], ['Điện toán đám mây', 'Cloud'], ['Báo cáo quản trị', 'Mgmt reporting']];
+  const chips = document.getElementById('chips');
+  SK.forEach(([vi, en]) => chips.append(el('span', { className: 'chip' }, ...both(vi, en))));
+})();
+</script>
+</body>
+</html>
