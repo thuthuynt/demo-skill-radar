@@ -32,7 +32,7 @@ CONTACT_LINE = re.compile(
 PII_KEYS = {"email", "telephone", "faxNumber", "contactPoint",
             "contactName", "contactEmail", "contactPhone", "emailAddress", "userId", "user"}
 
-TRACKING_PARAMS = re.compile(r"^(utm_|fbclid|gclid|ref$|ref_|source$|click_source)", re.I)
+TRACKING_PARAMS = re.compile(r"^(utm_|fbclid|gclid|ref$|ref_|source$|click_source|open_from$|search_id$|ta_source$)", re.I)
 
 
 # --- lọc dữ liệu cá nhân ---

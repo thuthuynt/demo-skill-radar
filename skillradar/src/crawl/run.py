@@ -201,7 +201,9 @@ def main() -> int:
     args = ap.parse_args()
 
     cfg = load_sources()
-    sources = [s for s in cfg.get("sources") or [] if not args.source or s["name"] in args.source]
+    # archive_only: trang chặn crawler trực tiếp, chỉ lấy qua Internet Archive (src.backfill.wayback)
+    sources = [s for s in cfg.get("sources") or [] if not s.get("archive_only")
+               and (not args.source or s["name"] in args.source)]
     client = PoliteClient(user_agent(cfg.get("contact_email")), LOG_DIR / "blocked.jsonl")
     try:
         if args.dry_run:

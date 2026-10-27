@@ -11,6 +11,8 @@
 #   topcv        — không bóc được từ HTML tĩnh
 #   vieclamvietnam.gov.vn, vieclam.gov.vn — không kết nối được
 # Muốn thêm nguồn đã loại: gửi email xin phép, chỉ thêm khi họ cho phép crawler.
+# Từ 27/10/2026: vieclam24h, topcv lấy qua bản lưu Internet Archive (archive_only, cuối file).
+# vieclamtot: bản lưu chỉ là khung trang rỗng (~4,6 KB), chưa dùng được.
 
 # Email liên hệ gửi trong User-Agent (ràng buộc cứng số 2). Bắt buộc là email thật;
 # crawler từ chối chạy nếu để trống hoặc dùng example.com.
@@ -96,3 +98,18 @@ sources:
     terms_checked: false   # [người]
     crawl_delay_seconds: 2
     max_pages_per_run: 600
+
+  # --- Chỉ lấy qua Internet Archive (CLAUDE.md, ràng buộc 3, ngoại lệ 27/10/2026) ---
+  # Trang chặn crawler trực tiếp: crawler hằng ngày BỎ QUA (archive_only), backfill chỉ gửi
+  # request tới web.archive.org, không tải robots.txt hay trang nào của trang gốc.
+  - name: vieclam24h
+    base_url: https://vieclam24h.vn
+    method: jsonld
+    archive_only: true
+    terms_checked: false   # [người]
+
+  - name: topcv
+    base_url: https://www.topcv.vn
+    method: jsonld
+    archive_only: true
+    terms_checked: false   # [người]

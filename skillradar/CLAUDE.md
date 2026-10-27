@@ -23,6 +23,12 @@ Hạn nộp: **22/10/2026** (10 ngày kể từ 12/10). Không có ngày đệm.
    trả về thử thách hoặc 403 cho crawler đã khai báo, **trang đó nói không** —
    ghi lại và chuyển sang nguồn khác. Đây là cam kết đã viết trong hồ sơ dự thi và
    sẽ bị giám khảo hỏi.
+   **Ngoại lệ (chốt 27/10/2026, sau buổi coaching):** được lấy bản lưu trên Internet Archive
+   cho **mọi** trang tuyển dụng, kể cả trang đã chặn crawler trực tiếp (vieclam24h, topcv...).
+   Chỉ gửi request tới `web.archive.org`, không gửi tới trang gốc; vẫn theo robots.txt của
+   archive, ≥ 4 giây/request, lọc dữ liệu cá nhân như tầng bronze. Dữ liệu từ archive luôn
+   ghi nhãn nguồn "Internet Archive" trên giao diện. Lâu dài: gửi đề xuất hợp tác tới các
+   trang tuyển dụng để có dữ liệu chính thức.
 4. **Không thu thập dữ liệu cá nhân.** Chỉ lấy tin tuyển dụng do doanh nghiệp đăng.
    Tên, email, số điện thoại người tuyển dụng phải bị loại bỏ ngay ở tầng bronze,
    trước khi ghi xuống đĩa — kể cả trong object JSON-LD lưu kèm. Regex không nhận
@@ -89,7 +95,7 @@ KHÔNG:
   (khả năng AI làm thay, nhóm gán tay trong `data/skills_seed.csv`). Tên hiển thị:
   "Mức ảnh hưởng của AI". Giao diện phải ghi rõ đây là "khả năng AI làm thay (nhóm
   đánh giá) + mức đi cùng công cụ AI", chưa phải đo theo chuỗi.
-- Backfill lịch sử từ Internet Archive — việc tùy chọn, chỉ làm nếu còn thời gian đệm.
+- (Đã đổi 27/10) Backfill Internet Archive giờ nằm trong phạm vi, cho mọi trang tuyển dụng — xem ngoại lệ ở ràng buộc 3.
 
 ## Quy ước code
 

@@ -37,6 +37,8 @@ URL_FILTERS = {
     "itviec": [("itviec.com/it-jobs/", r"original:.*/it-jobs/[a-z0-9-]+-\d{3,5}$"),
                ("itviec.com/viec-lam-it/", r"original:.*/viec-lam-it/[a-z0-9-]+-\d{3,5}$")],
     "vietnamworks": [("vietnamworks.com/", r"original:.*/[a-z0-9][a-z0-9-]+-\d{6,8}-jv$")],
+    "vieclam24h": [("vieclam24h.vn/", r"original:.*vieclam24h\.vn/[a-z0-9-]+/[a-z0-9-]+-c\d+p\d+id\d+\.html.*")],
+    "topcv": [("topcv.vn/", r"original:.*topcv\.vn/(viec-lam|brand/[a-z0-9-]+/tuyen-dung)/[a-z0-9-]+-j\d+\.html.*")],
 }
 
 
@@ -155,8 +157,9 @@ def backfill(client: PoliteClient, sources: list[dict], month_list: list[str], p
                 out_dir.mkdir(parents=True, exist_ok=True)
                 with open(out_dir / f"{name}.jsonl", "a", encoding="utf-8") as out:
                     for ts, orig in picked:
-                        # trang gốc phải được robots.txt của chính nguồn cho phép
-                        if not client.allowed(orig):
+                        # trang gốc phải được robots.txt của chính nguồn cho phép; nguồn archive_only
+                        # (trang chặn crawler) thì không gửi request nào tới trang gốc, kể cả robots.txt
+                        if not src.get("archive_only") and not client.allowed(orig):
                             st["skipped_robots"] += 1
                             continue
                         r = get_retry(client, f"https://web.archive.org/web/{ts}id_/{orig}")
