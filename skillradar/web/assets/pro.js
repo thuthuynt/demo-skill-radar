@@ -32,6 +32,15 @@ export async function load() {
 export const bar = (value, max, label, cls = '') =>
   h('span', { class: 'bar ' + cls }, h('i', { style: `width:${Math.max(2, 120 * value / (max || 1))}px` }), h('span', {}, label));
 
+// tỷ lệ tin nhắc tới công cụ AI theo kỳ (mẫu lưu trữ); kỳ thiếu tin ghi "chưa đủ tin", không vẽ
+export function aiTrend(f, C) {
+  const T = C.ai_trend, max = Math.max(0.01, ...f.ai_trend.map(r => r[1] ?? 0));
+  return h('div', {}, h('p', { class: 'note', style: 'margin:4px 0 10px' }, T.lead),
+    h('table', {}, h('tbody', {}, f.ai_trend.map(([p, v, n]) => h('tr', {}, h('td', {}, T.periods[p]),
+      h('td', {}, v == null ? h('span', { class: 'small muted' }, fill(T.none, { n })) : bar(v, max, pct(v, 1), 'acc')))))),
+    h('p', { class: 'note' }, T.note));
+}
+
 export function tiles(items) {
   return h('div', { class: 'tiles' }, items.map(([v, l]) => h('div', { class: 'tile' }, h('b', {}, v), h('span', {}, l))));
 }

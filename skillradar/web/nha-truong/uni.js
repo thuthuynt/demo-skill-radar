@@ -1,5 +1,5 @@
 // Trang nhà trường: đối chiếu chương trình đào tạo với kỹ năng nhà tuyển dụng yêu cầu.
-import { h, fill, fmt, pct, tr, store, load, bar, tiles, frame, method, csvButton, change12, trendSvg } from '../assets/pro.js';
+import { h, fill, fmt, pct, tr, store, load, bar, tiles, frame, method, csvButton, change12, trendSvg, aiTrend } from '../assets/pro.js';
 import { trend, aiBadge, familyAi } from '../assets/logic.js';
 
 const app = document.getElementById('app');
@@ -53,6 +53,7 @@ function render() {
         h('p', { class: 'note' }, U.coverage_body)),
       h('div', { class: 'card' }, h('h2', {}, U.gap_title),
         gaps.length ? h('ol', {}, gaps.map(([id, w]) => h('li', {}, `${D.byId[id].vi} — ${pct(w)} tin`))) : h('p', {}, U.gap_none))),
+    h('section', { class: 'section card' }, h('h2', {}, C.ai_trend.title), aiTrend(f, C)),
     h('section', { class: 'section' },
       h('header', {}, h('h2', {}, U.table_title), csvButton(C.csv, `skillradar-${f.id}.csv`, () => [
         [U.col_taught, U.col_skill, U.col_share, U.col_trend, 'Lương có (tr)', 'Lương không (tr)', U.col_ai],

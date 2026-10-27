@@ -15,7 +15,7 @@
    "Tỷ lệ = số tin đòi hỏi kỹ năng / số tin đang mở của nhóm nghề. Kỹ năng trích bằng từ điển song ngữ (đã duyệt tay), không dùng mô hình AI.",
    "Lịch sử theo tháng lấy từ MẪU bản lưu Internet Archive (~150 tin/tháng/nguồn): chỉ dùng tỷ trọng, không dùng số đếm. Tháng thiếu mẫu để trống, không nội suy.",
    "Lương: trung vị khoảng lương của tin có ghi lương; so sánh có/không có kỹ năng là tương quan, không phải nhân quả.",
-   "Mức ảnh hưởng của AI = 0,65 × khả năng AI làm thay (nhóm đánh giá) + 0,35 × mức đi cùng công cụ AI trong tin tuyển dụng (xếp hạng giữa các kỹ năng); chưa đo theo thời gian.",
+   "Mức ảnh hưởng của AI = 0,65 × khả năng AI làm thay (nhóm đánh giá) + 0,35 × mức đi cùng công cụ AI trong tin tuyển dụng (xếp hạng giữa các kỹ năng). Riêng tỷ lệ tin nhắc tới công cụ AI được đo theo nửa năm từ 2025 trên mẫu bản lưu Internet Archive.",
    "Phạm vi: việc văn phòng mọi ngành và lao động phổ thông. Kỹ thuật/xây dựng/sản xuất chuyên môn, y tế chưa trong phạm vi."
   ],
   "data_link": "Số liệu thô và JSON",
@@ -34,7 +34,18 @@
    "high": "cao",
    "none": "—"
   },
-  "nav_student": "Học sinh, sinh viên"
+  "nav_student": "Học sinh, sinh viên",
+  "ai_trend": {
+   "title": "Tin tuyển dụng đòi biết dùng công cụ AI",
+   "lead": "Tỷ lệ tin của nhóm nghề nhắc tới ChatGPT, Copilot, LLM… theo từng nửa năm.",
+   "periods": {
+    "2025-H1": "Nửa đầu 2025",
+    "2025-H2": "Nửa cuối 2025",
+    "2026": "2026 (T1–T9)"
+   },
+   "none": "chưa đủ tin ({n} tin)",
+   "note": "Đo trên mẫu bản lưu Internet Archive của itviec, vietnamworks, vieclam24h, topcv (~150 tin/tháng/nguồn), gộp các nguồn. Kỳ dưới 80 tin không công bố, không nội suy."
+  }
  },
  "uni": {
   "aud": "Dành cho nhà trường",
@@ -92,7 +103,8 @@
   "q_latency": "Độ trễ trung vị từ ngày đăng tới ngày thu: {d} ngày",
   "q_forecast": "Dự báo thắng mốc ngây thơ: {list}",
   "q_blocked": "Nguồn đã loại (từ chối crawler, bản lưu Internet Archive cũng không đọc được): {list}",
-  "q_archive_only": "Nguồn chỉ lấy qua bản lưu Internet Archive (trang chặn crawler trực tiếp, không gửi request tới trang gốc), chỉ góp vào chuỗi tháng: {list}"
+  "q_archive_only": "Nguồn chỉ lấy qua bản lưu Internet Archive (trang chặn crawler trực tiếp, không gửi request tới trang gốc), chỉ góp vào chuỗi tháng: {list}",
+  "ai_trend_col": "Nhóm nghề"
  },
  "student": {
   "aud": "Dành cho học sinh, sinh viên",

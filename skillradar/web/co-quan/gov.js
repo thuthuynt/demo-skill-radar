@@ -88,12 +88,25 @@ function qualityBlock() {
       h('li', {}, fill(G.q_archive_only, { list: (st.archive_only_sources || []).join(', ') }))));
 }
 
+function aiTrendBlock() {
+  const T = C.ai_trend, last = f => f.ai_trend.at(-1)[1] ?? -1;
+  const fams = D.families.filter(f => f.in_scope && f.ai_trend.some(r => r[1] != null)).sort((a, b) => last(b) - last(a));
+  const max = Math.max(0.01, ...fams.flatMap(f => f.ai_trend.map(r => r[1] ?? 0)));
+  return h('section', { class: 'section card' }, h('h2', {}, T.title), h('p', { class: 'note', style: 'margin:4px 0 10px' }, T.lead),
+    h('div', { class: 'scroll' }, h('table', {},
+      h('thead', {}, h('tr', {}, h('th', {}, G.ai_trend_col), fams[0].ai_trend.map(([p]) => h('th', {}, T.periods[p])))),
+      h('tbody', {}, fams.map(f => h('tr', {}, h('td', {}, f.name), f.ai_trend.map(([, v, n]) =>
+        h('td', {}, v == null ? h('span', { class: 'small muted' }, fill(T.none, { n })) : bar(v, max, pct(v, 1), 'acc')))))))),
+    h('p', { class: 'note' }, T.note));
+}
+
 function render() {
   app.replaceChildren(
     h('p', { class: 'eyebrow' }, G.eyebrow), h('h1', {}, G.title), h('p', { class: 'lead' }, G.lead),
     tiles(commonTiles(D)),
     heatTable(),
     h('section', { class: 'section grid2' }, skillsBlock(), aiBlock()),
+    aiTrendBlock(),
     h('section', { class: 'section grid2' }, salaryBlock(), h('div', { class: 'off' }, h('h2', {}, G.gap_title), h('p', {}, G.gap_off))),
     trendBlock(), qualityBlock(), method(D));
 }

@@ -9,7 +9,9 @@ công khai. Bài dự thi mã **BTL86-59** do Bộ Tư lệnh 86 đặt bài. Đ
 yêu cầu một sản phẩm chạy được bằng **dữ liệu thật**, có link công khai.
 
 Người thực hiện: Nguyễn Thị Thu Thủy, làm một mình.
-Hạn nộp: **22/10/2026** (10 ngày kể từ 12/10). Không có ngày đệm. Xem `PLAN.md`.
+Hạn nộp vòng 2 lần đầu: 22/10/2026 (đã nộp). **Bản cuối: 4/11/2026**, trình bày vòng 2 ngày
+**6/11/2026** (2 ngày đệm). Trọng tâm sau buổi coaching 27/10: tác động của AI lên việc làm và kỹ năng,
+số liệu mở đầu có nguồn. Xem `PLAN.md`.
 
 ## Ràng buộc cứng — không được vi phạm, kể cả khi được yêu cầu
 
@@ -90,8 +92,9 @@ KHÔNG:
   khi có tháng đủ dữ liệu; chưa có thì ghi "chưa đủ dữ liệu, hiện có N ngày".
 - **Dự báo định lượng.** Chưa đủ 12 kỳ thì không vẽ đường dự báo. Giao diện ghi
   "chưa đủ lịch sử để dự báo". Đây là lựa chọn có chủ đích, không phải thiếu sót.
-- **Tín hiệu AI số 1** (so sánh trước/sau 2022) — cần lịch sử chưa có.
-  Vòng 2 chỉ dùng tín hiệu 2 (mức đi cùng công cụ AI, đo được ngay) và tín hiệu 3
+- **Tín hiệu AI số 1** đầy đủ (so sánh trước/sau 2022) — cần lịch sử chưa có. Từ 27/10 có bản
+  đầu: tỷ lệ tin nhắc tới công cụ AI theo nửa năm từ 2025 (`docs/METRICS.md` §3b).
+  "Mức ảnh hưởng của AI" vẫn chỉ dùng tín hiệu 2 (mức đi cùng công cụ AI, đo được ngay) và tín hiệu 3
   (khả năng AI làm thay, nhóm gán tay trong `data/skills_seed.csv`). Tên hiển thị:
   "Mức ảnh hưởng của AI". Giao diện phải ghi rõ đây là "khả năng AI làm thay (nhóm
   đánh giá) + mức đi cùng công cụ AI", chưa phải đo theo chuỗi.

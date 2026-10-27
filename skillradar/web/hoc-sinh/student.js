@@ -1,5 +1,5 @@
 // Trang học sinh (bản đơn giản, không trò chơi): khám phá nghề -> trang nghề -> kỹ năng.
-import { h, fill, fmt, tr, store, load, bar, tiles, frame, method, ddmm, trendSvg } from '../assets/pro.js';
+import { h, fill, fmt, tr, store, load, bar, tiles, frame, method, ddmm, trendSvg, aiTrend } from '../assets/pro.js';
 import { treeSkills, trend, aiBadge, familyAi, salaryInsight } from '../assets/logic.js';
 
 const app = document.getElementById('app');
@@ -10,7 +10,7 @@ const k10 = w => Math.max(1, Math.round(w * 10));
 const fam = id => D.families.find(f => f.id === id);
 const inScope = () => D.families.filter(f => f.in_scope);
 const need = w => h('span', { class: 'need', 'aria-hidden': 'true' }, Array.from({ length: 10 }, (_, i) => h('i', { class: i < k10(w) ? 'on' : '' })));
-const aiOf = f => aiBadge({ score: familyAi(f, D.byId) });
+const aiOf = f => aiBadge({ impact: familyAi(f, D.byId) });
 
 // nghề gần giống: cosine trên trọng số kỹ năng (tỷ lệ tin cần kỹ năng)
 function similar(f, n = 3) {
@@ -88,7 +88,8 @@ function jobView(id) {
       h('div', { style: 'display:grid;gap:10px' }, scenes[id].map(q => h('figure', { class: 'quote' }, h('q', {}, q.quote),
         h('small', {}, fill(S.quote_src, { source: q.source, date: ddmm(q.date) })))))) : null,
     h('section', { class: 'section card' }, h('h2', {}, S.ai_title),
-      h('p', {}, h('span', { class: `chip ${ai === 'high' ? 'warn' : ''}` }, S.ai_scale[ai]), ' ', S.ai_body[ai])),
+      h('p', {}, h('span', { class: `chip ${ai === 'high' ? 'warn' : ''}` }, S.ai_scale[ai]), ' ', S.ai_body[ai]),
+      h('h3', { style: 'margin-top:16px' }, C.ai_trend.title), aiTrend(f, C)),
     h('section', { class: 'section' }, h('h2', { style: 'margin-bottom:12px' }, S.similar_title), h('div', { class: 'jobs' }, similar(f).map(jobCard))),
   ];
 }

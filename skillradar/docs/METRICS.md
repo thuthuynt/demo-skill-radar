@@ -94,8 +94,20 @@ tên hiển thị: ai_impact_score = "Mức ảnh hưởng của AI"
 `data/ai_tools.txt` chỉ chứa tên sản phẩm/kỹ thuật cụ thể. Không dùng cụm chung dễ
 khớp nhầm (`prompt` đơn lẻ, `trí tuệ nhân tạo`, `Claude` hay `Copilot` đứng một mình).
 
-Giao diện **phải** ghi rõ "khả năng AI làm thay (nhóm đánh giá) + mức đi cùng công cụ AI,
-chưa đo theo thời gian". Khi đủ 12 kỳ thì bật tín hiệu 1 và đổi trọng số.
+Giao diện **phải** ghi rõ "khả năng AI làm thay (nhóm đánh giá) + mức đi cùng công cụ AI".
+Điểm này vẫn tính trên tin đang mở, chưa có chiều thời gian.
+
+### 3b. Tỷ lệ tin nhắc tới công cụ AI theo thời gian (bật 27/10/2026)
+
+```
+m_ai_month(source, month, job_family_id) = tỷ lệ tin lưu trữ (in_scope, không đăng lại) nhắc tới
+                                           công cụ AI; job_family_id = 'all' là cả nguồn
+ai_trend(family, kỳ)  = gộp mọi nguồn lưu trữ, kỳ = 2025-H1 | 2025-H2 | 2026; < 80 tin -> không công bố
+```
+
+Đây là bản đầu của tín hiệu 1, chưa phải so trước/sau 2022 (Internet Archive chỉ có đủ mẫu từ
+2025). Không dùng số "mọi nhóm nghề gộp lại": tỷ lệ tin IT trong mẫu đổi theo kỳ, làm lệch con số
+gộp. Trích theo từng nhóm nghề. `verify` đếm lại từ `posting` + `posting_ai`.
 
 ## 4. Lệch cung cầu — có điều kiện
 

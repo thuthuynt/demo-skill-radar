@@ -26,6 +26,10 @@ OUT = ROOT / "web" / "data"
 MAX_BYTES = 1_000_000
 TOP_PROVINCES = 12      # tỉnh có nhiều tin đang mở nhất, dùng cho lát cắt theo tỉnh
 TOP_PAIRS = 400
+MIN_AI_N = 80           # tin lưu trữ tối thiểu của một nhóm nghề trong một kỳ để công bố tỷ lệ nhắc công cụ AI
+AI_PERIODS = ["2025-H1", "2025-H2", "2026"]
+AI_PERIOD = ("CASE WHEN month < DATE '2025-07-01' THEN '2025-H1' "
+             "WHEN month < DATE '2026-01-01' THEN '2025-H2' ELSE '2026' END")
 
 
 def r4(x):
@@ -138,11 +142,19 @@ def main() -> int:
                median((coalesce(salary_min, salary_max) + coalesce(salary_max, salary_min)) / 2) med
         FROM base_open WHERE salary_unit = 'VND' AND coalesce(salary_min, salary_max) BETWEEN 1e6 AND 2e8
         GROUP BY 1""")}
+    # tỷ lệ tin nhắc tới công cụ AI theo nửa năm, gộp các nguồn lưu trữ trong nhóm nghề; < MIN_AI_N tin thì không công bố
+    ai_trend = defaultdict(dict)
+    for r in rows(con, f"""
+        SELECT job_family_id f, {AI_PERIOD} p, sum(n) n, sum(n * ai_tool_share) / sum(n) AS "share"
+        FROM m_ai_month WHERE job_family_id <> 'all' AND month >= '2025-01-01' GROUP BY ALL"""):
+        ai_trend[r["f"]][r["p"]] = [r4(r["share"]) if r["n"] >= MIN_AI_N else None, int(r["n"])]
     families = [{"id": f, "name": FAMILIES[f], "in_scope": f not in OUT_OF_SCOPE,
                  "salary_median_vnd": round(salary[f]["med"], -5) if f in salary and salary[f]["n"] >= 30 else None,
                  "salary_n": salary[f]["n"] if f in salary else 0,
                  "n_open": sum(fam_prov[f].values()), "by_province": fam_prov[f],
-                 "skills": fam_skill[f][:30]} for f in FAMILIES if fam_prov.get(f)]
+                 "skills": fam_skill[f][:30],
+                 "ai_trend": [[p, *ai_trend[f].get(p, [None, 0])] for p in AI_PERIODS]}
+                for f in FAMILIES if fam_prov.get(f)]
 
     # --- đồng xuất hiện ---
     scenes = build_scenes(con, families, dim)
@@ -180,7 +192,9 @@ def main() -> int:
             "open": "Tỷ trọng trên các tin đang mở tại ngày chụp gần nhất của từng nguồn; thiếu các tin đã đóng.",
             "history": "Chuỗi tháng lấy từ MẪU bản lưu Internet Archive (~150 tin/tháng/nguồn); chỉ dùng tỷ trọng, "
                        "không dùng số đếm. Tháng dưới 80 tin bị bỏ, không nội suy.",
-            "ai": "Mức ảnh hưởng của AI = khả năng AI làm thay (nhóm đánh giá) + mức đi cùng công cụ AI trong tin, chưa đo theo thời gian.",
+            "ai": "Mức ảnh hưởng của AI = khả năng AI làm thay (nhóm đánh giá) + mức đi cùng công cụ AI trong tin đang mở.",
+            "ai_trend": "Tỷ lệ tin nhắc tới công cụ AI (ChatGPT, Copilot, LLM...) theo nửa năm, trên MẪU bản lưu "
+                        "Internet Archive, gộp các nguồn. Kỳ dưới 80 tin không công bố.",
             "forecast": "ARIMA trên chuỗi mẫu (chưa tách mùa vụ), luôn kèm mốc ngây thơ (trung bình 3 tháng cuối) "
                         "và kết quả kiểm tra ngược 3 tháng.",
         },

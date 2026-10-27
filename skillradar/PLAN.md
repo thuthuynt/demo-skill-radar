@@ -1,5 +1,23 @@
 # Kế hoạch 10 ngày — hạn nộp 22/10/2026
 
+## Giai đoạn 2 (27/10 → 4/11/2026): bản cuối cho vòng 2 ngày 6/11
+
+Góp ý của coach 27/10: (1) nguồn bị chặn → dùng bản lưu Internet Archive, lâu dài gửi đề xuất hợp
+tác; (2) tập trung vào tác động của AI lên việc làm/kỹ năng, cả trên slide (1–2 slide phát hiện)
+lẫn website; (3) mở đầu cần số liệu nghiên cứu, không chỉ câu chuyện.
+
+| Việc | Trạng thái |
+|---|---|
+| Backfill vieclam24h, topcv qua Internet Archive (2025-01 → 2026-07) | ✅ 27/10 |
+| Gắn cờ công cụ AI cho tin lưu trữ, bảng `m_ai_month` | ✅ 27/10 |
+| Số liệu mở đầu có nguồn (`docs/opening-numbers.md`) | ✅ 27/10 |
+| Xu hướng AI theo nhóm nghề trên 3 trang web | ⏳ |
+| Deck: slide mở đầu mới + 1–2 slide AI + lời nói | ⏳ |
+| Thư đề xuất hợp tác gửi các trang tuyển dụng | ⏳ |
+| Kiểm thử điện thoại, `make deploy` bản cuối | 4/11 |
+
+---
+
 Làm xong việc mới sang việc sau. **[người]** = việc bạn tự làm, Claude Code không thay được.
 **Không có ngày đệm.** Phải cắt thì cắt theo thứ tự ưu tiên trong `CLAUDE.md`, từ dưới lên.
 

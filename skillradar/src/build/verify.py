@@ -3,7 +3,8 @@
     python -m src.build.verify      # thoát mã 1 nếu có số lệch -> `make deploy` dừng
 
 Kiểm: tổng tin đang mở, tỷ trọng tin đang mở của MỌI kỹ năng, số tin đang mở của mọi nhóm nghề,
-tỷ trọng theo tháng của mọi điểm lịch sử, tổng tin đang mở theo tỉnh.
+tỷ trọng theo tháng của mọi điểm lịch sử, tổng tin đang mở theo tỉnh,
+tỷ lệ tin nhắc công cụ AI theo kỳ của mọi nhóm nghề.
 """
 
 import json
@@ -105,6 +106,21 @@ def main() -> int:
             for m, sh, _n, _t in pts:
                 check(f"history {src} {m} {s['id']}", sh, month.get((src, m, s["id"])), TOL)
                 n_points += 1
+    # tỷ lệ tin nhắc tới công cụ AI theo kỳ, đếm lại từ posting + posting_ai (không đọc m_ai_month)
+    ai = {(f, p): (n, v) for f, p, n, v in con.execute("""
+        SELECT job_family_id, CASE WHEN period_month < DATE '2025-07-01' THEN '2025-H1'
+                                   WHEN period_month < DATE '2026-01-01' THEN '2025-H2' ELSE '2026' END,
+               count(*), avg(a.has_ai::INT)
+        FROM posting JOIN posting_ai a USING (posting_id)
+        WHERE in_scope AND NOT is_repost AND origin = 'archive' AND period_month >= DATE '2025-01-01'
+        GROUP BY ALL""").fetchall()}
+    for f in families:
+        for p, v, n in f["ai_trend"]:
+            wn, wv = ai.get((f["id"], p), (0, None))
+            if n != wn:
+                errors.append(f"ai_trend {f['id']} {p} n: json={n} sql={wn}")
+            elif v is not None or wn >= 80:
+                check(f"ai_trend {f['id']} {p}", v, wv, TOL)
     con.close()
 
     log.info("đã kiểm %d kỹ năng, %d nhóm nghề, %d tỉnh, %d điểm lịch sử, %d cảnh", len(skills), len(families),
