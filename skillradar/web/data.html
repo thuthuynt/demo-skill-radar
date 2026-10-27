@@ -246,7 +246,8 @@ function renderCoverage() {
   $('statusNote').textContent = `F1 trích kỹ năng: ${ev.all ? `${ev.all.f1} trên ${ev.all.n} tin gán tay` : 'chưa đo (chưa có tập chuẩn gán nhãn)'}. `
     + `Độ trễ trung vị từ ngày đăng tới ngày thu: ${D.status.median_latency_days} ngày. `
     + `Dự báo: ${D.status.forecast.map(f => `${f.source} ${f.beats}/${f.n} chuỗi thắng mốc ngây thơ`).join(', ')}. `
-    + `Nguồn bị chặn / đã loại: ${D.status.blocked_or_excluded_sources.join(', ')}.`;
+    + `Nguồn bị chặn / đã loại: ${D.status.blocked_or_excluded_sources.join(', ')}. `
+    + `Chỉ qua bản lưu Internet Archive: ${(D.status.archive_only_sources || []).join(', ')}.`;
 }
 
 load().catch(e => { $('meta').textContent = 'Không tải được dữ liệu (' + e.message + '). Mở trang qua máy chủ cục bộ, không mở file trực tiếp.'; });

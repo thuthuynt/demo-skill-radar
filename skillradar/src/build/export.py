@@ -17,7 +17,7 @@ import duckdb
 from src.build.normalize import FAMILIES, OUT_OF_SCOPE
 from src.build.scenes import build_scenes
 from src.build.silver import DB
-from src.config import LOG_DIR, ROOT, load_assumptions
+from src.config import LOG_DIR, ROOT, load_assumptions, load_sources
 from src.log import get_logger
 
 log = get_logger("export")
@@ -190,8 +190,9 @@ def main() -> int:
         "extract_eval": f1 or {"note": "chưa có tập chuẩn gán nhãn"},
         "median_latency_days": None if latency is None else round(float(latency), 1),
         "forecast": fc_stats,
-        "blocked_or_excluded_sources": ["vieclam24h", "vieclamtot", "mywork", "careerviet", "job3s",
-                                        "careerlink", "topcv"],
+        "blocked_or_excluded_sources": ["vieclamtot", "mywork", "careerviet", "job3s", "careerlink"],
+        # chặn crawler trực tiếp, chỉ dùng bản lưu Internet Archive cho chuỗi tháng
+        "archive_only_sources": [s["name"] for s in load_sources()["sources"] if s.get("archive_only")],
     }
     provinces = [{"code": c, **prov_names.get(c, {"name": c, "region": None}), "n_open": n}
                  for c, n in sorted(prov_open.items(), key=lambda kv: -kv[1])]

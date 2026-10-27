@@ -91,7 +91,8 @@
   "q_f1_none": "Chưa đo — tập chuẩn gán nhãn đang được xây dựng.",
   "q_latency": "Độ trễ trung vị từ ngày đăng tới ngày thu: {d} ngày",
   "q_forecast": "Dự báo thắng mốc ngây thơ: {list}",
-  "q_blocked": "Nguồn đã loại (từ chối crawler hoặc không đọc được): {list}"
+  "q_blocked": "Nguồn đã loại (từ chối crawler, bản lưu Internet Archive cũng không đọc được): {list}",
+  "q_archive_only": "Nguồn chỉ lấy qua bản lưu Internet Archive (trang chặn crawler trực tiếp, không gửi request tới trang gốc), chỉ góp vào chuỗi tháng: {list}"
  },
  "student": {
   "aud": "Dành cho học sinh, sinh viên",

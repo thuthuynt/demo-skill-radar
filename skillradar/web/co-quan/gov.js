@@ -84,7 +84,8 @@ function qualityBlock() {
       h('li', {}, `${G.q_f1}: `, ev?.all ? `${ev.all.f1} (${ev.all.n} tin)` : G.q_f1_none),
       h('li', {}, fill(G.q_latency, { d: st.median_latency_days })),
       h('li', {}, fill(G.q_forecast, { list: st.forecast.map(f => `${f.source} ${f.beats}/${f.n}`).join(', ') })),
-      h('li', {}, fill(G.q_blocked, { list: st.blocked_or_excluded_sources.join(', ') }))));
+      h('li', {}, fill(G.q_blocked, { list: st.blocked_or_excluded_sources.join(', ') })),
+      h('li', {}, fill(G.q_archive_only, { list: (st.archive_only_sources || []).join(', ') }))));
 }
 
 function render() {
