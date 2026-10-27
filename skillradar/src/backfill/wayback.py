@@ -81,6 +81,14 @@ def build_index(client: PoliteClient, name: str, start: str, end: str) -> dict[s
     # v2: có cột length (kích thước bản lưu) để bỏ trang khung rỗng của vietnamworks
     rows_f, state_f = idx_dir / f"{name}.v2.jsonl", idx_dir / f"{name}.v2.state.json"
     state = json.loads(state_f.read_text()) if state_f.exists() else {}
+    # bản đệm chỉ đúng cho khoảng tháng đã hỏi CDX; khoảng mới rộng hơn -> hỏi lại từ đầu.
+    # bản đệm cũ không ghi khoảng: dựng với khoảng mặc định 2025-01..2026-09
+    lo, hi = state.get("_range", ["2025-01", "2026-09"])
+    if state and not (lo <= start and end <= hi):
+        log.info("%s: danh mục đệm chỉ phủ %s..%s, hỏi lại CDX cho %s..%s", name, lo, hi, start, end)
+        rows_f.unlink(missing_ok=True)
+        state = {}
+    state["_range"] = [lo, hi] if state else [start, end]
     for prefix, flt in URL_FILTERS[name]:
         st = state.setdefault(prefix, {"resume": None, "done": False})
         while not st["done"]:
@@ -122,6 +130,8 @@ def build_index(client: PoliteClient, name: str, start: str, end: str) -> dict[s
 
 def sample(rows: list, n: int) -> list:
     """Lấy mẫu đều theo thời gian lưu trong tháng (rows đã sắp theo timestamp)."""
+    if n <= 0:  # tháng đã đủ per_month
+        return []
     if len(rows) <= n:
         return rows
     step = len(rows) / n

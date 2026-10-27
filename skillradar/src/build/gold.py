@@ -7,6 +7,7 @@ Công thức theo docs/METRICS.md. Quy ước chung: chỉ tính tin `in_scope A
 - m_skill_month:  tỷ trọng theo tháng trên MẪU lưu trữ (archive), tách theo nguồn
 - m_ai:           mức ảnh hưởng của AI = 0.65 × khả năng AI làm thay (nhóm đánh giá)
                   + 0.35 × thứ hạng % của mức đi cùng công cụ AI trong tin
+- m_ai_month:     tỷ lệ tin nhắc tới công cụ AI theo tháng trên MẪU lưu trữ, theo nguồn × nhóm nghề
 - m_cooc:         cặp kỹ năng hay đi cùng nhau (lift)
 - m_family:       số tin đang mở theo nhóm nghề × tỉnh, trọng số kỹ năng của từng nhóm (cho chỉ số tiếp cận)
 - m_forecast:     ARIMA (statsmodels) trên chuỗi tháng + mốc ngây thơ + kiểm tra ngược
@@ -39,11 +40,11 @@ MIN_FORECAST_SHARE = 0.02  # chỉ dự báo kỹ năng có tỷ trọng TB ≥ 
 
 
 def ai_flags(con) -> None:
-    """posting_ai(posting_id, has_ai): tin đang mở có nhắc tới công cụ AI (data/ai_tools.txt)."""
+    """posting_ai(posting_id, has_ai): tin (đang mở và lưu trữ) có nhắc tới công cụ AI (data/ai_tools.txt)."""
     terms = [fold(l) for l in AI_TOOLS.read_text(encoding="utf-8").splitlines()
              if l.strip() and not l.startswith("#")]
     pat = re.compile(r"(?<!\w)(" + "|".join(re.escape(t) for t in sorted(terms, key=len, reverse=True)) + r")(?!\w)")
-    rows = con.execute("SELECT posting_id, title || ' ' || description FROM base_open").fetchall()
+    rows = con.execute("SELECT posting_id, title || ' ' || coalesce(description, '') FROM base").fetchall()
     con.execute("CREATE OR REPLACE TABLE posting_ai (posting_id VARCHAR, has_ai BOOLEAN)")
     con.executemany("INSERT INTO posting_ai VALUES (?, ?)", [(p, bool(pat.search(fold(t)))) for p, t in rows])
 
@@ -166,6 +167,15 @@ def main() -> int:
         FROM dim_skill d LEFT JOIN c USING (skill_id) LEFT JOIN r USING (skill_id)
         WHERE d.ai_replacement_score <> ''""")
 
+    # 3b. tỷ lệ tin nhắc tới công cụ AI theo tháng (mẫu lưu trữ), tách nguồn; job_family_id = 'all' là cả nguồn.
+    # Một nguồn-tháng chỉ ~150 tin: lát nhóm nghề rất nhỏ, đọc kèm cột n, không vẽ chuỗi từ lát < MIN_MONTH_N.
+    con.execute(f"""
+        CREATE OR REPLACE TABLE m_ai_month AS
+        SELECT p.source, p.period_month AS month, CASE WHEN grouping(p.job_family_id) = 1 THEN 'all' ELSE coalesce(p.job_family_id, 'chua-gan') END job_family_id, count(*) n,
+               avg(a.has_ai::INT) ai_tool_share, count(*) >= {MIN_MONTH_N} ok
+        FROM base p JOIN posting_ai a USING (posting_id) WHERE p.origin = 'archive'
+        GROUP BY GROUPING SETS ((p.source, p.period_month, p.job_family_id), (p.source, p.period_month))""")
+
     # 4. đồng xuất hiện (lift = P(a,b) / P(a)P(b)) trên tin đang mở
     con.execute(f"""
         CREATE OR REPLACE TABLE m_cooc AS
@@ -199,7 +209,7 @@ def main() -> int:
     if rows:
         con.executemany("INSERT INTO m_forecast VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", rows)
 
-    for t in ("m_skill_open", "m_skill_month", "m_ai", "m_cooc", "m_family_province", "m_family_skill", "m_forecast"):
+    for t in ("m_skill_open", "m_skill_month", "m_ai", "m_ai_month", "m_cooc", "m_family_province", "m_family_skill", "m_forecast"):
         log.info("%-18s %7d dòng", t, con.execute(f"SELECT count(*) FROM {t}").fetchone()[0])
     log.info("tháng dùng được theo nguồn: %s", con.execute(
         "SELECT source, count(DISTINCT month) FROM m_skill_month WHERE ok GROUP BY 1").fetchall())
