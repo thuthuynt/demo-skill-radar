@@ -4,8 +4,24 @@
     {
       "name": "skillradar-web",
       "runtimeExecutable": "skillradar/.venv/bin/python",
-      "runtimeArgs": ["skillradar/ops/devserver.py", "8090"],
+      "runtimeArgs": [
+        "skillradar/ops/devserver.py",
+        "8090"
+      ],
       "port": 8090,
+      "autoPort": false
+    },
+    {
+      "name": "skillradar-docs",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8091",
+        "-d",
+        "skillradar/docs"
+      ],
+      "port": 8091,
       "autoPort": false
     }
   ]

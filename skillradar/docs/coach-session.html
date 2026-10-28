@@ -152,6 +152,7 @@ ul.clean { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
 .arr { color: var(--muted); font-size: 20px; }
 @media (max-width: 860px) { .arch { grid-template-columns: 1fr; } .arr { transform: rotate(90deg); justify-self: center; } }
 .rules-row { display: flex; flex-wrap: wrap; gap: 8px; }
+#s2 { gap: 10px; }
 .detail { background: var(--panel); border-radius: 12px; padding: 12px 16px; font-size: 15px; min-height: 3.2em; }
 .detail b { color: var(--rust); }
 
@@ -213,6 +214,24 @@ ul.clean { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
 .dcard p { color: #c7d1db; font-size: 15px; }
 .demo a.datalink { display: inline-flex; gap: 10px; align-items: baseline; font-family: var(--f-body); font-size: 16px; font-weight: 600; border: 1px solid var(--radar); border-radius: 999px; padding: 8px 16px; justify-self: start; }
 .demo a.datalink small { color: #c7d1db; font-weight: 400; font-size: 13px; }
+
+/* 0 why */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+@media (max-width: 860px) { .stats { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px) { .stats { grid-template-columns: 1fr; } }
+.stat { background: var(--panel); border-radius: 12px; padding: 16px 18px; display: grid; gap: 6px; align-content: start; }
+.stat b { font-family: var(--f-display); font-size: clamp(28px, 3.4vw, 42px); font-weight: 800; line-height: 1; color: var(--rust); font-variant-numeric: tabular-nums; }
+.stat .src { font-family: var(--f-mono); font-size: 11px; color: var(--muted); }
+.punch { border-left: 4px solid var(--radar); padding: 4px 0 4px 16px; font-size: clamp(16px, 1.6vw, 20px); display: grid; gap: 4px; }
+
+/* AI slides */
+.trend { width: 100%; border-collapse: collapse; font-size: 15px; font-variant-numeric: tabular-nums; }
+.trend th { text-align: left; font-family: var(--f-mono); font-size: 12px; color: var(--rust); font-weight: 600; padding: 4px 8px 6px 0; }
+.trend td { padding: 6px 8px 6px 0; border-top: 1px solid var(--line); }
+.trend .tb { display: flex; align-items: center; gap: 6px; }
+.trend .tb i { display: block; height: 14px; background: var(--radar); border-radius: 0 4px 4px 0; min-width: 2px; }
+.trend .tb span { font-family: var(--f-mono); font-size: 12px; white-space: nowrap; }
+.big { font-family: var(--f-display); font-weight: 800; font-size: clamp(30px, 3.6vw, 46px); color: var(--rust); line-height: 1; }
 </style>
 </head>
 <body>
@@ -231,6 +250,25 @@ ul.clean { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
 
 <main class="deck present" id="deck">
 
+<!-- 0 -->
+<section class="slide" id="why">
+  <p class="eyebrow"><span lang="vi">Vì sao cần SkillRadar</span><span lang="en">Why SkillRadar</span></p>
+  <h2><span lang="vi">Người trẻ chọn nghề khi thị trường đổi nhanh hơn dữ liệu</span><span lang="en">Young people choose careers while the market moves faster than the data</span></h2>
+  <div class="stats">
+    <div class="stat"><b class="n" data-vi="874.811" data-en="874,811">874.811</b><span lang="vi">thí sinh xét tuyển đại học 2026, với 7,18 triệu nguyện vọng: trung bình 8 ngành mỗi bạn</span><span lang="en">university applicants in 2026, with 7.18 million choices: about 8 majors each</span><span class="src" lang="vi">Bộ GD&amp;ĐT, 15/7/2026</span><span class="src" lang="en">MOET, 15/7/2026</span></div>
+    <div class="stat"><b>1 / 11</b><span lang="vi">thanh niên 15–24 thất nghiệp (9,07%); ở thành thị 12,49%, gấp 4 lần mức chung 2,22%</span><span lang="en">young people aged 15–24 are unemployed (9.07%); 12.49% in cities, 4× the overall 2.22%</span><span class="src" lang="vi">Cục Thống kê, quý III/2026</span><span class="src" lang="en">NSO, Q3/2026</span></div>
+    <div class="stat"><b class="n" data-vi="1,6 tr" data-en="1.6 M">1,6 tr</b><span lang="vi">thanh niên không học, không làm (11,2%)</span><span lang="en">young people not in education or work (11.2%)</span><span class="src" lang="vi">Cục Thống kê, quý III/2026</span><span class="src" lang="en">NSO, Q3/2026</span></div>
+    <div class="stat"><b>1 / 5</b><span lang="vi">lao động, tức 11,5 triệu người, làm việc chịu tác động của AI tạo sinh</span><span lang="en">workers, 11.5 million people, hold jobs exposed to generative AI</span><span class="src">ILO, 16/4/2026</span></div>
+  </div>
+  <div class="punch">
+    <span lang="vi">Đến 2030, <b>39%</b> kỹ năng hiện có sẽ thay đổi hoặc lỗi thời. <b>62%</b> doanh nghiệp tại Việt Nam coi thiếu kỹ năng là rào cản lớn nhất.</span>
+    <span lang="en">By 2030, <b>39%</b> of today's skills will change or become outdated. <b>62%</b> of employers in Viet Nam name skills gaps as their biggest barrier.</span>
+    <span class="small muted" lang="vi">WEF, Future of Jobs 2025 (hồ sơ Việt Nam, tr. 219)</span><span class="small muted" lang="en">WEF, Future of Jobs 2025 (Viet Nam profile, p. 219)</span>
+  </div>
+  <p><b lang="vi">Nhưng chưa có công cụ nào cho biết hôm nay thị trường Việt Nam cần kỹ năng gì, và AI đang thay đổi điều đó ra sao.</b><b lang="en">Yet nothing tells us what skills Viet Nam's market needs today, and how AI is changing that.</b></p>
+  <p class="notes"><span lang="vi">45 giây. Đọc theo docs/opening-numbers.md. Mọi số đã đối chiếu với văn bản gốc; nguồn ghi dưới từng ô.</span><span lang="en">45s. Script in docs/opening-numbers.md. Every number checked against the original source, cited under each box.</span></p>
+</section>
+
 <!-- 1 -->
 <section class="slide dark" id="s1">
   <div class="hero">
@@ -245,10 +283,10 @@ ul.clean { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
       </div>
     </div>
     <div class="scope" aria-label="Key numbers">
-      <div class="blip" style="left:50%;top:22%"><b class="n" data-vi="43.809" data-en="43,809">43.809</b><span lang="vi">tin tuyển dụng</span><span lang="en">postings</span></div>
+      <div class="blip" style="left:50%;top:22%"><b class="n" data-vi="54.319" data-en="54,319">54.319</b><span lang="vi">tin tuyển dụng</span><span lang="en">postings</span></div>
       <div class="blip" style="left:24%;top:55%"><b>159</b><span lang="vi">kỹ năng</span><span lang="en">skills</span></div>
-      <div class="blip" style="left:76%;top:55%"><b>17</b><span lang="vi">tháng lịch sử</span><span lang="en">months history</span></div>
-      <div class="blip" style="left:50%;top:80%"><b>4</b><span lang="vi">nguồn (1 đang đứng)</span><span lang="en">sources (1 frozen)</span></div>
+      <div class="blip" style="left:76%;top:55%"><b>48</b><span lang="vi">nghề cụ thể</span><span lang="en">occupations</span></div>
+      <div class="blip" style="left:50%;top:80%"><b>6</b><span lang="vi">nguồn (2 qua Internet Archive)</span><span lang="en">sources (2 via Internet Archive)</span></div>
     </div>
   </div>
   <p class="foot">demo-skill-radar.ducklytics.com</p>
@@ -266,7 +304,7 @@ ul.clean { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
       <button class="node" data-k="src">vietnamworks<small><span class="pill stop" lang="vi">đứng 13/10</span><span class="pill stop" lang="en">frozen 13/10</span></small></button>
       <button class="node" data-k="src">jobsgo<small><span class="pill warn" lang="vi">chập chờn</span><span class="pill warn" lang="en">flaky</span></small></button>
       <button class="node" data-k="src">timviec365<small><span class="pill ok">OK</span></small></button>
-      <button class="node dash" data-k="ia">Internet Archive<small>2025–2026</small></button>
+      <button class="node dash" data-k="ia">Internet Archive<small>+ vieclam24h, topcv</small></button>
     </div>
     <div class="arr">→</div>
     <div class="col">
@@ -280,7 +318,7 @@ ul.clean { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
       <div class="wh">
         <button class="node" data-k="bronze">Bronze<small lang="vi">JSONL thô theo ngày</small><small lang="en">raw JSONL per day</small></button>
         <div class="down">↓</div>
-        <button class="node" data-k="silver">Silver<small lang="vi">43.809 tin</small><small lang="en">43,809 postings</small></button>
+        <button class="node" data-k="silver">Silver<small lang="vi">54.319 tin</small><small lang="en">54,319 postings</small></button>
         <div class="down">↓</div>
         <button class="node hot" data-k="gold">Gold<small lang="vi">tin × kỹ năng · chỉ số</small><small lang="en">posting × skill · metrics</small></button>
       </div>
@@ -305,7 +343,7 @@ ul.clean { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
     <span class="chip" lang="vi">Gặp 403 / CAPTCHA là dừng</span><span class="chip" lang="en">Stop on 403 / CAPTCHA</span>
     <span class="chip" lang="vi">Xóa dữ liệu cá nhân trước khi lưu</span><span class="chip" lang="en">Personal data cut before saving</span>
   </div>
-  <p class="small muted"><span lang="vi">Đã loại vì chặn crawler: vieclam24h, vieclamtot, mywork, careerviet, topcv. Trang nào nói không thì dừng.</span><span lang="en">Excluded because they block crawlers: vieclam24h, vieclamtot, mywork, careerviet, topcv. When a site says no, we stop.</span></p>
+  <p class="small muted"><span lang="vi">Trang chặn crawler không bị crawl trực tiếp; vieclam24h và topcv chỉ lấy bản lưu trên Internet Archive.</span><span lang="en">Sites that block crawlers are never crawled directly; vieclam24h and topcv come only from Internet Archive copies.</span></p>
   <div class="detail" id="detail" aria-live="polite"></div>
   <p class="small muted"><b lang="vi">Công nghệ:</b><b lang="en">Stack:</b> Python 3.11 · httpx · selectolax · DuckDB · statsmodels (ARIMA) · <span lang="vi">từ điển + luật, không LLM · JS thuần · một laptop</span><span lang="en">dictionary rules, no LLM · vanilla JS · one laptop</span></p>
   <p class="notes"><span lang="vi">1,5 phút. Mọi thứ chạy trên một laptop. Bên trái: bốn nguồn và trạng thái hôm nay; vietnamworks gỡ sitemap, jobsgo chặn một ngày. Crawler theo năm nguyên tắc đã viết trong hồ sơ dự thi. Sau đó là ba tầng kho dữ liệu, bước kiểm tra tính lại mọi số bằng SQL, và website tĩnh không backend. Bấm vào từng ô để giải thích.</span><span lang="en">1.5 min. Everything runs on one laptop. Left: the four sites and their status today; vietnamworks removed its sitemap, jobsgo blocked us for a day. The crawler follows five rules from our contest application. Then three warehouse layers, a verify step that recomputes every number with SQL, and static sites with no backend. Click a box to explain it.</span></p>
@@ -319,9 +357,9 @@ ul.clean { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
     <div class="box layer"><h3>Bronze</h3><p class="sub"><span lang="vi">Dữ liệu thô, chỉ ghi thêm</span><span lang="en">Raw, append-only</span></p>
       <ul class="clean small"><li><span lang="vi">JSONL theo nguồn, theo ngày</span><span lang="en">JSONL per source per day</span></li><li><span lang="vi">347 MB + 95 MB bản lưu</span><span lang="en">347 MB + 95 MB archive</span></li></ul></div>
     <div class="box layer"><h3>Silver</h3><p class="sub"><span lang="vi">Mỗi tin một dòng sạch</span><span lang="en">One clean row per posting</span></p>
-      <ul class="clean small"><li><span lang="vi">34 tỉnh (bản đồ sau 7/2025)</span><span lang="en">34 provinces (post-7/2025 map)</span></li><li><span lang="vi">15 nhóm nghề · 43.809 tin</span><span lang="en">15 job families · 43,809 postings</span></li></ul></div>
+      <ul class="clean small"><li><span lang="vi">34 tỉnh (bản đồ sau 7/2025)</span><span lang="en">34 provinces (post-7/2025 map)</span></li><li><span lang="vi">15 nhóm nghề · 48 nghề · 54.319 tin</span><span lang="en">15 job families · 48 occupations · 54,319 postings</span></li></ul></div>
     <div class="box layer gold"><h3>Gold</h3><p class="sub"><span lang="vi">Mỗi dòng là một tin × một kỹ năng</span><span lang="en">One row per posting × skill</span></p>
-      <ul class="clean small"><li><span lang="vi">Từ điển 159 kỹ năng, tên gọi Việt + Anh</span><span lang="en">Dictionary of 159 skills, vi + en aliases</span></li><li><span lang="vi">212.140 dòng tin–kỹ năng</span><span lang="en">212,140 posting-skill rows</span></li></ul></div>
+      <ul class="clean small"><li><span lang="vi">Từ điển 159 kỹ năng, tên gọi Việt + Anh</span><span lang="en">Dictionary of 159 skills, vi + en aliases</span></li><li><span lang="vi">249.855 dòng tin–kỹ năng</span><span lang="en">249,855 posting-skill rows</span></li></ul></div>
   </div>
   <div class="grid2">
     <div class="box">
@@ -351,15 +389,68 @@ ul.clean { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
       <div class="metric"><b lang="vi">Tỷ trọng nhu cầu</b><b lang="en">Demand share</b><span class="small muted" lang="vi">% tin đang mở cần một kỹ năng, theo nghề, tỉnh, cấp bậc</span><span class="small muted" lang="en">% of open postings asking for a skill, by job, province, level</span></div>
       <div class="metric"><b lang="vi">Chênh lệch lương</b><b lang="en">Salary premium</b><span class="small muted" lang="vi">lương trung vị khi tin có và không có kỹ năng (tương quan, không phải nhân quả)</span><span class="small muted" lang="en">median pay with vs without the skill (correlation, not cause)</span></div>
       <div class="metric"><b lang="vi">Mức ảnh hưởng của AI</b><b lang="en">AI impact</b><span class="small muted" lang="vi">0,65 × khả năng AI làm thay (nhóm đánh giá) + 0,35 × mức đi cùng công cụ AI trong tin (xếp hạng giữa các kỹ năng)</span><span class="small muted" lang="en">0.65 × AI replacement score (team-rated) + 0.35 × AI-tool co-mention in postings (ranked across skills)</span></div>
-      <div class="metric"><b lang="vi">Dự báo</b><b lang="en">Forecast</b><span class="small muted" lang="vi">ARIMA trên chuỗi 17 tháng, thắng cách dự báo đơn giản ở 49% trong 139 lần kiểm tra ngược</span><span class="small muted" lang="en">ARIMA on a 17-month series, beats the naive baseline in 49% of 139 back-tests</span></div>
+      <div class="metric"><b lang="vi">Dự báo</b><b lang="en">Forecast</b><span class="small muted" lang="vi">ARIMA trên chuỗi tháng từ bản lưu, thắng cách dự báo đơn giản ở 49% trong 139 lần kiểm tra ngược</span><span class="small muted" lang="en">ARIMA on the monthly archive series, beats the naive baseline in 49% of 139 back-tests</span></div>
     </div>
     <div class="box">
       <b class="small" lang="vi">Kỹ năng hàng đầu · % tin đang mở</b><b class="small" lang="en">Top skills · % of open postings</b>
       <div class="chart" id="chart" style="margin-top:12px"></div>
-      <div class="row axis" style="margin-top:4px"><span></span><span style="display:flex;justify-content:space-between"><span>0</span><span>10</span><span>20</span><span>30</span><span>40</span></span></div>
+      <div class="row axis" style="margin-top:4px"><span></span><span style="display:flex;justify-content:space-between"><span>0</span><span>10</span><span>20</span><span>30</span><span>40</span><span>50</span></span></div>
     </div>
   </div>
   <p class="notes"><span lang="vi">1 phút. Giới hạn: đây là ảnh chụp tin đang mở, thiếu tin đã đóng. Chỉ dự báo kỹ năng có tỷ trọng ≥ 2%, luôn đặt cạnh dự báo đơn giản. Chỉ số tháng chưa bật cho tới khi đủ một tháng dữ liệu hằng ngày.</span><span lang="en">1 min. Limits: a snapshot of open postings, closed ones missing. Forecast only for skills with ≥ 2% share, always next to a naive baseline. Monthly index stays off until a full month of daily data exists.</span></p>
+</section>
+
+<!-- AI 1 -->
+<section class="slide" id="ai1">
+  <p class="eyebrow"><span lang="vi">Phát hiện · AI</span><span lang="en">Finding · AI</span></p>
+  <h2><span lang="vi">Tin tuyển dụng IT nhắc tới công cụ AI tăng gấp 4 trong 18 tháng</span><span lang="en">IT postings mentioning AI tools quadrupled in 18 months</span></h2>
+  <div class="grid2">
+    <table class="trend">
+      <thead><tr><th><span lang="vi">Nhóm nghề</span><span lang="en">Job family</span></th><th><span lang="vi">2025 nửa đầu</span><span lang="en">2025 H1</span></th><th><span lang="vi">2025 nửa sau</span><span lang="en">2025 H2</span></th><th>2026</th><th><span lang="vi">tin/kỳ</span><span lang="en">ads/period</span></th></tr></thead>
+      <tbody>
+      <tr><td><span lang="vi">Công nghệ thông tin</span><span lang="en">IT</span></td><td><div class="tb"><i style="width:13.0%"></i><span lang="vi">5,0%</span><span lang="en">5.0%</span></div></td><td><div class="tb"><i style="width:27.5%"></i><span lang="vi">10,5%</span><span lang="en">10.5%</span></div></td><td><div class="tb"><i style="width:51.8%"></i><span lang="vi">19,8%</span><span lang="en">19.8%</span></div></td><td class="mono small muted">≥848</td></tr>
+      <tr><td><span lang="vi">Marketing</span><span lang="en">Marketing</span></td><td><div class="tb"><i style="width:5.2%"></i><span lang="vi">2,0%</span><span lang="en">2.0%</span></div></td><td><div class="tb"><i style="width:11.7%"></i><span lang="vi">4,5%</span><span lang="en">4.5%</span></div></td><td><div class="tb"><i style="width:23.2%"></i><span lang="vi">8,8%</span><span lang="en">8.8%</span></div></td><td class="mono small muted">≥102</td></tr>
+      <tr><td><span lang="vi">Nhân sự</span><span lang="en">HR</span></td><td><div class="tb"><i style="width:3.0%"></i><span lang="vi">1,1%</span><span lang="en">1.1%</span></div></td><td><div class="tb"><i style="width:2.9%"></i><span lang="vi">1,1%</span><span lang="en">1.1%</span></div></td><td><div class="tb"><i style="width:10.9%"></i><span lang="vi">4,1%</span><span lang="en">4.1%</span></div></td><td class="mono small muted">≥88</td></tr>
+      <tr><td><span lang="vi">Kinh doanh</span><span lang="en">Sales</span></td><td><div class="tb"><i style="width:1.6%"></i><span lang="vi">0,6%</span><span lang="en">0.6%</span></div></td><td><div class="tb"><i style="width:2.8%"></i><span lang="vi">1,1%</span><span lang="en">1.1%</span></div></td><td><div class="tb"><i style="width:7.7%"></i><span lang="vi">2,9%</span><span lang="en">2.9%</span></div></td><td class="mono small muted">≥444</td></tr>
+      <tr><td><span lang="vi">Tài chính – ngân hàng</span><span lang="en">Finance & banking</span></td><td><div class="tb"><i style="width:0.0%"></i><span lang="vi">0,0%</span><span lang="en">0.0%</span></div></td><td><div class="tb"><i style="width:6.2%"></i><span lang="vi">2,4%</span><span lang="en">2.4%</span></div></td><td><div class="tb"><i style="width:4.9%"></i><span lang="vi">1,9%</span><span lang="en">1.9%</span></div></td><td class="mono small muted">≥121</td></tr>
+      <tr><td><span lang="vi">Kế toán</span><span lang="en">Accounting</span></td><td><div class="tb"><i style="width:1.4%"></i><span lang="vi">0,5%</span><span lang="en">0.5%</span></div></td><td><div class="tb"><i style="width:7.1%"></i><span lang="vi">2,7%</span><span lang="en">2.7%</span></div></td><td><div class="tb"><i style="width:3.4%"></i><span lang="vi">1,3%</span><span lang="en">1.3%</span></div></td><td class="mono small muted">≥185</td></tr>
+      <tr><td><span lang="vi">Hành chính</span><span lang="en">Admin</span></td><td><div class="tb"><i style="width:0.0%"></i><span lang="vi">0,0%</span><span lang="en">0.0%</span></div></td><td><div class="tb"><i style="width:0.0%"></i><span lang="vi">0,0%</span><span lang="en">0.0%</span></div></td><td><div class="tb"><i style="width:2.2%"></i><span lang="vi">0,8%</span><span lang="en">0.8%</span></div></td><td class="mono small muted">≥102</td></tr>
+      </tbody>
+    </table>
+    <div style="display:grid;gap:14px;align-content:start">
+      <div class="box"><p class="big"><span lang="vi">5,0% → 19,8%</span><span lang="en">5.0% → 19.8%</span></p><p class="small muted"><span lang="vi">tin IT nhắc ChatGPT, Copilot, LLM… từ nửa đầu 2025 tới 2026. Marketing đi theo sau: 2,0% → 8,8%.</span><span lang="en">of IT postings mention ChatGPT, Copilot, LLMs… from 2025 H1 to 2026. Marketing follows: 2.0% → 8.8%.</span></p></div>
+      <div class="box"><p class="small"><span lang="vi">Kế toán, kinh doanh, hành chính vẫn dưới 3%. AI đi vào tin tuyển dụng theo từng nghề, không đều.</span><span lang="en">Accounting, sales and admin stay under 3%. AI enters job ads one occupation at a time, not evenly.</span></p></div>
+      <p class="small muted"><span lang="vi">Mẫu bản lưu Internet Archive, ~150 tin/tháng/nguồn, gộp các nguồn. Kỳ dưới 80 tin không công bố. "Nhắc tới công cụ AI" là tín hiệu nhà tuyển dụng muốn người biết dùng AI, chưa phải số việc làm mất đi.</span><span lang="en">Internet Archive sample, ~150 postings/month/source, pooled. Periods under 80 postings are not shown. "Mentions an AI tool" signals employers want people who use AI; it is not a count of jobs lost.</span></p>
+    </div>
+  </div>
+  <p class="notes"><span lang="vi">1 phút. Đây là chuỗi duy nhất đo được theo thời gian. Không nói số "gộp mọi nhóm", vì tỷ trọng tin IT trong mẫu đổi theo kỳ.</span><span lang="en">1 min. This is the one series we can measure over time. Don't quote an all-family figure: the IT share of the sample shifts between periods.</span></p>
+</section>
+
+<!-- AI 2 -->
+<section class="slide" id="ai2">
+  <p class="eyebrow"><span lang="vi">Phát hiện · AI</span><span lang="en">Finding · AI</span></p>
+  <h2><span lang="vi">Hôm nay: 1 trong 3 tin Tester yêu cầu công cụ AI, tin lao động phổ thông thì không</span><span lang="en">Today: 1 in 3 tester ads ask for AI tools, manual-labour ads none</span></h2>
+  <div class="grid2">
+    <table class="trend">
+      <thead><tr><th><span lang="vi">Nghề / nhóm nghề</span><span lang="en">Occupation / family</span></th><th><span lang="vi">% tin đang mở nhắc công cụ AI</span><span lang="en">% of open ads naming AI tools</span></th><th class="r"><span lang="vi">tin</span><span lang="en">ads</span></th></tr></thead>
+      <tbody>
+      <tr><td><span lang="vi">Tester</span><span lang="en">Tester</span></td><td><div class="tb"><i style="width:71.2%"></i><span lang="vi">35,6%</span><span lang="en">35.6%</span></div></td><td class="mono small muted r">101</td></tr>
+      <tr><td><span lang="vi">Business Analyst</span><span lang="en">Business Analyst</span></td><td><div class="tb"><i style="width:56.0%"></i><span lang="vi">28,0%</span><span lang="en">28.0%</span></div></td><td class="mono small muted r">82</td></tr>
+      <tr><td><span lang="vi">Lập trình viên phần mềm</span><span lang="en">Software developer</span></td><td><div class="tb"><i style="width:50.2%"></i><span lang="vi">25,1%</span><span lang="en">25.1%</span></div></td><td class="mono small muted r">235</td></tr>
+      <tr><td><span lang="vi">Content marketing</span><span lang="en">Content marketing</span></td><td><div class="tb"><i style="width:37.6%"></i><span lang="vi">18,8%</span><span lang="en">18.8%</span></div></td><td class="mono small muted r">160</td></tr>
+      <tr><td><span lang="vi">Digital marketing</span><span lang="en">Digital marketing</span></td><td><div class="tb"><i style="width:29.8%"></i><span lang="vi">14,9%</span><span lang="en">14.9%</span></div></td><td class="mono small muted r">188</td></tr>
+      <tr><td><span lang="vi">Nhóm Kế toán</span><span lang="en">Accounting (family)</span></td><td><div class="tb"><i style="width:4.0%"></i><span lang="vi">2,0%</span><span lang="en">2.0%</span></div></td><td class="mono small muted r">1.754</td></tr>
+      <tr><td><span lang="vi">Nhóm Logistics</span><span lang="en">Logistics (family)</span></td><td><div class="tb"><i style="width:1.8%"></i><span lang="vi">0,9%</span><span lang="en">0.9%</span></div></td><td class="mono small muted r">740</td></tr>
+      <tr><td><span lang="vi">Nhóm Lao động phổ thông</span><span lang="en">Manual labour (family)</span></td><td><div class="tb"><i style="width:0.0%"></i><span lang="vi">0,0%</span><span lang="en">0.0%</span></div></td><td class="mono small muted r">548</td></tr>
+      </tbody>
+    </table>
+    <div style="display:grid;gap:14px;align-content:start">
+      <div class="box"><p class="big"><span lang="vi">5,5%</span><span lang="en">5.5%</span></p><p class="small muted"><span lang="vi">của 11.333 tin đang mở nhắc tới công cụ AI. Gần như toàn bộ nằm ở IT và marketing.</span><span lang="en">of 11,333 open postings name an AI tool, almost all in IT and marketing.</span></p></div>
+      <div class="box"><b class="small"><span lang="vi">Với học sinh:</span><span lang="en">For students:</span></b><p class="small"><span lang="vi">muốn làm Tester, BA hay content marketing, biết dùng công cụ AI đã là kỹ năng nhà tuyển dụng ghi trong tin. Trang mỗi nghề trên SkillRadar hiện con số này.</span><span lang="en">for testers, BAs or content marketers, using AI tools is already a skill employers write into the ad. Each occupation page on SkillRadar shows this number.</span></p></div>
+      <p class="small muted"><span lang="vi">Tin đang mở ngày 28/10/2026, 4 nguồn crawl. Chỉ hiện nghề có ≥ 30 tin.</span><span lang="en">Open postings on 28/10/2026, 4 crawled sources. Occupations with ≥ 30 postings only.</span></p>
+    </div>
+  </div>
+  <p class="notes"><span lang="vi">1 phút. Nối với ILO: 1/5 lao động chịu tác động của AI tạo sinh. Dữ liệu của chúng tôi cho thấy tác động đó đang hiện ra trong tin tuyển dụng ở nghề nào trước.</span><span lang="en">1 min. Link back to ILO: 1 in 5 workers exposed to generative AI. Our data shows in which occupations that exposure already appears in job ads.</span></p>
 </section>
 
 <!-- 7 -->
@@ -370,19 +461,19 @@ ul.clean { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
     <div>
       <h3 style="color:var(--good);font-size:20px;margin-bottom:10px"><span lang="vi">Đã xong</span><span lang="en">Done</span></h3>
       <ul class="clean done">
-        <li><span lang="vi">Crawler chạy hằng ngày từ 12/10 (11 ngày)</span><span lang="en">Daily crawler running since 12/10 (11 days)</span></li>
-        <li><span lang="vi">17 tháng lịch sử từ Internet Archive</span><span lang="en">17 months of history from Internet Archive</span></li>
+        <li><span lang="vi">Crawler chạy hằng ngày từ 12/10 (16 ngày)</span><span lang="en">Daily crawler running since 12/10 (16 days)</span></li>
+        <li><span lang="vi">Lịch sử 2025–2026 từ Internet Archive, thêm vieclam24h và topcv</span><span lang="en">2025–2026 history from Internet Archive, plus vieclam24h and topcv</span></li>
         <li><span lang="vi">Từ điển kỹ năng v3: 159 kỹ năng, đã duyệt</span><span lang="en">Skill dictionary v3: 159 skills, reviewed</span></li>
         <li><span lang="vi">Chỉ số, dự báo ARIMA, bước kiểm tra: mọi số khớp SQL</span><span lang="en">Metrics, ARIMA forecast, verify step: all numbers match SQL</span></li>
-        <li><span lang="vi">3 website đã chạy: học sinh, nhà trường, cơ quan</span><span lang="en">3 websites live: students, universities, government</span></li>
-        <li><span lang="vi">47 bài test tự động đều đạt</span><span lang="en">47 automated tests passing</span></li>
+        <li><span lang="vi">3 website đã chạy; trang học sinh có 48 nghề cụ thể</span><span lang="en">3 websites live; the student site has 48 occupations</span></li>
+        <li><span lang="vi">62 bài test tự động đều đạt</span><span lang="en">62 automated tests passing</span></li>
       </ul>
     </div>
     <div class="box">
       <h3 style="color:var(--bad);font-size:20px;margin-bottom:6px"><span lang="vi">Vướng mắc</span><span lang="en">Blockers</span></h3>
       <div class="blk"><b>vietnamworks</b><span lang="vi">gỡ sitemap từ 14/10; danh sách tin cần API nội bộ → đứng ở 13/10</span><span lang="en">removed its sitemap 14/10; listing needs their private API → frozen at 13/10</span></div>
       <div class="blk"><b>jobsgo</b><span lang="vi">bị Cloudflare chặn 21/10, mở lại 22/10, chưa ổn định</span><span lang="en">Cloudflare blocked us 21/10, open again 22/10, fragile</span></div>
-      <div class="blk"><b lang="vi">Độ chính xác</b><b lang="en">Accuracy</b><span lang="vi">tập test F1: mới gán nhãn 2/150 tin, chưa đo được</span><span lang="en">F1 test set: 2 of 150 postings labelled, not measured yet</span></div>
+      <div class="blk"><b lang="vi">Độ chính xác</b><b lang="en">Accuracy</b><span lang="vi">tập test F1 150 tin chưa gán nhãn xong, chưa đo được</span><span lang="en">F1 test set of 150 postings not labelled yet, not measured</span></div>
       <div class="blk"><b lang="vi">Điều khoản</b><b lang="en">Terms</b><span lang="vi">chưa rà điều khoản, chưa gửi email xin phép nguồn nào</span><span lang="en">terms of use and permission emails not done for any source</span></div>
       <div class="blk"><b lang="vi">Vận hành</b><b lang="en">Ops</b><span lang="vi">crawler chạy trên một laptop: máy ngủ hoặc khởi động lại là mất một ngày</span><span lang="en">crawler lives on one laptop: sleep or reboot loses a day</span></div>
     </div>
@@ -410,12 +501,12 @@ ul.clean { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
   <h2><span lang="vi">Demo nhanh</span><span lang="en">Quick demo</span></h2>
   <a href="https://demo-skill-radar.ducklytics.com/" target="_blank" rel="noopener">demo-skill-radar.ducklytics.com ↗</a>
   <div class="grid3">
-    <a class="dcard" href="https://demo-skill-radar.ducklytics.com/hoc-sinh/" target="_blank" rel="noopener"><h3 lang="vi">Học sinh</h3><h3 lang="en">Students</h3><code>/hoc-sinh/</code><p lang="vi">Tìm một nghề → số tin đang tuyển, lương trung vị, kỹ năng cần học, trích dẫn tin thật, ảnh hưởng của AI</p><p lang="en">Search a job → open postings, median pay, skills to learn, real quotes, AI impact</p></a>
+    <a class="dcard" href="https://demo-skill-radar.ducklytics.com/hoc-sinh/" target="_blank" rel="noopener"><h3 lang="vi">Học sinh</h3><h3 lang="en">Students</h3><code>/hoc-sinh/</code><p lang="vi">Tìm một nghề (Data Analyst, Tester, Kế toán thuế…) → số tin đang tuyển, kỹ năng cần học, ảnh hưởng của AI</p><p lang="en">Search an occupation (Data Analyst, Tester, Tax accountant…) → open postings, skills to learn, AI impact</p></a>
     <a class="dcard" href="https://demo-skill-radar.ducklytics.com/nha-truong/" target="_blank" rel="noopener"><h3 lang="vi">Nhà trường</h3><h3 lang="en">Universities</h3><code>/nha-truong/</code><p lang="vi">Kỹ năng theo nhóm nghề và cấp bậc, xu hướng, tải CSV để đối chiếu chương trình</p><p lang="en">Skills by job family and level, trends, CSV export to compare with curricula</p></a>
     <a class="dcard" href="https://demo-skill-radar.ducklytics.com/co-quan/" target="_blank" rel="noopener"><h3 lang="vi">Cơ quan</h3><h3 lang="en">Government</h3><code>/co-quan/</code><p lang="vi">Nhu cầu theo tỉnh, theo nhóm nghề, độ phủ dữ liệu và ghi chú phương pháp</p><p lang="en">Demand by province, job families, data coverage and method notes</p></a>
   </div>
   <a class="datalink" href="https://demo-skill-radar.ducklytics.com/du-lieu/" target="_blank" rel="noopener"><span lang="vi">Xem dữ liệu đã thu thập ↗</span><span lang="en">Review the crawled data ↗</span><small lang="vi">dashboard dữ liệu, ảnh chụp 22/10</small><small lang="en">data dashboard, 22/10 snapshot</small></a>
-  <p class="notes"><span lang="vi">3 phút. Học sinh: tìm "kế toán", mở trang nghề, xem bảng kỹ năng và trích dẫn. Nhà trường: một nhóm nghề, nút tải CSV. Cơ quan: xem theo tỉnh và trang trạng thái.</span><span lang="en">3 min. Students: search "kế toán", open the job page, show skills and quotes. Universities: one family, CSV button. Government: province view and the status page.</span></p>
+  <p class="notes"><span lang="vi">3 phút. Học sinh: tìm "data", mở nghề Data Analyst, xem bảng kỹ năng, mức AI và xu hướng nhắc công cụ AI. Nhà trường: một nhóm nghề, nút tải CSV. Cơ quan: xem theo tỉnh và trang trạng thái.</span><span lang="en">3 min. Students: search "data", open Data Analyst, show skills, AI impact and the AI-tool trend. Universities: one family, CSV button. Government: province view and the status page.</span></p>
 </section>
 
 </main>
@@ -477,12 +568,12 @@ ul.clean { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
   // architecture details
   const D = {
     src: ['Trang tuyển dụng: đọc sitemap hoặc trang danh sách để biết tin nào đang mở, rồi tải từng tin. Bóc tách bằng JSON-LD, dữ liệu Next.js hoặc HTML.', 'Job sites: read the sitemap or listing pages to know which postings are open, then fetch each one. Parsed from JSON-LD, Next.js data or HTML.'],
-    ia: ['Internet Archive: lấy mẫu bản lưu tin tuyển dụng từ 2025 để có chuỗi 17 tháng. Chỉ dùng tỷ trọng, không dùng số đếm.', 'Internet Archive: samples of archived postings since 2025 give a 17-month series. Used for shares only, never counts.'],
+    ia: ['Internet Archive: lấy mẫu bản lưu tin tuyển dụng từ 2025 để có chuỗi theo tháng, kể cả với trang chặn crawler: request chỉ gửi tới web.archive.org, cách 4 giây. Chỉ dùng tỷ trọng, không dùng số đếm.', 'Internet Archive: samples of archived postings since 2025 give a monthly series, including sites that block crawlers: requests go only to web.archive.org, 4 s apart. Used for shares only, never counts.'],
     crawl: ['Crawler: kiểm tra robots.txt, khai báo email liên hệ, cách 2 giây mỗi request, gặp 403 là dừng, xóa tên / SĐT / email trước khi ghi đĩa. Chạy 07:00 mỗi ngày.', 'Crawler: checks robots.txt, declares a contact email, waits 2 s per request, stops on 403, cuts names / phones / emails before writing. Runs daily at 07:00.'],
     bf: ['Bổ sung lịch sử: mỗi tháng lấy đều tối đa 150 tin mỗi nguồn; tháng dưới 80 tin bị bỏ, không nội suy.', 'Backfill: up to 150 postings per source per month, sampled evenly; months under 80 postings are dropped, never interpolated.'],
     bronze: ['Bronze: file JSONL thô theo nguồn và ngày, chỉ ghi thêm. 347 MB tin crawl + 95 MB bản lưu.', 'Bronze: raw JSONL per source per day, append-only. 347 MB crawled + 95 MB archive.'],
     silver: ['Silver: mỗi tin một dòng. Chuẩn hóa 34 tỉnh, lương về VND/tháng, cấp bậc, ngôn ngữ, 15 nhóm nghề; bỏ tin đăng lại.', 'Silver: one row per posting. Normalised to 34 provinces, VND/month salary, seniority, language, 15 job families; reposts removed.'],
-    gold: ['Gold: mỗi dòng là một tin × một kỹ năng (212.140 dòng), cộng các bảng chỉ số: tỷ trọng, lương, AI, đồng xuất hiện, dự báo ARIMA.', 'Gold: one row per posting × skill (212,140 rows), plus metric tables: shares, pay, AI, co-occurrence, ARIMA forecast.'],
+    gold: ['Gold: mỗi dòng là một tin × một kỹ năng (249.855 dòng), cộng các bảng chỉ số: tỷ trọng, lương, AI, đồng xuất hiện, dự báo ARIMA.', 'Gold: one row per posting × skill (249,855 rows), plus metric tables: shares, pay, AI, co-occurrence, ARIMA forecast.'],
     export: ['Xuất + kiểm tra: 7 file JSON (295 KB). Bước verify tính lại mọi con số bằng SQL độc lập; lệch là dừng, không deploy.', 'Export + verify: 7 JSON files (295 KB). Verify recomputes every number with independent SQL; any mismatch stops the deploy.'],
     site: ['Website tĩnh trên Cloudflare Pages, deploy bằng wrangler. Không backend: lúc demo không có gì phải chạy.', 'Static websites on Cloudflare Pages, deployed with wrangler. No backend: nothing has to run at demo time.'],
   };
@@ -496,12 +587,12 @@ ul.clean { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
   nodes.forEach(n => n.onclick = () => pick(n));
   pick(nodes.find(n => n.dataset.k === 'crawl'));
 
-  // chart: share of open postings, axis 0–40
-  const TOP = [['Tiếng Anh giao tiếp', 'English communication', 38.6], ['Excel', 'Excel', 30.5], ['Tin học văn phòng', 'MS Office', 24.8], ['Giao tiếp', 'Communication', 24.6], ['Kế toán', 'Accounting', 21.2], ['Chăm sóc khách hàng', 'Customer service', 18.7], ['Đàm phán', 'Negotiation', 17.1]];
+  // chart: share of open postings, axis 0–50
+  const TOP = [['Tiếng Anh giao tiếp', 'English communication', 40.8], ['Excel', 'Excel', 31.4], ['Giao tiếp', 'Communication', 25.3], ['Tin học văn phòng', 'MS Office', 24.9], ['Kế toán', 'Accounting', 21.5], ['Chăm sóc khách hàng', 'Customer service', 17.7], ['Đàm phán', 'Negotiation', 17.4]];
   const chart = document.getElementById('chart');
   TOP.forEach(([vi, en, v]) => {
-    const fill = el('div', { className: 'fill' }); fill.style.width = (v / 40 * 100) + '%';
-    const val = el('span', { className: 'val' }); val.style.left = (v / 40 * 100) + '%';
+    const fill = el('div', { className: 'fill' }); fill.style.width = (v / 50 * 100) + '%';
+    const val = el('span', { className: 'val' }); val.style.left = (v / 50 * 100) + '%';
     val.append(...both(v.toFixed(1).replace('.', ',') + '%', v.toFixed(1) + '%'));
     chart.append(el('div', { className: 'row' }, el('span', {}, ...both(vi, en)), el('div', { className: 'track' }, fill, val)));
   });

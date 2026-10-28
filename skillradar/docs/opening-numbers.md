@@ -18,8 +18,8 @@ Dòng chốt ở chân slide:
 > Nhưng chưa có công cụ nào cho biết **hôm nay** thị trường Việt Nam đang cần kỹ năng gì.
 
 Rồi nối sang số của chính mình (lấy từ kho, cập nhật trước khi trình bày):
-> SkillRadar đọc 45 nghìn tin tuyển dụng thật. Hiện 5,2% tin đang mở nhắc tới công cụ AI —
-> ở nhóm IT là 23,1%, marketing 12,3%, lao động phổ thông 0%.
+> SkillRadar đọc 54 nghìn tin tuyển dụng thật. Hiện 5,5% tin đang mở nhắc tới công cụ AI —
+> ở nhóm IT là 23,3%, marketing 12,1%, lao động phổ thông 0% (số ngày 28/10).
 
 ## Lời nói gợi ý (45 giây)
 
