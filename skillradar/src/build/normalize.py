@@ -220,6 +220,109 @@ VNW_FAMILY = {
 }
 
 
+# Nghề trong nhóm nghề (chốt 28/10/2026, 7 nhóm lớn): (id, tên, luật theo tiêu đề đã fold).
+# Thứ tự quan trọng: luật cụ thể trước, luật chung ("kế toán", "kinh doanh") cuối.
+# Không khớp luật nào -> None: trang ghi "chưa gán nghề cụ thể", không đoán.
+OCCUPATIONS = {
+    "cntt": [
+        ("data-analyst", "Phân tích dữ liệu (Data Analyst)",
+         r"data analyst|phan tich du lieu|bi analyst|bi developer|business intelligence|power bi"),
+        ("data-engineer", "Kỹ sư dữ liệu (Data Engineer)", r"data engineer|ky su du lieu|\betl\b|data platform|data warehouse"),
+        ("business-analyst", "Phân tích nghiệp vụ (Business Analyst)", r"business analyst|\bba\b|phan tich nghiep vu"),
+        ("tester", "Kiểm thử phần mềm (Tester / QA)",
+         r"tester|\bqa\b|\bqc\b|quality control|test engineer|test automation|automation test|kiem thu|sdet"),
+        ("devops", "DevOps / Cloud", r"devops|devsecops|\bsre\b|cloud|platform engineer|kubernetes"),
+        # tên vị trí AI, không phải tin chỉ nhắc AI như một kỹ năng ("business analyst ai")
+        ("ai-engineer", "Kỹ sư AI / Data Scientist",
+         r"data scien|khoa hoc du lieu|machine learning|\bml engineer|deep learning|computer vision|\bnlp\b|tri tue nhan tao|"
+         r"\bai (engineer|agent|software|developer|specialist|researcher|automation|solution|intern|operations)|"
+         r"(thuc tap sinh|staff|expert) ai\b"),
+        ("it-security", "An toàn thông tin", r"security|bao mat|an toan thong tin|an ninh mang|pentest|soc analyst|incident"),
+        ("mobile-dev", "Lập trình mobile", r"mobile|android|\bios\b|flutter|react native"),
+        ("frontend-dev", "Lập trình frontend", r"front ?end|reactjs|react developer|vuejs|angular"),
+        ("fullstack-dev", "Lập trình fullstack", r"full ?stack"),
+        ("software-dev", "Lập trình viên / kỹ sư phần mềm (backend)",
+         r"back ?end|\bjava\b|\bnet\b|golang|\bphp\b|python|nodejs|node js|ruby|\bc\b|software|developer|lap trinh|"
+         r"ky su phan mem|architect|technical lead|tech lead|javascript"),
+        ("it-pm", "Quản lý dự án / sản phẩm IT (PM, PO)",
+         r"project (manager|leader|management)|product (owner|manager)|scrum|quan ly du an|delivery manager|\bpm\b|\bpo\b|brse"),
+        ("it-support", "Hỗ trợ kỹ thuật IT (IT support)",
+         r"it support|helpdesk|help desk|ho tro ky thuat|technical support|nhan vien it|it staff|it executive|"
+         r"ky thuat vien it|it technician|ky su it|it engineer|van hanh ung dung"),
+        ("it-system", "Quản trị hệ thống / mạng",
+         r"system admin|network|quan tri mang|quan tri he thong|\berp\b|\bsap\b|infrastructure|ha tang"),
+        ("it-manager", "Trưởng phòng IT", r"it manager|truong phong it|truong phong cong nghe|head of|\bcto\b|giam doc cong nghe"),
+    ],
+    "kinh-doanh": [
+        ("sales-bds", "Kinh doanh bất động sản", r"bat dong san|real estate|moi gioi"),
+        ("sales-supervisor", "Giám sát bán hàng / kinh doanh khu vực",
+         r"giam sat (ban hang|kinh doanh)|sales supervisor|\basm\b|area sales|kinh doanh khu vuc"),
+        ("sales-b2b", "Kinh doanh B2B / dự án / khách hàng lớn",
+         r"b2b|khach hang doanh nghiep|key account|account manager|kinh doanh du an|ky su (kinh doanh|ban hang)|"
+         r"sales engineer|kinh doanh ky thuat"),
+        ("business-dev", "Phát triển kinh doanh / thị trường quốc tế",
+         r"business development|phat trien kinh doanh|phat trien doi tac|kinh doanh quoc te|xuat khau"),
+        ("sales-field", "Kinh doanh thị trường (sales thị trường)", r"kinh doanh thi truong|sales? thi truong|phat trien thi truong"),
+        ("sales-consultant", "Tư vấn bán hàng / telesales",
+         r"telesale|tu van|cham soc khach hang|consultant"),
+        ("sales-rep", "Nhân viên kinh doanh (chung)", r"kinh doanh|sales?|ban hang"),
+    ],
+    "ke-toan": [
+        ("chief-accountant", "Kế toán trưởng", r"ke toan truong|chief accountant|phu trach ke toan|truong phong ke toan"),
+        ("auditor", "Kiểm toán / kiểm soát nội bộ", r"kiem toan|audit|kiem soat noi bo"),
+        ("tax-accountant", "Kế toán thuế", r"ke toan thue|\btax\b"),
+        ("cost-accountant", "Kế toán giá thành / quản trị", r"gia thanh|ke toan quan tri|\bcost\b"),
+        ("ledger-accountant", "Kế toán chi tiết (công nợ, thanh toán, kho, bán hàng)",
+         r"cong no|thanh toan|ke toan ban hang|doanh thu|ke toan kho|payable|receivable"),
+        ("internal-accountant", "Kế toán nội bộ", r"ke toan noi bo"),
+        ("general-accountant", "Kế toán tổng hợp", r"ke toan tong hop|general accountant"),
+        ("accountant", "Kế toán viên (chung)", r"ke toan|accountant|accounting"),
+    ],
+    "marketing": [
+        ("digital-marketing", "Digital marketing / quảng cáo / SEO",
+         r"digital|performance|\bads\b|quang cao|facebook|google|\bseo\b|\bsem\b|growth|e commerce|ecommerce|san thuong mai"),
+        ("content-marketing", "Content / mạng xã hội",
+         r"content|noi dung|copywriter|bien tap|creator|writer|video|tiktok|social media|\bkol\b|\bkoc\b|livestream"),
+        ("brand-marketing", "Brand / trade marketing", r"brand|thuong hieu|trade marketing"),
+        ("pr-event", "Truyền thông / PR / sự kiện", r"truyen thong|\bpr\b|event|su kien|media|bao chi"),
+        ("marketing-general", "Marketing tổng hợp", r"marketing"),
+    ],
+    "nhan-su": [
+        ("cnb", "C&B / tiền lương", r"\bc b\b|tien luong|payroll|compensation|bao hiem xa hoi|cham cong"),
+        ("recruiter", "Tuyển dụng", r"tuyen dung|recruit|talent acquisition|headhunt"),
+        ("hr-training", "Đào tạo nội bộ (L&D)", r"dao tao|training|\bl d\b|learning"),
+        ("hr-admin", "Hành chính – nhân sự", r"hanh chinh|hanh chanh"),
+        ("hr-generalist", "Nhân sự tổng hợp / HRBP", r"nhan su|\bhr|human resource|doi tac nhan su"),
+    ],
+    "tai-chinh-ngan-hang": [
+        ("bank-risk", "Quản trị rủi ro / tuân thủ", r"rui ro|\brisk\b|tuan thu|compliance|kiem soat"),
+        ("relationship-manager", "Quan hệ khách hàng / tín dụng ngân hàng",
+         r"quan he khach hang|relationship|\brm\b|khach hang (doanh nghiep|ca nhan|uu tien)|tin dung|credit|cho vay"),
+        ("bank-teller", "Giao dịch viên / dịch vụ ngân hàng",
+         r"giao dich vien|teller|phong giao dich|thanh toan quoc te|remittance|dich vu khach hang"),
+        ("financial-analyst", "Phân tích tài chính / đầu tư",
+         r"phan tich|dau tu|chung khoan|investment|analyst|nguon von|treasury|hoach dinh tai chinh|ke hoach tai chinh"),
+        ("insurance-advisor", "Tư vấn bảo hiểm / tài chính", r"bao hiem|insurance|tu van tai chinh"),
+    ],
+    "logistics": [
+        ("purchasing", "Mua hàng / thu mua",
+         r"mua hang|thu mua|purchas|procurement|cung ung|vat tu|dau thau|sourcing"),
+        ("import-export", "Xuất nhập khẩu / chứng từ / hải quan",
+         r"xuat nhap khau|\bxnk\b|import|export|hai quan|customs|chung tu"),
+        ("supply-planner", "Lập kế hoạch chuỗi cung ứng", r"supply chain|chuoi cung ung|planner|ke hoach"),
+        ("warehouse", "Kho vận / thủ kho", r"\bkho\b|warehouse"),
+        ("transport", "Điều phối vận tải / giao nhận",
+         r"dieu phoi|van tai|giao nhan|forward|transport|dispatch|logistics coordinator"),
+        ("logistics-general", "Logistics tổng hợp", r"logistics"),
+    ],
+}
+
+
+def occupation(family: str, title: str) -> str | None:
+    f = fold(title)
+    return next((oid for oid, _name, pat in OCCUPATIONS.get(family, []) if re.search(pat, f)), None)
+
+
 def _by_title(title: str, rules) -> str | None:
     f = fold(title)
     return next((fam for fam, pat in rules if re.search(pat, f)), None)

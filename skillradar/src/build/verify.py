@@ -106,6 +106,29 @@ def main() -> int:
             for m, sh, _n, _t in pts:
                 check(f"history {src} {m} {s['id']}", sh, month.get((src, m, s["id"])), TOL)
                 n_points += 1
+    # nghề: số tin đang mở, lương, tỷ trọng kỹ năng, đếm lại từ posting + fact
+    occ = {o: (n, sn, m) for o, n, sn, m in con.execute(f"""
+        SELECT occupation_id, count(*),
+               count(*) FILTER (WHERE salary_unit = 'VND' AND coalesce(salary_min, salary_max) BETWEEN 1e6 AND 2e8),
+               median((coalesce(salary_min, salary_max) + coalesce(salary_max, salary_min)) / 2)
+                 FILTER (WHERE salary_unit = 'VND' AND coalesce(salary_min, salary_max) BETWEEN 1e6 AND 2e8)
+        FROM posting WHERE posting_id IN ({OPEN}) AND occupation_id IS NOT NULL GROUP BY 1""").fetchall()}
+    occ_share = {(o, s): v for o, s, v in con.execute(f"""
+        SELECT p.occupation_id, f.skill_id, count(DISTINCT p.posting_id) / any_value(t.n)
+        FROM posting p JOIN fact_posting_skill f USING (posting_id)
+        JOIN (SELECT occupation_id, count(*) n FROM posting WHERE posting_id IN ({OPEN}) GROUP BY 1) t USING (occupation_id)
+        WHERE p.posting_id IN ({OPEN}) GROUP BY ALL""").fetchall()}
+    n_occ = 0
+    for f in families:
+        for o in f["occupations"]:
+            n_occ += 1
+            n, sn, med = occ.get(o["id"], (None, 0, None))
+            check(f"occupation {o['id']} n_open", o["n_open"], n)
+            if o["salary_median_vnd"] != (round(med, -5) if sn >= 30 else None):
+                errors.append(f"occupation {o['id']} salary: json={o['salary_median_vnd']} sql={med}")
+            for sid, w, *_ in o["skills"]:
+                check(f"occupation {o['id']} {sid}", w, occ_share.get((o["id"], sid)), TOL)
+
     # tỷ lệ tin nhắc tới công cụ AI theo kỳ, đếm lại từ posting + posting_ai (không đọc m_ai_month)
     ai = {(f, p): (n, v) for f, p, n, v in con.execute("""
         SELECT job_family_id, CASE WHEN period_month < DATE '2025-07-01' THEN '2025-H1'
@@ -123,8 +146,8 @@ def main() -> int:
                 check(f"ai_trend {f['id']} {p}", v, wv, TOL)
     con.close()
 
-    log.info("đã kiểm %d kỹ năng, %d nhóm nghề, %d tỉnh, %d điểm lịch sử, %d cảnh", len(skills), len(families),
-             len(provinces), n_points, n_scenes)
+    log.info("đã kiểm %d kỹ năng, %d nhóm nghề, %d nghề, %d tỉnh, %d điểm lịch sử, %d cảnh", len(skills),
+             len(families), n_occ, len(provinces), n_points, n_scenes)
     if errors:
         for e in errors[:30]:
             log.error("LỆCH %s", e)

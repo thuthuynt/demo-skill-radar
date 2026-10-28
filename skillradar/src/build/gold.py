@@ -122,14 +122,15 @@ def main() -> int:
     con.execute("""CREATE OR REPLACE VIEW fact_domain AS
         SELECT f.* FROM fact_posting_skill f JOIN dim_skill d USING (skill_id)""")
 
-    # 1. tỷ trọng trên tin đang mở, nhiều lát cắt (dim = 'all' | 'job_family' | 'province' | 'seniority')
+    # 1. tỷ trọng trên tin đang mở, nhiều lát cắt (dim = 'all' | 'job_family' | 'province' | 'seniority' | 'occupation')
     con.execute("""
         CREATE OR REPLACE TABLE m_skill_open AS
         WITH cut AS (
             SELECT posting_id, 'all' dim, 'all' val FROM base_open
             UNION ALL SELECT posting_id, 'job_family', job_family_id FROM base_open
             UNION ALL SELECT posting_id, 'province', province_code FROM base_open WHERE province_code IS NOT NULL
-            UNION ALL SELECT posting_id, 'seniority', seniority FROM base_open),
+            UNION ALL SELECT posting_id, 'seniority', seniority FROM base_open
+            UNION ALL SELECT posting_id, 'occupation', occupation_id FROM base_open WHERE occupation_id IS NOT NULL),
         tot AS (SELECT dim, val, count(*) total FROM cut GROUP BY ALL)
         SELECT c.dim, c.val, f.skill_id, count(*) n, any_value(t.total) total,
                count(*) / any_value(t.total) AS "share"

@@ -14,7 +14,7 @@ from datetime import datetime, timezone
 
 import duckdb
 
-from src.build.normalize import FAMILIES, OUT_OF_SCOPE
+from src.build.normalize import FAMILIES, OCCUPATIONS, OUT_OF_SCOPE
 from src.build.scenes import build_scenes
 from src.build.silver import DB
 from src.config import LOG_DIR, ROOT, load_assumptions, load_sources
@@ -26,6 +26,7 @@ OUT = ROOT / "web" / "data"
 MAX_BYTES = 1_000_000
 TOP_PROVINCES = 12      # tỉnh có nhiều tin đang mở nhất, dùng cho lát cắt theo tỉnh
 TOP_PAIRS = 400
+MIN_OCC_OPEN = 30       # nghề cần ≥ 30 tin đang mở mới có trang riêng
 MIN_AI_N = 80           # tin lưu trữ tối thiểu của một nhóm nghề trong một kỳ để công bố tỷ lệ nhắc công cụ AI
 AI_PERIODS = ["2025-H1", "2025-H2", "2026"]
 AI_PERIOD = ("CASE WHEN month < DATE '2025-07-01' THEN '2025-H1' "
@@ -148,12 +149,33 @@ def main() -> int:
         SELECT job_family_id f, {AI_PERIOD} p, sum(n) n, sum(n * ai_tool_share) / sum(n) AS "share"
         FROM m_ai_month WHERE job_family_id <> 'all' AND month >= '2025-01-01' GROUP BY ALL"""):
         ai_trend[r["f"]][r["p"]] = [r4(r["share"]) if r["n"] >= MIN_AI_N else None, int(r["n"])]
+    # nghề trong nhóm nghề: cùng cách tính tỷ trọng / lương như nhóm nghề, chỉ nghề đủ MIN_OCC_OPEN tin
+    occ_skill = defaultdict(list)
+    for r in rows(con, """SELECT val o, skill_id, "share" w FROM m_skill_open
+                          WHERE dim = 'occupation' AND n >= 5 ORDER BY w DESC"""):
+        occ_skill[r["o"]].append([r["skill_id"], r4(r["w"]), None, None])
+    occ = {r["o"]: r for r in rows(con, """
+        SELECT occupation_id o, count(*) n_open,
+               count(*) FILTER (WHERE salary_unit = 'VND' AND coalesce(salary_min, salary_max) BETWEEN 1e6 AND 2e8) salary_n,
+               median((coalesce(salary_min, salary_max) + coalesce(salary_max, salary_min)) / 2)
+                 FILTER (WHERE salary_unit = 'VND' AND coalesce(salary_min, salary_max) BETWEEN 1e6 AND 2e8) med
+        FROM base_open WHERE occupation_id IS NOT NULL GROUP BY 1""")}
+    def occupations(f):
+        out = []
+        for o, name, _ in OCCUPATIONS.get(f, []):
+            r = occ.get(o)
+            if r and r["n_open"] >= MIN_OCC_OPEN:
+                out.append({"id": o, "name": name, "n_open": r["n_open"],
+                            "salary_median_vnd": round(r["med"], -5) if r["salary_n"] >= 30 else None,
+                            "salary_n": r["salary_n"], "skills": occ_skill[o][:30]})
+        return sorted(out, key=lambda x: -x["n_open"])
     families = [{"id": f, "name": FAMILIES[f], "in_scope": f not in OUT_OF_SCOPE,
                  "salary_median_vnd": round(salary[f]["med"], -5) if f in salary and salary[f]["n"] >= 30 else None,
                  "salary_n": salary[f]["n"] if f in salary else 0,
                  "n_open": sum(fam_prov[f].values()), "by_province": fam_prov[f],
                  "skills": fam_skill[f][:30],
-                 "ai_trend": [[p, *ai_trend[f].get(p, [None, 0])] for p in AI_PERIODS]}
+                 "ai_trend": [[p, *ai_trend[f].get(p, [None, 0])] for p in AI_PERIODS],
+                 "occupations": occupations(f)}
                 for f in FAMILIES if fam_prov.get(f)]
 
     # --- đồng xuất hiện ---

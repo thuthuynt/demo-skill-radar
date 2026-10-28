@@ -19,7 +19,7 @@ from datetime import date, datetime, timedelta
 import duckdb
 from rapidfuzz.distance import Levenshtein
 
-from src.build.normalize import (OUT_OF_SCOPE, fold, job_family, lang, provinces,
+from src.build.normalize import (OUT_OF_SCOPE, fold, job_family, lang, occupation, provinces,
                                  salary, seniority)
 from src.config import WAREHOUSE_DIR, load_assumptions
 from src.log import get_logger
@@ -108,6 +108,7 @@ def build_rows() -> list[dict]:
                 "salary_min": smin, "salary_max": smax, "salary_unit": sunit,
                 "lang": lang(r["description_raw"]),
                 "job_family_id": fam, "job_family_method": fam_how, "in_scope": fam not in OUT_OF_SCOPE,
+                "occupation_id": occupation(fam, r["title_raw"]),
                 # parser cũ che nhầm "Anh" trong "Tiếng Anh"; chỉ khôi phục được chữ "Anh".
                 # shortcut: các từ viết hoa ngay sau đó đã mất hẳn, tải lại tin nếu cần đủ
                 "description": TIENG_ANH_MASKED.sub(r"\1 Anh", r["description_raw"]),
@@ -162,7 +163,7 @@ def main() -> int:
           title VARCHAR, company VARCHAR, company_key VARCHAR, location_raw VARCHAR,
           province_code VARCHAR, province_codes VARCHAR[], seniority VARCHAR,
           salary_min DOUBLE, salary_max DOUBLE, salary_unit VARCHAR, lang VARCHAR,
-          job_family_id VARCHAR, job_family_method VARCHAR, in_scope BOOLEAN,
+          job_family_id VARCHAR, job_family_method VARCHAR, in_scope BOOLEAN, occupation_id VARCHAR,
           description VARCHAR, is_open BOOLEAN, first_seen_open DATE, last_seen_open DATE,
           is_repost BOOLEAN, repost_of VARCHAR, parser_version INTEGER)""")
     cols = [c for c in rows[0] if not c.startswith("_")]

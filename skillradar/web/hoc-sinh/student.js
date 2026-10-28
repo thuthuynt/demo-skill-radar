@@ -33,6 +33,50 @@ function jobCard(f) {
     h('span', { class: 'more' }, S.view, ' →'));
 }
 
+function occCard(f, o) {
+  const ai = aiOf(o);
+  return h('a', { class: 'job', href: `#/vi-tri/${f.id}/${o.id}` }, h('h3', {}, o.name),
+    h('div', { class: 'facts' },
+      h('span', {}, h('b', {}, fmt(o.n_open)), S.card_open),
+      h('span', {}, h('b', {}, o.salary_median_vnd ? tr(o.salary_median_vnd) + ' tr' : '—'), o.salary_median_vnd ? S.card_salary : S.salary_none)),
+    h('div', { class: 'small' }, `${S.card_ai}: `, h('span', { class: `chip ${ai === 'high' ? 'warn' : ''}` }, S.ai_scale[ai])),
+    h('span', { class: 'more' }, S.view, ' →'));
+}
+
+// tin của nhóm không nằm trong nghề nào được hiện (nghề < 30 tin hoặc tiêu đề không khớp luật)
+const occRest = f => { const n = f.n_open - f.occupations.reduce((s, o) => s + o.n_open, 0);
+  return fill(S.occ_rest, { n: fmt(n), p: `${Math.round(100 * n / f.n_open)}%` }); };
+
+function skillTable(x) {
+  return h('section', { class: 'section' }, h('h2', {}, S.skills_title), h('p', { class: 'note', style: 'margin:4px 0 12px' }, S.skills_lead),
+    h('div', { class: 'scroll' }, h('table', {},
+      h('thead', {}, h('tr', {}, h('th', {}, S.col_skill), h('th', {}, S.col_need), h('th', { class: 'hide-sm' }, S.col_type), h('th', { class: 'num hide-sm' }, S.col_pay))),
+      h('tbody', {}, treeSkills(x).map(([sid, w, sw, swo]) => { const s = D.byId[sid];
+        return h('tr', {}, h('td', {}, h('a', { href: `#/ky-nang/${sid}` }, s.vi)),
+          h('td', {}, need(w), `${k10(w)}/10`), h('td', { class: 'small muted hide-sm' }, S.type[s.type] || s.type),
+          h('td', { class: 'num hide-sm' }, sw != null ? `${tr(sw)} / ${tr(swo)}` : '—')); })))),
+    h('p', { class: 'note hide-sm' }, S.pay_note));
+}
+
+function occView(fid, oid) {
+  const f = fam(fid), o = f?.occupations.find(x => x.id === oid);
+  if (!o) { location.hash = f ? `#/nghe/${fid}` : '#/'; return []; }
+  const ai = aiOf(o);
+  return [
+    h('a', { class: 'back', href: `#/nghe/${f.id}` }, fill(S.occ_back, { family: f.name })),
+    h('p', { class: 'eyebrow' }, fill(S.occ_eyebrow, { family: f.name.toUpperCase() })), h('h1', {}, o.name),
+    h('div', { class: 'section' }, tiles([[fmt(o.n_open), S.n_open], [o.salary_median_vnd ? tr(o.salary_median_vnd) : '—', o.salary_median_vnd ? S.salary : S.salary_none]]),
+      h('p', { class: 'note' }, S.salary_explain)),
+    skillTable(o),
+    h('section', { class: 'section card' }, h('h2', {}, S.ai_title),
+      h('p', {}, h('span', { class: `chip ${ai === 'high' ? 'warn' : ''}` }, S.ai_scale[ai]), ' ', S.ai_body[ai]),
+      h('h3', { style: 'margin-top:16px' }, fill(S.occ_ai_trend, { title: C.ai_trend.title, family: f.name.toLowerCase() })), aiTrend(f, C)),
+    h('section', { class: 'section' }, h('h2', { style: 'margin-bottom:12px' }, fill(S.occ_siblings, { family: f.name.toLowerCase() })),
+      h('div', { class: 'jobs' }, f.occupations.filter(x => x.id !== o.id).map(x => occCard(f, x)))),
+    h('p', { class: 'note' }, S.occ_method),
+  ];
+}
+
 function listView() {
   const sort = store.get('sort', 'open');
   const cmp = { open: (a, b) => b.n_open - a.n_open, salary: (a, b) => (b.salary_median_vnd || 0) - (a.salary_median_vnd || 0),
@@ -43,11 +87,14 @@ function listView() {
     const q = fold(e.target.value.trim());
     if (!q) { results.replaceChildren(); return; }
     const jobs = inScope().filter(f => fold(f.name + ' ' + (S.families[f.id]?.short || '')).includes(q)).slice(0, 5);
+    const occs = inScope().flatMap(f => f.occupations.map(o => [f, o])).filter(([, o]) => fold(o.name).includes(q))
+      .sort((a, b) => b[1].n_open - a[1].n_open).slice(0, 5);
     const skills = D.skills.filter(s => fold(s.vi + ' ' + s.en).includes(q)).sort((a, b) => b.open.share - a.open.share).slice(0, 6);
     results.replaceChildren(
+      ...occs.map(([f, o]) => h('a', { href: `#/vi-tri/${f.id}/${o.id}` }, h('span', {}, o.name), h('small', {}, S.search_occ))),
       ...jobs.map(f => h('a', { href: `#/nghe/${f.id}` }, h('span', {}, f.name), h('small', {}, S.search_jobs))),
       ...skills.map(s => h('a', { href: `#/ky-nang/${s.id}` }, h('span', {}, s.vi), h('small', {}, S.search_skills))),
-      !jobs.length && !skills.length ? h('p', { class: 'note' }, S.search_none) : null);
+      !occs.length && !jobs.length && !skills.length ? h('p', { class: 'note' }, S.search_none) : null);
   } });
   const select = h('select', { onchange: e => { store.set('sort', e.target.value); render(); } },
     ['open', 'salary', 'ai'].map(v => h('option', { value: v, selected: v === sort }, S[`sort_${v}`])));
@@ -64,7 +111,6 @@ function jobView(id) {
   const copy = S.families[id] || {}, ai = aiOf(f), ins = salaryInsight(f);
   const provs = Object.entries(f.by_province).filter(([c]) => D.provinces.some(p => p.code === c && p.region))
     .sort((a, b) => b[1] - a[1]).slice(0, 3).map(([c, n]) => `${D.provinces.find(p => p.code === c).name} (${fmt(n)})`);
-  const rows = treeSkills(f);
   const basePay = ins ? (f.skills.find(s => s[0] === ins.raise) || [])[3] : null;
   return [
     h('a', { class: 'back', href: '#/' }, S.back),
@@ -74,14 +120,9 @@ function jobView(id) {
       h('div', {}, tiles([[fmt(f.n_open), S.n_open], [f.salary_median_vnd ? tr(f.salary_median_vnd) : '—', f.salary_median_vnd ? S.salary : S.salary_none]]),
         h('p', { class: 'note' }, S.salary_explain),
         provs.length ? h('p', { class: 'note' }, `${S.where}: ${provs.join(', ')}`) : null)),
-    h('section', { class: 'section' }, h('h2', {}, S.skills_title), h('p', { class: 'note', style: 'margin:4px 0 12px' }, S.skills_lead),
-      h('div', { class: 'scroll' }, h('table', {},
-        h('thead', {}, h('tr', {}, h('th', {}, S.col_skill), h('th', {}, S.col_need), h('th', { class: 'hide-sm' }, S.col_type), h('th', { class: 'num hide-sm' }, S.col_pay))),
-        h('tbody', {}, rows.map(([sid, w, sw, swo]) => { const s = D.byId[sid];
-          return h('tr', {}, h('td', {}, h('a', { href: `#/ky-nang/${sid}` }, s.vi)),
-            h('td', {}, need(w), `${k10(w)}/10`), h('td', { class: 'small muted hide-sm' }, S.type[s.type] || s.type),
-            h('td', { class: 'num hide-sm' }, sw != null ? `${tr(sw)} / ${tr(swo)}` : '—')); })))),
-      h('p', { class: 'note hide-sm' }, S.pay_note)),
+    f.occupations.length ? h('section', { class: 'section' }, h('h2', {}, S.occ_title), h('p', { class: 'note', style: 'margin:4px 0 12px' }, S.occ_lead),
+      h('div', { class: 'jobs' }, f.occupations.map(o => occCard(f, o))), h('p', { class: 'note' }, occRest(f))) : null,
+    skillTable(f),
     ins && basePay ? h('section', { class: 'section card' }, h('h2', {}, S.insight_title),
       h('p', {}, fill(S.insight, { entry: D.byId[ins.entry].vi, raise: D.byId[ins.raise].vi, raisePay: tr(ins.raisePay), basePay: tr(basePay) }))) : null,
     (scenes[id] || []).length ? h('section', { class: 'section' }, h('h2', {}, S.quotes_title), h('p', { class: 'note', style: 'margin:4px 0 10px' }, S.quotes_lead),
@@ -98,22 +139,25 @@ function skillView(id) {
   const s = D.byId[id];
   if (!s) { location.hash = '#/'; return []; }
   const t = trend(s.history), ai = aiBadge(s.ai), chart = trendSvg(s, { w: 640, h: 220, axes: true });
-  const jobs = D.families.filter(f => f.in_scope).map(f => [f, (f.skills.find(x => x[0] === id) || [])[1]]).filter(x => x[1])
-    .sort((a, b) => b[1] - a[1]).slice(0, 6);
+  // nghề cụ thể khi nhóm đã tách nghề, không thì cả nhóm nghề
+  const units = inScope().flatMap(f => f.occupations.length
+    ? f.occupations.map(o => [o.name, `#/vi-tri/${f.id}/${o.id}`, o]) : [[f.name, `#/nghe/${f.id}`, f]]);
+  const jobs = units.map(([name, href, x]) => [name, href, (x.skills.find(k => k[0] === id) || [])[1]]).filter(x => x[2])
+    .sort((a, b) => b[2] - a[2]).slice(0, 6);
   return [h('a', { class: 'back', href: '#/' }, S.back),
     h('p', { class: 'eyebrow' }, S.skill_eyebrow), h('h1', {}, s.vi), s.en && s.en !== s.vi ? h('p', { class: 'lead' }, s.en) : null,
     tiles([[`${k10(s.open.share)}/10`, S.skill_overall], [C.trend[t], S.skill_trend], [S.ai_scale[ai], S.skill_ai]]),
     h('section', { class: 'section card' }, h('h2', { style: 'margin-bottom:10px' }, S.trend_title),
       chart || h('p', { class: 'note' }, S.trend_none), chart ? h('p', { class: 'note' }, fill(S.trend_note, { source: chart.dataset.source })) : null),
     h('section', { class: 'section card' }, h('h2', { style: 'margin-bottom:10px' }, S.skill_jobs),
-      h('table', {}, h('tbody', {}, jobs.map(([f, w]) => h('tr', {}, h('td', {}, h('a', { href: `#/nghe/${f.id}` }, f.name)),
-        h('td', {}, bar(w, jobs[0][1], `${k10(w)}/10 tin`))))))),
+      h('table', {}, h('tbody', {}, jobs.map(([name, href, w]) => h('tr', {}, h('td', {}, h('a', { href }, name)),
+        h('td', {}, bar(w, jobs[0][2], `${k10(w)}/10 tin`))))))),
   ];
 }
 
 function render() {
-  const [, page, arg] = (location.hash || '#/').split('/');
-  const nodes = ({ nghe: () => jobView(arg), 'ky-nang': () => skillView(arg) }[page] || listView)();
+  const [, page, arg, arg2] = (location.hash || '#/').split('/');
+  const nodes = ({ nghe: () => jobView(arg), 'vi-tri': () => occView(arg, arg2), 'ky-nang': () => skillView(arg) }[page] || listView)();
   if (nodes.length) app.replaceChildren(...nodes.filter(Boolean));
 }
 window.addEventListener('hashchange', () => { window.scrollTo(0, 0); render(); });

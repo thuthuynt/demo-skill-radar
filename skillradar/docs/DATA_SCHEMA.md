@@ -66,6 +66,10 @@ Quyết định thiết kế quan trọng nhất. Mọi chỉ số về sau ch�
 - `dim_province`: `province_code`, `name`, `region`
 - `dim_job_family`: `job_family_id`, `name`; bảng nối `job_family_skill` với trọng số
   (tỷ lệ tin của nhóm nghề có yêu cầu kỹ năng đó, tính từ dữ liệu, không nhập tay)
+- Nghề (`posting.occupation_id`, từ 28/10/2026): cấp dưới nhóm nghề cho 7 nhóm lớn (CNTT, kinh doanh,
+  kế toán, marketing, nhân sự, tài chính–ngân hàng, logistics). Gán bằng luật theo tiêu đề tin
+  (`OCCUPATIONS` trong `src/build/normalize.py`); không khớp luật nào thì để trống, không đoán.
+  Tỷ trọng kỹ năng theo nghề: `m_skill_open` với `dim = 'occupation'`. Web chỉ hiện nghề ≥ 30 tin đang mở.
 
 ### `dim_training_quota` — phía cung
 

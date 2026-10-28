@@ -2,7 +2,7 @@
 
 import pytest
 
-from src.build.normalize import job_family, lang, provinces, salary, seniority
+from src.build.normalize import OCCUPATIONS, job_family, lang, occupation, provinces, salary, seniority
 
 
 @pytest.mark.parametrize("raw,expected", [
@@ -75,3 +75,25 @@ def test_scene_blank_span_hides_whole_term():
     q = "Có khả năng sử dụng phần mềm kế toán MISA."
     i, j = blank_span(q, "phan mem ke toan")
     assert q[i:j] == "phần mềm kế toán"
+
+
+@pytest.mark.parametrize("family, title, expected", [
+    ("cntt", "Business Analyst (AI, Scrum, Figma, SQL)", "business-analyst"),   # AI chỉ là kỹ năng
+    ("cntt", "QC Tester (SQL, Jira, ERP, AI)", "tester"),
+    ("cntt", "AI Engineer (Computer Vision, Python, LLM)", "ai-engineer"),
+    ("cntt", "Chuyên viên phân tích dữ liệu (Data Analyst)", "data-analyst"),
+    ("ke-toan", "Kế toán thuế", "tax-accountant"),
+    ("ke-toan", "Kế toán trưởng - Chief Accountant", "chief-accountant"),
+    ("kinh-doanh", "Nhân viên kinh doanh B2B", "sales-b2b"),
+    ("nhan-su", "Chuyên viên C&B", "cnb"),
+    ("logistics", "Nhân viên chứng từ xuất nhập khẩu", "import-export"),
+    ("cntt", "2D Concept Artist (Senior)", None),                               # không đoán
+    ("phap-ly", "Chuyên viên pháp chế", None),                                   # nhóm chưa tách nghề
+])
+def test_occupation(family, title, expected):
+    assert occupation(family, title) == expected
+
+
+def test_occupation_ids_unique():
+    ids = [o for occs in OCCUPATIONS.values() for o, _, _ in occs]
+    assert len(ids) == len(set(ids))

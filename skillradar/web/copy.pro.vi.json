@@ -112,8 +112,8 @@
   "title": "Nghề nào đang cần người, và cần kỹ năng gì?",
   "lead": "Xem 15 nhóm nghề qua hàng chục nghìn tin tuyển dụng đang mở: bao nhiêu chỗ đang tuyển, lương bao nhiêu, cần học những gì.",
   "search_label": "Tìm nghề hoặc kỹ năng",
-  "search_ph": "vd: kế toán, Excel, lái xe, marketing…",
-  "search_jobs": "Nghề",
+  "search_ph": "vd: data analyst, kế toán thuế, Excel, lái xe…",
+  "search_jobs": "Nhóm nghề",
   "search_skills": "Kỹ năng",
   "search_none": "Không tìm thấy. Thử từ khác, ví dụ \"bán hàng\" hoặc \"tiếng Anh\".",
   "sort_label": "Sắp xếp",
@@ -237,6 +237,15 @@
     "day": "Vận hành máy hoặc xe, đóng gói, kiểm hàng, tuân thủ an toàn lao động."
    }
   },
-  "salary_explain": "Lương trung vị: một nửa số tin trả cao hơn, một nửa trả thấp hơn. Chỉ tính tin có ghi lương."
+  "salary_explain": "Lương trung vị: một nửa số tin trả cao hơn, một nửa trả thấp hơn. Chỉ tính tin có ghi lương.",
+  "search_occ": "Nghề",
+  "occ_title": "Các nghề trong nhóm này",
+  "occ_lead": "Mỗi nhóm gồm nhiều nghề cần kỹ năng khác nhau. Bấm vào một nghề để xem kỹ năng riêng của nghề đó.",
+  "occ_rest": "Còn {n} tin ({p}) thuộc nghề ít tin hơn hoặc chưa xác định được nghề từ tiêu đề tin; các tin này vẫn được tính trong số liệu của cả nhóm bên dưới.",
+  "occ_back": "← {family}",
+  "occ_eyebrow": "NGHỀ TRONG NHÓM {family}",
+  "occ_ai_trend": "{title} (cả nhóm {family})",
+  "occ_siblings": "Nghề khác trong nhóm {family}",
+  "occ_method": "Nghề được xác định từ tiêu đề tin tuyển dụng bằng luật từ khóa; tin không khớp luật nào không được gán. Chỉ hiện nghề có từ 30 tin đang mở."
  }
 }
