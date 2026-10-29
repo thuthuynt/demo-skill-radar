@@ -182,11 +182,12 @@ def _resolve(value, flight: bytes, depth: int = 0):
 
 def parse_next_flight(html: str) -> dict | None:
     flight = _flight(html)
-    i = flight.find(b'"jobDetail":{')
-    if i < 0:
+    # giao diện 2024 (bản lưu Internet Archive) đặt cùng object dưới khóa "detail"
+    m = re.search(rb'"jobDetail":(?=\{)|"detail":(?=\{"jobId")', flight)
+    if m is None:
         return None
     try:
-        detail, _ = json.JSONDecoder().raw_decode(flight[i + len(b'"jobDetail":'):].decode(errors="replace"))
+        detail, _ = json.JSONDecoder().raw_decode(flight[m.end():].decode(errors="replace"))
     except json.JSONDecodeError:
         return None
     d = _resolve(detail, flight)
@@ -267,7 +268,9 @@ def parse_timviec365(html: str) -> dict | None:
     }
 
 
-PARSERS = {"jsonld": parse_jsonld, "next_flight": parse_next_flight,
+PARSERS = {"jsonld": parse_jsonld,
+           # vietnamworks đầu 2024 chưa dùng Next.js, chỉ có JSON-LD JobPosting
+           "next_flight": lambda html: parse_next_flight(html) or parse_jsonld(html),
            "timviec365": parse_timviec365}
 # Tăng khi sửa lỗi parser làm sai dữ liệu đã ghi; `run --refetch` tải lại bản cũ hơn.
 # timviec365@2: sửa tên công ty (12/10/2026)

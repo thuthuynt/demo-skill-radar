@@ -2,6 +2,8 @@
 
 vietnamworks_job.html: email người liên hệ thật đã được thay bằng địa chỉ giả
 `nguoi.lien.he@congty.test` trước khi lưu vào repo; test kiểm tra nó bị lọc.
+vietnamworks_2024_*.html: bản lưu Internet Archive (2/2024 và 5/2024), chỉ giữ thẻ JSON-LD /
+các đoạn __next_f; userId thật thay bằng 1.
 """
 
 import json
@@ -34,11 +36,27 @@ def test_vietnamworks_next_flight():
     assert "Kỹ năng: Google Sheets" in r["description_raw"]
 
 
+def test_vietnamworks_2024_layouts():
+    # 5/2024: Next.js nhưng object tin nằm dưới khóa "detail"
+    r = record("vietnamworks", "next_flight", "vietnamworks_2024_flight.html")
+    assert r["title_raw"] == "Giám Đốc Chi Nhánh Bán Lẻ - Khu Vực Đông Ba - Thừa Thiên Huế"
+    assert r["posted_at_raw"].startswith("2024-04-25")
+    assert r["location_raw"] == "Thừa Thiên Huế"
+    assert "contactName" not in r["structured"] and "userId" not in r["structured"]
+    # 2/2024: chưa có Next.js, chỉ có JSON-LD JobPosting
+    r = record("vietnamworks", "next_flight", "vietnamworks_2024_jsonld.html")
+    assert r["title_raw"] == "01 Chuyên Viên Pháp Chế"
+    assert r["posted_at_raw"] == "2024-01-11"
+    assert len(r["description_raw"]) > 500
+
+
 def test_no_contact_details_reach_disk():
     for args in [("itviec", "jsonld", "itviec_job.html"),
                  ("jobsgo", "jsonld", "jobsgo_job.html"),
                  ("timviec365", "timviec365", "timviec365_job.html"),
-                 ("vietnamworks", "next_flight", "vietnamworks_job.html")]:
+                 ("vietnamworks", "next_flight", "vietnamworks_job.html"),
+                 ("vietnamworks", "next_flight", "vietnamworks_2024_flight.html"),
+                 ("vietnamworks", "next_flight", "vietnamworks_2024_jsonld.html")]:
         dumped = json.dumps(record(*args), ensure_ascii=False)
         assert "nguoi.lien.he@congty.test" not in dumped
         assert not EMAIL.search(dumped)
