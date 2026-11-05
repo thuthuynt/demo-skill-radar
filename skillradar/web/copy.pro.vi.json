@@ -13,13 +13,13 @@
   "method_body": [
    "Dữ liệu: tin tuyển dụng công khai đang mở, thu thập hằng ngày tuân thủ robots.txt, không thu thập dữ liệu cá nhân. Tin đăng lại bị loại.",
    "Tỷ lệ = số tin đòi hỏi kỹ năng / số tin đang mở của nhóm nghề. Kỹ năng trích bằng từ điển song ngữ (đã duyệt tay), không dùng mô hình AI.",
-   "Lịch sử theo tháng lấy từ MẪU bản lưu Internet Archive (~150 tin/tháng/nguồn): chỉ dùng tỷ trọng, không dùng số đếm. Tháng thiếu mẫu để trống, không nội suy.",
+   "Lịch sử theo tháng lấy từ một mẫu bản lưu Internet Archive (~150 tin/tháng/nguồn): chỉ dùng tỷ trọng, không dùng số đếm. Tháng thiếu mẫu để trống, không nội suy.",
    "Lương: trung vị khoảng lương của tin có ghi lương; so sánh có/không có kỹ năng là tương quan, không phải nhân quả.",
    "Mức ảnh hưởng của AI = 0,65 × khả năng AI làm thay (nhóm đánh giá) + 0,35 × mức đi cùng công cụ AI trong tin tuyển dụng (xếp hạng giữa các kỹ năng). Riêng tỷ lệ tin nhắc tới công cụ AI được đo theo nửa năm từ 2025 trên mẫu bản lưu Internet Archive.",
-   "Phạm vi: việc văn phòng mọi ngành và lao động phổ thông. Kỹ thuật/xây dựng/sản xuất chuyên môn, y tế chưa trong phạm vi."
+   "Phạm vi: việc văn phòng mọi ngành và lao động phổ thông. Kỹ thuật/xây dựng/sản xuất chuyên môn, y tế chưa nằm trong phạm vi."
   ],
   "data_link": "Số liệu thô và JSON",
-  "student_link": "Trang cho học sinh, sinh viên",
+  "student_link": "Trang hướng nghiệp",
   "nav_uni": "Nhà trường",
   "nav_gov": "Cơ quan quản lý",
   "trend": {
@@ -51,24 +51,24 @@
   "aud": "Dành cho nhà trường",
   "eyebrow": "ĐỐI CHIẾU CHƯƠNG TRÌNH ĐÀO TẠO",
   "title": "Chương trình của bạn có dạy đúng kỹ năng thị trường đang cần?",
-  "lead": "Chọn nhóm nghề đầu ra, đánh dấu kỹ năng chương trình đã dạy. Trang tính mức đáp ứng theo nhu cầu thật và liệt kê kỹ năng còn thiếu.",
+  "lead": "Chọn nhóm nghề đầu ra, đánh dấu kỹ năng chương trình đã dạy. Trang này tính mức đáp ứng theo nhu cầu thật và liệt kê kỹ năng còn thiếu.",
   "pick_family": "Nhóm nghề đầu ra",
   "tile_family_open": "tin {family} đang mở",
   "tile_salary": "lương trung vị (triệu đ/tháng)",
-  "tile_ai": "mức tác động AI",
+  "tile_ai": "mức ảnh hưởng của AI",
   "table_title": "Kỹ năng nhà tuyển dụng yêu cầu",
   "col_taught": "Đã dạy",
   "col_skill": "Kỹ năng",
   "col_share": "Tỷ lệ tin",
   "col_trend": "12 tháng qua",
   "col_pay": "Lương có / không (tr)",
-  "col_ai": "Tác động AI",
+  "col_ai": "Ảnh hưởng của AI",
   "coverage_title": "Mức đáp ứng của chương trình",
   "coverage_body": "Tính theo trọng số nhu cầu: kỹ năng nhiều tin cần đóng góp nhiều hơn.",
   "gap_title": "Kỹ năng còn thiếu, xếp theo nhu cầu",
   "gap_none": "Chương trình đã phủ toàn bộ kỹ năng trong bảng.",
   "rising_title": "Kỹ năng đang lên trên thị trường",
-  "rising_body": "Thay đổi tỷ trọng 12 tháng qua trong mẫu lưu trữ (toàn thị trường, theo nguồn có chuỗi dài nhất). Chỉ kỹ năng chiếm ≥ 2% tin.",
+  "rising_body": "Thay đổi tỷ trọng 12 tháng qua trong mẫu lưu trữ (toàn thị trường, theo nguồn có chuỗi dài nhất). Chỉ tính kỹ năng có trong ≥ 2% số tin.",
   "trend_note": "Xu hướng tính trên toàn thị trường, không riêng nhóm nghề."
  },
  "gov": {
@@ -77,16 +77,16 @@
   "title": "Nhu cầu kỹ năng theo nhóm nghề và địa phương",
   "lead": "Số liệu dựng từ tin tuyển dụng công khai, cập nhật hằng ngày. Mọi con số truy ngược được về dữ liệu đã thu và được kiểm chứng tự động trước mỗi lần công bố.",
   "heat_title": "Tin đang mở theo nhóm nghề và tỉnh/thành",
-  "heat_note": "8 tỉnh/thành nhiều tin nhất; còn lại gộp vào \"Khác\". Một tin có thể ghi nhiều tỉnh, ở đây tính theo tỉnh đầu tiên.",
+  "heat_note": "8 tỉnh/thành nhiều tin nhất; các tỉnh còn lại gộp vào \"Khác\". Một tin có thể ghi nhiều tỉnh, ở đây tính theo tỉnh đầu tiên.",
   "skills_title": "Kỹ năng được yêu cầu nhiều nhất",
   "pick_province": "Tỉnh/thành",
   "all_country": "Cả nước",
-  "ai_title": "Mức tác động AI theo nhóm nghề",
+  "ai_title": "Mức ảnh hưởng của AI theo nhóm nghề",
   "ai_note": "Trung bình mức ảnh hưởng của AI lên các kỹ năng chính của nhóm nghề, có trọng số theo tỷ lệ tin. Điểm cao = công việc của nhóm có nhiều phần AI hỗ trợ hoặc làm thay được.",
   "salary_title": "Lương trung vị theo nhóm nghề",
-  "salary_note": "Trung vị khoảng lương của tin có ghi lương (triệu đ/tháng). Nhóm dưới 30 tin có lương không hiển thị.",
+  "salary_note": "Trung vị khoảng lương của tin có ghi lương (triệu đ/tháng). Nhóm dưới 10 tin có lương không hiển thị.",
   "trend_title": "Kỹ năng biến động mạnh nhất 12 tháng qua",
-  "trend_note": "Thay đổi tỷ trọng (điểm %) trong mẫu lưu trữ. Cột cuối: mô hình dự báo ARIMA có thắng mốc ngây thơ ở kiểm tra ngược không — nếu không, không nên dùng dự báo để ra quyết định.",
+  "trend_note": "Thay đổi tỷ trọng (điểm %) trong mẫu lưu trữ. Cột cuối: khi thử trên các tháng đã qua, mô hình dự báo ARIMA có chính xác hơn cách dự báo đơn giản (trung bình 3 tháng gần nhất) không. Nếu không, không nên dùng dự báo để ra quyết định.",
   "col_skill": "Kỹ năng",
   "col_source": "Nguồn",
   "col_change": "Thay đổi",
@@ -101,7 +101,7 @@
   "q_f1": "Độ chính xác trích kỹ năng (F1)",
   "q_f1_none": "Chưa đo — tập chuẩn gán nhãn đang được xây dựng.",
   "q_latency": "Độ trễ trung vị từ ngày đăng tới ngày thu: {d} ngày",
-  "q_forecast": "Dự báo thắng mốc ngây thơ: {list}",
+  "q_forecast": "Dự báo chính xác hơn cách dự báo đơn giản: {list}",
   "q_blocked": "Nguồn đã loại (từ chối crawler, bản lưu Internet Archive cũng không đọc được): {list}",
   "q_archive_only": "Nguồn chỉ lấy qua bản lưu Internet Archive (trang chặn crawler trực tiếp, không gửi request tới trang gốc), chỉ góp vào chuỗi tháng: {list}",
   "ai_trend_col": "Nhóm nghề"
@@ -177,63 +177,63 @@
   "game_link": "Thử phiên bản trò chơi",
   "families": {
    "cntt": {
-    "short": "Viết phần mềm, quản lý hệ thống, làm việc với dữ liệu.",
+    "short": "Phát triển phần mềm, kiểm thử, vận hành hệ thống, phân tích và khai thác dữ liệu.",
     "day": "Sáng họp nhóm 15 phút, chiều viết và kiểm tra code, cuối ngày sửa lỗi người dùng báo."
    },
    "kinh-doanh": {
-    "short": "Tìm khách hàng, tư vấn, chốt đơn hàng.",
+    "short": "Tìm khách hàng, tư vấn, bán hàng và mở rộng thị trường, cho cả khách lẻ lẫn doanh nghiệp.",
     "day": "Gọi điện, gặp khách, báo giá, theo dõi doanh số của mình so với mục tiêu tháng."
    },
    "ke-toan": {
-    "short": "Ghi chép, kiểm tra và báo cáo tiền của công ty.",
+    "short": "Ghi nhận thu chi, lập báo cáo tài chính, kê khai thuế và kiểm toán.",
     "day": "Nhập chứng từ, đối chiếu sổ sách, làm báo cáo thuế, trả lời câu hỏi của sếp về chi phí."
    },
    "tai-chinh-ngan-hang": {
-    "short": "Cho vay, đầu tư, quản lý rủi ro về tiền.",
+    "short": "Quan hệ khách hàng ngân hàng, phân tích đầu tư, tư vấn bảo hiểm và quản trị rủi ro.",
     "day": "Thẩm định hồ sơ vay, gặp khách hàng, phân tích số liệu tài chính, viết tờ trình."
    },
    "marketing": {
-    "short": "Làm cho nhiều người biết và thích sản phẩm.",
+    "short": "Xây dựng thương hiệu, sáng tạo nội dung, chạy quảng cáo số và tổ chức sự kiện.",
     "day": "Lên ý tưởng bài đăng, chạy quảng cáo, đo số người xem, chỉnh lại nội dung."
    },
    "nhan-su": {
-    "short": "Tuyển người, đào tạo, chăm lo cho nhân viên.",
+    "short": "Tuyển dụng, đào tạo, tính lương, phúc lợi và chính sách nhân sự.",
     "day": "Lọc hồ sơ, phỏng vấn ứng viên, tính lương, giải đáp thắc mắc của nhân viên."
    },
    "hanh-chinh": {
-    "short": "Giữ cho văn phòng chạy trơn tru.",
+    "short": "Văn thư, giấy tờ, lịch họp và các việc vận hành hằng ngày của văn phòng.",
     "day": "Soạn văn bản, quản lý giấy tờ, đặt lịch họp, mua sắm vật dụng."
    },
    "logistics": {
-    "short": "Đưa hàng hóa đi đúng nơi, đúng lúc.",
+    "short": "Mua hàng, xuất nhập khẩu, kho vận, vận tải và lập kế hoạch chuỗi cung ứng.",
     "day": "Theo dõi đơn hàng, làm thủ tục hải quan, liên hệ nhà vận chuyển, kiểm kho."
    },
    "phap-ly": {
-    "short": "Đảm bảo công ty làm đúng luật.",
+    "short": "Soạn và rà soát hợp đồng, tư vấn pháp lý, bảo đảm doanh nghiệp tuân thủ pháp luật.",
     "day": "Rà soát hợp đồng, tư vấn rủi ro pháp lý, làm hồ sơ với cơ quan nhà nước."
    },
    "cskh": {
-    "short": "Giải đáp và hỗ trợ khách hàng.",
+    "short": "Giải đáp thắc mắc, xử lý khiếu nại, hỗ trợ khách hàng qua điện thoại, chat, email.",
     "day": "Trả lời điện thoại, tin nhắn, xử lý khiếu nại, ghi nhận ý kiến khách hàng."
    },
    "giao-duc": {
-    "short": "Dạy học, hướng dẫn người khác.",
+    "short": "Giảng dạy, trợ giảng và quản lý đào tạo ở trường, trung tâm hoặc trực tuyến.",
     "day": "Soạn bài, đứng lớp, chấm bài, gặp phụ huynh hoặc học viên."
    },
    "thiet-ke": {
-    "short": "Tạo hình ảnh, video, giao diện.",
+    "short": "Thiết kế đồ họa, giao diện, video và bản vẽ kỹ thuật.",
     "day": "Nhận yêu cầu, phác thảo, làm trên phần mềm thiết kế, sửa theo góp ý."
    },
    "quan-ly": {
-    "short": "Điều hành một bộ phận hoặc cả công ty.",
+    "short": "Điều hành bộ phận hoặc doanh nghiệp: đặt mục tiêu, quản lý con người và ngân sách.",
     "day": "Họp, ra quyết định, đặt mục tiêu, kèm cặp đội ngũ."
    },
    "dich-vu-ban-le": {
-    "short": "Phục vụ khách tại cửa hàng, nhà hàng, khách sạn.",
+    "short": "Bán hàng, phục vụ và quản lý tại cửa hàng, nhà hàng, khách sạn.",
     "day": "Đón khách, pha chế hoặc phục vụ, tính tiền, giữ quầy sạch sẽ."
    },
    "lao-dong-pho-thong": {
-    "short": "Sản xuất, kho bãi, lái xe, giao hàng.",
+    "short": "Công nhân sản xuất, kho bãi, lái xe, giao hàng và các công việc chân tay khác.",
     "day": "Vận hành máy hoặc xe, đóng gói, kiểm hàng, tuân thủ an toàn lao động."
    }
   },

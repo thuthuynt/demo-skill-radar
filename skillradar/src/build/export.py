@@ -14,9 +14,11 @@ from datetime import datetime, timezone
 
 import duckdb
 
-from src.build.normalize import FAMILIES, OCCUPATIONS, OUT_OF_SCOPE
+from src.build.normalize import FAMILIES, OCCUPATIONS, OUT_OF_SCOPE, fold
+from src.build.jobs import build_jobs
 from src.build.scenes import build_scenes
 from src.build.silver import DB
+from src.extract.run import load_dictionary
 from src.config import LOG_DIR, ROOT, load_assumptions, load_sources
 from src.log import get_logger
 
@@ -27,8 +29,15 @@ MAX_BYTES = 1_000_000
 TOP_PROVINCES = 12      # tỉnh có nhiều tin đang mở nhất, dùng cho lát cắt theo tỉnh
 TOP_PAIRS = 400
 MIN_OCC_OPEN = 30       # nghề cần ≥ 30 tin đang mở mới có trang riêng
+MIN_SALARY_N = 10       # tin có ghi lương tối thiểu để công bố lương trung vị / khoảng lương (hạ từ 30, 5/11/2026)
 MIN_AI_N = 80           # tin lưu trữ tối thiểu của một nhóm nghề trong một kỳ để công bố tỷ lệ nhắc công cụ AI
 AI_PERIODS = ["2025-H1", "2025-H2", "2026"]
+TOP_COMPANIES = 6
+# công ty tuyển dụng hộ / tên ẩn: không phải nơi làm việc thật
+AGENCY = (r"(?i)recruit|headhunt|tuyển dụng|nhân lực|tư vấn nhân sự|human resource|manpower|staffing|talent|worklink|reeracoen|"
+          r"client|bảo mật|confidential|giấu tên|navigos|jobsgo|itviec|vietnamworks|topcv")
+SAL = "(coalesce(salary_min, salary_max) + coalesce(salary_max, salary_min)) / 2"
+SAL_OK = "salary_unit = 'VND' AND coalesce(salary_min, salary_max) BETWEEN 1e6 AND 2e8"
 AI_PERIOD = ("CASE WHEN month < DATE '2025-07-01' THEN '2025-H1' "
              "WHEN month < DATE '2026-01-01' THEN '2025-H2' ELSE '2026' END")
 
@@ -91,6 +100,14 @@ def main() -> int:
             "mae_model": r4(r["mae_model"]), "mae_naive": r4(r["mae_naive"]),
             "beats_naive": r["beats_naive"], "n_months": r["n_months"], "model": r["model"]}
 
+    # cụm từ để trang học sinh tự dò kỹ năng trong CV, cùng luật với src/extract/run.py:
+    # [cụm, 1] khớp chặt trên chữ gốc; [cụm đã fold, 0] khớp lỏng trên chữ đã bỏ dấu
+    terms = defaultdict(list)
+    for sid, alias, strict, _ in load_dictionary()[0]:
+        t = [alias, 1] if strict else [fold(alias), 0]
+        if t[0] and t not in terms[sid]:
+            terms[sid].append(t)
+
     skills = []
     for sid, d in dim.items():
         o = open_all.get(sid)
@@ -98,6 +115,7 @@ def main() -> int:
         cuts = by_cut[sid]
         skills.append({
             "id": sid, "vi": d["name_vi"], "en": d["name_en"], "lang": d["canonical_lang"],
+            "match": terms[sid],
             "group": d["skill_group"], "type": d["skill_type"],
             "open": {"n": o["n"], "share": r4(o["share"])} if o else {"n": 0, "share": 0},
             "by_family": sorted(cuts["job_family"], key=lambda v: -v[1])[:8],
@@ -137,12 +155,24 @@ def main() -> int:
     fam_skill = defaultdict(list)
     for r in rows(con, "SELECT job_family_id, skill_id, weight FROM m_family_skill ORDER BY weight DESC"):
         fam_skill[r["job_family_id"]].append([r["skill_id"], r4(r["weight"]), *sal_pair(r["job_family_id"], r["skill_id"])])
-    # lương: trung vị điểm giữa khoảng lương VND/tháng, chỉ tin có ghi lương; < 30 tin thì không công bố
-    salary = {r["f"]: r for r in rows(con, """
-        SELECT job_family_id f, count(*) n,
-               median((coalesce(salary_min, salary_max) + coalesce(salary_max, salary_min)) / 2) med
-        FROM base_open WHERE salary_unit = 'VND' AND coalesce(salary_min, salary_max) BETWEEN 1e6 AND 2e8
-        GROUP BY 1""")}
+    # lương: trung vị điểm giữa khoảng lương VND/tháng, chỉ tin có ghi lương; < MIN_SALARY_N tin thì không công bố
+    salary = {r["f"]: r for r in rows(con, f"""
+        SELECT job_family_id f, count(*) n, median({SAL}) med, quantile_cont({SAL}, 0.25) p25, quantile_cont({SAL}, 0.75) p75
+        FROM base_open WHERE {SAL_OK} GROUP BY 1""")}
+    # khoảng lương phổ biến: một nửa số tin ghi lương nằm giữa p25 và p75
+    def sal_range(r):
+        return [round(r["p25"], -5), round(r["p75"], -5)] if r and r["n"] >= MIN_SALARY_N else None
+    # công ty đang tuyển nhiều tin nhất (≥ 2 tin), theo nhóm nghề và theo nghề
+    companies, company_keys = defaultdict(list), []
+    for r in rows(con, f"""
+        WITH c AS (SELECT unit, company_key, any_value(company) AS cname, count(*) n FROM (
+                     SELECT job_family_id unit, company_key, company FROM base_open
+                     UNION ALL SELECT occupation_id, company_key, company FROM base_open WHERE occupation_id IS NOT NULL)
+                   WHERE company_key IS NOT NULL AND NOT regexp_matches(company, ?) GROUP BY ALL HAVING n >= 2)
+        SELECT unit, company_key, cname, n FROM c QUALIFY row_number() OVER (PARTITION BY unit ORDER BY n DESC, cname) <= {TOP_COMPANIES}
+        ORDER BY unit, n DESC, cname""", AGENCY):
+        companies[r["unit"]].append([r["cname"], r["n"]])
+        company_keys.append((r["unit"], r["company_key"], r["cname"]))
     # tỷ lệ tin nhắc tới công cụ AI theo nửa năm, gộp các nguồn lưu trữ trong nhóm nghề; < MIN_AI_N tin thì không công bố
     ai_trend = defaultdict(dict)
     for r in rows(con, f"""
@@ -154,11 +184,10 @@ def main() -> int:
     for r in rows(con, """SELECT val o, skill_id, "share" w FROM m_skill_open
                           WHERE dim = 'occupation' AND n >= 5 ORDER BY w DESC"""):
         occ_skill[r["o"]].append([r["skill_id"], r4(r["w"]), None, None])
-    occ = {r["o"]: r for r in rows(con, """
-        SELECT occupation_id o, count(*) n_open,
-               count(*) FILTER (WHERE salary_unit = 'VND' AND coalesce(salary_min, salary_max) BETWEEN 1e6 AND 2e8) salary_n,
-               median((coalesce(salary_min, salary_max) + coalesce(salary_max, salary_min)) / 2)
-                 FILTER (WHERE salary_unit = 'VND' AND coalesce(salary_min, salary_max) BETWEEN 1e6 AND 2e8) med
+    occ = {r["o"]: r for r in rows(con, f"""
+        SELECT occupation_id o, count(*) n_open, count(*) FILTER (WHERE {SAL_OK}) salary_n,
+               median({SAL}) FILTER (WHERE {SAL_OK}) med, quantile_cont({SAL}, 0.25) FILTER (WHERE {SAL_OK}) p25,
+               quantile_cont({SAL}, 0.75) FILTER (WHERE {SAL_OK}) p75
         FROM base_open WHERE occupation_id IS NOT NULL GROUP BY 1""")}
     def occupations(f):
         out = []
@@ -166,12 +195,14 @@ def main() -> int:
             r = occ.get(o)
             if r and r["n_open"] >= MIN_OCC_OPEN:
                 out.append({"id": o, "name": name, "n_open": r["n_open"],
-                            "salary_median_vnd": round(r["med"], -5) if r["salary_n"] >= 30 else None,
-                            "salary_n": r["salary_n"], "skills": occ_skill[o][:30]})
+                            "salary_median_vnd": round(r["med"], -5) if r["salary_n"] >= MIN_SALARY_N else None,
+                            "salary_n": r["salary_n"], "salary_range_vnd": sal_range({**r, "n": r["salary_n"]}),
+                            "companies": companies[o], "skills": occ_skill[o][:30]})
         return sorted(out, key=lambda x: -x["n_open"])
     families = [{"id": f, "name": FAMILIES[f], "in_scope": f not in OUT_OF_SCOPE,
-                 "salary_median_vnd": round(salary[f]["med"], -5) if f in salary and salary[f]["n"] >= 30 else None,
+                 "salary_median_vnd": round(salary[f]["med"], -5) if f in salary and salary[f]["n"] >= MIN_SALARY_N else None,
                  "salary_n": salary[f]["n"] if f in salary else 0,
+                 "salary_range_vnd": sal_range(salary.get(f)), "companies": companies[f],
                  "n_open": sum(fam_prov[f].values()), "by_province": fam_prov[f],
                  "skills": fam_skill[f][:30],
                  "ai_trend": [[p, *ai_trend[f].get(p, [None, 0])] for p in AI_PERIODS],
@@ -180,6 +211,7 @@ def main() -> int:
 
     # --- đồng xuất hiện ---
     scenes = build_scenes(con, families, dim)
+    jobs = build_jobs(con, company_keys)
     pairs = rows(con, f"SELECT a, b, n, lift FROM m_cooc ORDER BY lift * ln(n) DESC LIMIT {TOP_PAIRS}")
 
     # --- meta + trạng thái ---
@@ -239,6 +271,12 @@ def main() -> int:
                                          ("status.json", status)]}
     total = sum(sizes.values())
     log.info("xuất %s, tổng %.0f KB", {k: f"{v / 1024:.0f}KB" for k, v in sizes.items()}, total / 1024)
+    # jobs.json chỉ tải khi bấm vào công ty nên không tính vào 1 MB tải trang, nhưng có trần riêng
+    jobs_size = write("jobs.json", jobs)
+    log.info("jobs.json %.0f KB: %d tin, %d nghề/nhóm", jobs_size / 1024, len(jobs["postings"]), len(jobs["units"]))
+    if jobs_size > MAX_BYTES:
+        log.error("jobs.json vượt 1 MB (%d byte)", jobs_size)
+        return 1
     if total > MAX_BYTES:
         log.error("web/data vượt 1 MB (%d byte)", total)
         return 1

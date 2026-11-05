@@ -1,0 +1,792 @@
+{
+  "_ghi_chu": "Chữ hiển thị của trang hướng nghiệp (web/huong-nghiep/). Câu hỏi do nhóm tự soạn theo lý thuyết RIASEC của Holland (1985), không lấy từ bộ công cụ có bản quyền nào. Mã Holland của từng nghề là nhận định của nhóm, tham khảo hồ sơ sở thích nghề của O*NET.",
+  "brand": "SkillRadar",
+  "tag": "Hướng nghiệp",
+  "welcome": {
+    "hi": "Chào bạn 👋",
+    "title": "Radar kỹ năng: nghề nào đang chờ bạn?",
+    "name_label": "Bạn tên gì? (không bắt buộc)",
+    "name_ph": "Ví dụ: Minh Anh",
+    "grade_label": "Bạn là",
+    "cta": "Bắt đầu quét",
+    "cta_result": "Xem lại kết quả của mình",
+    "steps": [
+      "Trả lời 24 câu về sở thích",
+      "Xem nghề hợp với bạn",
+      "Kiểm tra kỹ năng, quét CV"
+    ],
+    "saved": "Máy này đang lưu kết quả của {name}.",
+    "saved_anon": "Máy này đang lưu một kết quả trắc nghiệm.",
+    "new_profile": "Tạo hồ sơ mới",
+    "new_profile_label": "Tạo hồ sơ mới (xóa tên, câu trả lời, kỹ năng đã lưu trên máy này)"
+  },
+  "quiz": {
+    "progress": "Câu {i}/{n}",
+    "ask": "Bạn thấy việc này thế nào?",
+    "back": "← Câu trước",
+    "scale": [
+      [
+        "😐",
+        "Không thích"
+      ],
+      [
+        "🙂",
+        "Cũng được"
+      ],
+      [
+        "😍",
+        "Rất thích"
+      ]
+    ],
+    "items": [
+      [
+        "R",
+        "Sửa xe đạp, quạt điện hay đồ dùng trong nhà khi bị hỏng"
+      ],
+      [
+        "I",
+        "Tìm hiểu vì sao một hiện tượng tự nhiên xảy ra"
+      ],
+      [
+        "A",
+        "Vẽ, thiết kế poster hoặc dựng video ngắn"
+      ],
+      [
+        "S",
+        "Giảng lại bài cho bạn khi bạn chưa hiểu"
+      ],
+      [
+        "E",
+        "Thuyết phục cả nhóm làm theo ý tưởng của mình"
+      ],
+      [
+        "C",
+        "Sắp xếp tài liệu, góc học tập gọn gàng, ngăn nắp"
+      ],
+      [
+        "R",
+        "Lắp ráp mô hình hoặc đồ nội thất theo bản hướng dẫn"
+      ],
+      [
+        "I",
+        "Giải một bài toán khó hoặc câu đố logic"
+      ],
+      [
+        "A",
+        "Viết truyện, viết blog hoặc làm nội dung mạng xã hội"
+      ],
+      [
+        "S",
+        "Lắng nghe và giúp bạn bè gỡ rối chuyện buồn"
+      ],
+      [
+        "E",
+        "Bán hàng online hoặc mở gian hàng ở hội chợ trường"
+      ],
+      [
+        "C",
+        "Ghi lại chi tiêu và lập kế hoạch tiêu tiền hằng tháng"
+      ],
+      [
+        "R",
+        "Làm việc ngoài trời, vận động tay chân nhiều"
+      ],
+      [
+        "I",
+        "Đọc về khoa học, công nghệ, AI mới ra"
+      ],
+      [
+        "A",
+        "Nghĩ ra cách làm mới lạ thay vì làm theo khuôn"
+      ],
+      [
+        "S",
+        "Tham gia hoạt động tình nguyện, giúp đỡ cộng đồng"
+      ],
+      [
+        "E",
+        "Làm lớp trưởng, trưởng nhóm, dẫn dắt người khác"
+      ],
+      [
+        "C",
+        "Làm theo quy trình rõ ràng và kiểm tra kỹ từng chi tiết"
+      ],
+      [
+        "R",
+        "Dùng máy móc, dụng cụ để tạo ra một sản phẩm thật"
+      ],
+      [
+        "I",
+        "Phân tích số liệu để tìm ra quy luật"
+      ],
+      [
+        "A",
+        "Phối màu, trang trí, chăm chút cho cái đẹp"
+      ],
+      [
+        "S",
+        "Làm việc nhóm và gặp gỡ nhiều người mới"
+      ],
+      [
+        "E",
+        "Đặt mục tiêu cao và cạnh tranh để thắng"
+      ],
+      [
+        "C",
+        "Nhập số liệu, làm bảng tính Excel thật chính xác"
+      ]
+    ]
+  },
+  "types": {
+    "R": {
+      "name": "Kỹ thuật",
+      "en": "Realistic",
+      "emoji": "🔧",
+      "short": "Thích làm việc bằng tay, với máy móc, dụng cụ, thấy kết quả cụ thể."
+    },
+    "I": {
+      "name": "Nghiên cứu",
+      "en": "Investigative",
+      "emoji": "🔬",
+      "short": "Thích tìm hiểu, phân tích, giải quyết vấn đề bằng suy nghĩ logic."
+    },
+    "A": {
+      "name": "Nghệ thuật",
+      "en": "Artistic",
+      "emoji": "🎨",
+      "short": "Thích sáng tạo, tự do thể hiện ý tưởng qua hình ảnh, chữ viết, âm thanh."
+    },
+    "S": {
+      "name": "Xã hội",
+      "en": "Social",
+      "emoji": "🤝",
+      "short": "Thích giúp đỡ, dạy dỗ, chăm sóc và làm việc cùng mọi người."
+    },
+    "E": {
+      "name": "Quản lý",
+      "en": "Enterprising",
+      "emoji": "🚀",
+      "short": "Thích thuyết phục, dẫn dắt, kinh doanh và chinh phục mục tiêu."
+    },
+    "C": {
+      "name": "Nghiệp vụ",
+      "en": "Conventional",
+      "emoji": "📋",
+      "short": "Thích sự ngăn nắp, số liệu, quy trình rõ ràng và chính xác."
+    }
+  },
+  "result": {
+    "hi": "{name}, giải mã bản thân bạn 👇",
+    "hi_anon": "Giải mã bản thân bạn 👇",
+    "code": "Mã Holland của bạn",
+    "code_note": "Ba nhóm sở thích nổi bật nhất, xếp từ mạnh đến yếu.",
+    "fit": "{p} phù hợp",
+    "open": "tin đang tuyển",
+    "salary": "lương phổ biến",
+    "salary_none": "ít tin ghi lương",
+    "show_all": "Xem tất cả {n} nghề",
+    "show_less": "Thu gọn",
+    "redo": "Làm lại trắc nghiệm",
+    "disclaimer": "Trắc nghiệm sở thích chỉ là điểm khởi đầu, không quyết định thay bạn. Hãy hỏi thêm thầy cô, gia đình và người đang làm nghề.",
+    "groups_title": "Nhóm nghề hợp với bạn",
+    "groups_lead": "Xếp theo nghề hợp nhất trong nhóm. Chọn một nhóm để xem từng nghề.",
+    "group_fit": "{p} phù hợp",
+    "group_jobs": "nghề"
+  },
+  "job": {
+    "back": "← Nghề hợp với bạn",
+    "tabs": [
+      "Tổng quan",
+      "Thị trường",
+      "Kỹ năng & CV"
+    ],
+    "why": "Vì sao hợp với bạn",
+    "why_body": "Nghề này cần tính cách {code}. Bạn mạnh ở {match}.",
+    "why_none": "Nghề này cần tính cách {code}, khá khác sở thích chính của bạn. Không sao, sở thích có thể thay đổi.",
+    "what": "Công việc là gì",
+    "day": "Một ngày đi làm",
+    "tile_open": "tin đang tuyển",
+    "tile_salary": "triệu/tháng (lương phổ biến)",
+    "tile_salary_none": "ít tin ghi lương",
+    "tile_ai": "AI ảnh hưởng",
+    "path": "Lộ trình nghề nghiệp",
+    "path_lead": "Các bước thường gặp. Lương là trung vị của tin đang tuyển, nếu có từ 10 tin ghi lương trở lên.",
+    "path_you": "bạn đang xem",
+    "path_pay": "{p} tr",
+    "path_nodata": "chưa đủ tin",
+    "companies": "Đang tuyển nhiều nhất",
+    "companies_lead": "Công ty có nhiều tin đang mở nhất (không tính công ty tuyển dụng hộ). Chọn một công ty để xem tin.",
+    "co_loading": "Đang tải tin…",
+    "co_shown": "{k} tin mới nhất trong {n} tin đang mở.",
+    "co_nosalary": "lương thỏa thuận",
+    "co_error": "Không tải được danh sách tin.",
+    "companies_n": "{n} tin",
+    "companies_family": "Nghề này còn ít tin, nên đây là các công ty tuyển nhiều nhất trong cả nhóm {family}.",
+    "companies_none": "Chưa có công ty nào đăng từ 2 tin trở lên.",
+    "salary_title": "Lương bao nhiêu?",
+    "salary_lead": "Một nửa số tin có ghi lương trả trong khoảng này (tính trên {n} tin có ghi lương).",
+    "salary_rank": "Cao hơn {k}/{n} nghề trên SkillRadar.",
+    "salary_scale": "Thang: 0 đến {max} triệu/tháng",
+    "salary_none": "Chưa đủ 10 tin có ghi lương để công bố khoảng lương.",
+    "where": "Tỉnh/thành nào tuyển nhiều nhất?",
+    "where_lead": "5 tỉnh/thành có nhiều tin nhất, tính theo tỷ lệ tin của cả nhóm nghề.",
+    "skills_title": "Kỹ năng được đòi hỏi nhiều nhất",
+    "skills_lead": "x/10: cứ 10 tin thì bao nhiêu tin yêu cầu. Mũi tên là xu hướng 12 tháng qua. Chọn một kỹ năng để xem biểu đồ.",
+    "pay_title": "Học gì để lương cao hơn?",
+    "ai_title": "AI thay đổi nghề này ra sao?",
+    "ai_chart": "Tỷ lệ tin nhắc tới công cụ AI theo nửa năm",
+    "trend_note": "Tỷ lệ tin cần kỹ năng này mỗi tháng, trong mẫu bản lưu Internet Archive của {source}. Tháng thiếu dữ liệu để trống.",
+    "trend_none": "Chưa đủ lịch sử để vẽ xu hướng cho kỹ năng này.",
+    "ai_monthly": "Chưa vẽ theo tháng: mỗi tháng mẫu lưu trữ chỉ có vài chục tới khoảng 150 tin của một nhóm nghề, quá ít để so tháng với tháng.",
+    "quotes": "Trích từ tin tuyển dụng thật",
+    "quote_src": "{source}, {date}",
+    "back_group": "← {family}"
+  },
+  "fit": {
+    "title": "Bạn đã sẵn sàng tới đâu?",
+    "lead": "Chọn những kỹ năng bạn đã thành thạo hoặc tải lên CV.",
+    "meter": "mức đáp ứng các kỹ năng nghề này đòi hỏi nhiều nhất",
+    "unlock": "Với bộ kỹ năng này, bạn có cơ hội ứng tuyển khoảng {n}/{total} tin đang mở.",
+    "unlock_none": "Chọn vài kỹ năng để xem bạn ứng tuyển được bao nhiêu tin.",
+    "next": "Kỹ năng cần học thêm để tăng độ phù hợp",
+    "next_item": "{skill}: {k}/10 tin cần",
+    "all_set": "Bạn đã có đủ các kỹ năng nghề này đòi hỏi nhiều nhất. Tuyệt!",
+    "reset": "Bỏ chọn tất cả",
+    "cv_title": "Quét CV của bạn",
+    "cv_lead": "Hỗ trợ PDF, Word (.docx) hoặc dán nội dung CV. CV chỉ được đọc ngay trên máy bạn, không tải lên máy chủ nào.",
+    "cv_pick": "Chọn file CV",
+    "cv_paste": "Hoặc dán nội dung CV",
+    "cv_paste_ph": "Dán phần kỹ năng, kinh nghiệm, học vấn trong CV…",
+    "cv_scan": "Quét nội dung đã dán",
+    "cv_reading": "Đang đọc CV…",
+    "cv_error": "Không đọc được file này. Thử file PDF có chữ (không phải ảnh chụp) hoặc dán nội dung.",
+    "cv_empty": "Không tìm thấy chữ trong file. CV dạng ảnh chụp chưa đọc được, bạn dán nội dung giúp mình nhé.",
+    "cv_result": "CV khớp {p} với nghề này",
+    "cv_found": "Tìm thấy trong CV ({n})",
+    "cv_missing": "Nghề này cần nhưng CV chưa thấy",
+    "cv_other": "Kỹ năng khác trong CV",
+    "cv_none": "Chưa thấy kỹ năng nào trong danh mục {k} kỹ năng của SkillRadar."
+  },
+  "trend": {
+    "up": "↑",
+    "down": "↓",
+    "flat": "→",
+    "none": ""
+  },
+  "trend_label": {
+    "up": "đang tăng",
+    "down": "đang giảm",
+    "flat": "ổn định",
+    "none": ""
+  },
+  "units": {
+    "software-dev": {
+      "code": "IRC",
+      "what": "Viết và duy trì phần mềm chạy phía máy chủ: xử lý dữ liệu, kết nối hệ thống, đảm bảo ứng dụng chạy nhanh và ổn định."
+    },
+    "tester": {
+      "code": "CIR",
+      "what": "Tìm lỗi trước khi phần mềm tới tay người dùng: viết kịch bản kiểm thử, chạy thử, báo lỗi cho lập trình viên."
+    },
+    "devops": {
+      "code": "RIC",
+      "what": "Dựng và vận hành hạ tầng máy chủ, cloud; tự động hóa việc đưa phần mềm lên chạy thật."
+    },
+    "business-analyst": {
+      "code": "ICE",
+      "what": "Cầu nối giữa người dùng và đội kỹ thuật: tìm hiểu nhu cầu, viết yêu cầu, kiểm tra sản phẩm làm đúng ý."
+    },
+    "ai-engineer": {
+      "code": "IRC",
+      "what": "Xây mô hình AI, học máy từ dữ liệu để dự đoán, phân loại, trả lời tự động."
+    },
+    "it-pm": {
+      "code": "ECI",
+      "what": "Lên kế hoạch, chia việc và giữ tiến độ cho dự án phần mềm; làm việc với khách hàng và đội phát triển."
+    },
+    "it-system": {
+      "code": "RIC",
+      "what": "Quản lý máy chủ, mạng nội bộ, tài khoản và thiết bị để công ty làm việc không gián đoạn."
+    },
+    "it-security": {
+      "code": "ICR",
+      "what": "Bảo vệ hệ thống khỏi tin tặc: dò lỗ hổng, theo dõi cảnh báo, xử lý sự cố bảo mật."
+    },
+    "data-analyst": {
+      "code": "CIE",
+      "what": "Biến số liệu thành câu trả lời: truy vấn dữ liệu, làm báo cáo, dashboard giúp sếp ra quyết định."
+    },
+    "fullstack-dev": {
+      "code": "IRA",
+      "what": "Làm cả phần giao diện người dùng thấy lẫn phần máy chủ phía sau của một ứng dụng."
+    },
+    "it-support": {
+      "code": "RCS",
+      "what": "Cài đặt, sửa máy tính, phần mềm và hướng dẫn đồng nghiệp khi gặp sự cố kỹ thuật."
+    },
+    "frontend-dev": {
+      "code": "IAR",
+      "what": "Dựng giao diện web, app mà người dùng nhìn thấy và chạm vào, sao cho đẹp và dễ dùng."
+    },
+    "data-engineer": {
+      "code": "ICR",
+      "what": "Xây đường ống dữ liệu: gom, làm sạch và lưu dữ liệu để đội phân tích, AI dùng được."
+    },
+    "sales-rep": {
+      "code": "ESC",
+      "what": "Tìm khách hàng, giới thiệu sản phẩm, chốt đơn và chăm sóc khách sau bán."
+    },
+    "sales-b2b": {
+      "code": "ESC",
+      "what": "Bán hàng, dịch vụ cho doanh nghiệp: theo đuổi hợp đồng lớn, đàm phán và giữ quan hệ lâu dài."
+    },
+    "sales-consultant": {
+      "code": "ESC",
+      "what": "Tư vấn qua điện thoại hoặc tại cửa hàng, giúp khách chọn đúng sản phẩm."
+    },
+    "business-dev": {
+      "code": "EIS",
+      "what": "Tìm thị trường, đối tác mới; lên kế hoạch mở rộng kinh doanh, kể cả ra nước ngoài."
+    },
+    "sales-field": {
+      "code": "ESR",
+      "what": "Đi thị trường, chăm sóc đại lý, cửa hàng; đẩy hàng lên kệ và theo dõi doanh số khu vực."
+    },
+    "sales-supervisor": {
+      "code": "ECS",
+      "what": "Quản lý đội bán hàng một khu vực: giao chỉ tiêu, kèm cặp nhân viên, báo cáo doanh số."
+    },
+    "sales-bds": {
+      "code": "ESC",
+      "what": "Tư vấn mua bán, cho thuê nhà đất; dẫn khách xem dự án và hỗ trợ thủ tục."
+    },
+    "accountant": {
+      "code": "CEI",
+      "what": "Ghi chép thu chi, hóa đơn, chứng từ hằng ngày của công ty."
+    },
+    "general-accountant": {
+      "code": "CEI",
+      "what": "Tổng hợp sổ sách, lập báo cáo tài chính, báo cáo thuế theo tháng, quý, năm."
+    },
+    "chief-accountant": {
+      "code": "CEI",
+      "what": "Phụ trách cả phòng kế toán, chịu trách nhiệm trước pháp luật về sổ sách và thuế của công ty."
+    },
+    "internal-accountant": {
+      "code": "CES",
+      "what": "Theo dõi tiền, hàng, công nợ trong nội bộ để sếp biết công ty lãi lỗ thế nào."
+    },
+    "ledger-accountant": {
+      "code": "CER",
+      "what": "Phụ trách một mảng chi tiết: công nợ, thanh toán, kho hoặc bán hàng."
+    },
+    "tax-accountant": {
+      "code": "CIE",
+      "what": "Kê khai, quyết toán thuế và làm việc với cơ quan thuế."
+    },
+    "auditor": {
+      "code": "CIE",
+      "what": "Kiểm tra sổ sách, quy trình để phát hiện sai sót, gian lận và rủi ro."
+    },
+    "cost-accountant": {
+      "code": "CIE",
+      "what": "Tính giá thành sản phẩm, phân tích chi phí để công ty tiết kiệm và định giá đúng."
+    },
+    "relationship-manager": {
+      "code": "ESC",
+      "what": "Chăm sóc khách hàng của ngân hàng, tư vấn vay vốn, mở thẻ, gửi tiết kiệm."
+    },
+    "bank-risk": {
+      "code": "CIE",
+      "what": "Đánh giá rủi ro, kiểm tra tuân thủ quy định để ngân hàng an toàn."
+    },
+    "financial-analyst": {
+      "code": "ICE",
+      "what": "Phân tích báo cáo tài chính, thị trường để đề xuất đầu tư hoặc kế hoạch tài chính."
+    },
+    "insurance-advisor": {
+      "code": "ESC",
+      "what": "Tư vấn gói bảo hiểm, kế hoạch tài chính phù hợp cho từng khách hàng."
+    },
+    "marketing-general": {
+      "code": "EAS",
+      "what": "Lên kế hoạch và chạy các chiến dịch để nhiều người biết, thích và mua sản phẩm."
+    },
+    "digital-marketing": {
+      "code": "EAC",
+      "what": "Chạy quảng cáo Facebook, Google, TikTok; tối ưu website (SEO) và đo hiệu quả bằng số liệu."
+    },
+    "content-marketing": {
+      "code": "AES",
+      "what": "Viết bài, làm hình ảnh, video cho fanpage, TikTok, website của nhãn hàng."
+    },
+    "brand-marketing": {
+      "code": "EAS",
+      "what": "Xây hình ảnh thương hiệu, trưng bày sản phẩm tại điểm bán và chương trình khuyến mãi."
+    },
+    "pr-event": {
+      "code": "ESA",
+      "what": "Làm việc với báo chí, tổ chức sự kiện, ra mắt sản phẩm và giữ hình ảnh tốt cho công ty."
+    },
+    "recruiter": {
+      "code": "SEC",
+      "what": "Tìm, phỏng vấn và chọn người phù hợp cho công ty."
+    },
+    "hr-generalist": {
+      "code": "SEC",
+      "what": "Lo mọi việc về con người: tuyển dụng, chính sách, đánh giá, gắn kết nhân viên."
+    },
+    "hr-admin": {
+      "code": "CSE",
+      "what": "Vừa làm hồ sơ nhân sự, chấm công, vừa lo việc hành chính văn phòng."
+    },
+    "cnb": {
+      "code": "CES",
+      "what": "Tính lương, thưởng, bảo hiểm, phúc lợi cho nhân viên đúng và đủ."
+    },
+    "hr-training": {
+      "code": "SEA",
+      "what": "Tổ chức khóa học, đào tạo kỹ năng cho nhân viên trong công ty."
+    },
+    "hanh-chinh": {
+      "code": "CSE",
+      "what": "Giữ cho văn phòng chạy trơn tru: giấy tờ, lịch họp, văn phòng phẩm, tiếp khách."
+    },
+    "purchasing": {
+      "code": "CEI",
+      "what": "Tìm nhà cung cấp, so sánh giá, đặt hàng và theo dõi hàng về đúng hẹn."
+    },
+    "import-export": {
+      "code": "CER",
+      "what": "Làm chứng từ, thủ tục hải quan để hàng hóa xuất, nhập khẩu thông suốt."
+    },
+    "warehouse": {
+      "code": "RCE",
+      "what": "Quản lý hàng trong kho: nhập, xuất, kiểm kê và sắp xếp hàng hóa."
+    },
+    "logistics-general": {
+      "code": "CER",
+      "what": "Điều phối việc vận chuyển, lưu kho và giao hàng giữa các bên."
+    },
+    "transport": {
+      "code": "ECR",
+      "what": "Lên lịch xe, tuyến đường và theo dõi đơn giao nhận mỗi ngày."
+    },
+    "supply-planner": {
+      "code": "CIE",
+      "what": "Dự báo nhu cầu, lập kế hoạch mua và sản xuất để không thiếu, không thừa hàng."
+    },
+    "phap-ly": {
+      "code": "EIC",
+      "what": "Soạn, kiểm tra hợp đồng, tư vấn để công ty làm đúng luật và tránh tranh chấp."
+    },
+    "cskh": {
+      "code": "SEC",
+      "what": "Giải đáp thắc mắc, xử lý khiếu nại và hỗ trợ khách hàng qua điện thoại, chat, email."
+    },
+    "giao-duc": {
+      "code": "SAE",
+      "what": "Dạy học, hướng dẫn học sinh, học viên ở trường, trung tâm hoặc trực tuyến."
+    },
+    "thiet-ke": {
+      "code": "ARI",
+      "what": "Tạo hình ảnh, video, giao diện hoặc bản vẽ kỹ thuật bằng phần mềm thiết kế."
+    },
+    "quan-ly": {
+      "code": "ECS",
+      "what": "Điều hành một bộ phận hoặc cả công ty: đặt mục tiêu, quản lý người và ngân sách."
+    },
+    "dich-vu-ban-le": {
+      "code": "SER",
+      "what": "Phục vụ khách tại cửa hàng, nhà hàng, khách sạn; bán hàng và giữ trải nghiệm tốt cho khách."
+    },
+    "lao-dong-pho-thong": {
+      "code": "RCE",
+      "what": "Làm việc trực tiếp ở nhà máy, kho bãi, lái xe, giao hàng."
+    }
+  },
+  "paths": {
+    "cntt": [
+      [
+        "Thực tập sinh / fresher",
+        null
+      ],
+      [
+        "Lập trình viên, tester, IT support",
+        "software-dev"
+      ],
+      [
+        "Senior / trưởng nhóm kỹ thuật",
+        null
+      ],
+      [
+        "Kiến trúc sư phần mềm, quản lý dự án IT",
+        "it-pm"
+      ]
+    ],
+    "kinh-doanh": [
+      [
+        "Tư vấn bán hàng / telesales",
+        "sales-consultant"
+      ],
+      [
+        "Nhân viên kinh doanh",
+        "sales-rep"
+      ],
+      [
+        "Kinh doanh B2B / khách hàng lớn",
+        "sales-b2b"
+      ],
+      [
+        "Giám sát / giám đốc kinh doanh vùng",
+        "sales-supervisor"
+      ]
+    ],
+    "ke-toan": [
+      [
+        "Kế toán nội bộ",
+        "internal-accountant"
+      ],
+      [
+        "Kế toán viên",
+        "accountant"
+      ],
+      [
+        "Kế toán tổng hợp",
+        "general-accountant"
+      ],
+      [
+        "Kế toán trưởng",
+        "chief-accountant"
+      ]
+    ],
+    "tai-chinh-ngan-hang": [
+      [
+        "Tư vấn bảo hiểm / tài chính",
+        "insurance-advisor"
+      ],
+      [
+        "Quan hệ khách hàng ngân hàng",
+        "relationship-manager"
+      ],
+      [
+        "Phân tích tài chính / đầu tư",
+        "financial-analyst"
+      ],
+      [
+        "Quản trị rủi ro, giám đốc chi nhánh",
+        "bank-risk"
+      ]
+    ],
+    "marketing": [
+      [
+        "Content / mạng xã hội",
+        "content-marketing"
+      ],
+      [
+        "Digital marketing",
+        "digital-marketing"
+      ],
+      [
+        "Marketing tổng hợp",
+        "marketing-general"
+      ],
+      [
+        "Brand manager / trưởng phòng marketing",
+        "brand-marketing"
+      ]
+    ],
+    "nhan-su": [
+      [
+        "Hành chính – nhân sự",
+        "hr-admin"
+      ],
+      [
+        "Chuyên viên tuyển dụng",
+        "recruiter"
+      ],
+      [
+        "Nhân sự tổng hợp / HRBP",
+        "hr-generalist"
+      ],
+      [
+        "Trưởng phòng nhân sự",
+        null
+      ]
+    ],
+    "logistics": [
+      [
+        "Kho vận / thủ kho",
+        "warehouse"
+      ],
+      [
+        "Nhân viên xuất nhập khẩu",
+        "import-export"
+      ],
+      [
+        "Mua hàng / lập kế hoạch",
+        "purchasing"
+      ],
+      [
+        "Quản lý chuỗi cung ứng",
+        "supply-planner"
+      ]
+    ],
+    "hanh-chinh": [
+      [
+        "Lễ tân, nhân viên văn phòng",
+        null
+      ],
+      [
+        "Chuyên viên hành chính",
+        "hanh-chinh"
+      ],
+      [
+        "Trưởng phòng hành chính",
+        null
+      ]
+    ],
+    "phap-ly": [
+      [
+        "Trợ lý pháp lý",
+        null
+      ],
+      [
+        "Chuyên viên pháp chế",
+        "phap-ly"
+      ],
+      [
+        "Trưởng phòng pháp chế, luật sư",
+        null
+      ]
+    ],
+    "cskh": [
+      [
+        "Nhân viên CSKH, tổng đài",
+        "cskh"
+      ],
+      [
+        "Trưởng nhóm CSKH",
+        null
+      ],
+      [
+        "Quản lý trải nghiệm khách hàng",
+        null
+      ]
+    ],
+    "giao-duc": [
+      [
+        "Trợ giảng",
+        null
+      ],
+      [
+        "Giáo viên, giảng viên",
+        "giao-duc"
+      ],
+      [
+        "Tổ trưởng chuyên môn, quản lý đào tạo",
+        null
+      ]
+    ],
+    "thiet-ke": [
+      [
+        "Thiết kế junior",
+        null
+      ],
+      [
+        "Thiết kế đồ họa / UI / kỹ thuật",
+        "thiet-ke"
+      ],
+      [
+        "Art director, trưởng nhóm thiết kế",
+        null
+      ]
+    ],
+    "quan-ly": [
+      [
+        "Trưởng nhóm",
+        null
+      ],
+      [
+        "Trưởng phòng",
+        null
+      ],
+      [
+        "Giám đốc điều hành",
+        "quan-ly"
+      ]
+    ],
+    "dich-vu-ban-le": [
+      [
+        "Nhân viên phục vụ, bán hàng",
+        "dich-vu-ban-le"
+      ],
+      [
+        "Trưởng ca, giám sát cửa hàng",
+        null
+      ],
+      [
+        "Quản lý cửa hàng, nhà hàng",
+        null
+      ]
+    ],
+    "lao-dong-pho-thong": [
+      [
+        "Công nhân, nhân viên giao hàng",
+        "lao-dong-pho-thong"
+      ],
+      [
+        "Tổ trưởng, trưởng ca",
+        null
+      ],
+      [
+        "Quản đốc, giám sát sản xuất",
+        null
+      ]
+    ]
+  },
+  "group": {
+    "back": "← Nhóm nghề hợp với bạn",
+    "jobs_title": "Các nghề trong nhóm",
+    "jobs_lead": "Xếp theo độ hợp với mã Holland của bạn. Chọn một nghề để xem chi tiết."
+  },
+  "personas": {
+    "thpt": {
+      "label": "Học sinh THPT",
+      "result_lead": "Gợi ý nhóm ngành để bạn cân nhắc khi chọn trường, chọn ngành.",
+      "tip_title": "🎒 Bắt đầu từ bây giờ",
+      "tip": "Ba kỹ năng nghề này đòi hỏi nhiều nhất: {skills}. Bạn có thể làm quen qua môn học, câu lạc bộ hoặc khóa học online ngay từ cấp 3.",
+      "tab": 0
+    },
+    "sv": {
+      "label": "Sinh viên",
+      "result_lead": "Gợi ý hướng nghề để bạn chọn chuyên ngành hẹp, nơi thực tập và kỹ năng cần học thêm.",
+      "tip_title": "🎓 Chuẩn bị cho kỳ thực tập",
+      "tip": "Nhà tuyển dụng đòi hỏi nhiều nhất: {skills}. Ưu tiên học và làm dự án có các kỹ năng này trước khi đi thực tập.",
+      "tab": 0
+    },
+    "moi": {
+      "label": "Mới ra trường",
+      "result_lead": "Gợi ý nghề hợp với bạn, kèm vị trí khởi đầu và kỹ năng cần có để vào nghề.",
+      "tip_title": "🚪 Cửa vào nghề",
+      "tip": "Vị trí khởi đầu thường gặp: {entry}. Kỹ năng được đòi hỏi nhiều nhất: {skills}.",
+      "tab": 0
+    },
+    "dilam": {
+      "label": "Người đi làm",
+      "result_lead": "Gợi ý nghề hợp với bạn. Vào từng nghề, quét CV để xem bạn khớp bao nhiêu.",
+      "tip_title": "📄 Bạn khớp bao nhiêu?",
+      "tip": "Quét CV hoặc chọn kỹ năng bạn đã có để xem độ phù hợp và kỹ năng còn thiếu.",
+      "cta": "Quét CV cho nghề này →",
+      "tab": 2
+    },
+    "doinghe": {
+      "label": "Muốn đổi nghề",
+      "result_lead": "Gợi ý nghề mới hợp với tính cách của bạn. Quét CV để biết kỹ năng nào mang theo được, kỹ năng nào cần học thêm.",
+      "tip_title": "🔁 Mang được gì sang nghề mới?",
+      "tip": "Quét CV để xem kỹ năng hiện có dùng được bao nhiêu ở nghề này, và cần học thêm gì.",
+      "cta": "Quét CV cho nghề này →",
+      "tab": 2
+    }
+  }
+}

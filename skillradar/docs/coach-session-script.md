@@ -1,21 +1,27 @@
 # Lời nói — trình bày vòng 2 (khoảng 12 phút)
 
-Đi theo deck 10 slide (`docs/coach-session.html`). Số liệu cập nhật 28/10/2026. Thời gian ghi trong ngoặc là gợi ý.
+Đi theo deck 12 slide (`web/presentation/index.html`, https://demo-skill-radar.ducklytics.com/presentation/). Số liệu cập nhật 5/11/2026. Thời gian ghi trong ngoặc là gợi ý.
 Chữ *nghiêng* là thao tác, không đọc.
+Mỗi lần bấm (→, Space hoặc click chuột) hiện thêm một box; hết box thì sang slide sau. ← quay lại slide trước, hiện đủ.
 
 ---
 
-## Slide 0 — Vì sao cần SkillRadar (45 giây)
+## Slide mở đầu — Câu chuyện của em (30–45 giây)
 
-Chào các anh chị. Em là Thủy, bài dự thi SkillRadar VN, mã BTL86-59.
+Chào các anh chị. Em là Thủy, nhóm Ducklytics, bài dự thi SkillRadar VN, mã BTL86-59.
+
+*Kể chuyện của bản thân: lúc chọn ngành hoặc chọn việc, thiếu thông tin ra sao. Bấm sáu lần, mỗi lần hiện một câu hỏi
+bên trái.* Chốt: "Hôm nay hàng trăm nghìn bạn trẻ vẫn đứng ở ngã rẽ đó."
+
+## Slide 0 — Vì sao cần SkillRadar (45 giây)
 
 Năm nay có gần 875 nghìn bạn trẻ đăng ký xét tuyển đại học, với hơn 7 triệu nguyện vọng.
 Trung bình mỗi bạn chọn 8 ngành, và gần như không có dữ liệu nào cho biết ngành đó ngoài
 thị trường đang cần gì.
 
 Kết quả thấy rõ trong số liệu của Cục Thống kê quý III năm nay: cứ 11 thanh niên thì 1 bạn
-thất nghiệp, ở thành phố là 1 trên 8, gấp bốn lần mức chung. 1,6 triệu bạn trẻ không học
-cũng không làm.
+thất nghiệp, ở thành phố là 1 trên 8, gấp bốn lần mức chung. 1,6 triệu bạn trẻ không đi học, không có việc, cũng không học nghề.
+(Đây là nhóm NEET, không phải số thất nghiệp: tính cả người không tìm việc.)
 
 Và thị trường đang đổi nhanh hơn. ILO tính có 11,5 triệu lao động Việt Nam, tức 1 trên 5
 người, làm công việc chịu tác động của AI tạo sinh. Diễn đàn Kinh tế Thế giới dự báo đến
@@ -24,6 +30,20 @@ năng là rào cản lớn nhất.
 
 Học sinh, nhà trường, cơ quan quản lý đều cần một câu trả lời: hôm nay thị trường cần kỹ
 năng gì, và AI đang thay đổi điều đó thế nào.
+
+## Slide 0b — AI đang thay đổi cách người trẻ vào nghề (40 giây)
+
+Ý lấy từ chương trình *Toàn cảnh Thế giới* (VTV24, 11/2026), ghi chép ở `docs/ai-video-notes.md`.
+Bốn thẻ hiện lần lượt, câu chốt hiện cuối. Chỉ nói ý định tính, không đọc số của video.
+
+> Tuần này VTV24 có một chương trình về AI và việc làm. Bốn điều đáng chú ý. Một: việc của nhân viên mới
+> vào nghề đang được AI làm thay, nên vừa ra trường đã bị đòi như người đi làm 5 đến 10 năm. Hai: bằng cấp
+> giảm giá, năng lực thực tế lên ngôi. Ba: lao động trí thức cũng chịu tác động, AI tham gia vào từng khâu
+> của việc văn phòng. Bốn: người đang có việc phần lớn giữ được việc, nhưng tuyển mới chậm lại. Vậy nếu bằng
+> cấp không còn đủ, thị trường đang hỏi kỹ năng gì, ngay hôm nay? Đó là việc của SkillRadar.
+
+Nếu có mạng và còn thời gian: chọn mốc (16:20, 19:24, 22:07, 25:57) rồi bấm "Xem trích đoạn",
+chiếu 20–30 giây. Rời slide là video tự tắt.
 
 ## Slide 1 — Tổng quan (30 giây)
 
@@ -40,7 +60,7 @@ liệu thật và truy ngược được.
 - **Nhà trường**: đối chiếu chương trình đào tạo với nhu cầu thực tế.
 - **Cơ quan quản lý**: nắm thị trường lao động theo vùng và theo nhóm nghề.
 
-*Chỉ các con số bên phải.* Hơn 54 nghìn tin, 159 kỹ năng, 48 nghề cụ thể, 6 nguồn, trong đó
+*Chỉ các con số bên phải.* Hơn 66 nghìn tin, 159 kỹ năng, 47 nghề cụ thể, 6 nguồn, trong đó
 2 nguồn lấy qua Internet Archive.
 
 ## Slide 2 — Kiến trúc: từ crawl tới website (1 phút 30)
@@ -90,7 +110,7 @@ Ba, mức ảnh hưởng của AI: ghép khả năng AI làm thay, do nhóm đá
 đi cùng công cụ AI trong tin tuyển dụng.
 
 Bốn, dự báo bằng ARIMA. Em nói thẳng: khi kiểm tra ngược, mô hình chỉ thắng cách dự báo đơn
-giản ở 49% số kỹ năng. Nên bọn em công bố kèm kết quả kiểm tra, chứ không khoe đường dự báo.
+giản ở 50% số lần kiểm tra. Nên bọn em công bố kèm kết quả kiểm tra, chứ không khoe đường dự báo.
 Khi đủ một năm dữ liệu hằng ngày, bọn em sẽ đo lại.
 
 ## Slide AI 1 — Tin IT nhắc công cụ AI tăng gấp 4 (1 phút)
@@ -110,45 +130,39 @@ là tín hiệu nhà tuyển dụng muốn người biết dùng AI, chưa phả
 ## Slide AI 2 — Hôm nay, theo từng nghề (1 phút)
 
 *Chỉ bảng.* Đây là tin đang mở hôm nay. Cứ 3 tin tuyển Tester thì 1 tin yêu cầu công cụ AI.
-Business Analyst 28%, lập trình viên 25%, content marketing gần 19%. Trong khi đó kế toán
-2%, logistics dưới 1%, lao động phổ thông 0.
+Business Analyst 32%, lập trình viên 23%, content marketing gần 17%. Trong khi đó kế toán
+2%, logistics hơn 1%, lao động phổ thông gần như 0.
 
 ILO nói 1 trên 5 lao động chịu tác động của AI tạo sinh. Dữ liệu của bọn em cho thấy tác
 động đó đang hiện ra trong tin tuyển dụng ở nghề nào trước. Với học sinh: muốn làm Tester,
 BA hay content marketing, biết dùng công cụ AI đã là kỹ năng nhà tuyển dụng ghi trong tin.
 
-## Slide 5 — Tiến độ và vướng mắc (1 phút 30)
+## Slide 5 — Tiến độ (1 phút)
 
-Về tiến độ: crawler chạy mỗi ngày từ 12/10, có lịch sử 2025–2026 từ Internet Archive kể cả
-vieclam24h và topcv, từ điển kỹ năng đã duyệt, mọi số khớp SQL, ba website đã chạy, trang học
-sinh tách 48 nghề cụ thể, và 62 bài test tự động đều đạt.
+Crawler chạy mỗi ngày từ 12/10, hiện có 23 ngày dữ liệu và hơn 12 nghìn tin đang mở. Có lịch sử
+2025–2026 từ Internet Archive kể cả vieclam24h và topcv, từ điển kỹ năng đã duyệt, mọi số khớp SQL,
+ba website đã chạy, và trang hướng nghiệp mới có trắc nghiệm Holland, quét CV. 66 bài test tự động đều đạt.
 
-Về vướng mắc, rủi ro lớn nhất là nguồn dữ liệu, không phải code. Chỉ trong một tuần, hai
-trong bốn nguồn thay đổi: vietnamworks gỡ sitemap, jobsgo chặn một ngày.
+## Slide 6 — Lộ trình 3, 6, 12 tháng (1 phút)
 
-Ngoài ra còn ba việc: tập kiểm tra độ chính xác 150 tin chưa gán nhãn xong nên chưa đo được F1; chưa gửi email xin phép các nguồn; và crawler đang chạy trên một laptop, máy tắt
-là có nguy cơ mất ngày.
+Ba tháng tới: đưa crawler lên máy chủ chạy liên tục, công bố độ chính xác trên 150 tin gán nhãn, bật
+chỉ số tháng thật, và gửi đề xuất hợp tác dữ liệu. Sáu tháng: kịp mùa tuyển sinh 2027, thí điểm trang
+hướng nghiệp ở vài trường THPT, so cung với cầu, mở rộng sang nghề kỹ thuật. Mười hai tháng: đủ 12 kỳ
+để dự báo, đo tác động AI theo chuỗi, và mở dữ liệu.
 
-## Slide 6 — Bước tiếp theo (1 phút)
-
-Năm việc tiếp theo: xin phép vietnamworks và jobsgo hoặc xin nguồn dữ liệu chính thức; gán
-nhãn đủ 150 tin để công bố độ chính xác; chuyển crawler sang một máy chạy liên tục; bật chỉ
-số theo tháng khi đủ dữ liệu; và thêm chỉ tiêu tuyển sinh để so cung với cầu.
-
-Em muốn hỏi các anh chị hai điều: trong năm việc này, việc nào giám khảo quan tâm nhất?
-Và anh chị có quen ai bên các trang tuyển dụng hoặc trường đại học không?
+Chi phí cả năm đầu khoảng 11 triệu đồng cho máy chủ và gán nhãn, vì không có backend và web tĩnh
+miễn phí. Chi phí lớn nhất nếu mở rộng là con người, không phải hạ tầng.
 
 ## Slide 7 — Demo (3 phút)
 
 *Mở demo-skill-radar.ducklytics.com.*
 
-**Học sinh (khoảng 1 phút 15).** *Bấm "Học sinh". Gõ "data" vào ô tìm kiếm.* Không ai nộp
-đơn vào "công nghệ thông tin", mà vào một nghề cụ thể, nên trang học sinh tách nhóm nghề lớn
-thành 48 nghề. *Mở Data Analyst.* 47 tin đang tuyển; cứ 10 tin thì 9 tin cần SQL, 7 tin cần
-Power BI, 6 tin cần Python. *Kéo xuống.* Mức ảnh hưởng của AI, và xu hướng tin nhắc công cụ AI
-của cả nhóm IT. *Kéo xuống "Nghề khác trong nhóm", bấm Tester* để so.
-*Bấm vào kỹ năng Excel.* Đây là xu hướng 12 tháng; tháng nào thiếu dữ liệu thì để trống,
-không nối cho đẹp.
+**Hướng nghiệp (khoảng 1 phút 15).** *Mời mọi người quét QR trên slide. Mở /huong-nghiep/, chọn
+"Sinh viên", làm vài câu trắc nghiệm (hoặc chiếu video demo trên slide).* Kết quả là mã Holland
+và các nhóm nghề hợp nhất. *Mở một nghề, tab Thị trường.* Bấm vào một kỹ năng để xem xu hướng
+12 tháng; tháng nào thiếu dữ liệu thì để trống, không nối cho đẹp. Biểu đồ AI cho thấy tỷ lệ tin
+nhắc công cụ AI theo nửa năm. *Tab Tổng quan, bấm tên một công ty* để xem tin thật của công ty đó.
+*Tab Kỹ năng & CV:* chọn kỹ năng đã có hoặc quét CV, CV chỉ đọc trên máy.
 
 **Nhà trường (khoảng 45 giây).** *Bấm "Nhà trường".* Nhà trường chọn một nhóm nghề và đánh
 dấu kỹ năng mình đang dạy, rồi xem mình phủ được bao nhiêu phần nhu cầu. Mỗi kỹ năng có

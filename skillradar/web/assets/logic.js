@@ -118,3 +118,44 @@ export function decodeChallenge(hash) {
   const m = /^#\/thach\/([a-z-]+)\/([a-z0-9.+#-]+)$/.exec(hash || '');
   return m ? { family: m[1], ids: m[2].split('.').filter(Boolean) } : null;
 }
+
+// --- hướng nghiệp (Holland / RIASEC) ---
+
+// items: [[type, text], ...]; answers: điểm 0–2 theo cùng thứ tự (undefined = chưa trả lời)
+// -> { R: 0..1, I: ..., ... } = điểm đạt / điểm tối đa của mỗi nhóm
+export function riasecScores(items, answers) {
+  const got = {}, max = {};
+  items.forEach(([t], i) => { max[t] = (max[t] || 0) + 2; got[t] = (got[t] || 0) + (answers[i] ?? 0); });
+  return Object.fromEntries(Object.keys(max).map(t => [t, got[t] / max[t]]));
+}
+
+// Mã Holland 3 chữ: ba nhóm điểm cao nhất; hòa điểm giữ thứ tự RIASEC
+export const hollandCode = scores => 'RIASEC'.split('').sort((a, b) => scores[b] - scores[a]).slice(0, 3).join('');
+
+// Độ hợp của một nghề có mã (vd 'ESC') với điểm của người dùng: chữ đầu nặng 3, chữ hai 2, chữ ba 1
+export function codeFit(code, scores) {
+  const w = [3, 2, 1];
+  return [...code].reduce((s, t, i) => s + w[i] * (scores[t] || 0), 0) / 6;
+}
+
+// Dò kỹ năng trong văn bản (CV) theo cùng luật với src/extract/run.py:
+// cụm chặt khớp trên chữ gốc, phân biệt hoa thường; cụm lỏng khớp trên chữ đã bỏ dấu.
+export const foldText = s => (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D')
+  .toLowerCase().replace(/[^\p{L}\p{N}_\s]/gu, ' ').replace(/\s+/g, ' ').trim();
+const esc = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+export function matcher(skills) {
+  const strict = new Map(), loose = new Map();
+  for (const s of skills) for (const [t, isStrict] of s.match || []) (isStrict ? strict : loose).set(t, s.id);
+  const alt = m => [...m.keys()].sort((a, b) => b.length - a.length).map(esc).join('|');
+  return {
+    strict, loose,
+    strictRe: strict.size ? new RegExp(`(?<![\\p{L}\\p{N}_+#.])(?:${alt(strict)})(?![\\p{L}\\p{N}_+#])`, 'gu') : null,
+    looseRe: loose.size ? new RegExp(`(?<![\\p{L}\\p{N}_])(?:${alt(loose)})(?![\\p{L}\\p{N}_])`, 'gu') : null,
+  };
+}
+export function cvSkills(text, m) {
+  const found = new Set();
+  for (const x of m.strictRe ? text.matchAll(m.strictRe) : []) found.add(m.strict.get(x[0]));
+  for (const x of m.looseRe ? foldText(text).matchAll(m.looseRe) : []) found.add(m.loose.get(x[0]));
+  return found;
+}

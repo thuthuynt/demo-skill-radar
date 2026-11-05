@@ -77,3 +77,33 @@ test('link thách đấu mã hóa và giải mã lại đúng', () => {
   assert.deepEqual(decodeChallenge(h), { family: 'ke-toan', ids: ['accounting', 'excel', 'tax-accounting'] });
   assert.equal(decodeChallenge('#/thach/<script>/x'), null);
 });
+
+import { riasecScores, hollandCode, codeFit, matcher, cvSkills } from '../web/assets/logic.js';
+const copyHn = JSON.parse(readFileSync(new URL('../web/copy.hn.vi.json', import.meta.url)));
+const skills = load('skills.json');
+
+test('RIASEC: trả lời "rất thích" toàn nhóm C và E -> mã bắt đầu bằng C, E; nghề kế toán hợp hơn nghề kỹ thuật', () => {
+  const items = copyHn.quiz.items;
+  const ans = items.map(([t]) => (t === 'C' ? 2 : t === 'E' ? 1 : 0));
+  const sc = riasecScores(items, ans);
+  assert.equal(sc.C, 1); assert.equal(sc.R, 0);
+  assert.equal(hollandCode(sc).slice(0, 2), 'CE');
+  assert.ok(codeFit(copyHn.units['general-accountant'].code, sc) > codeFit(copyHn.units['devops'].code, sc));
+  assert.equal(codeFit('CEI', { C: 1, E: 1, I: 1 }), 1);
+});
+
+test('mọi nghề trên trang đều có mã Holland 3 chữ hợp lệ', () => {
+  const units = families.filter(f => f.in_scope).flatMap(f => f.occupations.length ? f.occupations.map(o => o.id) : [f.id]);
+  for (const u of units) assert.match(copyHn.units[u]?.code || '', /^[RIASEC]{3}$/, u);
+});
+
+test('CV: dò được kỹ năng tiếng Việt không dấu/có dấu, alias ngắn phân biệt hoa thường', () => {
+  const m = matcher(skills);
+  const cv = 'Kỹ năng: Thành thạo Excel, SQL và Power BI. Tiếng Anh giao tiếp tốt (IELTS 6.5). Kinh nghiệm ke toan tong hop 2 nam.';
+  const got = cvSkills(cv, m);
+  for (const id of ['sql', 'power-bi', 'english']) assert.ok(got.has(id), id);
+  assert.ok(!cvSkills('i will sql nothing', m).has('power-bi'));
+  // alias ngắn ("BA") không khớp chữ thường trong câu thường
+  const ba = skills.find(s => s.match.some(([t, st]) => st && t === 'BA'));
+  if (ba) assert.ok(!cvSkills('ba mẹ tôi', m).has(ba.id));
+});

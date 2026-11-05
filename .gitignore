@@ -17,3 +17,7 @@ skillradar/probe_report.txt
 .venv/
 __pycache__/
 .wrangler/
+
+# Node: Playwright quay video demo
+skillradar/node_modules/
+skillradar/demo-video/

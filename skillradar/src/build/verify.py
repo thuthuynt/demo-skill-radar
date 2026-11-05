@@ -12,6 +12,7 @@ import sys
 
 import duckdb
 
+from src.build.export import MIN_SALARY_N
 from src.build.silver import DB
 from src.config import ROOT
 from src.log import get_logger
@@ -55,7 +56,7 @@ def main() -> int:
     for f in families:
         check(f"family {f['id']} n_open", f["n_open"], fam.get(f["id"]))
         n, med = sal.get(f["id"], (0, None))
-        want = round(med, -5) if n >= 30 else None
+        want = round(med, -5) if n >= MIN_SALARY_N else None
         if f["salary_median_vnd"] != want:
             errors.append(f"family {f['id']} salary: json={f['salary_median_vnd']} sql={want}")
 
@@ -124,7 +125,7 @@ def main() -> int:
             n_occ += 1
             n, sn, med = occ.get(o["id"], (None, 0, None))
             check(f"occupation {o['id']} n_open", o["n_open"], n)
-            if o["salary_median_vnd"] != (round(med, -5) if sn >= 30 else None):
+            if o["salary_median_vnd"] != (round(med, -5) if sn >= MIN_SALARY_N else None):
                 errors.append(f"occupation {o['id']} salary: json={o['salary_median_vnd']} sql={med}")
             for sid, w, *_ in o["skills"]:
                 check(f"occupation {o['id']} {sid}", w, occ_share.get((o["id"], sid)), TOL)

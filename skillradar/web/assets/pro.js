@@ -59,7 +59,7 @@ export function frame(D, page) {
   document.getElementById('foot').replaceChildren(
     h('span', {}, fill(C.updated, { date: new Date(D.meta.generated_at).toLocaleDateString('vi-VN') })),
     h('span', {}, fill(C.sources, { dates })),
-    h('a', { href: '../data.html' }, C.data_link), h('a', { href: '../' }, C.student_link));
+    h('a', { href: '../data.html' }, C.data_link), h('a', { href: '../huong-nghiep/' }, C.student_link));
   document.getElementById('theme').onclick = () => {
     const dark = matchMedia('(prefers-color-scheme: dark)').matches;
     const cur = document.documentElement.dataset.theme || (dark ? 'dark' : 'light');
