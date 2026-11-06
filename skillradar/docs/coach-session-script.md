@@ -1,189 +1,240 @@
-# Lời nói — trình bày vòng 2 (khoảng 12 phút)
+# Lời nói — trình bày vòng 2 (khoảng 13 phút)
 
-Đi theo deck 12 slide (`web/presentation/index.html`, https://demo-skill-radar.ducklytics.com/presentation/). Số liệu cập nhật 5/11/2026. Thời gian ghi trong ngoặc là gợi ý.
-Chữ *nghiêng* là thao tác, không đọc.
-Mỗi lần bấm (→, Space hoặc click chuột) hiện thêm một box; hết box thì sang slide sau. ← quay lại slide trước, hiện đủ.
+Deck 13 slide: `web/presentation/index.html`, https://demo-skill-radar.ducklytics.com/presentation/.
+Số liệu cập nhật 5/11/2026. Thời gian trong ngoặc là gợi ý. Chữ *nghiêng* là thao tác, không đọc.
+
+Cách bấm: →, Space hoặc click chuột hiện thêm một box; hết box thì sang slide sau. ← quay lại slide
+trước, hiện đủ box. Phím N bật ghi chú. Số lần bấm của từng slide ghi trong ngoặc vuông.
 
 ---
 
-## Slide mở đầu — Câu chuyện của em (30–45 giây)
+## 1. Mất phương hướng khi chọn nghề (40 giây) [6 lần bấm]
 
 Chào các anh chị. Em là Thủy, nhóm Ducklytics, bài dự thi SkillRadar VN, mã BTL86-59.
 
-*Kể chuyện của bản thân: lúc chọn ngành hoặc chọn việc, thiếu thông tin ra sao. Bấm sáu lần, mỗi lần hiện một câu hỏi
-bên trái.* Chốt: "Hôm nay hàng trăm nghìn bạn trẻ vẫn đứng ở ngã rẽ đó."
+*Kể chuyện của bản thân, 30 giây: lúc chọn ngành hoặc chọn việc, thiếu thông tin ra sao. Mỗi câu
+hỏi bấm một lần cho nó hiện ra: Học ngành gì? Ra trường làm gì? Lương bao nhiêu? Cần kỹ năng gì?
+Nghề này còn cần người không? AI có làm thay mình không?*
 
-## Slide 0 — Vì sao cần SkillRadar (45 giây)
+Mất phương hướng khi chọn nghề không phải chuyện của riêng ai: hôm nay, hàng trăm nghìn bạn trẻ vẫn
+đứng ở ngã rẽ đó.
 
-Năm nay có gần 875 nghìn bạn trẻ đăng ký xét tuyển đại học, với hơn 7 triệu nguyện vọng.
-Trung bình mỗi bạn chọn 8 ngành, và gần như không có dữ liệu nào cho biết ngành đó ngoài
-thị trường đang cần gì.
+## 2. Vì sao cần SkillRadar (45 giây) [5 lần bấm]
 
-Kết quả thấy rõ trong số liệu của Cục Thống kê quý III năm nay: cứ 11 thanh niên thì 1 bạn
-thất nghiệp, ở thành phố là 1 trên 8, gấp bốn lần mức chung. 1,6 triệu bạn trẻ không đi học, không có việc, cũng không học nghề.
-(Đây là nhóm NEET, không phải số thất nghiệp: tính cả người không tìm việc.)
+*Bấm.* Cứ 5 cử nhân thì có 1 người đi làm trái ngành. Ở khoa học tự nhiên, toán và công nghệ thông
+tin, con số này là hơn 60%. (Nghiên cứu của Trường Quốc tế, ĐHQG Hà Nội, trên dữ liệu điều tra lao
+động 2018–2020.)
 
-Và thị trường đang đổi nhanh hơn. ILO tính có 11,5 triệu lao động Việt Nam, tức 1 trên 5
-người, làm công việc chịu tác động của AI tạo sinh. Diễn đàn Kinh tế Thế giới dự báo đến
-2030, gần 40% kỹ năng hiện có sẽ thay đổi, và 62% doanh nghiệp tại Việt Nam nói thiếu kỹ
-năng là rào cản lớn nhất.
+*Bấm.* Theo Cục Thống kê quý III năm nay, cứ 8 thanh niên 15–24 tuổi ở thành thị thì có 1 bạn thất
+nghiệp.
 
-Học sinh, nhà trường, cơ quan quản lý đều cần một câu trả lời: hôm nay thị trường cần kỹ
-năng gì, và AI đang thay đổi điều đó thế nào.
+*Bấm.* 1,6 triệu bạn trẻ không đi học, không có việc, cũng không học nghề. Đây là nhóm NEET, tính
+cả người không tìm việc, nên không phải số thất nghiệp.
 
-## Slide 0b — AI đang thay đổi cách người trẻ vào nghề (40 giây)
+*Bấm.* ILO tính 20% lao động Việt Nam, tức 11,5 triệu người, làm công việc chịu tác động của
+AI tạo sinh.
 
-Ý lấy từ chương trình *Toàn cảnh Thế giới* (VTV24, 11/2026), ghi chép ở `docs/ai-video-notes.md`.
-Bốn thẻ hiện lần lượt, câu chốt hiện cuối. Chỉ nói ý định tính, không đọc số của video.
+*Bấm.* Diễn đàn Kinh tế Thế giới dự báo đến năm 2030, 39% kỹ năng hiện có sẽ thay đổi hoặc lỗi
+thời. Nhưng chưa có công cụ nào cho biết hôm nay thị trường Việt Nam cần kỹ năng gì, và AI đang
+thay đổi điều đó ra sao.
 
-> Tuần này VTV24 có một chương trình về AI và việc làm. Bốn điều đáng chú ý. Một: việc của nhân viên mới
-> vào nghề đang được AI làm thay, nên vừa ra trường đã bị đòi như người đi làm 5 đến 10 năm. Hai: bằng cấp
-> giảm giá, năng lực thực tế lên ngôi. Ba: lao động trí thức cũng chịu tác động, AI tham gia vào từng khâu
-> của việc văn phòng. Bốn: người đang có việc phần lớn giữ được việc, nhưng tuyển mới chậm lại. Vậy nếu bằng
-> cấp không còn đủ, thị trường đang hỏi kỹ năng gì, ngay hôm nay? Đó là việc của SkillRadar.
+## 3. AI đang thay đổi cách người trẻ vào nghề (45 giây) [5 lần bấm]
 
-Nếu có mạng và còn thời gian: chọn mốc (16:20, 19:24, 22:07, 25:57) rồi bấm "Xem trích đoạn",
-chiếu 20–30 giây. Rời slide là video tự tắt.
+Ý lấy từ chương trình Toàn cảnh Thế giới của VTV24 tháng 11. Chỉ nói ý, không đọc số trong video.
 
-## Slide 1 — Tổng quan (30 giây)
+*Bấm.* Một: vừa ra trường đã bị đòi hỏi như người có 5 đến 10 năm kinh nghiệm, vì việc của nhân
+viên mới đang được AI làm thay.
+*Bấm.* Hai: bằng cấp giảm giá, năng lực thực tế lên ngôi.
+*Bấm.* Ba: lao động trí thức cũng chịu tác động; AI tham gia vào từng khâu của công việc văn phòng.
+*Bấm.* Bốn: ít sa thải, nhưng tuyển mới chậm lại. Người đang có việc giữ được việc, người trẻ tìm
+việc đầu tiên khó hơn hẳn.
+*Bấm.* Vậy nếu bằng cấp không còn đủ, người trẻ cần biết thị trường đang hỏi kỹ năng gì, ngay hôm nay?
 
-**Vì sao làm (why).** Thông tin đó thật ra đã có sẵn, nằm rải rác trong hàng chục nghìn tin
-tuyển dụng đăng công khai mỗi ngày, chỉ là chưa ai gom lại và đọc nó.
+Nếu có mạng và còn thời gian: chọn mốc 19:24 "Người trẻ khó tìm việc", bấm "Xem trích đoạn", chiếu
+20–30 giây. Rời slide là video tự tắt.
 
-**Bọn em làm gì (what).** SkillRadar đọc tin tuyển dụng công khai mỗi ngày, tách ra kỹ năng
-mà nhà tuyển dụng yêu cầu, rồi biến thành chỉ số: kỹ năng nào đang được cần nhiều, ở nghề
-nào, tỉnh nào, lương ra sao, và AI đang ảnh hưởng tới nó thế nào. Mọi con số đều lấy từ dữ
-liệu thật và truy ngược được.
+## 4. SkillRadar VN (30 giây)
 
-**Dành cho ai (who).** Ba nhóm người dùng, mỗi nhóm một trang riêng:
-- **Học sinh, sinh viên 17–23 tuổi**, nhóm chính: chọn nghề và biết mình cần học gì.
-- **Nhà trường**: đối chiếu chương trình đào tạo với nhu cầu thực tế.
-- **Cơ quan quản lý**: nắm thị trường lao động theo vùng và theo nhóm nghề.
+SkillRadar đọc tin tuyển dụng công khai mỗi ngày, tách ra kỹ năng nhà tuyển dụng yêu cầu, rồi biến
+thành chỉ số: kỹ năng nào đang được cần, ở nghề nào, tỉnh nào, lương ra sao, và AI ảnh hưởng tới nó
+thế nào. Mọi con số đều lấy từ dữ liệu thật và truy ngược được.
 
-*Chỉ các con số bên phải.* Hơn 66 nghìn tin, 159 kỹ năng, 47 nghề cụ thể, 6 nguồn, trong đó
-2 nguồn lấy qua Internet Archive.
+Ba nhóm người dùng, mỗi nhóm một trang: học sinh, sinh viên chọn nghề và biết cần học gì; nhà
+trường đối chiếu chương trình với nhu cầu; cơ quan quản lý nắm thị trường theo vùng.
 
-## Slide 2 — Kiến trúc: từ crawl tới website (1 phút 30)
+*Chỉ các con số.* Hơn 66 nghìn tin, 159 kỹ năng, 47 nghề cụ thể, 6 nguồn, trong đó 2 nguồn lấy qua
+Internet Archive.
 
-Toàn bộ hệ thống chạy trên một laptop, không có backend.
+## 5. Kiến trúc: từ crawl tới website (1 phút 15)
 
-*Chỉ cột bên trái.* Bọn em lấy dữ liệu từ 4 trang tuyển dụng. Hôm nay itviec và timviec365
-chạy bình thường. vietnamworks gỡ sitemap từ 14/10 nên số liệu đứng ở ngày 13/10. jobsgo
-từng chặn bọn em một ngày rồi mở lại.
+Toàn bộ chạy trên một local server, không có backend.
 
-*Chỉ ô crawler.* Crawler chạy 7 giờ sáng mỗi ngày, có lượt dự phòng 12 giờ 30, và theo
-năm nguyên tắc đã viết trong hồ sơ dự thi: kiểm tra robots.txt, khai báo danh tính kèm email
-thật, mỗi trang cách nhau ít nhất 2 giây, gặp 403 hay CAPTCHA là dừng, và xóa thông tin cá
-nhân trước khi lưu. Trang nào từ chối thì bọn em dừng, không tìm cách vượt rào.
+*Chỉ cột trái.* Bọn em crawl trực tiếp 4 trang tuyển dụng. Với các trang chặn crawler như vieclam24h
+và topcv, bọn em không gửi request tới trang gốc, chỉ lấy bản lưu công khai trên Internet Archive và
+ghi rõ nguồn. Internet Archive cũng cho bọn em lịch sử theo tháng từ 2025.
 
-Với các trang chặn crawler như vieclam24h, topcv, bọn em không gửi request tới trang gốc mà
-chỉ lấy bản lưu công khai trên Internet Archive, ghi rõ nguồn. Internet Archive cũng cho bọn
-em lịch sử theo tháng từ 2025. Lâu dài, bọn em sẽ đề xuất hợp tác để có dữ liệu chính thức.
+*Chỉ ô Crawler (daily).* Crawler chạy 7 giờ sáng mỗi ngày, theo năm nguyên tắc ghi ở hàng chip bên
+dưới: tôn trọng robots.txt, khai báo danh tính kèm email thật, mỗi trang cách nhau ít nhất 2 giây,
+gặp 403 hay CAPTCHA là dừng, và xóa dữ liệu cá nhân trước khi lưu. *Có thể bấm vào từng ô để hiện
+giải thích ngay dưới sơ đồ.*
 
-*Chỉ phần giữa và bên phải.* Dữ liệu đi qua ba tầng kho, bronze, silver, gold. Trước khi lên
-web, một bước kiểm tra tính lại mọi con số bằng SQL độc lập; lệch là dừng, không deploy.
-Website là file tĩnh nên lúc demo không có gì phải chạy.
+*Chỉ phần giữa và phải.* Dữ liệu vào data warehouse DuckDB qua ba tầng bronze, silver, gold. Trước
+khi lên web, bước verify tính lại mọi con số bằng SQL; lệch là dừng, không deploy. Website là JSON
+tĩnh trên Cloudflare Pages, lúc demo không có gì phải chạy.
 
-## Slide 3 — Lưu trữ và biến đổi, qua một tin thật (1 phút 30)
+*Chỉ hàng tech stack.* Python, DuckDB, statsmodels cho dự báo, JavaScript thuần. Kỹ năng được trích
+bằng rule-based: từ điển 159 kỹ năng song ngữ, không dùng LLM.
 
-*Chỉ hàng trên.* Bronze là dữ liệu thô. Silver là mỗi tin một dòng sạch: chuẩn về 34 tỉnh
-theo bản đồ mới, lương quy về VND mỗi tháng, xếp vào 15 nhóm nghề. Gold là mỗi dòng một cặp
-tin và kỹ năng.
+## 6. Dữ liệu được xử lý qua từng tầng, sẵn sàng để khai thác (1 phút 15) [4 lần bấm]
 
-*Chỉ hàng dưới.* Đây là một tin thật trên itviec, Data Engineer ở Hà Nội. Từ điển của bọn
-em tìm được 12 kỹ năng trong tin này: SQL, Spark, Python, dbt, Airflow…
+Cùng một tin thật trên itviec, Data Engineer của F88, đi qua ba tầng.
 
-Bọn em không dùng AI để trích kỹ năng, mà dùng từ điển 159 kỹ năng có tên tiếng Việt và
-tiếng Anh, cộng luật. Cách này rẻ, nhanh, và giải thích được. Mỗi dòng giữ lại cụm từ đã
-khớp, nên con số nào trên web cũng truy ngược được tới câu gốc trong tin.
+*Bấm.* Bronze giữ nguyên như trang gốc: lương còn là chuỗi "800-1300 USD MONTH", địa điểm là "Not
+Available, Hà Nội", mô tả còn nguyên phần quảng cáo.
+*Bấm.* Silver là một dòng đã chuẩn hóa: lương thành số, tỉnh thành mã Hà Nội, tin được xếp vào nhóm
+công nghệ thông tin, nghề Data Engineer, và đánh dấu có phải tin đăng lại không.
+*Bấm.* Gold là mỗi dòng một cặp tin và kỹ năng. Tin này có 12 dòng: SQL, Spark, Airflow… Có cả tên
+gọi khác, ví dụ "kafka" được hiểu là kỹ năng hàng đợi thông điệp.
+*Bấm.* Phía sau là từ điển kỹ năng: 159 kỹ năng với 831 cách gọi tiếng Việt và tiếng Anh, bọn em
+duyệt tay từng mục. Ví dụ "pivot table", "vlookup" đều được hiểu là Excel; "IELTS", "TOEIC" là tiếng
+Anh giao tiếp. Mỗi dòng gold giữ lại cụm từ đã khớp, nên con số nào trên web cũng truy ngược được
+tới câu gốc trong tin.
 
-## Slide 4 — Mô hình: bọn em tính gì (1 phút)
+## 7. Insights · Mỗi nhóm ngành đòi một bộ kỹ năng riêng (1 phút) [4 lần bấm]
 
-Bọn em tính bốn thứ.
+4 nhóm ngành nhiều tin đang mở nhất. Mỗi thẻ là 4 kỹ năng được đòi hỏi nhiều nhất, kèm đường xu
+hướng 12 tháng.
 
-Một, tỷ trọng nhu cầu: bao nhiêu phần trăm tin đang mở cần kỹ năng đó. Ví dụ tiếng Anh giao
-tiếp gần 41%, Excel khoảng 31%.
+*Bấm, Kinh doanh.* Chăm sóc khách hàng, đàm phán, tiếng Anh. Lương trung vị 17 triệu; chưa tới 2% tin
+nhắc công cụ AI.
+*Bấm, Kế toán.* 94% tin đòi nghiệp vụ kế toán, hơn một nửa đòi Excel và phần mềm kế toán.
+*Bấm, Công nghệ thông tin.* Tiếng Anh đứng đầu, 53%, nhiều hơn cả SQL. Lương trung vị cao nhất, 22 triệu,
+và gần 23% tin nhắc công cụ AI.
+*Bấm, Marketing.* Quản lý mạng xã hội gần một nửa số tin, rồi tiếng Anh và vận hành sàn thương mại
+điện tử.
 
-Hai, chênh lệch lương giữa tin có và không có kỹ năng. Đây là tương quan, không phải nhân quả.
+Mức ảnh hưởng của AI của cả 4 nhóm đều ở mức trung bình, nhưng tin nhắc công cụ AI chênh nhau
+rất xa: IT gần 23%, marketing 12%, kinh doanh và kế toán dưới 2%.
 
-Ba, mức ảnh hưởng của AI: ghép khả năng AI làm thay, do nhóm đánh giá, với mức kỹ năng đó
-đi cùng công cụ AI trong tin tuyển dụng.
+## 8. Insights · Kỹ năng nào đang được yêu cầu nhiều hơn, ít hơn? (1 phút) [3 lần bấm]
 
-Bốn, dự báo bằng ARIMA. Em nói thẳng: khi kiểm tra ngược, mô hình chỉ thắng cách dự báo đơn
-giản ở 50% số lần kiểm tra. Nên bọn em công bố kèm kết quả kiểm tra, chứ không khoe đường dự báo.
-Khi đủ một năm dữ liệu hằng ngày, bọn em sẽ đo lại.
+*Bấm, cột Nhiều hơn.* Trong tin IT, tỷ lệ đòi biết dùng công cụ AI tăng từ 5,9% lên 20,8% trong 12
+tháng; mô hình ngôn ngữ lớn từ 4,7% lên 13,3%. CI/CD, kiểm thử, phân tích nghiệp vụ cũng tăng.
+*Bấm, cột Ít hơn.* Cột này chỉ lấy kỹ năng có dự báo ARIMA đáng tin. Đàm phán giảm từ 23,2% xuống
+18,8% và mô hình dự báo còn giảm; tiếng Trung giảm 3 điểm rồi đi ngang; bán hàng doanh nghiệp được
+dự báo tăng lại.
+*Bấm.* Em nói thẳng: ARIMA chỉ thắng cách dự báo đơn giản ở 45 trên 92 kỹ năng, nên chỉ đọc dự báo
+ở dòng có nhãn ARIMA. Ở kỹ năng dùng công cụ AI, dự báo giữ quanh 24%, cao hơn
+trung bình 3 tháng gần nhất.
 
-## Slide AI 1 — Tin IT nhắc công cụ AI tăng gấp 4 (1 phút)
+## 9. Insights · AI: tin IT nhắc công cụ AI tăng gấp 4 lần (1 phút) [2 lần bấm]
 
-Đây là phát hiện chính về AI. Bọn em đếm tỷ lệ tin tuyển dụng nhắc tới công cụ AI như
-ChatGPT, Copilot, LLM, trên mẫu bản lưu Internet Archive từ đầu 2025.
+Bọn em đếm tỷ lệ tin tuyển dụng nhắc tới công cụ AI như ChatGPT, Copilot, LLM, trên mẫu bản lưu
+Internet Archive từ đầu 2025.
 
-*Chỉ dòng CNTT.* Ở nhóm công nghệ thông tin, tỷ lệ này tăng từ 5% nửa đầu 2025 lên gần 20%
-năm 2026, gấp bốn lần trong 18 tháng. Marketing đi theo sau, từ 2% lên gần 9%.
+*Bấm.* Ở nhóm công nghệ thông tin, tỷ lệ này tăng từ 5% nửa đầu 2025 lên gần 20% năm 2026, gấp bốn
+lần trong 18 tháng. Marketing đi theo sau, từ khoảng 2% lên gần 9%.
+*Bấm.* Kế toán, kinh doanh, hành chính vẫn dưới 3%. AI đi vào tin tuyển dụng theo từng nghề, không đều.
 
-*Chỉ các dòng dưới.* Kế toán, kinh doanh, hành chính vẫn dưới 3%. Nghĩa là AI đi vào tin
-tuyển dụng theo từng nghề, không đều.
+Giới hạn: đây là mẫu, khoảng 150 tin mỗi tháng mỗi nguồn. "Nhắc tới công cụ AI" là tín hiệu nhà
+tuyển dụng muốn người biết dùng AI, chưa phải số việc làm mất đi.
 
-Em nói rõ giới hạn: đây là mẫu, khoảng 150 tin mỗi tháng mỗi nguồn. Và "nhắc tới công cụ AI"
-là tín hiệu nhà tuyển dụng muốn người biết dùng AI, chưa phải số việc làm bị mất.
+## 10. Insights · AI: hôm nay, theo từng nghề (1 phút) [2 lần bấm]
 
-## Slide AI 2 — Hôm nay, theo từng nghề (1 phút)
+*Chỉ bảng.* Tin đang mở ngày 5/11. Cứ 3 tin tuyển Tester thì 1 tin yêu cầu công cụ AI; Business
+Analyst 32%, lập trình viên 23%, content marketing gần 17%. Trong khi đó kế toán 2%, logistics hơn
+1%, lao động phổ thông gần như không có.
 
-*Chỉ bảng.* Đây là tin đang mở hôm nay. Cứ 3 tin tuyển Tester thì 1 tin yêu cầu công cụ AI.
-Business Analyst 32%, lập trình viên 23%, content marketing gần 17%. Trong khi đó kế toán
-2%, logistics hơn 1%, lao động phổ thông gần như 0.
+*Bấm.* Tính chung, 5,3% trong 12.359 tin đang mở nhắc tới công cụ AI, gần như toàn bộ ở IT và marketing.
+*Bấm.* Với học sinh: nếu muốn làm Tester, BA hay content marketing thì biết dùng công cụ AI đã là kỹ
+năng nhà tuyển dụng ghi trong tin. ILO nói 1 trên 5 lao động chịu tác động của AI; dữ liệu này cho
+thấy tác động đó đang hiện ra ở nghề nào trước.
 
-ILO nói 1 trên 5 lao động chịu tác động của AI tạo sinh. Dữ liệu của bọn em cho thấy tác
-động đó đang hiện ra trong tin tuyển dụng ở nghề nào trước. Với học sinh: muốn làm Tester,
-BA hay content marketing, biết dùng công cụ AI đã là kỹ năng nhà tuyển dụng ghi trong tin.
+## 11. Roadmap 12 tháng: đã làm và sắp làm (1 phút 30) [4 lần bấm]
 
-## Slide 5 — Tiến độ (1 phút)
+Cột đầu tiên, tháng 10/2026, là giai đoạn setup đã làm xong; 12 cột sau là kế hoạch tới 10/2027. Đọc
+theo bốn làn, mỗi làn nói phần đã làm trước.
 
-Crawler chạy mỗi ngày từ 12/10, hiện có 23 ngày dữ liệu và hơn 12 nghìn tin đang mở. Có lịch sử
-2025–2026 từ Internet Archive kể cả vieclam24h và topcv, từ điển kỹ năng đã duyệt, mọi số khớp SQL,
-ba website đã chạy, và trang hướng nghiệp mới có trắc nghiệm Holland, quét CV. 66 bài test tự động đều đạt.
+*Bấm, Infrastructure.* Đã làm: crawler chạy hằng ngày từ 12/10, 23 ngày dữ liệu, 12.359 tin đang mở;
+lịch sử từ Internet Archive; setup local server, xử lý và lưu trữ dữ liệu trong DuckDB. Ba tháng tới: deploy crawler lên server chạy liên tục, gán nhãn 150 tin để công
+bố độ chính xác F1, rồi bật chỉ số tháng trên dữ liệu thật. Sau đó mở rộng sang nghề kỹ thuật, sản
+xuất, đo tác động AI theo chuỗi, và đủ 12 kỳ thì làm dự báo.
+*Bấm, Product.* Đã có bản MVP: web hướng nghiệp cho học sinh, trang báo cáo cho trường đại học và cơ quan
+quản lý; từ điển 159 kỹ năng, 47 nghề cụ thể. Sắp tới:
+hoàn thiện trang hướng nghiệp, kịp mùa tuyển sinh 2027; so cung với cầu theo chỉ tiêu
+tuyển sinh; cuối năm mở dữ liệu CSV theo tỉnh, nghề, kỹ năng.
+*Bấm, Partnerships.* Đề xuất hợp tác dữ liệu với các trang tuyển dụng để có ít nhất một nguồn chính
+thức; thí điểm với 2–3 trường đại học và THPT; báo
+cáo theo quý.
+*Bấm, Cost.* Đến nay chi phí là 0 đồng: chạy trên local server, web tĩnh miễn phí. Cả năm đầu khoảng 11 triệu đồng cho server và gán nhãn, vì không có backend và web tĩnh
+miễn phí. Đây là giá tham khảo, chưa có báo giá. Chi phí lớn nhất nếu mở rộng là con người, không
+phải hạ tầng.
 
-## Slide 6 — Lộ trình 3, 6, 12 tháng (1 phút)
+## 12. Demo (3 phút)
 
-Ba tháng tới: đưa crawler lên máy chủ chạy liên tục, công bố độ chính xác trên 150 tin gán nhãn, bật
-chỉ số tháng thật, và gửi đề xuất hợp tác dữ liệu. Sáu tháng: kịp mùa tuyển sinh 2027, thí điểm trang
-hướng nghiệp ở vài trường THPT, so cung với cầu, mở rộng sang nghề kỹ thuật. Mười hai tháng: đủ 12 kỳ
-để dự báo, đo tác động AI theo chuỗi, và mở dữ liệu.
+*Mời mọi người quét QR của trang hướng nghiệp trên slide.* Nếu mạng yếu, bấm play video demo ở bên
+phải (1 phút 49, lời thoại trong `docs/demo-video-script.md`).
 
-Chi phí cả năm đầu khoảng 11 triệu đồng cho máy chủ và gán nhãn, vì không có backend và web tĩnh
-miễn phí. Chi phí lớn nhất nếu mở rộng là con người, không phải hạ tầng.
+**Hướng nghiệp (khoảng 1 phút 30).** *Mở /huong-nghiep/, chọn "Sinh viên", làm nhanh trắc nghiệm.*
+Kết quả là mã Holland và các nhóm nghề hợp nhất, mỗi nhóm có số tin đang tuyển và lương phổ biến.
+*Mở một nghề, tab Tổng quan, bấm tên một công ty:* tin thật của công ty đó, yêu cầu gì, kỹ năng nào.
+*Tab Thị trường, bấm một kỹ năng:* xu hướng 12 tháng; tháng thiếu dữ liệu để trống, không nối cho
+đẹp. Biểu đồ AI cho thấy tỷ lệ tin nhắc công cụ AI theo nửa năm. *Tab Kỹ năng & CV:* chọn kỹ năng đã
+có hoặc quét CV; CV chỉ đọc trên máy, không gửi đi.
 
-## Slide 7 — Demo (3 phút)
+**Nhà trường (khoảng 45 giây).** *Quét QR hoặc mở /nha-truong/.* Nhà trường chọn một nhóm nghề, đánh
+dấu kỹ năng đang dạy, rồi xem chương trình phủ được bao nhiêu phần nhu cầu. *Bấm "Tải CSV"* để đối
+chiếu với chương trình.
 
-*Mở demo-skill-radar.ducklytics.com.*
+**Cơ quan quản lý (khoảng 30 giây).** *Mở /co-quan/.* Nhu cầu theo tỉnh và nhóm nghề, lương theo nhóm
+nghề, kỹ năng biến động mạnh nhất 12 tháng, kèm cột cho biết dự báo có đáng tin không.
 
-**Hướng nghiệp (khoảng 1 phút 15).** *Mời mọi người quét QR trên slide. Mở /huong-nghiep/, chọn
-"Sinh viên", làm vài câu trắc nghiệm (hoặc chiếu video demo trên slide).* Kết quả là mã Holland
-và các nhóm nghề hợp nhất. *Mở một nghề, tab Thị trường.* Bấm vào một kỹ năng để xem xu hướng
-12 tháng; tháng nào thiếu dữ liệu thì để trống, không nối cho đẹp. Biểu đồ AI cho thấy tỷ lệ tin
-nhắc công cụ AI theo nửa năm. *Tab Tổng quan, bấm tên một công ty* để xem tin thật của công ty đó.
-*Tab Kỹ năng & CV:* chọn kỹ năng đã có hoặc quét CV, CV chỉ đọc trên máy.
+**Dữ liệu (15 giây).** *Bấm "Xem dữ liệu đã thu thập".* Còn đây là toàn bộ dữ liệu bọn em đang có, cập
+nhật tới hôm nay, để các anh chị tự kiểm tra.
 
-**Nhà trường (khoảng 45 giây).** *Bấm "Nhà trường".* Nhà trường chọn một nhóm nghề và đánh
-dấu kỹ năng mình đang dạy, rồi xem mình phủ được bao nhiêu phần nhu cầu. Mỗi kỹ năng có
-đường xu hướng nhỏ. *Bấm "Tải CSV".* Có thể tải về để đối chiếu với chương trình.
+## 13. Tầm nhìn (40 giây)
 
-**Cơ quan quản lý (khoảng 45 giây).** *Bấm "Cơ quan quản lý".* Nhu cầu theo tỉnh và theo
-nhóm nghề, lương theo nhóm nghề, và các kỹ năng biến động mạnh nhất 12 tháng, kèm cột cho
-biết dự báo có đáng tin không.
+Thị trường đang thay đổi rất nhanh, vì có sự tham gia của AI. AI không thay thế con người, nhưng con người
+phải thay đổi để theo kịp những gì thị trường cần. *Chỉ tiêu đề.* SkillRadar cho biết thị trường đang cần
+kỹ năng gì, cập nhật liên tục.
 
-**Kết (15 giây).** *Quay lại slide, bấm "Xem dữ liệu đã thu thập".* Còn đây là toàn bộ dữ
-liệu bọn em đang có, để các anh chị tự kiểm tra. Em xin hết, mong nhận góp ý của các anh chị.
+*Chỉ radar.* Với người trẻ: biết mình cần học gì. Với nhà trường: có dữ liệu để cập nhật chương trình.
+Với cơ quan quản lý: có công cụ để điều phối thị trường lao động.
 
+Ở slide đầu em nói các bạn trẻ đứng trước ngã rẽ mà không có bản đồ. SkillRadar muốn là tấm bản đồ đó,
+và là tấm bản đồ luôn được cập nhật.
+
+Em xin cảm ơn các anh chị và các thầy cô trong Ban giám khảo, và mong nhận góp ý.
+
+## Phụ lục — Trắc nghiệm Holland (chỉ mở khi bị hỏi)
+
+*Bấm → sau slide Tầm nhìn.* Holland chia sở thích nghề thành 6 nhóm: kỹ thuật, nghiên cứu, nghệ thuật,
+xã hội, quản lý và nghiệp vụ. Bạn trả lời 24 câu, mỗi nhóm 4 câu, chọn không thích, cũng được hay rất
+thích. Ba nhóm điểm cao nhất thành mã Holland, ví dụ I-C-S. Mỗi nghề cũng có một mã như vậy, nhóm gán có
+tham khảo O*NET; chữ đầu của mã nghề nặng gấp 3, chữ hai gấp 2, chữ ba gấp 1. Bộ câu hỏi chưa được kiểm
+định, nên trang ghi rõ đây chỉ là điểm khởi đầu.
+
+## Phụ lục — Dự báo ARIMA (chỉ mở khi bị hỏi)
+
+Mỗi nguồn, mỗi kỹ năng là một chuỗi tỷ trọng theo tháng trên mẫu Internet Archive. Chỉ dự báo khi có ít nhất
+12 tháng dùng được và kỹ năng chiếm từ 2% tin trở lên; tháng thiếu mẫu để trống, không nội suy. Bọn em thử ba
+dạng ARIMA, chọn theo AIC, dự báo 6 tháng kèm dải tin cậy 80%. Rồi giữ lại 3 tháng cuối để kiểm tra ngược: chỉ
+khi ARIMA sai ít hơn cách dự báo đơn giản (trung bình 3 tháng gần nhất) mới ghi "đáng tin". Kết quả: 80 trên
+159 lần, khoảng một nửa. Ví dụ "Sử dụng công cụ AI" trong tin itviec: ARIMA sai 4 điểm %, cách đơn giản sai
+6,8 điểm %, nên dự báo này đáng tin.
 ---
 
 ## Nếu bị hỏi
 
-- **"Chuyên gia" chấm điểm AI là ai?** Hiện là nhóm tự đánh giá, nên trên web ghi rõ "nhóm
-  đánh giá". Bước tiếp theo là nhờ người trong ngành chấm lại.
-- **Sao không dùng AI để đọc tin?** Từ điển + luật rẻ, nhanh, giải thích được từng kết quả.
-  Nếu sau này dùng AI thì cũng phải đo độ chính xác như cách hiện tại.
-- **Dữ liệu có đại diện cho cả thị trường không?** Chưa. Đây là tin đang mở trên 4 trang,
-  thiếu tin đã đóng và các ngành kỹ thuật, xây dựng, sản xuất. Trang trạng thái ghi rõ điều này.
-- **Có thu thập dữ liệu cá nhân không?** Không. Tên, số điện thoại, email người đăng bị xóa
-  trước khi ghi xuống đĩa.
+- **Ai chấm điểm "khả năng AI làm thay"?** Hiện là nhóm tự đánh giá, nên trên web ghi rõ "nhóm đánh
+  giá". Bước tiếp theo là nhờ người trong ngành chấm lại.
+- **Sao không dùng AI để đọc tin?** Từ điển và luật rẻ, nhanh, giải thích được từng kết quả. Nếu sau
+  này dùng AI thì cũng phải đo độ chính xác như cách hiện tại.
+- **Dữ liệu có đại diện cho cả thị trường không?** Chưa. Đây là tin đang mở trên 4 trang, thiếu tin
+  đã đóng và các ngành kỹ thuật, xây dựng, sản xuất. Trang trạng thái ghi rõ điều này.
+- **vietnamworks còn cập nhật không?** Trang gỡ sitemap từ 14/10, nên tin của vietnamworks đứng ở ngày
+  13/10 và vẫn được tính trong số tin đang mở. Đây là giới hạn đã biết.
+- **Lương công bố từ bao nhiêu tin?** Từ 10 tin có ghi lương trở lên; trang ghi rõ tính trên bao
+  nhiêu tin.
+- **Có thu thập dữ liệu cá nhân không?** Không. Tên, số điện thoại, email người đăng bị xóa trước khi
+  ghi xuống đĩa. CV trên trang hướng nghiệp chỉ đọc trên máy người dùng.

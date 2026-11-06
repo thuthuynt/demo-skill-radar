@@ -2,7 +2,7 @@
 // Cần server local đang chạy (cổng 8090). Chạy: npm run demo-video  →  demo-video/demo-huong-nghiep.webm
 // HEADED=1 npm run demo-video: mở cửa sổ Chromium thật để quay màn hình (Cmd+Shift+5) cho nét
 import { chromium, devices } from 'playwright';
-import { readFileSync, mkdirSync, rmSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 
 const BASE = process.env.BASE || 'http://localhost:8090';
@@ -36,6 +36,9 @@ const phone = devices['iPhone 13'];
 const ctx = await browser.newContext({ ...phone, recordVideo: { dir: OUT, size: phone.viewport } });
 await ctx.addInitScript(TOUCH_JS);
 const page = await ctx.newPage();
+// mốc thời gian từng cảnh (giây tính từ đầu video), để viết lời thoại khớp hình
+const t0 = Date.now(), marks = [];
+const mark = label => { marks.push([+((Date.now() - t0) / 1000).toFixed(1), label]); };
 const wait = ms => page.waitForTimeout(ms);
 const { width: W, height: H } = phone.viewport;
 
@@ -61,6 +64,7 @@ await page.reload();
 await page.locator('.hello h1').waitFor();
 await wait(2500);
 
+mark('Màn chào');
 // 1. chào: nhập tên, chọn "Sinh viên", bắt đầu
 const name = page.locator('.form input[type=text]');
 await tap(name, 300);
@@ -69,6 +73,7 @@ await wait(500);
 await tap(page.locator('.pill', { hasText: 'Sinh viên' }));
 await tap(page.locator('a.btn.primary.wide'), 900);
 
+mark('Trắc nghiệm 24 câu');
 // 2. trắc nghiệm 24 câu: vài câu đầu chậm để người xem đọc, sau đó nhanh dần
 for (const [i, [type]] of copy.quiz.items.entries()) {
   await page.locator('.qcard h2').waitFor();
@@ -78,31 +83,54 @@ for (const [i, [type]] of copy.quiz.items.entries()) {
 
 // 3. kết quả: mã Holland, rồi các nhóm nghề hợp nhất
 await page.locator('.me').waitFor();
-await wait(2500);
-await swipes(3);
+mark('Kết quả: mã Holland');
+await wait(3500);
+await swipes(2);
+mark('Nhóm nghề hợp với bạn');
+await wait(1500);
+await swipes(1);
 await tap(page.locator('.jcs .jc').first(), 1500);
 
 // 4. nhóm nghề → nghề cụ thể (nhóm chưa tách nghề thì đã ở trang nghề)
 if (await page.locator('.tabs').count() === 0) {
+  mark('Các nghề trong nhóm');
   await swipes(1);
   await tap(page.locator('.jcs .jc').first(), 1500);
 }
 
 // 5. trang nghề: tổng quan, thị trường, kiểm tra độ hợp
 const tab = i => page.locator('.tabs a').nth(i);
+mark('Trang nghề: Tổng quan');
 await tap(tab(0), 1500);
-await swipes(4);
+await swipes(3);
+// mở danh sách tin của công ty tuyển nhiều nhất
+const co = page.locator('.cos .co summary').first();
+if (await co.count()) {
+  mark('Công ty đang tuyển: xem tin');
+  await tap(co, 2500);
+  await swipes(2, 360, 1600);
+}
 await page.evaluate(() => scrollTo({ top: 0, behavior: 'smooth' })); await wait(800);
-await tap(tab(1), 1500);
-await swipes(2);
+mark('Thị trường: lương');
+await tap(tab(1), 2000);
+await swipes(1);
+mark('Kỹ năng được đòi hỏi nhiều nhất');
+await swipes(1);
 // chọn kỹ năng đầu bảng để mở biểu đồ 12 tháng
-await tap(page.locator('.skillbars tr.pickable').first(), 2500);
-await swipes(4);
+await tap(page.locator('.skillbars tr.pickable').first(), 1000);
+mark('Biểu đồ 12 tháng của một kỹ năng');
+await wait(2500);
+await swipes(2);
+await page.locator('.ailine').evaluate(el => el.scrollIntoView({ behavior: 'smooth', block: 'center' }));
+mark('AI: tỷ lệ tin nhắc công cụ AI theo nửa năm');
+await wait(3500);
 await page.evaluate(() => scrollTo({ top: 0, behavior: 'smooth' })); await wait(800);
+mark('Kỹ năng & CV: chọn kỹ năng đã có');
 await tap(tab(2), 1500);
 for (let i = 0; i < 3; i++) await tap(page.locator('.pick .skill:not(.on)').first(), 900);
 await wait(800);
 
+mark('Quét CV');
 // 6. dán CV và quét
 await tap(page.locator('.paste summary'), 600);
 const box = page.locator('.paste textarea');
@@ -111,16 +139,20 @@ await box.pressSequentially(CV, { delay: 18 });
 await wait(600);
 await tap(page.locator('.paste button'), 1200);
 await page.locator('.cvres').evaluate(el => el.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+mark('Kết quả quét CV');
 await wait(1500);
 await swipes(2, 300, 1500);
 await wait(1500);
 
+mark('Hết');
 const video = page.video();
 await ctx.close();
 await video.saveAs(`${OUT}demo-huong-nghiep.webm`);
 await video.delete();
 await browser.close();
 console.log(`Đã lưu ${OUT}demo-huong-nghiep.webm`);
+writeFileSync(`${OUT}marks.json`, JSON.stringify(marks, null, 1));
+console.log(marks.map(([t, l]) => `${t}s  ${l}`).join('\n'));
 // đổi sang mp4 (H.264) nếu máy có ffmpeg
 const mp4 = spawnSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', `${OUT}demo-huong-nghiep.webm`, '-c:v', 'libx264', '-crf', '18',
   '-preset', 'slow', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', `${OUT}demo-huong-nghiep.mp4`], { stdio: 'inherit' });

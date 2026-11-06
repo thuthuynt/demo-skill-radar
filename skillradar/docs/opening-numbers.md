@@ -41,12 +41,20 @@ năng gì, và AI đang thay đổi điều đó thế nào. Đó là lý do có
 
 ## Nguồn (đã đối chiếu)
 
+0. **Trường Quốc tế – ĐHQGHN** (theo Tia Sáng), "Nhiều ngành đào tạo có hơn 60% sinh viên tốt nghiệp làm
+   trái ngành". Nghiên cứu của TS. Trần Quang Tuyến, NCS Vũ Bích Ngọc, TS. Vũ Văn Hưởng, trình bày ở hội thảo
+   31/8/2022, dữ liệu điều tra lao động việc làm 2018, 2019, 2020 (lao động có bằng cao nhất là đại học, làm
+   công ăn lương, tới 60 tuổi). Nguyên văn: trung bình 21.43% làm trái ngành; khoa học tự nhiên, toán & CNTT
+   60,6%; nhân văn & nghệ thuật 63%; nông lâm ngư & thú y 67%; kinh doanh, quản lý 13.26%. Dùng trên slide
+   từ 6/11/2026, thay ô 874.811 thí sinh. Số liệu cũ (2018–2020), luôn ghi năm dữ liệu.
+   https://www.is.vnu.edu.vn/nhieu-nganh-dao-tao-co-hon-60-sinh-vien-tot-nghiep-lam-trai-nganh/
+
 1. **Bộ GD&ĐT qua Tuổi Trẻ**, "Gần 875.000 thí sinh đăng ký xét tuyển đại học 2026, hơn 7,18
    triệu nguyện vọng", 15/7/2026. Nguyên văn: 874.811 thí sinh, 7.180.860 nguyện vọng.
    https://tuoitre.vn/gan-875000-thi-sinh-dang-ky-xet-tuyen-dai-hoc-2026-hon-718-trieu-nguyen-vong-100260715082114471.htm
 2. **Cục Thống kê (NSO)**, Thông cáo báo chí tình hình lao động, việc làm quý III và 9 tháng
    năm 2026 (PDF 12 trang). Đã đọc PDF: thất nghiệp chung 2,22%; thanh niên 15–24 là 9,07%,
-   thành thị 12,49%; khoảng 1,6 triệu thanh niên NEET, 11,2%; lao động qua đào tạo có bằng,
+   thanh niên thành thị 12,49% (khoảng 1/8, dùng trên slide từ 6/11); khoảng 1,6 triệu thanh niên NEET, 11,2%; lao động qua đào tạo có bằng,
    chứng chỉ 30,4%; lao động phi chính thức 60,6%.
    https://www.nso.gov.vn/wp-content/uploads/2026/10/Thong-cao-bao-chi-ve-tinh-hinh-lao-dong-viec-lam-QIII-nam-2026.pdf
 3. **ILO**, "Generative AI could transform millions of jobs in Viet Nam, new ILO brief
